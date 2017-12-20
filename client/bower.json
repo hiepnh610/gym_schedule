@@ -1,0 +1,22 @@
+{
+  "name": "gym_schedule",
+  "homepage": "https://github.com/hiepnh610/gym_schedule",
+  "authors": [
+    "Hiep.Nguyen <hiepnh610@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "vue": "^2.5.13",
+    "vue-resource": "^1.3.5"
+  }
+}
