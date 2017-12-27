@@ -3,11 +3,11 @@ const app        = express();
 const bodyParser = require('body-parser');
 const mongoose   = require('mongoose');
 
-const signUp     = require('./api/sign_up');
+const config = require('./config');
 
-mongoose.connect('mongodb://localhost/gym_schedule', { useMongoClient: true });
+const signUp = require('./api/sign_up');
 
-const port = process.env.PORT || 3000;
+mongoose.connect(config.mongoUri, { useMongoClient: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,6 +20,6 @@ router.route('/sign_up').post(signUp);
 
 app.use('/api', router);
 
-app.listen(port, () => {
-	console.log(`This app listen on port ${port}`);
+app.listen(config.PORT, () => {
+	console.log(`This app listen on port ${config.PORT}`);
 });
