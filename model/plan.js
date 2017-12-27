@@ -3,12 +3,12 @@ const Schema   = mongoose.Schema;
 
 const PlanSchema = new Schema({
 	created_at: {
-		required: true,
+		// required: true,
 		type: Date
 	},
 	created_by: {
-		required: true,
-		type: Number
+		// required: true,
+		type: String
 	},
 	frequency: String,
 	name: {

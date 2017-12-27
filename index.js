@@ -6,6 +6,7 @@ const mongoose   = require('mongoose');
 const config = require('./config');
 
 const signUp = require('./api/sign_up');
+const plan = require('./api/plan');
 
 mongoose.connect(config.mongoUri, { useMongoClient: true });
 
@@ -14,9 +15,9 @@ app.use(bodyParser.json());
 
 const router = express.Router();
 
-const User = require('./model/user.js');
-
 router.route('/sign_up').post(signUp);
+router.route('/plans').get(plan.getPlan).post(plan.createPlan);
+router.route('/plans/:plan_id').put(plan.updatePlan).delete(plan.deletePlan);
 
 app.use('/api', router);
 
