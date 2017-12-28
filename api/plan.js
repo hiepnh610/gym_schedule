@@ -26,7 +26,7 @@ const createPlan = (req, res) => {
 	plan.save((err) => {
 		if(err) res.send(err);
 
-		res.json({ message: 'Plan created' });
+		res.status(201).json({ message: 'Plan created.' });
 	});
 };
 

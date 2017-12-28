@@ -16,6 +16,10 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
+	password_confirm: {
+		type: String,
+		required: true
+	},
 	plan_id: Number,
 	weight: Number
 });

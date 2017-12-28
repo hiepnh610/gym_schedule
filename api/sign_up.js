@@ -20,7 +20,7 @@ const signUp = (req, res) => {
 	user.save((err) => {
 		if(err) res.send(err);
 
-		res.status(200).json({ message: 'User created!' });
+		res.status(201).json({ message: 'User created!' });
 	});
 };
 

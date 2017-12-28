@@ -8,6 +8,7 @@ const config = require('./config');
 
 const signUp = require('./api/sign_up');
 const plan = require('./api/plan');
+const workoutDay = require('./api/workout_day');
 
 mongoose.connect(config.mongoUri, { useMongoClient: true });
 
@@ -18,8 +19,12 @@ app.use(bodyParser.json());
 const router = express.Router();
 
 router.route('/sign_up').post(signUp);
+
 router.route('/plans').get(plan.getPlan).post(plan.createPlan);
 router.route('/plans/:plan_id').put(plan.updatePlan).delete(plan.deletePlan);
+
+router.route('/workout_day').get(workoutDay.getWorkoutDay).post(workoutDay.createWorkoutDay);
+router.route('/workout_day/:workout_day_id').put(workoutDay.updateWorkoutDay).delete(workoutDay.deleteWorkoutDay);
 
 app.use('/api', router);
 
