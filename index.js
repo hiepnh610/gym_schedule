@@ -6,13 +6,14 @@ const morgan     = require('morgan');
 
 const config = require('./config');
 
-const signUp = require('./api/sign_up');
-const plan = require('./api/plan');
+const signUp     = require('./api/sign_up');
+const plan       = require('./api/plan');
 const workoutDay = require('./api/workout_day');
 
 mongoose.connect(config.mongoUri, { useMongoClient: true });
 
 app.use(morgan('dev'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
