@@ -14,6 +14,11 @@ const signUp = (req, res) => {
 		weight: req.body.weight
 	});
 
+	// Hash pass
+	user.password = user.generateHash(user.password);
+
+	console.log(req.body.password);
+
 	user.save((err) => {
 		if(err) res.send(err);
 
