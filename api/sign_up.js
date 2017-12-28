@@ -17,12 +17,10 @@ const signUp = (req, res) => {
 	// Hash pass
 	user.password = user.generateHash(user.password);
 
-	console.log(req.body.password);
-
 	user.save((err) => {
 		if(err) res.send(err);
 
-		res.json({ message: 'User created!' });
+		res.status(200).json({ message: 'User created!' });
 	});
 };
 
