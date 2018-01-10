@@ -2,33 +2,31 @@
   <div id="sign-up-page">
     <div class="container">
       <div id="sign-up-form">
-        <form action="#">
-          <div class="form-group">
-            <input type="text" class="form-control" name="email" placeholder="Your Email" v-validate="'required|email'" data-vv-delay="1000" />
+        <div class="form-group">
+          <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-            <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
-          </div>
+          <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
+        </div>
 
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Full Name" />
-          </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
+        </div>
 
-          <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" />
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
 
-            <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
-          </div>
+          <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
+        </div>
 
-          <div class="form-group">
-            <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" />
+        <div class="form-group">
+          <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
 
-            <p v-show="errors.has('re-password')" class="text-danger">{{ errors.first('re-password') }}</p>
-          </div>
+          <p v-show="errors.has('re-password')" class="text-danger">{{ errors.first('re-password') }}</p>
+        </div>
 
-          <div class="form-group">
-            <button class="btn btn-md btn-success">Sign Up</button>
-          </div>
-        </form>
+        <div class="form-group">
+          <button class="btn btn-md btn-success" @click="signUp">Sign Up</button>
+        </div>
 
         <hr />
 
@@ -39,15 +37,26 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-      }
-    },
+import api from '@/config'
+export default {
+  data () {
+    return {
+      email: '',
+      fullName: '',
+      password: '',
+      password_confirm: ''
+    }
+  },
 
-    methods: {
+  methods: {
+    signUp () {
+      console.log(this.email)
+      console.log(this.fullName)
+      console.log(this.password)
+      console.log(this.password_confirm)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
