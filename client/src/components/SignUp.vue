@@ -4,7 +4,9 @@
       <div id="sign-up-form">
         <form action="#">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Email" v-validate="'required|email'" />
+            <input type="text" class="form-control" name="email" placeholder="Your Email" v-validate="'required|email'" data-vv-delay="1000" />
+
+            <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
           </div>
 
           <div class="form-group">
@@ -12,11 +14,15 @@
           </div>
 
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" />
+            <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" />
+
+            <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
           </div>
 
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password Confirm" />
+            <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" />
+
+            <p v-show="errors.has('re-password')" class="text-danger">{{ errors.first('re-password') }}</p>
           </div>
 
           <div class="form-group">
