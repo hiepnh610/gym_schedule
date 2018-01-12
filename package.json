@@ -14,5 +14,8 @@
     "express-session": "^1.15.6",
     "mongoose": "^4.13.7",
     "morgan": "^1.9.0"
+  },
+  "dependencies": {
+    "nodemon": "^1.14.11"
   }
 }
