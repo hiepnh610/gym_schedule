@@ -37,7 +37,9 @@
 </template>
 
 <script>
+import axios from 'axios'
 import api from '@/config'
+const domainAddress = 'http://localhost:3000'
 export default {
   data () {
     return {
@@ -50,10 +52,19 @@ export default {
 
   methods: {
     signUp () {
-      console.log(this.email)
-      console.log(this.fullName)
-      console.log(this.password)
-      console.log(this.password_confirm)
+      const params = {
+        email: this.email,
+        full_name: this.fullName,
+        password: this.password
+      }
+
+      axios.post(domainAddress + api.sign_up, params)
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
     }
   }
 }

@@ -1,7 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import VueResource from 'vue-resource'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import VeeValidate from 'vee-validate'
 
 import router from './router'
@@ -12,7 +13,7 @@ import 'font-awesome/css/font-awesome.min.css'
 
 import '@/assets/scss/config.scss'
 
-Vue.use(VueResource)
+Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
