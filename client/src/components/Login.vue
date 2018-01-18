@@ -2,7 +2,7 @@
   <div id="login-page">
     <div class="container">
       <div id="login-form">
-        <form action="#">
+        <div class="animated bounceIn">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Your Email" />
           </div>
@@ -18,7 +18,7 @@
           <div class="form-group">
             <button class="btn btn-md btn-success">Login</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
 <style lang="scss" scoped>
 #login-page {
   &:before {
-    background-image: url('../assets/images/login-bg.jpeg');
+    background-image: url('../assets/images/login-bg.jpg');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;

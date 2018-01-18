@@ -1,54 +1,58 @@
 <template>
   <div id="sign-up-page">
     <div class="container">
-      <div id="sign-up-form">
-        <div class="form-group">
-          <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
+      <div id="sign-up-form" v-show="!isSuccess">
+        <div class="animated bounceIn">
+          <div class="form-group">
+            <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-          <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
+            <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
 
-          <p v-show="existEmail" class="text-danger">Email này đã có người sử dụng</p>
-        </div>
+            <p v-show="existEmail" class="text-danger">Email này đã có người sử dụng</p>
+          </div>
 
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
-        </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
+          </div>
 
-        <div class="form-group">
-          <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
 
-          <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
-        </div>
+            <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
+          </div>
 
-        <div class="form-group">
-          <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
+          <div class="form-group">
+            <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
 
-          <p v-show="errors.has('re-password')" class="text-danger">{{ errors.first('re-password') }}</p>
-        </div>
+            <p v-show="errors.has('re-password')" class="text-danger">{{ errors.first('re-password') }}</p>
+          </div>
 
-        <div class="form-group text-center">
-          <button class="btn btn-md btn-success" @click="signUp">Sign Up</button>
-        </div>
-      </div>
-
-      <div class="modal fade in" tabindex="-1" role="dialog" style="display: block;">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
-              <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+          <div class="form-group text-center">
+            <button class="btn btn-md btn-success" @click="signUp" :disabled="disabledBtn">
+              <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
+              Sign Up
+            </button>
           </div>
         </div>
       </div>
 
+      <div class="modal modal-xs fade" v-show="isSuccess" :style="{ display: 'block' }" :class="{ 'in animated bounceIn': isSuccess }">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+
+              <h2>Success</h2>
+
+              <p>We'll see you soon!</p>
+            </div>
+
+            <div class="modal-footer">
+              <a href="dashboard" class="btn btn-md btn-block btn-success text-uppercase">ok</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +68,9 @@ export default {
       fullName: '',
       password: '',
       password_confirm: '',
-      existEmail: false
+      existEmail: false,
+      isSuccess: false,
+      disabledBtn: false
     }
   },
 
@@ -78,11 +84,16 @@ export default {
           password_confirm: this.password_confirm
         }
 
+        this.disabledBtn = true
+
         axios.post(domainAddress + api.sign_up, params)
         .then(function (response) {
-          console.log(response)
-        })
+          this.isSuccess = true
+          this.disabledBtn = false
+        }.bind(this))
         .catch(function (error) {
+          this.disabledBtn = false
+
           if (error.response.data.code === 11000) {
             this.existEmail = true
           }
@@ -98,7 +109,7 @@ export default {
 
 #sign-up-page {
   &:before {
-    background-image: url('../assets/images/sign-up-bg.jpeg');
+    background-image: url('../assets/images/sign-up-bg.jpg');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -149,8 +160,18 @@ export default {
   }
 
   .modal {
+    margin-top: -157px;
     top: 50%;
-    @include translate(0, -50%);
+
+    .modal-dialog {
+      margin: 0 auto;
+
+      .modal-body {
+        .fa {
+          font-size: 96px;
+        }
+      }
+    }
   }
 }
 </style>
