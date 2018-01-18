@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 
 import '@/assets/scss/config.scss'
+import '@/assets/scss/helper.scss'
 
 Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)

@@ -1,6 +1,10 @@
 @import 'variables.scss';
 @import 'mixins.scss';
 
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
 img {
   max-width: 100%;
 }

@@ -14,7 +14,9 @@ const UserSchema = new Schema({
     height: Number,
     password: {
         type: String,
-        required: true
+        required: true,
+        min: 8,
+        max: 30
     },
     plan_id: Number,
     weight: Number

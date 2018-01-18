@@ -6,6 +6,8 @@
           <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
           <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
+
+          <p v-show="existEmail" class="text-danger">Email này đã có người sử dụng</p>
         </div>
 
         <div class="form-group">
@@ -24,14 +26,29 @@
           <p v-show="errors.has('re-password')" class="text-danger">{{ errors.first('re-password') }}</p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group text-center">
           <button class="btn btn-md btn-success" @click="signUp">Sign Up</button>
         </div>
-
-        <hr />
-
-        <a href="/login" class="btn btn-md btn-info">Login</a>
       </div>
+
+      <div class="modal fade in" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -46,31 +63,39 @@ export default {
       email: '',
       fullName: '',
       password: '',
-      password_confirm: ''
+      password_confirm: '',
+      existEmail: false
     }
   },
 
   methods: {
     signUp () {
-      const params = {
-        email: this.email,
-        full_name: this.fullName,
-        password: this.password
-      }
+      if (this.email && this.fullName && this.password) {
+        const params = {
+          email: this.email,
+          full_name: this.fullName,
+          password: this.password,
+          password_confirm: this.password_confirm
+        }
 
-      axios.post(domainAddress + api.sign_up, params)
-      .then(function (response) {
-        console.log(response)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+        axios.post(domainAddress + api.sign_up, params)
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          if (error.response.data.code === 11000) {
+            this.existEmail = true
+          }
+        }.bind(this))
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/mixins.scss';
+
 #sign-up-page {
   &:before {
     background-image: url('../assets/images/sign-up-bg.jpeg');
@@ -106,9 +131,9 @@ export default {
     left: 50%;
     position: absolute;
     top: 50%;
-    transform: translate(-50%, -50%);
     width: 400px;
     z-index: 1;
+    @include translate(-50%, -50%);
 
     label {
       font-weight: normal;
@@ -121,6 +146,11 @@ export default {
         text-decoration: none;
       }
     }
+  }
+
+  .modal {
+    top: 50%;
+    @include translate(0, -50%);
   }
 }
 </style>

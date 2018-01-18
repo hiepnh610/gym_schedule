@@ -18,13 +18,7 @@
           <div class="form-group">
             <button class="btn btn-md btn-success">Login</button>
           </div>
-
-          <a href="#">Forgot your password?</a>
         </form>
-
-        <hr />
-
-        <a href="sign-up" class="btn btn-md btn-info">Sign Up</a>
       </div>
     </div>
   </div>
@@ -84,14 +78,6 @@
 
     label {
       font-weight: normal;
-    }
-
-    a {
-      color: #fff;
-
-      &:hover {
-        text-decoration: none;
-      }
     }
   }
 }
