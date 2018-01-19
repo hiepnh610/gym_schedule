@@ -59,8 +59,7 @@
 
 <script>
 import axios from 'axios'
-import api from '@/config'
-const domainAddress = 'http://localhost:3000'
+import config from '@/config'
 export default {
   data () {
     return {
@@ -86,7 +85,7 @@ export default {
 
         this.disabledBtn = true
 
-        axios.post(domainAddress + api.sign_up, params)
+        axios.post(config.domainAddress + config.api.sign_up, params)
         .then(function (response) {
           this.isSuccess = true
           this.disabledBtn = false

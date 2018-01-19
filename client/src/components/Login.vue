@@ -4,11 +4,15 @@
       <div id="login-form">
         <div class="animated bounceIn">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Email" />
+            <input type="text" class="form-control" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
+
+            <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
           </div>
 
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" />
+            <input type="password" class="form-control" placeholder="Password" v-model="password" v-validate="'required|min:8'" data-vv-delay="1000" />
+
+            <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
           </div>
 
           <div class="form-group">
@@ -16,7 +20,10 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-md btn-success">Login</button>
+            <button class="btn btn-md btn-success" @click="login" :disabled="disabledBtn">
+              <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
+              Login
+            </button>
           </div>
         </div>
       </div>
@@ -25,15 +32,42 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-      }
-    },
+import axios from 'axios'
+import config from '@/config'
+export default {
+  data () {
+    return {
+      email: '',
+      password: '',
+      disabledBtn: false
+    }
+  },
 
-    methods: {
+  methods: {
+    login () {
+      if (this.email && this.password) {
+        const params = {
+          email: this.email,
+          password: this.password
+        }
+
+        this.disabledBtn = true
+
+        axios.post(config.domainAddress + config.api.login, params)
+        .then(function (response) {
+          this.disabledBtn = false
+
+          console.log(response)
+        }.bind(this))
+        .catch(function (error) {
+          this.disabledBtn = false
+
+          if (error) console.log(error.response.data)
+        }.bind(this))
+      }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

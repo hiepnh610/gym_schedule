@@ -6,11 +6,11 @@ const User = require('../model/user');
 const login = (req, res) => {
     if(req.body.email && req.body.password) {
         User.findOne({ 'email': req.body.email }, (err, user) => {
-            if(err) return res.send(err);
+            if(err) return res.status(400).send(err);
 
-            if(!user) return res.json({ loginMessage: 'No user found.' });
+            if(!user) return res.status(400).json({ loginMessage: 'No user found.' });
 
-            if(!user.validPassword(req.body.password)) return res.json({ loginMessage: 'Oops! Wrong password.' });
+            if(!user.validPassword(req.body.password)) return res.status(400).json({ loginMessage: 'Oops! Wrong password.' });
 
             const resData = {
                 id: user._id,
