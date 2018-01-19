@@ -12,7 +12,14 @@ const login = (req, res) => {
 
             if(!user.validPassword(req.body.password)) return res.json({ loginMessage: 'Oops! Wrong password.' });
 
-            return res.send(user);
+            const resData = {
+                id: user._id,
+                email: user.email,
+                name: user.fullName,
+                authenticate: true
+            }
+
+            return res.json(resData);
         });
     }
 };

@@ -79,7 +79,7 @@ export default {
       if (this.email && this.fullName && this.password) {
         const params = {
           email: this.email,
-          full_name: this.fullName,
+          fullName: this.fullName,
           password: this.password,
           password_confirm: this.password_confirm
         }

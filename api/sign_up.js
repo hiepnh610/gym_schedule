@@ -4,10 +4,10 @@ const router  = express.Router();
 const User = require('../model/user');
 
 const signUp = (req, res) => {
-    if (req.body.email && req.body.full_name && req.body.password && (req.body.password_confirm === req.body.password)) {
+    if (req.body.email && req.body.fullName && req.body.password && (req.body.password_confirm === req.body.password)) {
         const user = new User({
             email: req.body.email,
-            full_name: req.body.full_name,
+            fullName: req.body.fullName,
             password: req.body.password,
             password_confirm: req.body.password
         });
