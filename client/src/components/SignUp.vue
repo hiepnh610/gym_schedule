@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="modal modal-xs fade" v-show="isSuccess" :style="{ display: 'block' }" :class="{ 'in animated bounceIn': isSuccess }">
+      <div class="modal modal-success modal-xs fade" v-show="isSuccess" :style="{ display: 'block' }" :class="{ 'in animated bounceIn': isSuccess }">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-body text-center">
@@ -154,21 +154,6 @@ export default {
 
       &:hover {
         text-decoration: none;
-      }
-    }
-  }
-
-  .modal {
-    margin-top: -157px;
-    top: 50%;
-
-    .modal-dialog {
-      margin: 0 auto;
-
-      .modal-body {
-        .fa {
-          font-size: 96px;
-        }
       }
     }
   }

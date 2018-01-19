@@ -1,7 +1,7 @@
 <template>
   <div id="login-page">
     <div class="container">
-      <div id="login-form">
+      <div id="login-form" v-show="!isSuccess">
         <div class="animated bounceIn">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
@@ -27,6 +27,22 @@
           </div>
         </div>
       </div>
+
+      <div class="modal modal-success modal-xs fade" v-show="isSuccess" :style="{ display: 'block' }" :class="{ 'in animated bounceIn': isSuccess }">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+
+              <h2>Welcome</h2>
+            </div>
+
+            <div class="modal-footer">
+              <a href="dashboard" class="btn btn-md btn-block btn-success text-uppercase">ok</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +55,7 @@ export default {
     return {
       email: '',
       password: '',
+      isSuccess: false,
       disabledBtn: false
     }
   },
@@ -55,9 +72,8 @@ export default {
 
         axios.post(config.domainAddress + config.api.login, params)
         .then(function (response) {
+          this.isSuccess = true
           this.disabledBtn = false
-
-          console.log(response)
         }.bind(this))
         .catch(function (error) {
           this.disabledBtn = false

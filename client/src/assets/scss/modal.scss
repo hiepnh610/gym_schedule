@@ -2,9 +2,24 @@
 @import 'mixins.scss';
 
 .modal {
-    &.modal-xs {
-        .modal-dialog {
-            width: 400px;
-        }
+  &.modal-xs {
+    .modal-dialog {
+      width: 400px;
     }
+  }
+
+  &.modal-success {
+    margin-top: -157px;
+    top: 50%;
+
+    .modal-dialog {
+      margin: 0 auto;
+
+      .modal-body {
+        .fa {
+          font-size: 96px;
+        }
+      }
+    }
+  }
 }
