@@ -16,7 +16,7 @@
               <p v-show="errors.has('password')" class="text-danger m-t-10">{{ errors.first('password') }}</p>
             </div>
 
-            <div class="form-group">
+            <div class="form-group text-center">
               <button class="btn btn-md btn-success" :disabled="disabledBtn">
                 <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
                 Login

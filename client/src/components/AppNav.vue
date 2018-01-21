@@ -12,13 +12,14 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-md-2 pull-right m-t-5">
+        <div class="col-xs-12 col-md-2 pull-right m-t-15">
           <span v-if="!isLogin">
-            <a href="sign-up" class="btn btn-sm btn-success">Sign Up</a>
-            <a href="login" class="btn btn-sm btn-warning">Login</a>
+            <a href="sign-up" class="text-white">Sign Up</a>
+            <span class="text-white">/</span>
+            <a href="login" class="text-white">Login</a>
           </span>
 
-          <a class="btn btn-sm btn-warning" v-else @click="logout">Logout</a>
+          <a class="text-white" v-else @click="logout">Logout</a>
         </div>
       </div>
     </div>
@@ -73,6 +74,14 @@ export default {
           text-decoration: none;
         }
       }
+    }
+  }
+
+  a {
+    &:hover {
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
     }
   }
 }

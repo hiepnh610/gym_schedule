@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
-    <h1>Dash Board</h1>
+  <div id="dashboard">
+    <div class="container">
+      <h1>Dash Board</h1>
+    </div>
   </div>
 </template>
 
@@ -10,4 +12,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#dashboard {
+  padding-top: 120px;
+}
 </style>
