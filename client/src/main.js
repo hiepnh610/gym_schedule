@@ -4,6 +4,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueCookie from 'vue-cookie'
+import VueSession from 'vue-session'
 import VeeValidate from 'vee-validate'
 
 import router from './router'
@@ -20,6 +21,7 @@ import '@/assets/scss/modal.scss'
 Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)
 Vue.use(VueCookie)
+Vue.use(VueSession)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -74,6 +74,12 @@ export default {
         .then(function (response) {
           this.isSuccess = true
           this.disabledBtn = false
+
+          this.$session.start()
+          this.$session.set('name', response.data.name)
+          this.$session.set('email', response.data.email)
+          this.$session.set('id', response.data.id)
+          this.$session.set('authenticate', response.data.authenticate)
         }.bind(this))
         .catch(function (error) {
           this.disabledBtn = false
