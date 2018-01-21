@@ -13,8 +13,12 @@
         </div>
 
         <div class="col-xs-12 col-md-2 pull-right m-t-5">
+          <span v-if="isLogin">
             <a href="sign-up" class="btn btn-sm btn-success">Sign Up</a>
             <a href="login" class="btn btn-sm btn-warning">Login</a>
+          </span>
+
+          <a class="btn btn-sm btn-warning" v-else @click="logout">Logout</a>
         </div>
       </div>
     </div>
@@ -22,6 +26,26 @@
 </template>
 
 <script>
+export default {
+  name: 'AppNav',
+  data () {
+    return {
+      isLogin: true
+    }
+  },
+  mounted () {
+    if (this.$session.exists()) {
+      this.isLogin = false
+    }
+  },
+  methods: {
+    logout () {
+      this.$session.destroy()
+      this.$router.push('sign-up')
+      this.isLogin = true
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

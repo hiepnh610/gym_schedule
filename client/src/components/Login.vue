@@ -16,10 +16,6 @@
           </div>
 
           <div class="form-group">
-            <label for="remember-me"><input type="checkbox" id="remember-me" /> Remember me</label>
-          </div>
-
-          <div class="form-group">
             <button class="btn btn-md btn-success" @click="login" :disabled="disabledBtn">
               <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
               Login

@@ -9,17 +9,18 @@
 <script>
 import AppNav from './AppNav.vue'
 export default {
-  name: 'app',
+  name: 'App',
   components: { AppNav },
-  data () {
-    return {
-    }
-  },
-  beforeCreate: function () {
-    if (this.$session.exists()) {
+  beforeCreate () {
+    const isSession = this.$session.exists()
+    const urlPath = this.$route.path
+
+    if ((isSession && urlPath === '/sign-up') || (isSession && urlPath === '/login')) {
       this.$router.push('dashboard')
-    } else {
-      this.$router.push('login')
+    }
+
+    if (!isSession && urlPath === '/dashboard') {
+      this.$router.push('sign-up')
     }
   }
 }
