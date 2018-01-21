@@ -3,36 +3,38 @@
     <div class="container">
       <div id="sign-up-form" v-show="!isSuccess">
         <div class="animated bounceIn">
-          <div class="form-group">
-            <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
+          <form @submit.prevent="signUp">
+            <div class="form-group">
+              <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-            <p v-show="errors.has('email')" class="text-danger m-t-10">{{ errors.first('email') }}</p>
+              <p v-show="errors.has('email')" class="text-danger m-t-10">{{ errors.first('email') }}</p>
 
-            <p v-show="isError" class="text-danger m-t-10">{{ errContent }}</p>
-          </div>
+              <p v-show="isError" class="text-danger m-t-10">{{ errContent }}</p>
+            </div>
 
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
-          </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
+            </div>
 
-          <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
+            <div class="form-group">
+              <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
 
-            <p v-show="errors.has('password')" class="text-danger m-t-10">{{ errors.first('password') }}</p>
-          </div>
+              <p v-show="errors.has('password')" class="text-danger m-t-10">{{ errors.first('password') }}</p>
+            </div>
 
-          <div class="form-group">
-            <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
+            <div class="form-group">
+              <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
 
-            <p v-show="errors.has('re-password')" class="text-danger m-t-10">{{ errors.first('re-password') }}</p>
-          </div>
+              <p v-show="errors.has('re-password')" class="text-danger m-t-10">{{ errors.first('re-password') }}</p>
+            </div>
 
-          <div class="form-group text-center">
-            <button class="btn btn-md btn-success" @click="signUp" :disabled="disabledBtn">
-              <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
-              Sign Up
-            </button>
-          </div>
+            <div class="form-group text-center">
+              <button class="btn btn-md btn-success" :disabled="disabledBtn">
+                <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
+                Sign Up
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -90,6 +92,14 @@ export default {
         .then(function (response) {
           this.isSuccess = true
           this.disabledBtn = false
+
+          console.log(response)
+
+          this.$session.start()
+          this.$session.set('name', response.data.name)
+          this.$session.set('email', response.data.email)
+          this.$session.set('id', response.data.id)
+          this.$session.set('authenticate', response.data.authenticate)
         }.bind(this))
         .catch(function (error) {
           this.disabledBtn = false

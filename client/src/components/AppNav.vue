@@ -1,5 +1,5 @@
 <template>
-  <nav class="main-menu">
+  <nav class="main-menu" :class="{'dark-menu': isLogin}">
     <div class="container text-center">
       <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
@@ -13,7 +13,7 @@
         </div>
 
         <div class="col-xs-12 col-md-2 pull-right m-t-5">
-          <span v-if="isLogin">
+          <span v-if="!isLogin">
             <a href="sign-up" class="btn btn-sm btn-success">Sign Up</a>
             <a href="login" class="btn btn-sm btn-warning">Login</a>
           </span>
@@ -30,19 +30,19 @@ export default {
   name: 'AppNav',
   data () {
     return {
-      isLogin: true
+      isLogin: false
     }
   },
   mounted () {
     if (this.$session.exists()) {
-      this.isLogin = false
+      this.isLogin = true
     }
   },
   methods: {
     logout () {
       this.$session.destroy()
       this.$router.push('sign-up')
-      this.isLogin = true
+      this.isLogin = false
     }
   }
 }
@@ -56,6 +56,10 @@ export default {
   top: 0;
   width: 100%;
   z-index: 1;
+
+  &.dark-menu {
+    background: rgba(#000, .8);
+  }
 
   .main-logo {
     h1 {

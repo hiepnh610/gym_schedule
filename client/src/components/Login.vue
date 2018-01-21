@@ -3,24 +3,26 @@
     <div class="container">
       <div id="login-form" v-show="!isSuccess">
         <div class="animated bounceIn">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
+          <form @submit.prevent="login">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-            <p v-show="errors.has('email')" class="text-danger m-t-10">{{ errors.first('email') }}</p>
-          </div>
+              <p v-show="errors.has('email')" class="text-danger m-t-10">{{ errors.first('email') }}</p>
+            </div>
 
-          <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" v-model="password" v-validate="'required|min:8'" data-vv-delay="1000" />
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" v-model="password" v-validate="'required|min:8'" data-vv-delay="1000" />
 
-            <p v-show="errors.has('password')" class="text-danger m-t-10">{{ errors.first('password') }}</p>
-          </div>
+              <p v-show="errors.has('password')" class="text-danger m-t-10">{{ errors.first('password') }}</p>
+            </div>
 
-          <div class="form-group">
-            <button class="btn btn-md btn-success" @click="login" :disabled="disabledBtn">
-              <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
-              Login
-            </button>
-          </div>
+            <div class="form-group">
+              <button class="btn btn-md btn-success" :disabled="disabledBtn">
+                <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
+                Login
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 

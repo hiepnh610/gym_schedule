@@ -25,7 +25,7 @@ const signUp = (req, res) => {
     user.password = user.generateHash(user.password);
     user.password_confirm = user.generateHash(user.password_confirm);
 
-    user.save((err, prod) => {
+    user.save((err, user) => {
         if(err) {
             if (err.code === 11000) {
                 return res.status(400).json({ message: 'This email already exists.' });
@@ -33,7 +33,14 @@ const signUp = (req, res) => {
             return res.status(400).json({ message: 'Error happened.' });
         }
 
-        return res.status(201).json({ message: 'User created!' });
+        const resData = {
+            id: user._id,
+            email: user.email,
+            name: user.fullName,
+            authenticate: true
+        }
+
+        return res.status(201).json(resData);
     });
 };
 
