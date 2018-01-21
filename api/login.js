@@ -21,6 +21,8 @@ const login = (req, res) => {
 
             return res.json(resData);
         });
+    } else {
+        return res.status(400).json({ message: 'Email or password cannot be blank.' });
     }
 };
 

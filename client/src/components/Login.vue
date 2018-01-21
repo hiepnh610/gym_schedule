@@ -6,13 +6,13 @@
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-            <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
+            <p v-show="errors.has('email')" class="text-danger m-t-10">{{ errors.first('email') }}</p>
           </div>
 
           <div class="form-group">
             <input type="password" class="form-control" placeholder="Password" v-model="password" v-validate="'required|min:8'" data-vv-delay="1000" />
 
-            <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
+            <p v-show="errors.has('password')" class="text-danger m-t-10">{{ errors.first('password') }}</p>
           </div>
 
           <div class="form-group">

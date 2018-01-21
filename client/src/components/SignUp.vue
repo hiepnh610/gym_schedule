@@ -6,9 +6,9 @@
           <div class="form-group">
             <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-            <p v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</p>
+            <p v-show="errors.has('email')" class="text-danger m-t-10">{{ errors.first('email') }}</p>
 
-            <p v-show="existEmail" class="text-danger">Email này đã có người sử dụng</p>
+            <p v-show="isError" class="text-danger m-t-10">{{ errContent }}</p>
           </div>
 
           <div class="form-group">
@@ -18,13 +18,13 @@
           <div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
 
-            <p v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</p>
+            <p v-show="errors.has('password')" class="text-danger m-t-10">{{ errors.first('password') }}</p>
           </div>
 
           <div class="form-group">
             <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
 
-            <p v-show="errors.has('re-password')" class="text-danger">{{ errors.first('re-password') }}</p>
+            <p v-show="errors.has('re-password')" class="text-danger m-t-10">{{ errors.first('re-password') }}</p>
           </div>
 
           <div class="form-group text-center">
@@ -67,9 +67,10 @@ export default {
       fullName: '',
       password: '',
       password_confirm: '',
-      existEmail: false,
+      isError: false,
       isSuccess: false,
-      disabledBtn: false
+      disabledBtn: false,
+      errContent: ''
     }
   },
 
@@ -92,9 +93,12 @@ export default {
         }.bind(this))
         .catch(function (error) {
           this.disabledBtn = false
+          this.isError = true
 
-          if (error.response.data.code === 11000) {
-            this.existEmail = true
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
           }
         }.bind(this))
       }
