@@ -12,7 +12,7 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-md-2 pull-right m-t-15">
+        <div class="col-xs-12 col-md-2 pull-right m-t-10">
           <span v-if="!isLogin">
             <a href="sign-up" class="text-white">Sign Up</a>
             <span class="text-white">/</span>

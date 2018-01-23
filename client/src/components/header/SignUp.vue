@@ -93,8 +93,6 @@ export default {
           this.isSuccess = true
           this.disabledBtn = false
 
-          console.log(response)
-
           this.$session.start()
           this.$session.set('name', response.data.name)
           this.$session.set('email', response.data.email)
@@ -118,11 +116,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/mixins.scss';
+@import '../../assets/scss/mixins.scss';
 
 #sign-up-page {
   &:before {
-    background-image: url('../assets/images/sign-up-bg.jpg');
+    background-image: url('../../assets/images/sign-up-bg.jpg');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;

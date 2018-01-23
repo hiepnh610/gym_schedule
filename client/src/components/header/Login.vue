@@ -93,7 +93,7 @@ export default {
 <style lang="scss" scoped>
 #login-page {
   &:before {
-    background-image: url('../assets/images/login-bg.jpg');
+    background-image: url('../../assets/images/login-bg.jpg');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
