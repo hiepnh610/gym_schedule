@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs in text-left" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" :style="{ display: 'block' }" v-show="showCreatePlan" :class="{ 'in animated bounceIn': showCreatePlan }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -39,7 +39,7 @@
             <div class="form-group text-center m-b-0">
               <button href="dashboard" class="btn btn-md btn-success text-uppercase">Submit</button>
 
-              <button href="dashboard" class="btn btn-md btn-default text-uppercase">Cancel</button>
+              <button href="dashboard" class="btn btn-md btn-default text-uppercase" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>
@@ -50,7 +50,23 @@
 
 <script>
 export default {
-  name: 'AppPlanCreate'
+  name: 'AppPlanCreate',
+  data () {
+    return {
+    }
+  },
+  methods: {
+    closeModal () {
+      this.$store.dispatch('setShowCreateModal', false)
+    }
+  },
+  computed: {
+    showCreatePlan () {
+      return this.$store.getters.showCreateModal
+    }
+  },
+  mounted () {
+  }
 }
 </script>
 
