@@ -24,7 +24,7 @@ Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)
 Vue.use(VueCookie)
-Vue.use(VueSession)
+Vue.use(VueSession, { persist: true })
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

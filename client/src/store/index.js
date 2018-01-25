@@ -5,21 +5,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    showCreateModal: false
+    showModal: false
   },
   mutations: {
-    showCreateModal: (state, data) => {
-      state.showCreateModal = data
+    showModal: (state, data) => {
+      state.showModal = data
     }
   },
   actions: {
-    setShowCreateModal: (context, data) => {
-      context.commit('showCreateModal', data)
+    setShowModal: (context, data) => {
+      context.commit('showModal', data)
     }
   },
   getters: {
-    showCreateModal: state => {
-      return state.showCreateModal
+    showModal: state => {
+      return state.showModal
     }
   },
   strict: process.env.NODE_ENV !== 'production'

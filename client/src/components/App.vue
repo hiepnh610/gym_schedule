@@ -3,6 +3,8 @@
     <app-nav></app-nav>
 
     <router-view></router-view>
+
+    <div class="modal-backdrop fade in" v-if="showModal"></div>
   </div>
 </template>
 
@@ -21,6 +23,11 @@ export default {
 
     if (!isSession && urlPath === '/dashboard') {
       this.$router.push('sign-up')
+    }
+  },
+  computed: {
+    showModal () {
+      return this.$store.getters.showModal
     }
   }
 }

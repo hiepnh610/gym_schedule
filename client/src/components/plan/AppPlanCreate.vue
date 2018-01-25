@@ -57,12 +57,12 @@ export default {
   },
   methods: {
     closeModal () {
-      this.$store.dispatch('setShowCreateModal', false)
+      this.$store.dispatch('setShowModal', false)
     }
   },
   computed: {
     showCreatePlan () {
-      return this.$store.getters.showCreateModal
+      return this.$store.getters.showModal
     }
   },
   mounted () {

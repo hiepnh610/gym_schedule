@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     createPlan () {
-      this.$store.dispatch('setShowCreateModal', true)
+      this.$store.dispatch('setShowModal', true)
     }
   }
 }
