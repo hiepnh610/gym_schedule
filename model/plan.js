@@ -8,12 +8,18 @@ const PlanSchema = new Schema({
     created_by: {
         type: String
     },
-    frequency: String,
+    frequency: {
+        required: true,
+        type: String
+    },
     name: {
         required: true,
         type: String
     },
-    type: String,
+    type: {
+        required: true,
+        type: String
+    },
     workout_day: Object
 });
 
