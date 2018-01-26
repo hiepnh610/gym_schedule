@@ -75,22 +75,21 @@ export default {
 
       axios.post(config.domainAddress + config.api.plans, params)
       .then(function (response) {
-      })
+        this.$store.dispatch('setShowModal', false)
+      }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
           this.errContent = error.response.data.message
         } else {
           this.errContent = 'Error happened.'
         }
-      })
+      }.bind(this))
     }
   },
   computed: {
     showCreatePlan () {
       return this.$store.getters.showModal
     }
-  },
-  mounted () {
   }
 }
 </script>

@@ -2,8 +2,8 @@
   -webkit-transform : $transforms;
      -moz-transform : $transforms;
       -ms-transform : $transforms;
-     -o-transform : $transforms;
-      transform : $transforms;
+       -o-transform : $transforms;
+          transform : $transforms;
 }
 
 @mixin rotateX($x) {
@@ -40,14 +40,14 @@
   -webkit-transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
      -moz-transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
       -ms-transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
-      transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
+          transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
 }
 
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
      -moz-border-radius: $radius;
-    -ms-border-radius: $radius;
-      border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
 }
 
 @mixin box-shadow($top:"", $left:"", $blur:"", $color:"", $inset:"") {
@@ -61,9 +61,9 @@
 
 @mixin opacity($opacity) {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
-    $IEValue: $opacity*100;
-    opacity: $opacity;
-    filter: alpha(opacity=$IEValue);
+  $IEValue: $opacity*100;
+  opacity: $opacity;
+  filter: alpha(opacity=$IEValue);
 }
 
 %transition {

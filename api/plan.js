@@ -23,10 +23,10 @@ const createPlan = (req, res) => {
         workout_day: req.body.workout_day
     });
 
-    plan.save((err) => {
+    plan.save((err, plan) => {
         if(err) return res.status(400).send(err);
 
-        res.status(201).json({ message: 'Plan created.' });
+        res.status(201).json(plan);
     });
 };
 
