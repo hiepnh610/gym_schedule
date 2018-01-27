@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-xs-12 col-md-8 col-md-offset-2">
+    <div class="col-xs-12">
       <table class="table table-striped list-plans text-left">
         <thead>
           <tr>
@@ -8,7 +8,6 @@
             <th>name</th>
             <th>type</th>
             <th>frequency</th>
-            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -18,19 +17,15 @@
 
             <td class="text-primary text-capitalize">{{ plan.name }}</td>
 
-            <td><span>{{ plan.type }}</span></td>
+            <td>{{ plan.type }}</td>
 
-            <td>
-              <span v-if="plan.frequency > 1">{{ plan.frequency }} days/week</span>
+            <td v-if="plan.frequency > 1">{{ plan.frequency }} days/week</td>
 
-              <span v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</span>
-            </td>
+            <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
 
-            <td class="text-center">
-              <a class="btn btn-sm btn-warning">Edit</a>
-            </td>
+            <td class="text-right">
+              <a class="btn btn-sm btn-warning m-r-5">Edit</a>
 
-            <td class="text-center">
               <a class="btn btn-sm btn-danger">Delete</a>
             </td>
           </tr>

@@ -1,8 +1,6 @@
 <template>
   <div id="dashboard">
     <div class="container">
-      <h1 class="text-center">Excercise Plan</h1>
-
       <app-plan></app-plan>
     </div>
   </div>

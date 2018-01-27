@@ -1,5 +1,7 @@
 <template>
-  <div class="p-v-60 text-center">
+  <div class="text-center">
+    <h1 class="text-center">Excercise Plan</h1>
+
     <app-list-plans></app-list-plans>
 
     <a class="btn btn-md btn-primary" @click.prevent="createPlan">
@@ -46,4 +48,10 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+  h1 {
+    margin-bottom: $size-base * 20;
+  }
+</style>
