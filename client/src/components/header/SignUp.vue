@@ -29,7 +29,7 @@
             </div>
 
             <div class="form-group text-center">
-              <button class="btn btn-md btn-success" :disabled="disabledBtn">
+              <button class="btn btn-md btn-primary" :disabled="disabledBtn">
                 <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
                 Sign Up
               </button>
@@ -42,7 +42,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-body text-center">
-              <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+              <i class="fa fa-check-circle text-primary" aria-hidden="true"></i>
 
               <h2>Success</h2>
 
@@ -50,7 +50,7 @@
             </div>
 
             <div class="modal-footer">
-              <a href="dashboard" class="btn btn-md btn-block btn-success text-uppercase">ok</a>
+              <a href="dashboard" class="btn btn-md btn-block btn-primary text-uppercase">ok</a>
             </div>
           </div>
         </div>

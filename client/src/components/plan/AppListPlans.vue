@@ -1,17 +1,41 @@
 <template>
   <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <div class="list-plans m-b-25 text-left" v-for="plan in getListPlans">
-        <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/15255-200.png" :alt="plan.name">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <table class="table table-striped list-plans text-left">
+        <thead>
+          <tr>
+            <th></th>
+            <th>name</th>
+            <th>type</th>
+            <th>frequency</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="plan in getListPlans">
+            <td class="text-center"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/15255-200.png" :alt="plan.name"></td>
 
-        <h4>{{ plan.name }}</h4>
+            <td class="text-primary text-capitalize">{{ plan.name }}</td>
 
-        <span>{{ plan.type }}</span>
+            <td><span>{{ plan.type }}</span></td>
 
-        <span v-if="plan.frequency > 1">{{ plan.frequency }} days/week</span>
+            <td>
+              <span v-if="plan.frequency > 1">{{ plan.frequency }} days/week</span>
 
-        <span v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</span>
-      </div>
+              <span v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</span>
+            </td>
+
+            <td class="text-center">
+              <a class="btn btn-sm btn-warning">Edit</a>
+            </td>
+
+            <td class="text-center">
+              <a class="btn btn-sm btn-danger">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -33,18 +57,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
 @import '../../assets/scss/mixins.scss';
   .list-plans {
-    border: 1px solid #eee;
-    float: left;
-    padding: 15px;
-    width: 100%;
-    @include border-radius(4px);
-
     img {
-      float: left;
-      margin-right: 15px;
-      max-width: 100px;
+      max-width: 32px;
     }
   }
 </style>

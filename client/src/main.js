@@ -19,6 +19,10 @@ import 'animate.css/animate.min.css'
 import '@/assets/scss/config.scss'
 import '@/assets/scss/helper.scss'
 import '@/assets/scss/modal.scss'
+import '@/assets/scss/button.scss'
+import '@/assets/scss/text-color.scss'
+import '@/assets/scss/form.scss'
+import '@/assets/scss/table.scss'
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)

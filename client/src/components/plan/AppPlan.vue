@@ -2,7 +2,7 @@
   <div class="p-v-60 text-center">
     <app-list-plans></app-list-plans>
 
-    <a class="btn btn-md btn-success" @click.prevent="createPlan">
+    <a class="btn btn-md btn-primary" @click.prevent="createPlan">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
       Create Plan
     </a>

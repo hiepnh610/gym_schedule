@@ -1,0 +1,12 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+input, input.form-control, select, select.form-control {
+  @include border-radius($size-base);
+  @include box-shadow(0, 0, 0, transparent);
+
+  &:focus {
+    border-color: $primary-color;
+    @include box-shadow(0, 0, 0, transparent);
+  }
+}
