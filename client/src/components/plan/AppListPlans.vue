@@ -11,6 +11,7 @@
             <th></th>
           </tr>
         </thead>
+
         <tbody>
           <tr v-for="plan in getListPlans">
             <td class="text-center"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/15255-200.png" :alt="plan.name"></td>
@@ -26,7 +27,7 @@
             <td class="text-right">
               <a class="btn btn-sm btn-warning m-r-5">Edit</a>
 
-              <a class="btn btn-sm btn-danger">Delete</a>
+              <a class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
             </td>
           </tr>
         </tbody>
@@ -36,16 +37,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '@/config'
+
 export default {
   name: 'AppListPlans',
   data () {
     return {
-      listPlans: []
+      errContent: ''
     }
   },
   computed: {
     getListPlans () {
       return this.$store.getters.listPlans
+    }
+  },
+  methods: {
+    deletePlan (id) {
+      axios.delete(config.domainAddress + config.api.deletePlans.replace('{id}', id))
+      .then(function (response) {
+        console.log(this)
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
     }
   }
 }
@@ -54,9 +73,10 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/scss/variables.scss';
 @import '../../assets/scss/mixins.scss';
-  .list-plans {
-    img {
-      max-width: 32px;
-    }
+
+.list-plans {
+  img {
+    max-width: $size-base * 16;
   }
+}
 </style>

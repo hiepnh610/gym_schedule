@@ -51,6 +51,7 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+
 export default {
   name: 'AppPlanCreate',
   data () {
@@ -83,6 +84,8 @@ export default {
         } else {
           this.errContent = 'Error happened.'
         }
+
+        console.log(error)
       }.bind(this))
     }
   },

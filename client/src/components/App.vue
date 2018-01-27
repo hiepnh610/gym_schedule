@@ -10,6 +10,7 @@
 
 <script>
 import AppNav from './header/AppNav.vue'
+
 export default {
   name: 'App',
   components: { AppNav },

@@ -8,6 +8,7 @@
 
 <script>
 import AppPlan from './plan/AppPlan.vue'
+
 export default {
   name: 'DashBoard',
   components: { AppPlan }
