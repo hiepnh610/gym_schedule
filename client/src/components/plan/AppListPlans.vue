@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     deletePlan (id) {
+      this.$store.dispatch('setDeletePlan', id)
       axios.delete(config.domainAddress + config.api.deletePlans.replace('{id}', id))
       .then(function (response) {
         console.log(this)
