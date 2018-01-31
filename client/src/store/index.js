@@ -21,6 +21,9 @@ export default new Vuex.Store({
           state.listPlans.splice(i, 1)
         }
       }
+    },
+    createPlan: (state, data) => {
+      state.listPlans.push(data)
     }
   },
   actions: {
@@ -32,6 +35,9 @@ export default new Vuex.Store({
     },
     setDeletePlan: (context, data) => {
       context.commit('deletePlan', data)
+    },
+    setCreatePlan: (context, data) => {
+      context.commit('createPlan', data)
     }
   },
   getters: {

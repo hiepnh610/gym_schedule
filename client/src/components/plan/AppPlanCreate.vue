@@ -76,7 +76,14 @@ export default {
 
       axios.post(config.domainAddress + config.api.plans, params)
       .then(function (response) {
+        const dataItem = {
+          frequency: response.data.frequency,
+          name: response.data.name,
+          type: response.data.type
+        }
+
         this.$store.dispatch('setShowModal', false)
+        this.$store.dispatch('setCreatePlan', dataItem)
       }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
@@ -84,8 +91,6 @@ export default {
         } else {
           this.errContent = 'Error happened.'
         }
-
-        console.log(error)
       }.bind(this))
     }
   },
