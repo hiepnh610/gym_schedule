@@ -84,6 +84,9 @@ export default {
 
         this.$store.dispatch('setShowModal', false)
         this.$store.dispatch('setCreatePlan', dataItem)
+        this.namePlan = ''
+        this.typePlan = ''
+        this.frequencyPlan = ''
       }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {

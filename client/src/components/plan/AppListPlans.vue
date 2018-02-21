@@ -16,7 +16,7 @@
           <tr v-for="plan in getListPlans">
             <td class="text-center"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/15255-200.png" :alt="plan.name"></td>
 
-            <td class="text-primary text-capitalize">{{ plan.name }}</td>
+            <td><a href="#" class="text-primary text-capitalize">{{ plan.name }}</a></td>
 
             <td>{{ plan.type }}</td>
 

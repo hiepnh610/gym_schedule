@@ -2,7 +2,7 @@
 @import 'mixins.scss';
 
 body {
-  background: #fff;
+  background: $white-color;
   color: $dark-color;
   font-family: 'Open Sans', sans-serif;
 }
@@ -13,4 +13,12 @@ img {
 
 a {
   @extend %transition;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: $white-color !important;
 }
