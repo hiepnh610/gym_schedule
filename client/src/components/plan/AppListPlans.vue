@@ -25,13 +25,15 @@
             <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
 
             <td class="text-right">
-              <a class="btn btn-sm btn-warning m-r-5">Edit</a>
+              <a class="btn btn-sm btn-warning m-r-5" @click.prevent="updatePlan">Edit</a>
 
               <a class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
             </td>
           </tr>
         </tbody>
       </table>
+
+      <app-plan-update></app-plan-update>
     </div>
   </div>
 </template>
@@ -40,8 +42,11 @@
 import axios from 'axios'
 import config from '@/config'
 
+import AppPlanUpdate from './AppPlanUpdate.vue'
+
 export default {
   name: 'AppListPlans',
+  components: { AppPlanUpdate },
   data () {
     return {
       errContent: ''
@@ -53,6 +58,10 @@ export default {
     }
   },
   methods: {
+    updatePlan () {
+      this.$store.dispatch('setShowBackgroundModal', true)
+      this.$store.dispatch('setShowUpdateModal', true)
+    },
     deletePlan (id) {
       this.$store.dispatch('setDeletePlan', id)
       axios.delete(config.domainAddress + config.api.deletePlans.replace('{id}', id))

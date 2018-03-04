@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     showBackgroundModal: false,
     showCreateModal: false,
+    showUpdateModal: false,
     listPlans: []
   },
   mutations: {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     showCreateModal: (state, data) => {
       state.showCreateModal = data
+    },
+    showUpdateModal: (state, data) => {
+      state.showUpdateModal = data
     },
     listPlans: (state, data) => {
       state.listPlans = data
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     setShowCreateModal: (context, data) => {
       context.commit('showCreateModal', data)
     },
+    setShowUpdateModal: (context, data) => {
+      context.commit('showUpdateModal', data)
+    },
     setListPlans: (context, data) => {
       context.commit('listPlans', data)
     },
@@ -53,6 +60,9 @@ export default new Vuex.Store({
     },
     showCreateModal: state => {
       return state.showCreateModal
+    },
+    showUpdateModal: state => {
+      return state.showUpdateModal
     },
     listPlans: state => {
       return state.listPlans
