@@ -29,7 +29,8 @@ export default {
   },
   methods: {
     createPlan () {
-      this.$store.dispatch('setShowModal', true)
+      this.$store.dispatch('setShowBackgroundModal', true)
+      this.$store.dispatch('setShowCreateModal', true)
     }
   },
   created () {

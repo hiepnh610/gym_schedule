@@ -81,7 +81,7 @@ export default {
         .then(function (response) {
           this.isSuccess = true
           this.disabledBtn = false
-          this.$store.dispatch('setShowModal', true)
+          this.$store.dispatch('setShowBackgroundModal', true)
 
           this.$session.start()
           this.$session.set('name', response.data.name)

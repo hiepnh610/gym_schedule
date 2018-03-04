@@ -4,7 +4,7 @@
 
     <router-view></router-view>
 
-    <div class="modal-backdrop fade in" v-if="showModal"></div>
+    <div class="modal-backdrop fade in" v-if="showBackgroundModal"></div>
   </div>
 </template>
 
@@ -27,8 +27,8 @@ export default {
     }
   },
   computed: {
-    showModal () {
-      return this.$store.getters.showModal
+    showBackgroundModal () {
+      return this.$store.getters.showBackgroundModal
     }
   }
 }

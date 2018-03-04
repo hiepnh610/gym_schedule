@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="showCreatePlan" :class="{ 'in animated bounceIn': showCreatePlan }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="showBackgroundPlan && showCreatePlan" :class="{ 'in animated bounceIn': showBackgroundPlan && showCreatePlan }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     closeModal () {
-      this.$store.dispatch('setShowModal', false)
+      this.$store.dispatch('setShowBackgroundModal', false)
     },
 
     planCreate () {
@@ -84,7 +84,7 @@ export default {
           created_by: response.data.created_by
         }
 
-        this.$store.dispatch('setShowModal', false)
+        this.$store.dispatch('setShowBackgroundModal', false)
         this.$store.dispatch('setCreatePlan', dataItem)
         this.namePlan = ''
         this.typePlan = ''
@@ -100,8 +100,11 @@ export default {
     }
   },
   computed: {
+    showBackgroundPlan () {
+      return this.$store.getters.showBackgroundModal
+    },
     showCreatePlan () {
-      return this.$store.getters.showModal
+      return this.$store.getters.showCreateModal
     }
   }
 }
