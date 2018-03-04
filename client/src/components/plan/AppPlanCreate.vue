@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="showBackgroundPlan && showCreatePlan" :class="{ 'in animated bounceIn': showBackgroundPlan && showCreatePlan }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="showBackgroundModal && showCreatePlan" :class="{ 'in animated bounceIn': showBackgroundModal && showCreatePlan }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -100,7 +100,7 @@ export default {
     }
   },
   computed: {
-    showBackgroundPlan () {
+    showBackgroundModal () {
       return this.$store.getters.showBackgroundModal
     },
     showCreatePlan () {
