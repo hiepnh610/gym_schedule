@@ -71,7 +71,8 @@ export default {
       const params = {
         name: this.namePlan,
         type: this.typePlan,
-        frequency: this.frequencyPlan
+        frequency: this.frequencyPlan,
+        created_by: this.$session.get('id')
       }
 
       axios.post(config.domainAddress + config.api.plans, params)
@@ -79,7 +80,8 @@ export default {
         const dataItem = {
           frequency: response.data.frequency,
           name: response.data.name,
-          type: response.data.type
+          type: response.data.type,
+          created_by: response.data.created_by
         }
 
         this.$store.dispatch('setShowModal', false)

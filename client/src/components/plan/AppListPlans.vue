@@ -56,9 +56,6 @@ export default {
     deletePlan (id) {
       this.$store.dispatch('setDeletePlan', id)
       axios.delete(config.domainAddress + config.api.deletePlans.replace('{id}', id))
-      .then(function (response) {
-        console.log(this)
-      }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
           this.errContent = error.response.data.message

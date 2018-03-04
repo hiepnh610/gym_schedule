@@ -33,7 +33,11 @@ export default {
     }
   },
   created () {
-    axios.get(config.domainAddress + config.api.plans)
+    axios.get(config.domainAddress + config.api.plans, {
+      params: {
+        id: this.$session.get('id')
+      }
+    })
     .then(function (response) {
       this.$store.dispatch('setListPlans', response.data)
     }.bind(this))

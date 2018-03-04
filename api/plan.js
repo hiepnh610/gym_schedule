@@ -6,21 +6,20 @@ const Plan = require('../model/plan');
 let plan = {};
 
 const getPlan = (req, res) => {
-    Plan.find((err, plans) => {
-        if(err) return res.send(err);
-
-        res.json(plans);
+    Plan.find({ 'created_by': req.query.id })
+    .populate('created_by')
+    .exec(function (err, plans) {
+       if(err) return res.status(400).send(err);
+       res.json(plans);
     });
 };
 
 const createPlan = (req, res) => {
     plan = new Plan({
-        created_at: req.body.created_at,
         created_by: req.body.created_by,
         frequency: req.body.frequency,
         name: req.body.name,
         type: req.body.type,
-        workout_day: req.body.workout_day
     });
 
     plan.save((err, plan) => {
