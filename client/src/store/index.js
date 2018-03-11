@@ -32,6 +32,15 @@ export default new Vuex.Store({
     },
     createPlan: (state, data) => {
       state.listPlans.push(data)
+    },
+    updatePlan: (state, data) => {
+      for (var i = 0; i < state.listPlans.length; i++) {
+        if (state.listPlans[i]._id === data._id) {
+          state.listPlans[i].name = data.name
+          state.listPlans[i].type = data.type
+          state.listPlans[i].frequency = data.frequency
+        }
+      }
     }
   },
   actions: {
@@ -52,6 +61,9 @@ export default new Vuex.Store({
     },
     setCreatePlan: (context, data) => {
       context.commit('createPlan', data)
+    },
+    setUpdatePlan: (context, data) => {
+      context.commit('updatePlan', data)
     }
   },
   getters: {

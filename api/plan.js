@@ -34,18 +34,15 @@ const updatePlan = (req, res) => {
         if(err) return res.send(err);
 
         plan.set({
-            created_at: req.body.created_at,
-            created_by: req.body.created_by,
             frequency: req.body.frequency,
             name: req.body.name,
-            type: req.body.type,
-            workout_day: req.body.workout_day
+            type: req.body.type
         });
 
-        plan.save((err) => {
+        plan.save((err, plan) => {
             if(err) return res.send(err);
 
-            res.json({ message: 'Plan updated.' });
+            res.status(200).json(plan);
         });
     });
 };

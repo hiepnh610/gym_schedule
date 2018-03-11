@@ -25,7 +25,7 @@
             <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
 
             <td class="text-right">
-              <a class="btn btn-sm btn-warning m-r-5" @click.prevent="updatePlan">Edit</a>
+              <a class="btn btn-sm btn-warning m-r-5" @click.prevent="updatePlan(plan)">Edit</a>
 
               <a class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
             </td>
@@ -33,7 +33,7 @@
         </tbody>
       </table>
 
-      <app-plan-update></app-plan-update>
+      <app-plan-update :data-plan-origin="dataPlanOrigin"></app-plan-update>
     </div>
   </div>
 </template>
@@ -49,7 +49,8 @@ export default {
   components: { AppPlanUpdate },
   data () {
     return {
-      errContent: ''
+      errContent: '',
+      dataPlanOrigin: ''
     }
   },
   computed: {
@@ -58,13 +59,15 @@ export default {
     }
   },
   methods: {
-    updatePlan () {
+    updatePlan (plan) {
       this.$store.dispatch('setShowBackgroundModal', true)
       this.$store.dispatch('setShowUpdateModal', true)
+
+      this.dataPlanOrigin = plan
     },
     deletePlan (id) {
       this.$store.dispatch('setDeletePlan', id)
-      axios.delete(config.domainAddress + config.api.deletePlans.replace('{id}', id))
+      axios.delete(config.domainAddress + config.api.plans + id)
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
           this.errContent = error.response.data.message
