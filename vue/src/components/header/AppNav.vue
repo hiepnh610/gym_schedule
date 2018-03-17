@@ -19,7 +19,13 @@
             <a href="login" class="text-white">Login</a>
           </span>
 
-          <a class="text-white" v-else @click="logout">Logout</a>
+          <span v-else>
+            <span class="text-white m-r-10" v-text="nameDisplay"></span>
+
+            <a class="text-white" @click="logout">
+              <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
+            </a>
+          </span>
         </div>
       </div>
     </div>
@@ -31,12 +37,14 @@ export default {
   name: 'AppNav',
   data () {
     return {
-      isLogin: false
+      isLogin: false,
+      nameDisplay: String
     }
   },
   mounted () {
     if (this.$session.exists()) {
       this.isLogin = true
+      this.nameDisplay = this.$session.get('name')
     }
   },
   methods: {
