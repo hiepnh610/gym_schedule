@@ -1,10 +1,9 @@
 <template>
   <div class="row">
-    <div class="col-xs-12">
-      <table class="table table-striped list-plans text-left">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <table class="table table-striped table-bordered table-hover list-plans text-center">
         <thead>
           <tr>
-            <th></th>
             <th>name</th>
             <th>type</th>
             <th>frequency</th>
@@ -14,8 +13,6 @@
 
         <tbody>
           <tr v-for="plan in getListPlans">
-            <td class="text-center"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/15255-200.png" :alt="plan.name"></td>
-
             <td><a href="#" class="text-primary text-capitalize">{{ plan.name }}</a></td>
 
             <td>{{ plan.type }}</td>
@@ -24,7 +21,7 @@
 
             <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
 
-            <td class="text-right">
+            <td>
               <a class="btn btn-sm btn-warning m-r-5" @click.prevent="updatePlan(plan)">Edit</a>
 
               <a class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
@@ -87,6 +84,14 @@ export default {
 .list-plans {
   img {
     max-width: $size-base * 16;
+  }
+
+  thead {
+    tr {
+      th {
+        text-align: center;
+      }
+    }
   }
 }
 </style>
