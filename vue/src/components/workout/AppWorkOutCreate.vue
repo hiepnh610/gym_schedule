@@ -7,13 +7,13 @@
             <div class="form-group">
               <label for="name-workout">Workout Day Name</label>
 
-              <input type="text" id="name-workout" class="form-control" />
+              <input type="text" id="name-workout" class="form-control" v-model="workoutName" />
             </div>
 
             <div class="form-group">
               <label for="workout-day">Pick a Workout Day</label>
 
-              <select id="workout-day" class="form-control">
+              <select id="workout-day" class="form-control" v-model="workoutDay">
                 <option value="Monday">Monday</option>
                 <option value="Tuesday">Tuesday</option>
                 <option value="Wednesday">Wednesday</option>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="form-group text-center m-b-0">
-              <button class="btn btn-md btn-primary text-uppercase">Submit</button>
+              <button class="btn btn-md btn-primary text-uppercase" @click.prevent="workoutCreate">Submit</button>
 
               <button class="btn btn-md btn-default text-uppercase" @click.prevent="closeModal">Cancel</button>
             </div>
@@ -37,21 +37,44 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '@/config'
+
 export default {
   name: 'AppWorkOutCreate',
   components: {},
   data () {
     return {
-      namePlan: ''
+      workoutName: '',
+      workoutDay: ''
     }
   },
   methods: {
     closeModal () {
       this.$store.dispatch('setShowBackgroundModal', false)
+    },
+    workoutCreate () {
+      const params = {
+        name: this.workoutName,
+        week_day: this.workoutDay
+      }
+
+      axios.post(config.domainAddress + config.api.workout, params)
+      .then(function (response) {
+        this.$store.dispatch('setShowBackgroundModal', false)
+        this.workoutName = ''
+        this.workoutDay = ''
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
     }
   },
   created () {
-    this.namePlan = this.$store.getters.namePlan
   },
   computed: {
     showBackgroundModal () {

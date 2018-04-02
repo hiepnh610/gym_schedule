@@ -9,7 +9,7 @@ export default new Vuex.Store({
     showCreateModal: false,
     showUpdateModal: false,
     listPlans: [],
-    namePlan: ''
+    namePlanProp: ''
   },
   mutations: {
     showBackgroundModal: (state, data) => {
@@ -43,8 +43,8 @@ export default new Vuex.Store({
         }
       }
     },
-    namePlan: (state, data) => {
-      state.namePlan = data
+    namePlanProp: (state, data) => {
+      state.namePlanProp = data
     }
   },
   actions: {
@@ -69,8 +69,8 @@ export default new Vuex.Store({
     setUpdatePlan: (context, data) => {
       context.commit('updatePlan', data)
     },
-    setNamePlan: (context, data) => {
-      context.commit('namePlan', data)
+    setNamePlanProp: (context, data) => {
+      context.commit('namePlanProp', data)
     }
   },
   getters: {
@@ -86,8 +86,8 @@ export default new Vuex.Store({
     listPlans: state => {
       return state.listPlans
     },
-    namePlan: state => {
-      return state.namePlan
+    namePlanProp: state => {
+      return state.namePlanProp
     }
   },
   strict: process.env.NODE_ENV !== 'production'

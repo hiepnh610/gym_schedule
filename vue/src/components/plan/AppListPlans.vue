@@ -77,7 +77,7 @@ export default {
       }.bind(this))
     },
     updateNamePlan (name) {
-      this.$store.dispatch('setNamePlan', name)
+      this.$store.dispatch('setNamePlanProp', name)
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center">{{ namePlan }}</h1>
+    <h1 class="text-center">{{ namePlanProp }}</h1>
 
     <a class="btn btn-md btn-primary" @click.prevent="createWorkout">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
@@ -19,7 +19,7 @@ export default {
   components: { AppWorkoutCreate },
   data () {
     return {
-      namePlan: ''
+      namePlanProp: ''
     }
   },
   methods: {
@@ -29,7 +29,7 @@ export default {
     }
   },
   created () {
-    this.namePlan = this.$store.getters.namePlan
+    this.namePlanProp = this.$store.getters.namePlanProp
   }
 }
 </script>
