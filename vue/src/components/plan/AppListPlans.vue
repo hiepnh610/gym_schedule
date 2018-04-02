@@ -13,7 +13,10 @@
 
         <tbody>
           <tr v-for="plan in getListPlans">
-            <td><a href="#" class="text-primary text-capitalize">{{ plan.name }}</a></td>
+            <td>
+              <!-- <a href="" class=""></a> -->
+              <router-link to="exercise" class="text-primary text-capitalize">{{ plan.name }}</router-link>
+            </td>
 
             <td>{{ plan.type }}</td>
 

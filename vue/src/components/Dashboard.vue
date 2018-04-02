@@ -1,17 +1,14 @@
 <template>
   <div id="dashboard">
     <div class="container">
-      <app-plan></app-plan>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import AppPlan from './plan/AppPlan.vue'
-
 export default {
-  name: 'DashBoard',
-  components: { AppPlan }
+  name: 'DashBoard'
 }
 </script>
 

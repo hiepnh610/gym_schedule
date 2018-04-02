@@ -3,10 +3,12 @@ import Router from 'vue-router'
 
 import Login from '@/components/header/Login'
 import SignUp from '@/components/header/SignUp'
-import Dashboard from '@/components/Dashboard'
+
+import DashBoard from '@/components/Dashboard'
 
 import AppPlan from '@/components/plan/AppPlan'
-import AppPlanCreate from '@/components/plan/AppPlanCreate'
+
+import AppExercise from '@/components/exercise/AppExercise'
 
 Vue.use(Router)
 
@@ -14,7 +16,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/login',
+      path: '',
       name: 'Login',
       component: Login
     },
@@ -25,18 +27,18 @@ export default new Router({
     },
     {
       path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard,
+      name: 'DashBoard',
+      component: DashBoard,
       children: [
         {
-          path: '/plan',
-          component: AppPlan,
-          children: [
-            {
-              path: '/create',
-              component: AppPlanCreate
-            }
-          ]
+          path: 'plan',
+          name: 'AppPlan',
+          component: AppPlan
+        },
+        {
+          path: 'exercise',
+          name: 'AppExercise',
+          component: AppExercise
         }
       ]
     }

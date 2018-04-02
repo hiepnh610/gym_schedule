@@ -18,8 +18,8 @@ export default {
     const isSession = this.$session.exists()
     const urlPath = this.$route.path
 
-    if ((isSession && urlPath === '/sign-up') || (isSession && urlPath === '/login')) {
-      this.$router.push('dashboard')
+    if ((isSession && urlPath === '/sign-up') || (isSession && urlPath === '/')) {
+      this.$router.push('dashboard/plan')
     }
 
     if (!isSession && urlPath === '/dashboard') {

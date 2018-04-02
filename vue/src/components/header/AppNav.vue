@@ -14,9 +14,9 @@
 
         <div class="col-xs-12 col-md-3 pull-right m-t-10">
           <span v-if="!isLogin">
-            <a href="sign-up" class="text-white">Sign Up</a>
+            <a href="/sign-up" class="text-white">Sign Up</a>
             <span class="text-white">/</span>
-            <a href="login" class="text-white">Login</a>
+            <a href="/" class="text-white">Login</a>
           </span>
 
           <span v-else>
@@ -50,7 +50,7 @@ export default {
   methods: {
     logout () {
       this.$session.destroy()
-      this.$router.push('sign-up')
+      this.$router.push('/sign-up')
       this.isLogin = false
     }
   }

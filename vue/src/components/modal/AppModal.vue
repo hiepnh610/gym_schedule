@@ -11,7 +11,7 @@
         </div>
 
         <div class="modal-footer">
-          <a href="dashboard" class="btn btn-md btn-block btn-primary text-uppercase">ok</a>
+          <a href="/dashboard/plan" class="btn btn-md btn-block btn-primary text-uppercase">ok</a>
         </div>
       </div>
     </div>
