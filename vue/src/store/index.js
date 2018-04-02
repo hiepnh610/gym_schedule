@@ -8,7 +8,8 @@ export default new Vuex.Store({
     showBackgroundModal: false,
     showCreateModal: false,
     showUpdateModal: false,
-    listPlans: []
+    listPlans: [],
+    namePlan: ''
   },
   mutations: {
     showBackgroundModal: (state, data) => {
@@ -41,6 +42,9 @@ export default new Vuex.Store({
           state.listPlans[i].frequency = data.frequency
         }
       }
+    },
+    namePlan: (state, data) => {
+      state.namePlan = data
     }
   },
   actions: {
@@ -64,6 +68,9 @@ export default new Vuex.Store({
     },
     setUpdatePlan: (context, data) => {
       context.commit('updatePlan', data)
+    },
+    setNamePlan: (context, data) => {
+      context.commit('namePlan', data)
     }
   },
   getters: {
@@ -78,6 +85,9 @@ export default new Vuex.Store({
     },
     listPlans: state => {
       return state.listPlans
+    },
+    namePlan: state => {
+      return state.namePlan
     }
   },
   strict: process.env.NODE_ENV !== 'production'

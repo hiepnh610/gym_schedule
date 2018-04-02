@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="getListPlans.length > 0">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
       <table class="table table-striped table-bordered table-hover list-plans text-center">
         <thead>
@@ -15,7 +15,7 @@
           <tr v-for="plan in getListPlans">
             <td>
               <!-- <a href="" class=""></a> -->
-              <router-link to="exercise" class="text-primary text-capitalize">{{ plan.name }}</router-link>
+              <router-link to="exercise" class="text-primary text-capitalize" @click.native="updateNamePlan(plan.name)">{{ plan.name }}</router-link>
             </td>
 
             <td>{{ plan.type }}</td>
@@ -75,6 +75,9 @@ export default {
           this.errContent = 'Error happened.'
         }
       }.bind(this))
+    },
+    updateNamePlan (name) {
+      this.$store.dispatch('setNamePlan', name)
     }
   }
 }
