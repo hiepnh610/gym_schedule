@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center">Exercise Plan</h1>
+    <h1 class="text-center">Workout</h1>
 
     <app-list-plans></app-list-plans>
 

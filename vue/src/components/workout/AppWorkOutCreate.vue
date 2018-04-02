@@ -5,15 +5,15 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <label for="name-exercise">Workout Day Name</label>
+              <label for="name-workout">Workout Day Name</label>
 
-              <input type="text" id="name-exercise" class="form-control" />
+              <input type="text" id="name-workout" class="form-control" />
             </div>
 
             <div class="form-group">
-              <label for="type-plan">Pick a Workout Day</label>
+              <label for="workout-day">Pick a Workout Day</label>
 
-              <select id="type-plan" class="form-control">
+              <select id="workout-day" class="form-control">
                 <option value="Monday">Monday</option>
                 <option value="Tuesday">Tuesday</option>
                 <option value="Wednesday">Wednesday</option>
@@ -25,9 +25,9 @@
             </div>
 
             <div class="form-group text-center m-b-0">
-              <button href="dashboard" class="btn btn-md btn-primary text-uppercase">Submit</button>
+              <button class="btn btn-md btn-primary text-uppercase">Submit</button>
 
-              <button href="dashboard" class="btn btn-md btn-default text-uppercase" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-md btn-default text-uppercase" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'AppExerciseCreate',
+  name: 'AppWorkOutCreate',
   components: {},
   data () {
     return {

@@ -2,28 +2,28 @@
   <div class="text-center">
     <h1 class="text-center">{{ namePlan }}</h1>
 
-    <a class="btn btn-md btn-primary" @click.prevent="createExercise">
+    <a class="btn btn-md btn-primary" @click.prevent="createWorkout">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
-      Create Exercise
+      Create Workout Day
     </a>
 
-    <app-exercise-create></app-exercise-create>
+    <app-workout-create></app-workout-create>
   </div>
 </template>
 
 <script>
-import AppExerciseCreate from './AppExerciseCreate.vue'
+import AppWorkoutCreate from './AppWorkoutCreate.vue'
 
 export default {
-  name: 'AppExercise',
-  components: { AppExerciseCreate },
+  name: 'AppWorkout',
+  components: { AppWorkoutCreate },
   data () {
     return {
       namePlan: ''
     }
   },
   methods: {
-    createExercise () {
+    createWorkout () {
       this.$store.dispatch('setShowBackgroundModal', true)
       this.$store.dispatch('setShowCreateModal', true)
     }

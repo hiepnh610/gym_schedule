@@ -8,7 +8,7 @@ import DashBoard from '@/components/Dashboard'
 
 import AppPlan from '@/components/plan/AppPlan'
 
-import AppExercise from '@/components/exercise/AppExercise'
+import AppWorkout from '@/components/workout/AppWorkout'
 
 Vue.use(Router)
 
@@ -37,8 +37,8 @@ export default new Router({
         },
         {
           path: 'exercise',
-          name: 'AppExercise',
-          component: AppExercise
+          name: 'AppWorkout',
+          component: AppWorkout
         }
       ]
     }
