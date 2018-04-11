@@ -14,7 +14,7 @@
         <tbody>
           <tr v-for="plan in getListPlans">
             <td>
-              <router-link to="workout" class="text-primary text-capitalize" @click.native="updateNamePlan(plan.name)">{{ plan.name }}</router-link>
+              <router-link :to="'workout/' + plan._id" class="text-primary text-capitalize" @click.native="updateNamePlan(plan.name)">{{ plan.name }}</router-link>
             </td>
 
             <td>{{ plan.type }}</td>

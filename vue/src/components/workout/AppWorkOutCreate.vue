@@ -56,7 +56,8 @@ export default {
     workoutCreate () {
       const params = {
         name: this.workoutName,
-        week_day: this.workoutDay
+        week_day: this.workoutDay,
+        plan_id: this.$route.params.id
       }
 
       axios.post(config.domainAddress + config.api.workout, params)

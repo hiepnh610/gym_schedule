@@ -10,7 +10,7 @@ const getPlan = (req, res) => {
     .populate('created_by')
     .exec(function (err, plans) {
        if(err) return res.status(400).send(err);
-       res.json(plans);
+       res.status(200).json(plans);
     });
 };
 

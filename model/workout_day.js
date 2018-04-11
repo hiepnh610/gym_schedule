@@ -4,7 +4,7 @@ const Schema   = mongoose.Schema;
 const Plan = require('./plan');
 
 const WorkoutDaySchema = new Schema({
-    created_by: {
+    plan_id: {
         type: Schema.Types.ObjectId,
         ref: 'Plan'
     },

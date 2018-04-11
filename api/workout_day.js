@@ -16,11 +16,12 @@ const getWorkoutDay = (req, res) => {
 const createWorkoutDay = (req, res) => {
     workoutDay = new WorkoutDay({
         name: req.body.name,
-        week_day: req.body.week_day
+        week_day: req.body.week_day,
+        plan_id: req.body.plan_id
     });
 
     workoutDay.save((err) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         res.status(201).json({ message: 'Workout Day created.' });
     });

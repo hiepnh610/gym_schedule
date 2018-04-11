@@ -36,7 +36,7 @@ export default new Router({
           component: AppPlan
         },
         {
-          path: 'workout',
+          path: 'workout/:id',
           name: 'AppWorkout',
           component: AppWorkout
         }
