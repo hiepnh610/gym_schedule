@@ -62,7 +62,14 @@ export default {
 
       axios.post(config.domainAddress + config.api.workout, params)
       .then(function (response) {
+        const dataItem = {
+          created_by: response.data.created_by,
+          name: response.data.name,
+          week_day: response.data.week_day
+        }
+
         this.$store.dispatch('setShowBackgroundModal', false)
+        this.$store.dispatch('setCreateWorkout', dataItem)
         this.workoutName = ''
         this.workoutDay = ''
       }.bind(this))

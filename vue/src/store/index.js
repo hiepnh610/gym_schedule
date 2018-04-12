@@ -9,7 +9,6 @@ export default new Vuex.Store({
     showCreateModal: false,
     showUpdateModal: false,
     listPlans: [],
-    namePlanProp: '',
     listWorkout: []
   },
   mutations: {
@@ -44,9 +43,6 @@ export default new Vuex.Store({
         }
       }
     },
-    namePlanProp: (state, data) => {
-      state.namePlanProp = data
-    },
     listWorkout: (state, data) => {
       state.listWorkout = data
     },
@@ -56,6 +52,9 @@ export default new Vuex.Store({
           state.listWorkout.splice(i, 1)
         }
       }
+    },
+    createWorkout: (state, data) => {
+      state.listWorkout.push(data)
     }
   },
   actions: {
@@ -80,14 +79,14 @@ export default new Vuex.Store({
     setUpdatePlan: (context, data) => {
       context.commit('updatePlan', data)
     },
-    setNamePlanProp: (context, data) => {
-      context.commit('namePlanProp', data)
-    },
     setListWorkout: (context, data) => {
       context.commit('listWorkout', data)
     },
     setDeleteWorkout: (context, data) => {
       context.commit('deleteWorkout', data)
+    },
+    setCreateWorkout: (context, data) => {
+      context.commit('createWorkout', data)
     }
   },
   getters: {
@@ -102,9 +101,6 @@ export default new Vuex.Store({
     },
     listPlans: state => {
       return state.listPlans
-    },
-    namePlanProp: state => {
-      return state.namePlanProp
     },
     listWorkout: state => {
       return state.listWorkout
