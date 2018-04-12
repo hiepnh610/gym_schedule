@@ -9,6 +9,7 @@ const workoutDay = require('./workout_day');
 router.route('/login').post(login);
 router.route('/sign_up').post(signUp);
 
+router.route('/list_plans').get(plan.listPlans);
 router.route('/plans').get(plan.getPlan).post(plan.createPlan);
 router.route('/plans/:plan_id').put(plan.updatePlan).delete(plan.deletePlan);
 

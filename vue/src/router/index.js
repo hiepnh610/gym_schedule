@@ -38,7 +38,8 @@ export default new Router({
         {
           component: AppWorkout,
           name: 'AppWorkout',
-          path: 'workout/:id'
+          path: 'workout/:id',
+          props: true
         }
       ]
     }

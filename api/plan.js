@@ -5,6 +5,16 @@ const Plan = require('../model/plan');
 
 let plan = {};
 
+const listPlans = (req, res) => {
+    Plan.find({ '_id': req.query.id })
+    .populate('_id')
+    .exec(function (err, list) {
+       if(err) return res.status(400).send(err);
+
+       res.status(200).json(list);
+    });
+};
+
 const getPlan = (req, res) => {
     Plan.find({ 'created_by': req.query.id })
     .populate('created_by')
@@ -57,4 +67,4 @@ const deletePlan = (req, res) => {
     });
 };
 
-module.exports = { getPlan, createPlan, updatePlan, deletePlan }
+module.exports = { listPlans, getPlan, createPlan, updatePlan, deletePlan }
