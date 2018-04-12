@@ -49,6 +49,13 @@ export default new Vuex.Store({
     },
     listWorkout: (state, data) => {
       state.listWorkout = data
+    },
+    deleteWorkout: (state, id) => {
+      for (var i = 0; i < state.listWorkout.length; i++) {
+        if (state.listWorkout[i]._id === id) {
+          state.listWorkout.splice(i, 1)
+        }
+      }
     }
   },
   actions: {
@@ -78,6 +85,9 @@ export default new Vuex.Store({
     },
     setListWorkout: (context, data) => {
       context.commit('listWorkout', data)
+    },
+    setDeleteWorkout: (context, data) => {
+      context.commit('deleteWorkout', data)
     }
   },
   getters: {

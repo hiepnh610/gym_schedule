@@ -1,7 +1,7 @@
 <template>
   <div class="row" v-if="getListWorkout.length > 0">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <table class="table table-striped table-bordered table-hover list-plans text-center">
+      <table class="table table-striped table-bordered table-hover text-center list-workout">
         <thead>
           <tr>
             <th>name</th>
@@ -11,17 +11,17 @@
         </thead>
 
         <tbody>
-          <tr v-for="plan in getListWorkout">
+          <tr v-for="workout in getListWorkout">
             <td>
-              <router-link :to="'workout/' + plan._id" class="text-primary text-capitalize" @click.native="updateNamePlan(plan.name)">{{ plan.name }}</router-link>
+              <router-link to="" class="text-primary text-capitalize">{{ workout.name }}</router-link>
             </td>
 
-            <td>{{ plan.week_day }}</td>
+            <td>{{ workout.week_day }}</td>
 
             <td>
               <a class="btn btn-sm btn-warning m-r-5">Edit</a>
 
-              <a class="btn btn-sm btn-danger">Delete</a>
+              <a class="btn btn-sm btn-danger" @click="deletePlan(workout._id)">Delete</a>
             </td>
           </tr>
         </tbody>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '@/config'
 
 export default {
   name: 'AppListWorkout',
@@ -41,13 +43,40 @@ export default {
   },
   computed: {
     getListWorkout () {
-      return this.$store.getters.listPlans
+      return this.$store.getters.listWorkout
     }
   },
   methods: {
+    deletePlan (id) {
+      this.$store.dispatch('setDeleteWorkout', id)
+      axios.delete(config.domainAddress + config.api.workout + id)
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+
+.list-workout {
+  img {
+    max-width: $size-base * 16;
+  }
+
+  thead {
+    tr {
+      th {
+        text-align: center;
+      }
+    }
+  }
+}
 </style>
