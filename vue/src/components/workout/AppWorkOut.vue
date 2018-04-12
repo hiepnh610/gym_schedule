@@ -43,7 +43,7 @@ export default {
       }
     })
     .then(function (response) {
-      this.$store.dispatch('setListPlans', response.data)
+      this.$store.dispatch('setListWorkout', response.data)
     }.bind(this))
     .catch(function (error) {
       if (error.response && error.response.data && error.response.data.message) {
