@@ -9,7 +9,8 @@ export default new Vuex.Store({
     showCreateModal: false,
     showUpdateModal: false,
     listPlans: [],
-    namePlanProp: ''
+    namePlanProp: '',
+    listWorkout: []
   },
   mutations: {
     showBackgroundModal: (state, data) => {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     },
     namePlanProp: (state, data) => {
       state.namePlanProp = data
+    },
+    listWorkout: (state, data) => {
+      state.listWorkout = data
     }
   },
   actions: {
@@ -71,6 +75,9 @@ export default new Vuex.Store({
     },
     setNamePlanProp: (context, data) => {
       context.commit('namePlanProp', data)
+    },
+    setListWorkout: (context, data) => {
+      context.commit('listWorkout', data)
     }
   },
   getters: {
@@ -88,6 +95,9 @@ export default new Vuex.Store({
     },
     namePlanProp: state => {
       return state.namePlanProp
+    },
+    listWorkout: state => {
+      return state.listWorkout
     }
   },
   strict: process.env.NODE_ENV !== 'production'

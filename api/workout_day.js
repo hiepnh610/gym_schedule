@@ -6,10 +6,12 @@ const WorkoutDay = require('../model/workout_day');
 let workoutDay = {};
 
 const getWorkoutDay = (req, res) => {
-    WorkoutDay.find((err, workout_day) => {
-        if(err) return res.send(err);
+    WorkoutDay.find({ 'plan_id': req.query.id })
+    .populate('plan_id')
+    .exec(function (err, plans) {
+       if(err) return res.status(400).send(err);
 
-        res.json(workout_day);
+       res.status(200).json(plans);
     });
 };
 
