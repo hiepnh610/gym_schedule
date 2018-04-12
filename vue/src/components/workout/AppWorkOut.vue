@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center">{{ namePlanProp }}</h1>
+    <h1 class="text-center"></h1>
 
     <app-list-workout></app-list-workout>
 
@@ -25,7 +25,6 @@ export default {
   components: { AppWorkoutCreate, AppListWorkout },
   data () {
     return {
-      namePlanProp: ''
     }
   },
   methods: {
@@ -35,8 +34,6 @@ export default {
     }
   },
   created () {
-    this.namePlanProp = this.$store.getters.namePlanProp
-
     axios.get(config.domainAddress + config.api.workout, {
       params: {
         id: this.$route.params.id

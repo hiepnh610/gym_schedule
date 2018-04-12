@@ -22,10 +22,10 @@ const createWorkoutDay = (req, res) => {
         plan_id: req.body.plan_id
     });
 
-    workoutDay.save((err) => {
+    workoutDay.save((err, workout) => {
         if(err) return res.status(400).send(err);
 
-        res.status(201).json({ message: 'Workout Day created.' });
+        res.status(201).json(workout);
     });
 };
 
