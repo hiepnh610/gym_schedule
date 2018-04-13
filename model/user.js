@@ -20,7 +20,7 @@ const UserSchema = new Schema({
     },
     plan_id: Number,
     weight: Number
-});
+}, { timestamps: { createdAt: 'created_at' }});
 
 UserSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

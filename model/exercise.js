@@ -10,7 +10,7 @@ const ExerciseSchema = new Schema({
         required: true,
         type: String
     }
-});
+}, { timestamps: { createdAt: 'created_at' }});
 
 const Exercise = mongoose.model('Exercise', ExerciseSchema);
 

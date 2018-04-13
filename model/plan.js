@@ -24,7 +24,7 @@ const PlanSchema = new Schema({
         type: String
     },
     workout_day: Object
-});
+}, { timestamps: { createdAt: 'created_at' }});
 
 const Plan = mongoose.model('Plan', PlanSchema);
 

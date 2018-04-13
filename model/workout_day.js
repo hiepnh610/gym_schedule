@@ -16,7 +16,7 @@ const WorkoutDaySchema = new Schema({
         type: String,
         unique: true
     }
-});
+}, { timestamps: { createdAt: 'created_at' }});
 
 const WorkoutDay = mongoose.model('WorkoutDay', WorkoutDaySchema);
 
