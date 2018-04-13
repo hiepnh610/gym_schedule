@@ -55,6 +55,14 @@ export default new Vuex.Store({
     },
     createWorkout: (state, data) => {
       state.listWorkout.push(data)
+    },
+    updateWorkout: (state, data) => {
+      for (var i = 0; i < state.listWorkout.length; i++) {
+        if (state.listWorkout[i]._id === data._id) {
+          state.listWorkout[i].name = data.name
+          state.listWorkout[i].week_day = data.week_day
+        }
+      }
     }
   },
   actions: {
@@ -87,6 +95,9 @@ export default new Vuex.Store({
     },
     setCreateWorkout: (context, data) => {
       context.commit('createWorkout', data)
+    },
+    setUpdateWorkout: (context, data) => {
+      context.commit('updateWorkout', data)
     }
   },
   getters: {

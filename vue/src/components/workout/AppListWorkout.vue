@@ -19,13 +19,15 @@
             <td>{{ workout.week_day }}</td>
 
             <td>
-              <a class="btn btn-sm btn-warning m-r-5">Edit</a>
+              <a class="btn btn-sm btn-warning m-r-5" @click.prevent="updateWorkout(workout)">Edit</a>
 
-              <a class="btn btn-sm btn-danger" @click="deletePlan(workout._id)">Delete</a>
+              <a class="btn btn-sm btn-danger" @click="deleteWorkout(workout._id)">Delete</a>
             </td>
           </tr>
         </tbody>
       </table>
+
+      <app-workout-update :data-workout-origin="dataWorkoutOrigin"></app-workout-update>
     </div>
   </div>
 </template>
@@ -34,11 +36,14 @@
 import axios from 'axios'
 import config from '@/config'
 
+import AppWorkoutUpdate from './AppWorkoutUpdate.vue'
+
 export default {
   name: 'AppListWorkout',
-  components: {},
+  components: { AppWorkoutUpdate },
   data () {
     return {
+      dataWorkoutOrigin: ''
     }
   },
   computed: {
@@ -47,7 +52,13 @@ export default {
     }
   },
   methods: {
-    deletePlan (id) {
+    updateWorkout (workout) {
+      this.$store.dispatch('setShowBackgroundModal', true)
+      this.$store.dispatch('setShowUpdateModal', true)
+
+      this.dataWorkoutOrigin = workout
+    },
+    deleteWorkout (id) {
       this.$store.dispatch('setDeleteWorkout', id)
       axios.delete(config.domainAddress + config.api.workout + id)
       .catch(function (error) {

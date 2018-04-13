@@ -38,10 +38,10 @@ const updateWorkoutDay = (req, res) => {
             week_day: req.body.week_day,
         });
 
-        workout_day.save((err) => {
+        workout_day.save((err, workout) => {
             if(err) return res.send(err);
 
-            res.json({ message: 'Workout Day updated.' });
+            res.json(workout);
         });
     });
 };
