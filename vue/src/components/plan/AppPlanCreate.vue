@@ -54,6 +54,7 @@ import config from '@/config'
 
 export default {
   name: 'AppPlanCreate',
+
   data () {
     return {
       namePlan: '',
@@ -62,6 +63,7 @@ export default {
       errContent: ''
     }
   },
+
   methods: {
     closeModal () {
       this.$store.dispatch('setShowBackgroundModal', false)
@@ -99,10 +101,12 @@ export default {
       }.bind(this))
     }
   },
+
   computed: {
     showBackgroundModal () {
       return this.$store.getters.showBackgroundModal
     },
+
     showCreatePlan () {
       return this.$store.getters.showCreateModal
     }

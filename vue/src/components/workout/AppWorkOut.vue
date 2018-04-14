@@ -22,21 +22,26 @@ import AppListWorkout from './AppListWorkout.vue'
 
 export default {
   name: 'AppWorkout',
+
   components: { AppWorkoutCreate, AppListWorkout },
+
   props: {
     id: { type: String }
   },
+
   data () {
     return {
       planName: ''
     }
   },
+
   methods: {
     createWorkout () {
       this.$store.dispatch('setShowBackgroundModal', true)
       this.$store.dispatch('setShowCreateModal', true)
     }
   },
+
   created () {
     axios.get(config.domainAddress + config.api.workout, {
       params: {

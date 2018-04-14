@@ -35,18 +35,21 @@
 <script>
 export default {
   name: 'AppNav',
+
   data () {
     return {
       isLogin: false,
       nameDisplay: String
     }
   },
+
   mounted () {
     if (this.$session.exists()) {
       this.isLogin = true
       this.nameDisplay = this.$session.get('name')
     }
   },
+
   methods: {
     logout () {
       this.$session.destroy()

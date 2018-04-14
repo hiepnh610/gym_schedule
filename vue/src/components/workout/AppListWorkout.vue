@@ -40,24 +40,28 @@ import AppWorkoutUpdate from './AppWorkoutUpdate.vue'
 
 export default {
   name: 'AppListWorkout',
+
   components: { AppWorkoutUpdate },
+
   data () {
     return {
       dataWorkoutOrigin: ''
     }
   },
+
   computed: {
     getListWorkout () {
       return this.$store.getters.listWorkout
     }
   },
+
   methods: {
     updateWorkout (workout) {
       this.$store.dispatch('setShowBackgroundModal', true)
       this.$store.dispatch('setShowUpdateModal', true)
-
       this.dataWorkoutOrigin = workout
     },
+
     deleteWorkout (id) {
       this.$store.dispatch('setDeleteWorkout', id)
       axios.delete(config.domainAddress + config.api.workout + id)

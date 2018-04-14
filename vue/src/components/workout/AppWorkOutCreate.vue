@@ -42,17 +42,19 @@ import config from '@/config'
 
 export default {
   name: 'AppWorkOutCreate',
-  components: {},
+
   data () {
     return {
       workoutName: '',
       workoutDay: ''
     }
   },
+
   methods: {
     closeModal () {
       this.$store.dispatch('setShowBackgroundModal', false)
     },
+
     workoutCreate () {
       const params = {
         name: this.workoutName,
@@ -82,12 +84,12 @@ export default {
       }.bind(this))
     }
   },
-  created () {
-  },
+
   computed: {
     showBackgroundModal () {
       return this.$store.getters.showBackgroundModal
     },
+
     showCreatePlan () {
       return this.$store.getters.showCreateModal
     }

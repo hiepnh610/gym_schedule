@@ -21,7 +21,9 @@
 <script>
 export default {
   name: 'AppModal',
+
   props: ['isSuccess', 'isSignUp'],
+
   data () {
     return {
     }

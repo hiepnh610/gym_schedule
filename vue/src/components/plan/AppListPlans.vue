@@ -45,27 +45,32 @@ import AppPlanUpdate from './AppPlanUpdate.vue'
 
 export default {
   name: 'AppListPlans',
+
   components: { AppPlanUpdate },
+
   data () {
     return {
       errContent: '',
       dataPlanOrigin: ''
     }
   },
+
   computed: {
     getListPlans () {
       return this.$store.getters.listPlans
     }
   },
+
   methods: {
     updatePlan (plan) {
       this.$store.dispatch('setShowBackgroundModal', true)
       this.$store.dispatch('setShowUpdateModal', true)
-
       this.dataPlanOrigin = plan
     },
+
     deletePlan (id) {
       this.$store.dispatch('setDeletePlan', id)
+
       axios.delete(config.domainAddress + config.api.plans + id)
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {

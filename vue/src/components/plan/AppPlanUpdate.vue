@@ -54,7 +54,9 @@ import config from '@/config'
 
 export default {
   name: 'AppPlanUpdate',
+
   props: ['dataPlanOrigin'],
+
   data () {
     return {
       namePlan: '',
@@ -62,6 +64,7 @@ export default {
       frequencyPlan: ''
     }
   },
+
   methods: {
     closeModal () {
       this.$store.dispatch('setShowBackgroundModal', false)
@@ -88,6 +91,7 @@ export default {
       }.bind(this))
     }
   },
+
   computed: {
     showBackgroundModal () {
       return this.$store.getters.showBackgroundModal
@@ -101,6 +105,7 @@ export default {
       return this.dataPlanOrigin
     }
   },
+
   watch: {
     dataPlan () {
       this.namePlan = this.dataPlan.name

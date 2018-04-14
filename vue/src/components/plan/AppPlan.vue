@@ -22,17 +22,21 @@ import AppListPlans from './AppListPlans.vue'
 
 export default {
   name: 'AppPlan',
+
   components: { AppPlanCreate, AppListPlans },
+
   data () {
     return {
     }
   },
+
   methods: {
     createPlan () {
       this.$store.dispatch('setShowBackgroundModal', true)
       this.$store.dispatch('setShowCreateModal', true)
     }
   },
+
   created () {
     axios.get(config.domainAddress + config.api.plans, {
       params: {

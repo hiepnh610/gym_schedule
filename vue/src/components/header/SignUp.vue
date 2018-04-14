@@ -52,6 +52,7 @@ import AppModal from '../modal/AppModal.vue'
 
 export default {
   components: { AppNav, AppModal },
+
   data () {
     return {
       email: '',

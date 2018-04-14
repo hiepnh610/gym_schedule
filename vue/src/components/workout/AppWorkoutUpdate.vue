@@ -82,6 +82,7 @@ export default {
     showBackgroundModal () {
       return this.$store.getters.showBackgroundModal
     },
+
     showUpdateModal () {
       return this.$store.getters.showUpdateModal
     },

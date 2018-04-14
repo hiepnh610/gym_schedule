@@ -13,7 +13,9 @@ import AppNav from './header/AppNav.vue'
 
 export default {
   name: 'App',
+
   components: { AppNav },
+
   beforeCreate () {
     const isSession = this.$session.exists()
     const urlPath = this.$route.path
@@ -26,6 +28,7 @@ export default {
       this.$router.push('sign-up')
     }
   },
+
   computed: {
     showBackgroundModal () {
       return this.$store.getters.showBackgroundModal
