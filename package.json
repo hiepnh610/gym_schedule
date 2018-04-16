@@ -10,11 +10,11 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "mongoose": "^4.13.7",
+    "mongoose": "^5.0.14",
     "morgan": "^1.9.0"
   },
   "dependencies": {
-    "moment": "^2.22.0",
+    "moment": "^2.22.1",
     "nodemon": "^1.17.3",
     "npm": "^5.8.0"
   }
