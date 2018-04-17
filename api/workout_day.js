@@ -5,6 +5,16 @@ const WorkoutDay = require('../model/workout_day');
 
 let workoutDay = {};
 
+const listWorkout = (req, res) => {
+    WorkoutDay.find({ '_id': req.query.id })
+    .populate('_id')
+    .exec(function (err, list) {
+       if(err) return res.status(400).send(err);
+
+       res.status(200).json(list);
+    });
+};
+
 const getWorkoutDay = (req, res) => {
     WorkoutDay.find({ 'plan_id': req.query.id })
     .populate('plan_id')
@@ -56,4 +66,4 @@ const deleteWorkoutDay = (req, res) => {
     });
 };
 
-module.exports = { getWorkoutDay, createWorkoutDay, updateWorkoutDay, deleteWorkoutDay };
+module.exports = { listWorkout, getWorkoutDay, createWorkoutDay, updateWorkoutDay, deleteWorkoutDay };

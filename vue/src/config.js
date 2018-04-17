@@ -6,7 +6,8 @@ const api = {
   login: '/api/login',
   listPlans: '/api/list_plans',
   plans: '/api/plans/',
-  workout: '/api/workout_day/'
+  workout: '/api/workout_day/',
+  listWorkout: '/api/list_workout'
 }
 
 module.exports = { api, domainAddress }

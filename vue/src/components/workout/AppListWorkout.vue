@@ -13,7 +13,7 @@
         <tbody>
           <tr v-for="workout in getListWorkout">
             <td>
-              <router-link to="" class="text-primary text-capitalize">{{ workout.name }}</router-link>
+              <router-link :to="'exercise/' + workout._id" class="text-primary text-capitalize">{{ workout.name }}</router-link>
             </td>
 
             <td>{{ workout.week_day }}</td>

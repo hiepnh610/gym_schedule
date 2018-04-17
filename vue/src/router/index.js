@@ -10,6 +10,8 @@ import AppPlan from '@/components/plan/AppPlan'
 
 import AppWorkout from '@/components/workout/AppWorkout'
 
+import AppExercise from '@/components/exercise/AppExercise'
+
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +41,12 @@ export default new Router({
           component: AppWorkout,
           name: 'AppWorkout',
           path: 'workout/:id',
+          props: true
+        },
+        {
+          component: AppExercise,
+          name: 'AppExercise',
+          path: 'exercise/:id',
           props: true
         }
       ]

@@ -8,7 +8,11 @@ const morgan     = require('morgan');
 const config = require('./config');
 const router = require('./api');
 
-mongoose.connect(config.mongoUri, { useMongoClient: true });
+mongoose.connect(config.mongoUri, {
+    keepAlive: true,
+    reconnectTries: 30,
+    socketTimeoutMS: 0
+});
 
 app.use(cors());
 app.use(morgan('dev'));
