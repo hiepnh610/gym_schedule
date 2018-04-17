@@ -60,23 +60,24 @@ export default {
 
         this.disabledBtn = true
 
-        axios.post(config.domainAddress + config.api.login, params)
-        .then(function (response) {
-          this.isSuccess = true
-          this.disabledBtn = false
-          this.$store.dispatch('setShowBackgroundModal', true)
+        axios
+          .post(config.domainAddress + config.api.login, params)
+          .then(function (response) {
+            this.isSuccess = true
+            this.disabledBtn = false
+            this.$store.dispatch('setShowBackgroundModal', true)
 
-          this.$session.start()
-          this.$session.set('name', response.data.name)
-          this.$session.set('email', response.data.email)
-          this.$session.set('id', response.data.id)
-          this.$session.set('authenticate', response.data.authenticate)
-        }.bind(this))
-        .catch(function (error) {
-          this.disabledBtn = false
+            this.$session.start()
+            this.$session.set('name', response.data.name)
+            this.$session.set('email', response.data.email)
+            this.$session.set('id', response.data.id)
+            this.$session.set('authenticate', response.data.authenticate)
+          }.bind(this))
+          .catch(function (error) {
+            this.disabledBtn = false
 
-          if (error) console.log(error.response.data)
-        }.bind(this))
+            if (error) console.log(error.response.data)
+          }.bind(this))
       }
     }
   }

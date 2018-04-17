@@ -22,21 +22,22 @@ export default {
   },
 
   created () {
-    axios.get(config.domainAddress + config.api.listWorkout, {
-      params: {
-        id: this.id
-      }
-    })
-    .then(function (response) {
-      this.exerciseName = response.data[0].name
-    }.bind(this))
-    .catch(function (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        this.errContent = error.response.data.message
-      } else {
-        this.errContent = 'Error happened.'
-      }
-    }.bind(this))
+    axios
+      .get(config.domainAddress + config.api.listWorkout, {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function (response) {
+        this.exerciseName = response.data[0].name
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
   }
 }
 </script>
