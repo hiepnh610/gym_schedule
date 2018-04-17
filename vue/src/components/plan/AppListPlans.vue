@@ -73,7 +73,7 @@ export default {
 
       axios
         .delete(config.domainAddress + config.api.plans + id)
-        .then(function() {
+        .then(function () {
           this.$toasted.success('Delete Successfully!!!')
         }.bind(this))
         .catch(function (error) {

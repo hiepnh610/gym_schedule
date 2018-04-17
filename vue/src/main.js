@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import Toasted from 'vue-toasted';
+import Toasted from 'vue-toasted'
 import VueAxios from 'vue-axios'
 import VueCookie from 'vue-cookie'
 import VueSession from 'vue-session'
@@ -24,10 +24,10 @@ import '@/assets/scss/form.scss'
 import '@/assets/scss/table.scss'
 
 const Options = {
-    duration: 2000,
-    iconPack: 'fontawesome',
-    position: 'top-right',
-    theme: 'primary'
+  duration: 2000,
+  iconPack: 'fontawesome',
+  position: 'top-right',
+  theme: 'primary'
 }
 
 Vue.use(Vuex)

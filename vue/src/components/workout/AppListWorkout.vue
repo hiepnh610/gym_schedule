@@ -13,7 +13,7 @@
         <tbody>
           <tr v-for="workout in getListWorkout">
             <td>
-              <router-link :to="'exercise/' + workout._id" class="text-primary text-capitalize">{{ workout.name }}</router-link>
+              <router-link :to="'../exercise/' + workout._id" class="text-primary text-capitalize">{{ workout.name }}</router-link>
             </td>
 
             <td>{{ workout.week_day }}</td>
@@ -67,7 +67,7 @@ export default {
 
       axios
         .delete(config.domainAddress + config.api.workout + id)
-        .then(function() {
+        .then(function () {
           this.$toasted.success('Delete Successfully!!!')
         }.bind(this))
         .catch(function (error) {
