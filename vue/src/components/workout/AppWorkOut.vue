@@ -4,7 +4,7 @@
 
     <app-list-workout></app-list-workout>
 
-    <a class="btn btn-md btn-primary" @click.prevent="createWorkout">
+    <a href="" class="btn btn-md btn-primary" @click.prevent="createWorkout">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
       Create Workout Day
     </a>
