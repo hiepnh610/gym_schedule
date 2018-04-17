@@ -25,9 +25,9 @@
             </div>
 
             <div class="form-group text-center m-b-0">
-              <button class="btn btn-md btn-primary text-uppercase" @click.prevent="workoutCreate">Submit</button>
+              <button class="btn btn-md btn-success" @click.prevent="workoutCreate">Submit</button>
 
-              <button class="btn btn-md btn-default text-uppercase" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-md btn-light" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>
@@ -75,6 +75,8 @@ export default {
           this.$store.dispatch('setCreateWorkout', dataItem)
           this.workoutName = ''
           this.workoutDay = ''
+
+          this.$toasted.success('Create Successfully!!!')
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
@@ -82,6 +84,8 @@ export default {
           } else {
             this.errContent = 'Error happened.'
           }
+
+          this.$toasted.error('Error happened!!!')
         }.bind(this))
     }
   },

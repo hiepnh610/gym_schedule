@@ -19,7 +19,7 @@
             <td>{{ workout.week_day }}</td>
 
             <td>
-              <a href="" class="btn btn-sm btn-warning m-r-5" @click.prevent="updateWorkout(workout)">Edit</a>
+              <a href="" class="btn btn-sm btn-secondary m-r-5" @click.prevent="updateWorkout(workout)">Edit</a>
 
               <a href="" class="btn btn-sm btn-danger" @click="deleteWorkout(workout._id)">Delete</a>
             </td>
@@ -67,12 +67,17 @@ export default {
 
       axios
         .delete(config.domainAddress + config.api.workout + id)
+        .then(function() {
+          this.$toasted.success('Delete Successfully!!!')
+        }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
             this.errContent = error.response.data.message
           } else {
             this.errContent = 'Error happened.'
           }
+
+          this.$toasted.error('Error happened!!!')
         }.bind(this))
     }
   }

@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <i class="fa fa-check-circle text-primary" aria-hidden="true"></i>
+          <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
 
           <h2>Welcome!</h2>
 
@@ -11,7 +11,7 @@
         </div>
 
         <div class="modal-footer">
-          <a href="/dashboard/plan" class="btn btn-md btn-block btn-primary text-uppercase">ok</a>
+          <a href="/dashboard/plan" class="btn btn-md btn-block btn-success text-uppercase">ok</a>
         </div>
       </div>
     </div>

@@ -25,9 +25,9 @@
             </div>
 
             <div class="form-group text-center m-b-0">
-              <button class="btn btn-md btn-primary text-uppercase" @click.prevent="workoutUpdate(dataWorkoutOrigin._id)">Submit</button>
+              <button class="btn btn-md btn-success" @click.prevent="workoutUpdate(dataWorkoutOrigin._id)">Submit</button>
 
-              <button class="btn btn-md btn-default text-uppercase" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-md btn-light" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>
@@ -68,6 +68,8 @@ export default {
         .then(function (response) {
           this.$store.dispatch('setShowBackgroundModal', false)
           this.$store.dispatch('setUpdateWorkout', response.data)
+
+          this.$toasted.success('Update Successfully!!!')
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
@@ -75,6 +77,8 @@ export default {
           } else {
             this.errContent = 'Error happened.'
           }
+
+          this.$toasted.error('Error happened!!!')
         }.bind(this))
     }
   },

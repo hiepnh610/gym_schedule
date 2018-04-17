@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <h2 class="text-center m-b-25 text-primary">Plan Information</h2>
+          <h2 class="text-center m-b-25 text-success">Plan Information</h2>
 
           <form>
             <div class="form-group">
@@ -37,9 +37,9 @@
             </div>
 
             <div class="form-group text-center m-b-0">
-              <button href="dashboard" class="btn btn-md btn-primary text-uppercase" @click.prevent="planCreate">Submit</button>
+              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planCreate">Submit</button>
 
-              <button href="dashboard" class="btn btn-md btn-default text-uppercase" @click.prevent="closeModal">Cancel</button>
+              <button href="dashboard" class="btn btn-md btn-light" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>
@@ -92,6 +92,7 @@ export default {
           this.namePlan = ''
           this.typePlan = ''
           this.frequencyPlan = ''
+          this.$toasted.success('Create Successfully!!!')
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
@@ -99,6 +100,8 @@ export default {
           } else {
             this.errContent = 'Error happened.'
           }
+
+          this.$toasted.error('Error happened!!!')
         }.bind(this))
     }
   },

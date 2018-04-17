@@ -24,7 +24,7 @@
             <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
 
             <td>
-              <a href="" class="btn btn-sm btn-warning m-r-5" @click.prevent="updatePlan(plan)">Edit</a>
+              <a href="" class="btn btn-sm btn-secondary m-r-5" @click.prevent="updatePlan(plan)">Edit</a>
 
               <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
             </td>
@@ -73,12 +73,17 @@ export default {
 
       axios
         .delete(config.domainAddress + config.api.plans + id)
+        .then(function() {
+          this.$toasted.success('Delete Successfully!!!')
+        }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
             this.errContent = error.response.data.message
           } else {
             this.errContent = 'Error happened.'
           }
+
+          this.$toasted.error('Error happened!!!')
         }.bind(this))
     }
   }

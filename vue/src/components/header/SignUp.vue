@@ -29,7 +29,7 @@
             </div>
 
             <div class="form-group text-center">
-              <button class="btn btn-md btn-primary" :disabled="disabledBtn">
+              <button class="btn btn-md btn-success" :disabled="disabledBtn">
                 <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
                 Sign Up
               </button>

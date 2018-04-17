@@ -4,7 +4,7 @@
 
     <router-view></router-view>
 
-    <div class="modal-backdrop fade in" v-if="showBackgroundModal"></div>
+    <div class="modal-backdrop fade show" v-if="showBackgroundModal"></div>
   </div>
 </template>
 
