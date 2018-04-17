@@ -78,28 +78,29 @@ export default {
 
         this.disabledBtn = true
 
-        axios.post(config.domainAddress + config.api.sign_up, params)
-        .then(function (response) {
-          this.isSuccess = true
-          this.disabledBtn = false
-          this.$store.dispatch('setShowBackgroundModal', true)
+        axios
+          .post(config.domainAddress + config.api.sign_up, params)
+          .then(function (response) {
+            this.isSuccess = true
+            this.disabledBtn = false
+            this.$store.dispatch('setShowBackgroundModal', true)
 
-          this.$session.start()
-          this.$session.set('name', response.data.name)
-          this.$session.set('email', response.data.email)
-          this.$session.set('id', response.data.id)
-          this.$session.set('authenticate', response.data.authenticate)
-        }.bind(this))
-        .catch(function (error) {
-          this.disabledBtn = false
-          this.isError = true
+            this.$session.start()
+            this.$session.set('name', response.data.name)
+            this.$session.set('email', response.data.email)
+            this.$session.set('id', response.data.id)
+            this.$session.set('authenticate', response.data.authenticate)
+          }.bind(this))
+          .catch(function (error) {
+            this.disabledBtn = false
+            this.isError = true
 
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
-        }.bind(this))
+            if (error.response && error.response.data && error.response.data.message) {
+              this.errContent = error.response.data.message
+            } else {
+              this.errContent = 'Error happened.'
+            }
+          }.bind(this))
       }
     }
   }

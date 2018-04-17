@@ -38,21 +38,22 @@ export default {
   },
 
   created () {
-    axios.get(config.domainAddress + config.api.plans, {
-      params: {
-        id: this.$session.get('id')
-      }
-    })
-    .then(function (response) {
-      this.$store.dispatch('setListPlans', response.data)
-    }.bind(this))
-    .catch(function (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        this.errContent = error.response.data.message
-      } else {
-        this.errContent = 'Error happened.'
-      }
-    }.bind(this))
+    axios
+      .get(config.domainAddress + config.api.plans, {
+        params: {
+          id: this.$session.get('id')
+        }
+      })
+      .then(function (response) {
+        this.$store.dispatch('setListPlans', response.data)
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
   }
 }
 </script>

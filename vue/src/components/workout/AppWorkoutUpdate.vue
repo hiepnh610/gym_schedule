@@ -63,18 +63,19 @@ export default {
         week_day: this.workoutDay
       }
 
-      axios.put(config.domainAddress + config.api.workout + id, params)
-      .then(function (response) {
-        this.$store.dispatch('setShowBackgroundModal', false)
-        this.$store.dispatch('setUpdateWorkout', response.data)
-      }.bind(this))
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.errContent = 'Error happened.'
-        }
-      }.bind(this))
+      axios
+        .put(config.domainAddress + config.api.workout + id, params)
+        .then(function (response) {
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.$store.dispatch('setUpdateWorkout', response.data)
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
     }
   },
 

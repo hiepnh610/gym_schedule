@@ -77,28 +77,29 @@ export default {
         created_by: this.$session.get('id')
       }
 
-      axios.post(config.domainAddress + config.api.plans, params)
-      .then(function (response) {
-        const dataItem = {
-          frequency: response.data.frequency,
-          name: response.data.name,
-          type: response.data.type,
-          created_by: response.data.created_by
-        }
+      axios
+        .post(config.domainAddress + config.api.plans, params)
+        .then(function (response) {
+          const dataItem = {
+            frequency: response.data.frequency,
+            name: response.data.name,
+            type: response.data.type,
+            created_by: response.data.created_by
+          }
 
-        this.$store.dispatch('setShowBackgroundModal', false)
-        this.$store.dispatch('setCreatePlan', dataItem)
-        this.namePlan = ''
-        this.typePlan = ''
-        this.frequencyPlan = ''
-      }.bind(this))
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.errContent = 'Error happened.'
-        }
-      }.bind(this))
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.$store.dispatch('setCreatePlan', dataItem)
+          this.namePlan = ''
+          this.typePlan = ''
+          this.frequencyPlan = ''
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
     }
   },
 

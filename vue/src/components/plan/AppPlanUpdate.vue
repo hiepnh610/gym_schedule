@@ -77,18 +77,19 @@ export default {
         frequency: this.frequencyPlan
       }
 
-      axios.put(config.domainAddress + config.api.plans + id, params)
-      .then(function (response) {
-        this.$store.dispatch('setShowBackgroundModal', false)
-        this.$store.dispatch('setUpdatePlan', response.data)
-      }.bind(this))
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.errContent = 'Error happened.'
-        }
-      }.bind(this))
+      axios
+        .put(config.domainAddress + config.api.plans + id, params)
+        .then(function (response) {
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.$store.dispatch('setUpdatePlan', response.data)
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
     }
   },
 

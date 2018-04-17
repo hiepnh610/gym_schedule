@@ -64,14 +64,16 @@ export default {
 
     deleteWorkout (id) {
       this.$store.dispatch('setDeleteWorkout', id)
-      axios.delete(config.domainAddress + config.api.workout + id)
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.errContent = 'Error happened.'
-        }
-      }.bind(this))
+
+      axios
+        .delete(config.domainAddress + config.api.workout + id)
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
     }
   }
 }
