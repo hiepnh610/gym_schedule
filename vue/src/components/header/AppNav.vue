@@ -2,7 +2,7 @@
   <nav class="main-menu" :class="{'dark-menu': isLogin}">
     <div class="container text-center">
       <div class="row">
-        <div class="col-xs-12 col-md-4 col-md-offset-4">
+        <div class="col-12 col-lg-6 offset-lg-3">
           <div class="main-logo">
             <h1>
               <a href="/">
@@ -12,7 +12,7 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-md-3 pull-right m-t-10">
+        <div class="col-12 col-lg-3 pull-right m-t-10">
           <span v-if="!isLogin">
             <a href="/sign-up" class="text-white">Sign Up</a>
             <span class="text-white">/</span>

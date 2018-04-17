@@ -1,8 +1,8 @@
 <template>
   <div class="row" v-if="getListPlans.length > 0">
-    <div class="col-xs-12 col-md-8 col-md-offset-2">
+    <div class="col-12 col-lg-8 offset-lg-2">
       <table class="table table-striped table-bordered table-hover list-plans text-center">
-        <thead>
+        <thead class="thead-dark">
           <tr>
             <th>name</th>
             <th>type</th>
@@ -24,9 +24,9 @@
             <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
 
             <td>
-              <a class="btn btn-sm btn-warning m-r-5" @click.prevent="updatePlan(plan)">Edit</a>
+              <a href="" class="btn btn-sm btn-warning m-r-5" @click.prevent="updatePlan(plan)">Edit</a>
 
-              <a class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
+              <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
             </td>
           </tr>
         </tbody>

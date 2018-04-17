@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-success modal-xs fade" v-show="isSuccess" :class="{ 'in animated bounceIn': isSuccess }" :style="{ display: 'block' }">
+  <div class="modal modal-success modal-xs fade" v-show="isSuccess" :class="{ 'show animated bounceIn': isSuccess }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body text-center">

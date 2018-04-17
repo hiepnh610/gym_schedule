@@ -4,7 +4,7 @@
 
     <app-list-plans></app-list-plans>
 
-    <a class="btn btn-md btn-primary" @click.prevent="createPlan">
+    <a href="" class="btn btn-md btn-primary" @click.prevent="createPlan">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
       Create Plan
     </a>
