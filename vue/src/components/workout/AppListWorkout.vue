@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
-      <table class="table table-striped table-bordered table-hover text-center list-workout">
+      <table class="table table-striped table-bordered table-hover text-center list-workout mb-5">
         <thead class="thead-dark">
           <tr>
             <th>name</th>

@@ -1,9 +1,9 @@
 <template>
   <div id="dashboard">
     <div class="container">
-      <div class="text-center">
+      <div class="text-center mb-5">
         <div class="btn-group" role="group">
-          <router-link to="dashboard/plan" class="btn btn-md btn-success">Your Plan</router-link>
+          <router-link to="/dashboard/plan" class="btn btn-md btn-success">Your Plan</router-link>
 
           <router-link to="" class="btn btn-md btn-success">Calendar</router-link>
         </div>
@@ -25,6 +25,6 @@ export default {
 @import '../assets/scss/mixins.scss';
 
 #dashboard {
-  padding-top: $size-base * 10;
+  padding-top: $size-base * 8;
 }
 </style>
