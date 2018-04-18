@@ -89,10 +89,6 @@ export default {
 @import '../../assets/scss/mixins.scss';
 
 .list-workout {
-  img {
-    max-width: $size-base * 16;
-  }
-
   thead {
     tr {
       th {

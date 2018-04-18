@@ -84,6 +84,6 @@ export default {
 @import '../../assets/scss/variables.scss';
 @import '../../assets/scss/mixins.scss';
   h1 {
-    margin-bottom: $size-base * 20;
+    margin-bottom: $size-base * 2;
   }
 </style>

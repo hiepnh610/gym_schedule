@@ -108,6 +108,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
 @import '../../assets/scss/mixins.scss';
 
 #sign-up-page {
@@ -121,7 +122,7 @@ export default {
     height: 100%;
     left: 0;
     min-height: 100%;
-    padding: 60px 0;
+    padding: $size-base * 4 0;
     position: absolute;
     right: 0;
     top: 0;
@@ -145,7 +146,7 @@ export default {
     left: 50%;
     position: absolute;
     top: 50%;
-    width: 400px;
+    width: $size-base * 30;
     z-index: 1;
     @include translate(-50%, -50%);
 
