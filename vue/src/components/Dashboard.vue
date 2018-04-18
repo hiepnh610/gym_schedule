@@ -13,7 +13,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/variables.scss';
+@import '../assets/scss/mixins.scss';
+
 #dashboard {
-  padding-top: 120px;
+  padding-top: $size-base * 10;
 }
 </style>

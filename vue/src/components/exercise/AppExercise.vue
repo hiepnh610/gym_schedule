@@ -1,6 +1,13 @@
 <template>
   <div class="text-center">
     <h1 class="text-center">{{ exerciseName }}</h1>
+
+    <a href="" class="btn btn-md btn-success" @click.prevent="createExercise">
+      <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
+      Create Exercise
+    </a>
+
+    <app-exercise-create></app-exercise-create>
   </div>
 </template>
 
@@ -8,8 +15,12 @@
 import axios from 'axios'
 import config from '@/config'
 
+import AppExerciseCreate from './AppExerciseCreate.vue'
+
 export default {
   name: 'AppPlan',
+
+  components: { AppExerciseCreate },
 
   data () {
     return {
@@ -38,6 +49,13 @@ export default {
           this.errContent = 'Error happened.'
         }
       }.bind(this))
+  },
+
+  methods: {
+    createExercise () {
+      this.$store.dispatch('setShowBackgroundModal', true)
+      this.$store.dispatch('setShowCreateModal', true)
+    }
   }
 }
 </script>
@@ -46,6 +64,6 @@ export default {
 @import '../../assets/scss/variables.scss';
 @import '../../assets/scss/mixins.scss';
   h1 {
-    margin-bottom: $size-base * 20;
+    margin-bottom: $size-base * 2;
   }
 </style>

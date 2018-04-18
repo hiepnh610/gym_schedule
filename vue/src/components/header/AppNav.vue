@@ -61,9 +61,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+
 .main-menu {
   left: 0;
-  padding: 20px 0;
+  padding: $size-base * 1.25 0;
   position: absolute;
   top: 0;
   width: 100%;
@@ -78,7 +81,7 @@ export default {
       margin: 0;
 
       a {
-        color: #fff;
+        color: $white-color;
         text-transform: uppercase;
 
         &:hover {
@@ -90,7 +93,7 @@ export default {
 
   a {
     &:hover {
-      color: #fff;
+      color: $white-color;
       cursor: pointer;
       text-decoration: none;
     }

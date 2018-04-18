@@ -39,7 +39,7 @@
             <div class="form-group text-center m-b-0">
               <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planCreate">Submit</button>
 
-              <button href="dashboard" class="btn btn-md btn-light" @click.prevent="closeModal">Cancel</button>
+              <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>

@@ -27,7 +27,7 @@
             <div class="form-group text-center m-b-0">
               <button class="btn btn-md btn-success" @click.prevent="workoutUpdate(dataWorkoutOrigin._id)">Submit</button>
 
-              <button class="btn btn-md btn-light" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>
@@ -106,10 +106,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
-  h1 {
-    margin-bottom: $size-base * 20;
-  }
-</style>
+<style lang="scss"></style>

@@ -85,6 +85,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+
 #login-page {
   &:before {
     background-image: url('../../assets/images/login-bg.jpg');
@@ -96,7 +99,7 @@ export default {
     height: 100%;
     left: 0;
     min-height: 100%;
-    padding: 60px 0;
+    padding: $size-base * 4 0;
     position: absolute;
     right: 0;
     top: 0;
@@ -121,7 +124,7 @@ export default {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: $size-base * 30;
     z-index: 1;
 
     label {
