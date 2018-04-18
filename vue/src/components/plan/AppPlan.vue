@@ -1,10 +1,10 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center">Plan</h1>
+    <h1 class="text-center mb-5">Plan</h1>
 
     <app-list-plans v-if="listPlans.length > 0"></app-list-plans>
 
-    <p v-if="listPlans.length === 0" class="align-center text-muted">Please create a plan from the under button.</p>
+    <p v-if="listPlans.length === 0" class="align-center text-muted mb-5">Please create a plan from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createPlan">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
@@ -66,10 +66,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
-  h1 {
-    margin-bottom: $size-base * 2;
-  }
-</style>
+<style lang="scss"></style>

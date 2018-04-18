@@ -23,7 +23,7 @@ import '@/assets/scss/form.scss'
 import '@/assets/scss/table.scss'
 
 const Options = {
-  duration: 2000,
+  duration: 5000,
   iconPack: 'fontawesome',
   position: 'top-right',
   theme: 'primary'
