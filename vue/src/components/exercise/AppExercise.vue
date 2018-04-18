@@ -2,9 +2,11 @@
   <div class="text-center">
     <h1 class="text-center">{{ exerciseName }}</h1>
 
+    <p class="align-center text-muted">Please add some exercies from the under button.</p>
+
     <a href="" class="btn btn-md btn-success" @click.prevent="createExercise">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
-      Create Exercise
+      Add Exercise
     </a>
 
     <app-exercise-create></app-exercise-create>

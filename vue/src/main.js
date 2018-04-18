@@ -18,7 +18,6 @@ import 'font-awesome/css/font-awesome.min.css'
 import 'animate.css/animate.min.css'
 
 import '@/assets/scss/config.scss'
-import '@/assets/scss/helper.scss'
 import '@/assets/scss/modal.scss'
 import '@/assets/scss/form.scss'
 import '@/assets/scss/table.scss'

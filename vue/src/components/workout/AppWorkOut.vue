@@ -2,9 +2,11 @@
   <div class="text-center">
     <h1 class="text-center">{{ planName }}</h1>
 
-    <app-list-workout></app-list-workout>
+    <app-list-workout v-if="listWorkouts.length > 0"></app-list-workout>
 
-    <a href="" class="btn btn-md btn-success" @click.prevent="createWorkout">
+    <p v-if="listWorkouts.length === 0" class="align-center text-muted">Please create a workout day from the under button.</p>
+
+    <a href="" class="btn btn-md btn-success" @click.prevent="createWorkout" v-if="displayBtn">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
       Create Workout Day
     </a>
@@ -31,7 +33,8 @@ export default {
 
   data () {
     return {
-      planName: ''
+      planName: '',
+      planFrequency: ''
     }
   },
 
@@ -68,6 +71,7 @@ export default {
       })
       .then(function (response) {
         this.planName = response.data[0].name
+        this.planFrequency = response.data[0].frequency
       }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
@@ -76,6 +80,18 @@ export default {
           this.errContent = 'Error happened.'
         }
       }.bind(this))
+  },
+
+  computed: {
+    listWorkouts () {
+      return this.$store.getters.listWorkout
+    },
+
+    displayBtn () {
+      if (this.listWorkouts.length < this.planFrequency) {
+        return true
+      }
+    }
   }
 }
 </script>

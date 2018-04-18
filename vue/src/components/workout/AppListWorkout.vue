@@ -1,5 +1,5 @@
 <template>
-  <div class="row" v-if="getListWorkout.length > 0">
+  <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
       <table class="table table-striped table-bordered table-hover text-center list-workout">
         <thead class="thead-dark">
@@ -19,9 +19,9 @@
             <td>{{ workout.week_day }}</td>
 
             <td>
-              <a href="" class="btn btn-sm btn-secondary m-r-5" @click.prevent="updateWorkout(workout)">Edit</a>
+              <a href="" class="btn btn-sm btn-secondary mr-1" @click.prevent="updateWorkout(workout)">Edit</a>
 
-              <a href="" class="btn btn-sm btn-danger" @click="deleteWorkout(workout._id)">Delete</a>
+              <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteWorkout(workout._id)">Delete</a>
             </td>
           </tr>
         </tbody>

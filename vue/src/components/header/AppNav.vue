@@ -1,32 +1,32 @@
 <template>
-  <nav class="main-menu" :class="{'dark-menu': isLogin}">
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-12 col-lg-6 offset-lg-3">
-          <div class="main-logo">
-            <h1>
-              <a href="/">
-                Gym Schedule
-              </a>
-            </h1>
-          </div>
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Gym Schedule</a>
 
-        <div class="col-12 col-lg-3 pull-right m-t-10">
-          <span v-if="!isLogin">
-            <a href="/sign-up" class="text-white">Sign Up</a>
-            <span class="text-white">/</span>
-            <a href="/" class="text-white">Login</a>
-          </span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-          <span v-else>
-            <span class="text-white m-r-10" v-text="nameDisplay"></span>
+      <div class="collapse navbar-collapse" id="main-nav">
+        <ul class="navbar-nav mr-auto" v-if="!isLogin">
+          <li class="nav-item">
+            <a class="nav-link" href="/sign-up">Sign Up</a>
+          </li>
 
-            <a class="text-white" @click="logout">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Login</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto pull-right" v-else>
+          <li class="nav-item">
+            <span class="text-white mr-2" v-text="nameDisplay"></span>
+
+            <a class="nav-link" href="#" @click.prevent="logout">
               <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
             </a>
-          </span>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -60,43 +60,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
-
-.main-menu {
-  left: 0;
-  padding: $size-base * 1.25 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-
-  &.dark-menu {
-    background: rgba(#000, .8);
-  }
-
-  .main-logo {
-    h1 {
-      margin: 0;
-
-      a {
-        color: $white-color;
-        text-transform: uppercase;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
-  }
-
-  a {
-    &:hover {
-      color: $white-color;
-      cursor: pointer;
-      text-decoration: none;
-    }
-  }
-}
-</style>
+<style lang="scss"></style>

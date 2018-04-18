@@ -1,6 +1,14 @@
 <template>
   <div id="dashboard">
     <div class="container">
+      <div class="text-center">
+        <div class="btn-group" role="group">
+          <router-link to="dashboard/plan" class="btn btn-md btn-success">Your Plan</router-link>
+
+          <router-link to="" class="btn btn-md btn-success">Calendar</router-link>
+        </div>
+      </div>
+
       <router-view></router-view>
     </div>
   </div>

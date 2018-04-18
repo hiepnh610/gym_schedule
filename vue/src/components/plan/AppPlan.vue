@@ -1,8 +1,10 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center">Workout</h1>
+    <h1 class="text-center">Plan</h1>
 
-    <app-list-plans></app-list-plans>
+    <app-list-plans v-if="listPlans.length > 0"></app-list-plans>
+
+    <p v-if="listPlans.length === 0" class="align-center text-muted">Please create a plan from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createPlan">
       <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
@@ -54,6 +56,12 @@ export default {
           this.errContent = 'Error happened.'
         }
       }.bind(this))
+  },
+
+  computed: {
+    listPlans () {
+      return this.$store.getters.listPlans
+    }
   }
 }
 </script>

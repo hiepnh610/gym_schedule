@@ -24,7 +24,7 @@
               </select>
             </div>
 
-            <div class="form-group text-center m-b-0">
+            <div class="form-group text-center mb-0">
               <button class="btn btn-md btn-success" @click.prevent="workoutUpdate(dataWorkoutOrigin._id)">Submit</button>
 
               <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
