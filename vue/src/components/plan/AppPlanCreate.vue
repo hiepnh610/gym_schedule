@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <h2 class="text-center m-b-25 text-success">Plan Information</h2>
+          <h2 class="text-center mb-4 text-success">Plan Information</h2>
 
           <form>
             <div class="form-group">
@@ -36,7 +36,7 @@
               </select>
             </div>
 
-            <div class="form-group text-center m-b-0">
+            <div class="form-group text-center mb-0">
               <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planCreate">Submit</button>
 
               <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>

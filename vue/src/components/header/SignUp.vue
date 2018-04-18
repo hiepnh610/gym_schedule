@@ -7,9 +7,9 @@
             <div class="form-group">
               <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-              <p v-show="errors.has('email')" class="text-white m-t-10">{{ errors.first('email') }}</p>
+              <p v-show="errors.has('email')" class="text-white mt-2">{{ errors.first('email') }}</p>
 
-              <p v-show="isError" class="text-white m-t-10">{{ errContent }}</p>
+              <p v-show="isError" class="text-white mt-2">{{ errContent }}</p>
             </div>
 
             <div class="form-group">
@@ -19,13 +19,13 @@
             <div class="form-group">
               <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
 
-              <p v-show="errors.has('password')" class="text-white m-t-10">{{ errors.first('password') }}</p>
+              <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
             </div>
 
             <div class="form-group">
               <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
 
-              <p v-show="errors.has('re-password')" class="text-white m-t-10">{{ errors.first('re-password') }}</p>
+              <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
             </div>
 
             <div class="form-group text-center">
