@@ -13,8 +13,11 @@ import router from './router'
 import App from './components/App'
 import store from '@/store/index'
 
+import fontawesome from '@fortawesome/fontawesome'
+import brands from '@fortawesome/fontawesome-free-brands'
+import { faSpinner } from '@fortawesome/fontawesome-free-solid'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'font-awesome/css/font-awesome.min.css'
 import 'animate.css/animate.min.css'
 
 import '@/assets/scss/config.scss'
@@ -36,6 +39,8 @@ Vue.use(VueCookie)
 Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, Options)
 Vue.config.productionTip = false
+
+fontawesome.library.add(brands, faSpinner)
 
 /* eslint-disable no-new */
 new Vue({
