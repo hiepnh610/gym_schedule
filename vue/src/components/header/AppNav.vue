@@ -23,7 +23,7 @@
             <span class="text-white mr-2" v-text="nameDisplay"></span>
 
             <a class="nav-link" href="#" @click.prevent="logout">
-              <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
+              <font-awesome-icon icon="sign-out-alt" />
             </a>
           </li>
         </ul>
@@ -33,8 +33,14 @@
 </template>
 
 <script>
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+
 export default {
   name: 'AppNav',
+
+  components: {
+    FontAwesomeIcon
+  },
 
   data () {
     return {
