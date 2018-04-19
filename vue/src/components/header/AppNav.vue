@@ -1,14 +1,14 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Gym Schedule</a>
+      <a class="navbar-brand text-uppercase" href="#">Gym Schedule</a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="main-nav">
-        <ul class="navbar-nav mr-auto" v-if="!isLogin">
+      <div class="collapse navbar-collapse" id="main-nav" v-if="!isLogin">
+        <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="/sign-up">Sign Up</a>
           </li>
@@ -17,16 +17,14 @@
             <a class="nav-link" href="/">Login</a>
           </li>
         </ul>
+      </div>
 
-        <ul class="navbar-nav mr-auto pull-right" v-else>
-          <li class="nav-item">
-            <span class="text-white mr-2" v-text="nameDisplay"></span>
+      <div class="pull-right" v-else>
+        <span class="text-white mr-2" v-text="nameDisplay"></span>
 
-            <a class="nav-link" href="#" @click.prevent="logout">
-              <font-awesome-icon icon="sign-out-alt" />
-            </a>
-          </li>
-        </ul>
+        <a href="#" class="text-white" @click.prevent="logout">
+          <font-awesome-icon icon="sign-out-alt" />
+        </a>
       </div>
     </div>
   </nav>
