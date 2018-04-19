@@ -38,9 +38,7 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 export default {
   name: 'AppNav',
 
-  components: {
-    FontAwesomeIcon
-  },
+  components: { FontAwesomeIcon },
 
   data () {
     return {

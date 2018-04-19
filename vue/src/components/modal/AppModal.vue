@@ -3,7 +3,9 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+          <div class="text-success mb-3">
+            <font-awesome-icon icon="check-circle" />
+          </div>
 
           <h2>Welcome!</h2>
 
@@ -19,8 +21,12 @@
 </template>
 
 <script>
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+
 export default {
   name: 'AppModal',
+
+  components: { FontAwesomeIcon },
 
   props: ['isSuccess', 'isSignUp'],
 
@@ -31,4 +37,10 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+
+svg {
+  font-size: $size-base * 4;
+}
+</style>

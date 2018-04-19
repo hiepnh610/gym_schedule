@@ -7,7 +7,7 @@
     <p v-if="listWorkouts.length === 0" class="align-center text-muted mb-5">Please create a workout day from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createWorkout" v-if="displayBtn">
-      <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
+      <font-awesome-icon icon="plus-circle" />
       Create Workout Day
     </a>
 
@@ -18,6 +18,7 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 import AppWorkoutCreate from './AppWorkoutCreate.vue'
 import AppListWorkout from './AppListWorkout.vue'
@@ -25,7 +26,7 @@ import AppListWorkout from './AppListWorkout.vue'
 export default {
   name: 'AppWorkout',
 
-  components: { AppWorkoutCreate, AppListWorkout },
+  components: { AppWorkoutCreate, AppListWorkout, FontAwesomeIcon },
 
   props: {
     id: { type: String }

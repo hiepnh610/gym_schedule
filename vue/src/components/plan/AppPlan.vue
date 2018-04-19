@@ -7,7 +7,7 @@
     <p v-if="listPlans.length === 0" class="align-center text-muted mb-5">Please create a plan from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createPlan">
-      <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
+      <font-awesome-icon icon="plus-circle" />
       Create Plan
     </a>
 
@@ -18,6 +18,7 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 import AppPlanCreate from './AppPlanCreate.vue'
 import AppListPlans from './AppListPlans.vue'
@@ -25,7 +26,7 @@ import AppListPlans from './AppListPlans.vue'
 export default {
   name: 'AppPlan',
 
-  components: { AppPlanCreate, AppListPlans },
+  components: { AppPlanCreate, AppListPlans, FontAwesomeIcon },
 
   data () {
     return {

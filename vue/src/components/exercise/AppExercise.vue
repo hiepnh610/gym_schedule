@@ -5,7 +5,7 @@
     <p class="align-center text-muted mb-5">Please add some exercies from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createExercise">
-      <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
+      <font-awesome-icon icon="plus-circle" />
       Add Exercise
     </a>
 
@@ -16,13 +16,14 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 import AppExerciseCreate from './AppExerciseCreate.vue'
 
 export default {
   name: 'AppPlan',
 
-  components: { AppExerciseCreate },
+  components: { AppExerciseCreate, FontAwesomeIcon },
 
   data () {
     return {
