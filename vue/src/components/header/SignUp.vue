@@ -30,7 +30,7 @@
 
             <div class="form-group text-center">
               <button class="btn btn-md btn-success" :disabled="disabledBtn">
-                <i class="fa fa-fw fa-spinner fa-spin" aria-hidden="true" v-if="disabledBtn"></i>
+                <font-awesome-icon icon="spinner" spin v-if="disabledBtn" />
                 Sign Up
               </button>
             </div>
@@ -46,12 +46,13 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 import AppNav from './AppNav.vue'
 import AppModal from '../modal/AppModal.vue'
 
 export default {
-  components: { AppNav, AppModal },
+  components: { AppNav, AppModal, FontAwesomeIcon },
 
   data () {
     return {
