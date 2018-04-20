@@ -20,7 +20,9 @@
       </div>
 
       <div class="pull-right" v-else>
-        <span class="text-white mr-2" v-text="nameDisplay"></span>
+        <router-link to="/settings" class="text-capitalize text-white mr-2">
+          <span v-text="nameDisplay"></span>
+        </router-link>
 
         <a href="#" class="text-white" @click.prevent="logout">
           <font-awesome-icon icon="sign-out-alt" />

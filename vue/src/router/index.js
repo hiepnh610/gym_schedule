@@ -12,25 +12,27 @@ import AppWorkout from '@/components/workout/AppWorkout'
 
 import AppExercise from '@/components/exercise/AppExercise'
 
+import profile from '@/components/settings/profile'
+
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '',
+      component: Login,
       name: 'Login',
-      component: Login
+      path: ''
     },
     {
-      path: '/sign-up',
+      component: SignUp,
       name: 'SignUp',
-      component: SignUp
+      path: '/sign-up'
     },
     {
-      path: '/dashboard',
-      name: 'DashBoard',
       component: DashBoard,
+      name: 'DashBoard',
+      path: '/dashboard',
       children: [
         {
           path: 'plan',
@@ -50,6 +52,11 @@ export default new Router({
           props: true
         }
       ]
+    },
+    {
+      component: profile,
+      name: 'profile',
+      path: '/settings'
     }
   ]
 })
