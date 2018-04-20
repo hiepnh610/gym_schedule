@@ -17,15 +17,15 @@ export default {
   components: { AppNav },
 
   beforeCreate () {
-    const isSession = this.$session.exists()
-    const urlPath = this.$route.path
+    const isAuthenticated = this.$session.exists()
+    const routePath = this.$route.path
 
-    if ((isSession && urlPath === '/sign-up') || (isSession && urlPath === '/')) {
-      this.$router.push('dashboard/plan')
+    if ((isAuthenticated && routePath === '/sign-up') || (isAuthenticated && routePath === '/')) {
+      this.$router.push('/dashboard')
     }
 
-    if (!isSession && urlPath === '/dashboard') {
-      this.$router.push('sign-up')
+    if (!isAuthenticated && routePath !== '/') {
+      this.$router.push('/sign-up')
     }
   },
 
