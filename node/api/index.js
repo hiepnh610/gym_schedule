@@ -18,6 +18,7 @@ router.route('/list_workout').get(workoutDay.listWorkout);
 router.route('/workout_day').get(workoutDay.getWorkoutDay).post(workoutDay.createWorkoutDay);
 router.route('/workout_day/:workout_day_id').put(workoutDay.updateWorkoutDay).delete(workoutDay.deleteWorkoutDay);
 
-router.route('/user/:user_id').put(user);
+router.route('/user').get(user.getInfo);
+router.route('/user/:user_id').put(user.updateInfo);
 
 module.exports = router;

@@ -2,12 +2,13 @@
 
 const domainAddress = 'http://localhost:3000'
 const api = {
-  sign_up: '/api/sign_up',
-  login: '/api/login',
   listPlans: '/api/list_plans',
+  listWorkout: '/api/list_workout',
+  login: '/api/login',
   plans: '/api/plans/',
-  workout: '/api/workout_day/',
-  listWorkout: '/api/list_workout'
+  sign_up: '/api/sign_up',
+  user: '/api/user',
+  workout: '/api/workout_day/'
 }
 
 module.exports = { api, domainAddress }
