@@ -82,8 +82,7 @@ export default {
         .then(function (response) {
           this.$store.dispatch('setShowBackgroundModal', false)
           this.$store.dispatch('setUpdatePlan', response.data)
-        }.bind(this))
-        .then(function () {
+
           this.$toasted.success('Update Successfully!!!')
         }.bind(this))
         .catch(function (error) {

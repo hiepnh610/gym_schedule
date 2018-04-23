@@ -7,7 +7,7 @@ const api = {
   login: '/api/login',
   plans: '/api/plans/',
   sign_up: '/api/sign_up',
-  user: '/api/user',
+  user: '/api/user/',
   workout: '/api/workout_day/'
 }
 
