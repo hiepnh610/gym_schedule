@@ -21,11 +21,11 @@ const updateInfo = (req, res) => {
 
         user.set({
             age: req.body.age,
-            fullName: req.body.fullName,
-            gender: req.body.gender,
-            height: req.body.height,
-            password: req.body.password,
-            weight: req.body.weight
+            fullName: req.body.fullName
+            // gender: req.body.gender,
+            // height: req.body.height,
+            // password: req.body.password,
+            // weight: req.body.weight
         });
 
         user.save((err, user) => {

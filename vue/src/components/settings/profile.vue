@@ -9,13 +9,13 @@
             <div class="form-group">
               <label for="profile-name">Full Name</label>
 
-              <input id="profile-name" type="text" class="form-control" />
+              <input id="profile-name" type="text" class="form-control" v-model="userInfo.name" />
             </div>
 
             <div class="form-group">
               <label for="profile-email">Email</label>
 
-              <input id="profile-email" type="text" class="form-control" disabled="disabled" />
+              <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
             </div>
 
             <div class="form-group">
@@ -40,19 +40,19 @@
             </div>
 
             <div class="form-group">
-              <label for="profile-height">Height</label>
+              <label for="profile-height">Height(cm)</label>
 
               <input id="profile-height" type="text" class="form-control" />
             </div>
 
             <div class="form-group">
-              <label for="profile-weight">Weight</label>
+              <label for="profile-weight">Weight(kg)</label>
 
               <input id="profile-weight" type="text" class="form-control" />
             </div>
 
             <div class="form-group text-center">
-              <button class="btn btn-md btn-success">
+              <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo.id)">
                 Update
                 <font-awesome-icon icon="save" />
               </button>
@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '@/config'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 export default {
@@ -74,13 +76,55 @@ export default {
 
   data () {
     return {
+      userInfo: {}
     }
   },
 
   methods: {
+    userUpdate (id) {
+      const params = {
+        email: this.userInfo.email,
+        fullName: this.userInfo.name
+      }
+
+      axios
+        .put(config.domainAddress + config.api.user + id, params)
+        .then(function () {
+          this.$toasted.success('Update Successfully!!!')
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+
+          this.$toasted.error('Error happened!!!')
+        }.bind(this))
+    }
   },
 
   created () {
+    axios
+      .get(config.domainAddress + config.api.user, {
+        params: {
+          id: this.$session.get('id')
+        }
+      })
+      .then(function (response) {
+        this.userInfo = {
+          email: response.data[0].email,
+          id: response.data[0]._id,
+          name: response.data[0].fullName
+        }
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
   }
 }
 </script>
