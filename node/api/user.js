@@ -11,7 +11,16 @@ const getInfo = (req, res) => {
     .exec(function (err, userInfo) {
        if(err) return res.status(400).send(err);
 
-       res.status(200).json(userInfo);
+       const newUserInfo = {
+           _id: userInfo[0]._id,
+           email: userInfo[0].email,
+           fullName: userInfo[0].fullName,
+           gender: userInfo[0].gender,
+           height: userInfo[0].height,
+           weight: userInfo[0].weight
+       };
+
+       res.status(200).json(newUserInfo);
     });
 };
 
@@ -21,11 +30,11 @@ const updateInfo = (req, res) => {
 
         user.set({
             age: req.body.age,
-            fullName: req.body.fullName
-            // gender: req.body.gender,
-            // height: req.body.height,
+            fullName: req.body.fullName,
+            gender: req.body.gender,
+            height: req.body.height,
             // password: req.body.password,
-            // weight: req.body.weight
+            weight: req.body.weight
         });
 
         user.save((err, user) => {
@@ -35,5 +44,7 @@ const updateInfo = (req, res) => {
         });
     });
 };
+
+const comparePassword = () => {}
 
 module.exports = { getInfo, updateInfo };

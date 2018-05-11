@@ -7,15 +7,15 @@
 
           <form>
             <div class="form-group">
-              <label for="profile-name">Full Name</label>
-
-              <input id="profile-name" type="text" class="form-control" v-model="userInfo.name" />
-            </div>
-
-            <div class="form-group">
               <label for="profile-email">Email</label>
 
               <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
+            </div>
+
+            <div class="form-group">
+              <label for="profile-name">Full Name</label>
+
+              <input id="profile-name" type="text" class="form-control" v-model="userInfo.name" />
             </div>
 
             <div class="form-group">
@@ -27,28 +27,22 @@
             <div class="form-group">
               <label for="profile-gender">Gender</label>
 
-              <select id="profile-gender" class="form-control">
+              <select id="profile-gender" class="form-control" v-model="userInfo.gender">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="profile-password">Password</label>
-
-              <input id="profile-password" type="password" class="form-control" />
-            </div>
-
-            <div class="form-group">
               <label for="profile-height">Height(cm)</label>
 
-              <input id="profile-height" type="text" class="form-control" />
+              <input id="profile-height" type="text" class="form-control" v-model="userInfo.height" />
             </div>
 
             <div class="form-group">
               <label for="profile-weight">Weight(kg)</label>
 
-              <input id="profile-weight" type="text" class="form-control" />
+              <input id="profile-weight" type="text" class="form-control" v-model="userInfo.weight" />
             </div>
 
             <div class="form-group text-center">
@@ -84,7 +78,10 @@ export default {
     userUpdate (id) {
       const params = {
         email: this.userInfo.email,
-        fullName: this.userInfo.name
+        fullName: this.userInfo.name,
+        gender: this.userInfo.gender,
+        height: this.userInfo.height,
+        weight: this.userInfo.weight
       }
 
       axios
@@ -113,9 +110,12 @@ export default {
       })
       .then(function (response) {
         this.userInfo = {
-          email: response.data[0].email,
-          id: response.data[0]._id,
-          name: response.data[0].fullName
+          email: response.data.email,
+          gender: response.data.gender,
+          height: response.data.height,
+          id: response.data._id,
+          name: response.data.fullName,
+          weight: response.data.weight
         }
       }.bind(this))
       .catch(function (error) {
