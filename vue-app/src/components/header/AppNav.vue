@@ -3,10 +3,6 @@
     <div class="container">
       <a class="navbar-brand text-uppercase" href="#">Gym Schedule</a>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
       <div class="collapse navbar-collapse" id="main-nav" v-if="!isLogin">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">

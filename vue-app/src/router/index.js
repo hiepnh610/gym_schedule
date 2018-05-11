@@ -12,7 +12,9 @@ import AppWorkout from '@/components/workout/AppWorkout'
 
 import AppExercise from '@/components/exercise/AppExercise'
 
-import profile from '@/components/settings/profile'
+import Settings from '@/components/Settings'
+
+import AppProfile from '@/components/settings/AppProfile'
 
 Vue.use(Router)
 
@@ -54,9 +56,16 @@ export default new Router({
       ]
     },
     {
-      component: profile,
-      name: 'profile',
-      path: '/settings'
+      component: Settings,
+      name: 'Settings',
+      path: '/settings',
+      children: [
+        {
+          path: 'profile',
+          name: 'AppProfile',
+          component: AppProfile
+        }
+      ]
     }
   ]
 })
