@@ -15,6 +15,7 @@ import AppExercise from '@/components/exercise/AppExercise'
 import Settings from '@/components/Settings'
 
 import AppProfile from '@/components/settings/AppProfile'
+import AppAccount from '@/components/settings/AppAccount'
 
 Vue.use(Router)
 
@@ -64,6 +65,11 @@ export default new Router({
           path: 'profile',
           name: 'AppProfile',
           component: AppProfile
+        },
+        {
+          path: 'account',
+          name: 'AppAccount',
+          component: AppAccount
         }
       ]
     }
