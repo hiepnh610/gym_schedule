@@ -20,12 +20,18 @@ export default {
     const isAuthenticated = this.$session.exists()
     const routePath = this.$route.path
 
-    if ((isAuthenticated && routePath === '/sign-up') || (isAuthenticated && routePath === '/')) {
-      this.$router.push('/dashboard')
-    }
+    if (isAuthenticated) {
+      if (routePath === '/sign-up' || routePath === '/') {
+        this.$router.push('/dashboard')
+      }
 
-    if (!isAuthenticated && routePath !== '/') {
-      this.$router.push('/sign-up')
+      if (routePath === '/settings') {
+        this.$router.push('/settings/profile')
+      }
+    } else {
+      if (routePath !== '/') {
+        this.$router.push('/sign-up')
+      }
     }
   },
 

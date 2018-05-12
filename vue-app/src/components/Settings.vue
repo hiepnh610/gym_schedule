@@ -18,7 +18,18 @@ import AppSidebar from './settings/AppSidebar.vue'
 export default {
   name: 'Settings',
 
-  components: { AppSidebar }
+  components: { AppSidebar },
+
+  created () {
+    const isAuthenticated = this.$session.exists()
+    const routePath = this.$route.path
+
+    if (isAuthenticated) {
+      if (routePath === '/settings') {
+        this.$router.push('/settings/profile')
+      }
+    }
+  }
 }
 </script>
 
