@@ -1,6 +1,8 @@
 <template>
   <div class="profile">
-    <h2 class="mb-5">Personal Profile</h2>
+    <h2>Personal Profile</h2>
+
+    <hr />
 
     <form>
       <div class="form-group">

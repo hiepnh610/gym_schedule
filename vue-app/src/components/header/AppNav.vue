@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand text-uppercase" href="#">Gym Schedule</a>
+      <a class="navbar-brand text-uppercase" href="/">Gym Schedule</a>
 
       <div class="collapse navbar-collapse" id="main-nav" v-if="!isLogin">
         <ul class="navbar-nav mr-auto">
@@ -16,7 +16,7 @@
       </div>
 
       <div class="pull-right" v-else>
-        <router-link to="/settings" class="text-capitalize text-white mr-2">
+        <router-link to="/settings/profile" class="text-capitalize text-white mr-2">
           <span v-text="nameDisplay"></span>
         </router-link>
 

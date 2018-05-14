@@ -1,6 +1,8 @@
 <template>
   <div class="account">
-    <h2 class="mb-5">Change password</h2>
+    <h2>Change password</h2>
+
+    <hr />
 
     <form>
       <div class="form-group">

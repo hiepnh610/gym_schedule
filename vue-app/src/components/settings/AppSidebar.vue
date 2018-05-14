@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group">
     <li class="list-group-item header">Personal settings</li>
-    <li class="list-group-item" v-for="setting in settingsName">
+    <li class="list-group-item" v-bind:key="setting" v-for="setting in settingsName">
       <router-link :to="/settings/ + setting" class="text-capitalize" :class="{ 'text-success': urlParam === setting, 'text-dark': urlParam !== setting }">{{ setting }}</router-link>
     </li>
   </ul>
