@@ -3,9 +3,17 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
-          <h2 class="text-center mb-4 text-success">Exercises</h2>
+          <h2 class="text-center text-success">Exercises</h2>
 
-          <div class="form-group">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque pariatur, quaerat ad. Atque at ipsa, eos delectus maxime, reiciendis quidem accusamus nemo quasi tempora officia, corrupti eum incidunt. Velit, numquam!</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="d-flex">
+                <img src="http://via.placeholder.com/75x75" class="rounded-0" />
+
+                <div class="body"> Benchpress with Barbell (Flat)</div>
+              </div>
+            </li>
+          </ul>
 
           <div class="form-group text-center mb-0 aligh-center">
             <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Close</button>
@@ -43,4 +51,24 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
+
+  .list-group {
+    max-height: 60vh;
+    margin-bottom: $size-base;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .list-group-item {
+      cursor: pointer;
+      padding-left: 0;
+      padding-right: 0;
+
+      img {
+        margin-right: $size-base;
+      }
+    }
+  }
+</style>
