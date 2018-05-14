@@ -21,4 +21,6 @@ router.route('/workout_day/:workout_day_id').put(workoutDay.updateWorkoutDay).de
 router.route('/user').get(user.getInfo);
 router.route('/user/:user_id').put(user.updateInfo);
 
+router.route('/modify_password/:user_id').put(user.modifyPassword);
+
 module.exports = router;

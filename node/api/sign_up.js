@@ -17,13 +17,11 @@ const signUp = (req, res) => {
     const user = new User({
         email: req.body.email,
         fullName: req.body.fullName,
-        password: req.body.password,
-        password_confirm: req.body.password
+        password: req.body.password
     });
 
     // Hash pass
     user.password = user.generateHash(user.password);
-    user.password_confirm = user.generateHash(user.password_confirm);
 
     user.save((err, user) => {
         if(err) {

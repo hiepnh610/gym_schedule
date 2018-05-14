@@ -71,7 +71,6 @@ export default {
   methods: {
     userUpdate (id) {
       const params = {
-        email: this.userInfo.email,
         fullName: this.userInfo.name,
         gender: this.userInfo.gender,
         height: this.userInfo.height,

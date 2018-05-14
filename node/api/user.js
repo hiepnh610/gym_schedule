@@ -3,6 +3,9 @@ const router  = express.Router();
 
 const User = require('../model/user');
 
+const comparePassword = User.schema.methods.comparePassword;
+const generateHash = User.schema.methods.generateHash;
+
 let user = {};
 
 const getInfo = (req, res) => {
@@ -40,11 +43,34 @@ const updateInfo = (req, res) => {
         user.save((err, user) => {
             if(err) return res.send(err);
 
-            res.status(200).json(user);
+            res.status(200).json({ message: 'Update Successfully!' });
         });
     });
 };
 
-const comparePassword = () => {}
+const modifyPassword = (req, res) => {
+    User.findById(req.params.user_id, (err, user) => {
+        if(err) return res.send(err);
 
-module.exports = { getInfo, updateInfo };
+        const current_password = req.body.current_password;
+        const compare_password = comparePassword(current_password, user.password);
+
+        if(compare_password) {
+            const new_password = generateHash(req.body.new_password);
+
+            user.set({
+                password: new_password
+            });
+
+            user.save((err, user) => {
+                if(err) return res.send(err);
+    
+                res.status(200).json({ message: 'Update Successfully!' });
+            });
+        } else {
+            res.status(400).json({ message: 'Current password does not match.' });
+        }
+    });
+}
+
+module.exports = { getInfo, updateInfo, modifyPassword };
