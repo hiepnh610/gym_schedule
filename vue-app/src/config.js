@@ -5,6 +5,7 @@ const api = {
   listPlans: '/api/list_plans',
   listWorkout: '/api/list_workout',
   login: '/api/login',
+  modifyPassword: '/api/modify_password/',
   plans: '/api/plans/',
   sign_up: '/api/sign_up',
   user: '/api/user/',

@@ -6,7 +6,7 @@
       <div class="form-group">
         <label for="profile-old-password">Old password</label>
 
-        <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.old_password" />
+        <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.current_password" />
       </div>
 
       <div class="form-group">
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '@/config'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 export default {
@@ -41,7 +43,37 @@ export default {
 
   data () {
     return {
-      userInfo: {}
+      userInfo: {
+        id: this.$session.get('id')
+      }
+    }
+  },
+
+  methods: {
+    userUpdate (id) {
+      if (this.userInfo.new_password === this.userInfo.confirm_new_password) {
+        const params = {
+          current_password: this.userInfo.current_password,
+          new_password: this.userInfo.new_password
+        }
+
+        axios
+          .put(config.domainAddress + config.api.modifyPassword + id, params)
+          .then(function () {
+            this.$toasted.success('Update Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.errContent = error.response.data.message
+            } else {
+              this.errContent = 'Error happened.'
+            }
+
+            this.$toasted.error('Error happened!!!')
+          }.bind(this))
+      } else {
+        this.$toasted.error('The password does not match.')
+      }
     }
   }
 }
