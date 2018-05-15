@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="profile-birthday">Birthday</label>
 
-        <input id="profile-birthday" type="text" class="form-control" />
+        <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
       </div>
 
       <div class="form-group">
@@ -45,7 +45,7 @@
       </div>
 
       <div class="form-group">
-        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo.id)">
+        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo)">
           Update
           <font-awesome-icon icon="save" />
         </button>
@@ -58,11 +58,13 @@
 import axios from 'axios'
 import config from '@/config'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import Datepicker from 'vuejs-datepicker'
+import moment from 'moment'
 
 export default {
   name: 'AppProfile',
 
-  components: { FontAwesomeIcon },
+  components: { FontAwesomeIcon, Datepicker },
 
   data () {
     return {
@@ -93,6 +95,10 @@ export default {
 
           this.$toasted.error('Error happened!!!')
         }.bind(this))
+    },
+
+    customFormatter (date) {
+      return moment(date).format('DD/MM/YYYY')
     }
   },
 
