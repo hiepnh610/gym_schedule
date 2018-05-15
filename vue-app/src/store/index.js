@@ -11,19 +11,24 @@ export default new Vuex.Store({
     listPlans: [],
     listWorkout: []
   },
+
   mutations: {
     showBackgroundModal: (state, data) => {
       state.showBackgroundModal = data
     },
+
     showCreateModal: (state, data) => {
       state.showCreateModal = data
     },
+
     showUpdateModal: (state, data) => {
       state.showUpdateModal = data
     },
+
     listPlans: (state, data) => {
       state.listPlans = data
     },
+
     deletePlan: (state, id) => {
       for (var i = 0; i < state.listPlans.length; i++) {
         if (state.listPlans[i]._id === id) {
@@ -31,9 +36,11 @@ export default new Vuex.Store({
         }
       }
     },
+
     createPlan: (state, data) => {
       state.listPlans.push(data)
     },
+
     updatePlan: (state, data) => {
       for (var i = 0; i < state.listPlans.length; i++) {
         if (state.listPlans[i]._id === data._id) {
@@ -43,9 +50,11 @@ export default new Vuex.Store({
         }
       }
     },
+
     listWorkout: (state, data) => {
       state.listWorkout = data
     },
+
     deleteWorkout: (state, id) => {
       for (var i = 0; i < state.listWorkout.length; i++) {
         if (state.listWorkout[i]._id === id) {
@@ -53,9 +62,11 @@ export default new Vuex.Store({
         }
       }
     },
+
     createWorkout: (state, data) => {
       state.listWorkout.push(data)
     },
+
     updateWorkout: (state, data) => {
       for (var i = 0; i < state.listWorkout.length; i++) {
         if (state.listWorkout[i]._id === data._id) {
@@ -65,57 +76,74 @@ export default new Vuex.Store({
       }
     }
   },
+
   actions: {
     setShowBackgroundModal: (context, data) => {
       context.commit('showBackgroundModal', data)
     },
+
     setShowCreateModal: (context, data) => {
       context.commit('showCreateModal', data)
     },
+
     setShowUpdateModal: (context, data) => {
       context.commit('showUpdateModal', data)
     },
+
     setListPlans: (context, data) => {
       context.commit('listPlans', data)
     },
+
     setDeletePlan: (context, data) => {
       context.commit('deletePlan', data)
     },
+
     setCreatePlan: (context, data) => {
       context.commit('createPlan', data)
     },
+
     setUpdatePlan: (context, data) => {
       context.commit('updatePlan', data)
     },
+
     setListWorkout: (context, data) => {
       context.commit('listWorkout', data)
     },
+
     setDeleteWorkout: (context, data) => {
       context.commit('deleteWorkout', data)
     },
+
     setCreateWorkout: (context, data) => {
       context.commit('createWorkout', data)
     },
+
     setUpdateWorkout: (context, data) => {
       context.commit('updateWorkout', data)
     }
   },
+
   getters: {
     showBackgroundModal: state => {
       return state.showBackgroundModal
     },
+
     showCreateModal: state => {
       return state.showCreateModal
     },
+
     showUpdateModal: state => {
       return state.showUpdateModal
     },
+
     listPlans: state => {
       return state.listPlans
     },
+
     listWorkout: state => {
       return state.listWorkout
     }
   },
+
   strict: process.env.NODE_ENV !== 'production'
 })
