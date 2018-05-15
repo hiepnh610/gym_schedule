@@ -13,8 +13,8 @@ const WorkoutDaySchema = new Schema({
         type: String
     },
     week_day: {
-        type: String,
-        unique: true
+        required: true,
+        type: String
     }
 }, { timestamps: { createdAt: 'created_at' }});
 
