@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="profile-birthday">Birthday</label>
 
-        <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
+        <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.age"></datepicker>
       </div>
 
       <div class="form-group">
@@ -45,7 +45,7 @@
       </div>
 
       <div class="form-group">
-        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo)">
+        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo.id)">
           Update
           <font-awesome-icon icon="save" />
         </button>
@@ -75,6 +75,7 @@ export default {
   methods: {
     userUpdate (id) {
       const params = {
+        age: this.userInfo.age,
         fullName: this.userInfo.name,
         gender: this.userInfo.gender,
         height: this.userInfo.height,
@@ -111,6 +112,7 @@ export default {
       })
       .then(function (response) {
         this.userInfo = {
+          age: response.data.age,
           email: response.data.email,
           gender: response.data.gender,
           height: response.data.height,
