@@ -10,19 +10,31 @@ let user = {};
 
 const getInfo = (req, res) => {
     User.find({ '_id': req.query.id })
-    .populate('_id')
+    // .populate('_id')
     .exec(function (err, userInfo) {
        if(err) return res.status(400).send(err);
 
-       const newUserInfo = {
-           _id: userInfo[0]._id,
-           age: userInfo[0].age,
-           email: userInfo[0].email,
-           fullName: userInfo[0].fullName,
-           gender: userInfo[0].gender,
-           height: userInfo[0].height,
-           weight: userInfo[0].weight
-       };
+        const newUserInfo = {
+            _id: userInfo[0]._id,
+            email: userInfo[0].email,
+            fullName: userInfo[0].fullName
+        };
+
+        if(userInfo[0].dob ) {
+            newUserInfo.dob = userInfo[0].dob
+        }
+
+        if(userInfo[0].gender ) {
+            newUserInfo.gender = userInfo[0].gender
+        }
+
+        if(userInfo[0].height ) {
+            newUserInfo.height = userInfo[0].height
+        }
+
+        if(userInfo[0].weight ) {
+            newUserInfo.weight = userInfo[0].weight
+        }
 
        res.status(200).json(newUserInfo);
     });
@@ -33,7 +45,7 @@ const updateInfo = (req, res) => {
         if(err) return res.send(err);
 
         user.set({
-            age: req.body.age,
+            dob: req.body.dob,
             fullName: req.body.fullName,
             gender: req.body.gender,
             height: req.body.height,
@@ -64,7 +76,7 @@ const modifyPassword = (req, res) => {
 
             user.save((err, user) => {
                 if(err) return res.send(err);
-    
+
                 res.status(200).json({ message: 'Update Successfully!' });
             });
         } else {

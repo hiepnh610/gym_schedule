@@ -14,13 +14,13 @@
       <div class="form-group">
         <label for="profile-name">Full Name</label>
 
-        <input id="profile-name" type="text" class="form-control" v-model="userInfo.name" />
+        <input id="profile-name" type="text" class="form-control" v-model="userInfo.fullName" />
       </div>
 
       <div class="form-group">
         <label for="profile-birthday">Birthday</label>
 
-        <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.age"></datepicker>
+        <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
       </div>
 
       <div class="form-group">
@@ -45,7 +45,7 @@
       </div>
 
       <div class="form-group">
-        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo.id)">
+        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo._id)">
           Update
           <font-awesome-icon icon="save" />
         </button>
@@ -74,12 +74,11 @@ export default {
 
   methods: {
     userUpdate (id) {
-      const params = {
-        age: this.userInfo.age,
-        fullName: this.userInfo.name,
-        gender: this.userInfo.gender,
-        height: this.userInfo.height,
-        weight: this.userInfo.weight
+      const formatTimeToUTC = moment.utc(this.userInfo.dob).format()
+      const params = this.userInfo
+
+      if (this.userInfo.dob) {
+        params.dob = formatTimeToUTC
       }
 
       axios
@@ -111,15 +110,7 @@ export default {
         }
       })
       .then(function (response) {
-        this.userInfo = {
-          age: response.data.age,
-          email: response.data.email,
-          gender: response.data.gender,
-          height: response.data.height,
-          id: response.data._id,
-          name: response.data.fullName,
-          weight: response.data.weight
-        }
+        this.userInfo = response.data
       }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
