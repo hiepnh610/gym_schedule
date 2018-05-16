@@ -16,6 +16,7 @@ const getInfo = (req, res) => {
 
        const newUserInfo = {
            _id: userInfo[0]._id,
+           age: userInfo[0].age,
            email: userInfo[0].email,
            fullName: userInfo[0].fullName,
            gender: userInfo[0].gender,
@@ -36,7 +37,6 @@ const updateInfo = (req, res) => {
             fullName: req.body.fullName,
             gender: req.body.gender,
             height: req.body.height,
-            // password: req.body.password,
             weight: req.body.weight
         });
 
