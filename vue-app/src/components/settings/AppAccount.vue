@@ -1,35 +1,39 @@
 <template>
   <div class="account">
-    <h2>Change password</h2>
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <h2 class="text-white">Change password</h2>
 
-    <hr />
+        <hr />
 
-    <form>
-      <div class="form-group">
-        <label for="profile-old-password">Old password</label>
+        <form>
+          <div class="form-group">
+            <label for="profile-old-password" class="text-white">Old password</label>
 
-        <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.current_password" />
+            <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.current_password" />
+          </div>
+
+          <div class="form-group">
+            <label for="profile-new-password" class="text-white">New password</label>
+
+            <input id="profile-new-password" type="password" class="form-control" v-model="userInfo.new_password" />
+          </div>
+
+          <div class="form-group">
+            <label for="profile-confirm-new-password" class="text-white">Confirm new password</label>
+
+            <input id="profile-confirm-new-password" type="password" class="form-control" v-model="userInfo.confirm_new_password" />
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo.id)">
+              Update password
+              <font-awesome-icon icon="save" />
+            </button>
+          </div>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label for="profile-new-password">New password</label>
-
-        <input id="profile-new-password" type="password" class="form-control" v-model="userInfo.new_password" />
-      </div>
-
-      <div class="form-group">
-        <label for="profile-confirm-new-password">Confirm new password</label>
-
-        <input id="profile-confirm-new-password" type="password" class="form-control" v-model="userInfo.confirm_new_password" />
-      </div>
-
-      <div class="form-group">
-        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo.id)">
-          Update password
-          <font-awesome-icon icon="save" />
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -81,5 +85,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+
+hr {
+  border-color: $hr-border-color;
+}
 </style>

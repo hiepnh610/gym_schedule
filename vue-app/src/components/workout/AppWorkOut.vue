@@ -1,10 +1,10 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center mb-5">{{ planName }}</h1>
+    <h1 class="text-center text-white mb-5">{{ planName }}</h1>
 
     <app-list-workout v-if="listWorkouts.length > 0"></app-list-workout>
 
-    <p v-if="listWorkouts.length === 0" class="align-center text-muted mb-5">Please create a workout day from the under button.</p>
+    <p v-if="listWorkouts.length === 0" class="align-center text-white mb-5">Please create a workout day from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createWorkout" v-if="displayBtn">
       <font-awesome-icon icon="plus-circle" />

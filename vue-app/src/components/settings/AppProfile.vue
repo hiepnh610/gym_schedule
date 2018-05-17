@@ -2,31 +2,31 @@
   <div class="profile">
     <div class="row">
       <div class="col-xs-12 col-md-8">
-        <h2>Personal Profile</h2>
+        <h2 class="text-white">Personal Profile</h2>
 
         <hr />
 
         <form>
           <div class="form-group">
-            <label for="profile-email">Email</label>
+            <label for="profile-email" class="text-white">Email</label>
 
             <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
           </div>
 
           <div class="form-group">
-            <label for="profile-name">Full Name</label>
+            <label for="profile-name" class="text-white">Full Name</label>
 
             <input id="profile-name" type="text" class="form-control" v-model="userInfo.fullName" />
           </div>
 
           <div class="form-group">
-            <label for="profile-birthday">Birthday</label>
+            <label for="profile-birthday" class="text-white">Birthday</label>
 
             <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
           </div>
 
           <div class="form-group">
-            <label for="profile-gender">Gender</label>
+            <label for="profile-gender" class="text-white">Gender</label>
 
             <select id="profile-gender" class="form-control" v-model="userInfo.gender">
               <option value="Male">Male</option>
@@ -35,13 +35,13 @@
           </div>
 
           <div class="form-group">
-            <label for="profile-height">Height(cm)</label>
+            <label for="profile-height" class="text-white">Height(cm)</label>
 
             <input id="profile-height" type="text" class="form-control" v-model="userInfo.height" />
           </div>
 
           <div class="form-group">
-            <label for="profile-weight">Weight(kg)</label>
+            <label for="profile-weight" class="text-white">Weight(kg)</label>
 
             <input id="profile-weight" type="text" class="form-control" v-model="userInfo.weight" />
           </div>
@@ -131,5 +131,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+
+hr {
+  border-color: $hr-border-color;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
-      <table class="table table-striped table-bordered table-hover text-center list-workout mb-5">
-        <thead class="thead-dark">
+      <table class="table table-bordered list-workout text-center mb-5">
+        <thead class="bg-success">
           <tr>
             <th>name</th>
             <th>week day</th>
@@ -13,7 +13,7 @@
         <tbody>
           <tr v-for="workout in getListWorkout">
             <td>
-              <router-link :to="'../exercise/' + workout._id" class="text-primary text-capitalize">{{ workout.name }}</router-link>
+              <router-link :to="'../exercise/' + workout._id" class="text-success text-capitalize">{{ workout.name }}</router-link>
             </td>
 
             <td>{{ workout.week_day }}</td>
@@ -89,9 +89,17 @@ export default {
 @import '../../assets/scss/mixins.scss';
 
 .list-workout {
+  border-style: dotted;
+  color: $table-plan-bg-color;
+
+  th, td {
+    border-style: dotted;
+  }
+
   thead {
     tr {
       th {
+        border-bottom-width: 1px;
         text-align: center;
       }
     }

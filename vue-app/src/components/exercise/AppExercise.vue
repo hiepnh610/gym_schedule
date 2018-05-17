@@ -1,8 +1,8 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center mb-5">{{ exerciseName }}</h1>
+    <h1 class="text-center text-white mb-5">{{ exerciseName }}</h1>
 
-    <p class="align-center text-muted mb-5">Please add some exercies from the under button.</p>
+    <p class="align-center text-white mb-5">Please add some exercies from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createExercise">
       <font-awesome-icon icon="plus-circle" />

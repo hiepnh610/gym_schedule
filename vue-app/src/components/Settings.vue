@@ -39,5 +39,36 @@ export default {
 
 #settings {
   padding-top: $size-base * 8;
+
+  &:before {
+    background-image: url('../assets/images/settings-bg.jpg');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: 0;
+    content: '';
+    height: 100%;
+    left: 0;
+    min-height: 100%;
+    padding: $size-base * 4 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &:after {
+    background: rgba(#000, .1);
+    bottom: 0;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
 }
 </style>

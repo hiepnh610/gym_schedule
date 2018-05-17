@@ -1,8 +1,8 @@
 <template>
   <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
-      <table class="table table-striped table-bordered table-hover list-plans text-center mb-5">
-        <thead class="thead-dark">
+      <table class="table table-bordered list-plans text-center mb-5">
+        <thead class="bg-success">
           <tr>
             <th>name</th>
             <th>type</th>
@@ -14,7 +14,7 @@
         <tbody>
           <tr v-for="plan in getListPlans">
             <td>
-              <router-link :to="'workout/' + plan._id" class="text-primary text-capitalize">{{ plan.name }}</router-link>
+              <router-link :to="'workout/' + plan._id" class="text-success text-capitalize">{{ plan.name }}</router-link>
             </td>
 
             <td>{{ plan.type }}</td>
@@ -95,9 +95,17 @@ export default {
 @import '../../assets/scss/mixins.scss';
 
 .list-plans {
+  border-style: dotted;
+  color: $table-plan-bg-color;
+
+  th, td {
+    border-style: dotted;
+  }
+
   thead {
     tr {
       th {
+        border-bottom-width: 1px;
         text-align: center;
       }
     }
