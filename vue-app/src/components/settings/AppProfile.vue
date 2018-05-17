@@ -56,7 +56,8 @@
       </div>
 
       <div class="col-xs-12 col-md-4">
-        <img :src="userInfo.avatar" alt="" class="rounded">
+        <h6 class="text-white">Profile picture</h6>
+        <img :src="userInfo.avatar" alt="" class="rounded border" />
       </div>
     </div>
   </div>
