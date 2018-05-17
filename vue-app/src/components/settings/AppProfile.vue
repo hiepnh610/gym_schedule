@@ -1,56 +1,64 @@
 <template>
   <div class="profile">
-    <h2>Personal Profile</h2>
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <h2>Personal Profile</h2>
 
-    <hr />
+        <hr />
 
-    <form>
-      <div class="form-group">
-        <label for="profile-email">Email</label>
+        <form>
+          <div class="form-group">
+            <label for="profile-email">Email</label>
 
-        <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
+            <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
+          </div>
+
+          <div class="form-group">
+            <label for="profile-name">Full Name</label>
+
+            <input id="profile-name" type="text" class="form-control" v-model="userInfo.fullName" />
+          </div>
+
+          <div class="form-group">
+            <label for="profile-birthday">Birthday</label>
+
+            <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
+          </div>
+
+          <div class="form-group">
+            <label for="profile-gender">Gender</label>
+
+            <select id="profile-gender" class="form-control" v-model="userInfo.gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="profile-height">Height(cm)</label>
+
+            <input id="profile-height" type="text" class="form-control" v-model="userInfo.height" />
+          </div>
+
+          <div class="form-group">
+            <label for="profile-weight">Weight(kg)</label>
+
+            <input id="profile-weight" type="text" class="form-control" v-model="userInfo.weight" />
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo._id)">
+              Update
+              <font-awesome-icon icon="save" />
+            </button>
+          </div>
+        </form>
       </div>
 
-      <div class="form-group">
-        <label for="profile-name">Full Name</label>
-
-        <input id="profile-name" type="text" class="form-control" v-model="userInfo.fullName" />
+      <div class="col-xs-12 col-md-4">
+        <img :src="userInfo.avatar" alt="" class="rounded">
       </div>
-
-      <div class="form-group">
-        <label for="profile-birthday">Birthday</label>
-
-        <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
-      </div>
-
-      <div class="form-group">
-        <label for="profile-gender">Gender</label>
-
-        <select id="profile-gender" class="form-control" v-model="userInfo.gender">
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="profile-height">Height(cm)</label>
-
-        <input id="profile-height" type="text" class="form-control" v-model="userInfo.height" />
-      </div>
-
-      <div class="form-group">
-        <label for="profile-weight">Weight(kg)</label>
-
-        <input id="profile-weight" type="text" class="form-control" v-model="userInfo.weight" />
-      </div>
-
-      <div class="form-group">
-        <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo._id)">
-          Update
-          <font-awesome-icon icon="save" />
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 

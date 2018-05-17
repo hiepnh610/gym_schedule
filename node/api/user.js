@@ -36,6 +36,10 @@ const getInfo = (req, res) => {
             newUserInfo.weight = userInfo[0].weight
         }
 
+        if(userInfo[0].avatar ) {
+            newUserInfo.avatar = userInfo[0].avatar
+        }
+
        res.status(200).json(newUserInfo);
     });
 };
@@ -85,4 +89,20 @@ const modifyPassword = (req, res) => {
     });
 }
 
-module.exports = { getInfo, updateInfo, modifyPassword };
+const updateAvatar = (req, res) => {
+    User.findById(req.params.user_id, (err, user) => {
+        if(err) return res.send(err);
+
+        user.set({
+            avatar: req.body.avatar
+        });
+
+        user.save((err, user) => {
+            if(err) return res.send(err);
+
+            res.status(200).json({ message: 'Update Successfully!' });
+        });
+    });
+}
+
+module.exports = { getInfo, updateInfo, modifyPassword, updateAvatar };

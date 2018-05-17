@@ -107,18 +107,6 @@ export default {
     width: 100%;
   }
 
-  &:after {
-    background: rgba(#000, .5);
-    bottom: 0;
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-  }
-
   #login-form {
     color: #fff;
     left: 50%;
