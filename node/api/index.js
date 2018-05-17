@@ -22,5 +22,6 @@ router.route('/user').get(user.getInfo);
 router.route('/user/:user_id').put(user.updateInfo);
 
 router.route('/modify_password/:user_id').put(user.modifyPassword);
+router.route('/avatar/:user_id').put(user.updateAvatar);
 
 module.exports = router;

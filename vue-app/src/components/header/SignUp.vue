@@ -131,7 +131,7 @@ export default {
   }
 
   &:after {
-    background: rgba(#000, .5);
+    background: rgba(#000, .05);
     bottom: 0;
     content: '';
     height: 100%;
