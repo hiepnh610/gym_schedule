@@ -2811,6 +2811,10 @@ double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
   resolved "https://registry.yarnpkg.com/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
 
+dropzone@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.4.0.tgz#3290c07f59b189eb5a11e99a58c9b2adae5acfec"
+
 duplexer2@^0.1.2, duplexer2@~0.1.0, duplexer2@~0.1.2:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer2/-/duplexer2-0.1.4.tgz#8b12dab878c0d69e3e7891051662a32fc6bddcc1"
@@ -9268,6 +9272,12 @@ vue-template-es2015-compiler@^1.6.0:
 vue-toasted@^1.1.24:
   version "1.1.24"
   resolved "https://registry.yarnpkg.com/vue-toasted/-/vue-toasted-1.1.24.tgz#715a371dfa490cc710ffedaaeae61fd8a8c4f7ad"
+
+vue2-dropzone@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/vue2-dropzone/-/vue2-dropzone-3.2.2.tgz#fcf1063a25f0206e92579b41d5caff97b9ca5661"
+  dependencies:
+    dropzone "^5.4.0"
 
 vue@^2.5.2:
   version "2.5.16"

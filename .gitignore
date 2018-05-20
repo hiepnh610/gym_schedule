@@ -2,6 +2,7 @@
 # http://git-scm.com/docs/gitignore
 
 vue/node_modules
+public/images/*
 .DS_Store
 node_modules/
 npm-debug.log*
