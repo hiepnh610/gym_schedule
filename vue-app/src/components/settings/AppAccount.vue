@@ -2,25 +2,25 @@
   <div class="account">
     <div class="row">
       <div class="col-12 col-md-8">
-        <h2 class="text-white">Change password</h2>
+        <h2>Change password</h2>
 
         <hr />
 
         <form>
           <div class="form-group">
-            <label for="profile-old-password" class="text-white">Old password</label>
+            <label for="profile-old-password">Old password</label>
 
             <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.current_password" />
           </div>
 
           <div class="form-group">
-            <label for="profile-new-password" class="text-white">New password</label>
+            <label for="profile-new-password">New password</label>
 
             <input id="profile-new-password" type="password" class="form-control" v-model="userInfo.new_password" />
           </div>
 
           <div class="form-group">
-            <label for="profile-confirm-new-password" class="text-white">Confirm new password</label>
+            <label for="profile-confirm-new-password">Confirm new password</label>
 
             <input id="profile-confirm-new-password" type="password" class="form-control" v-model="userInfo.confirm_new_password" />
           </div>

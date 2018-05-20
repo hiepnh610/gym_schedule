@@ -2,31 +2,31 @@
   <div class="profile">
     <div class="row">
       <div class="col-xs-12 col-md-8">
-        <h2 class="text-white">Personal Profile</h2>
+        <h2>Personal Profile</h2>
 
         <hr />
 
         <form>
           <div class="form-group">
-            <label for="profile-email" class="text-white">Email</label>
+            <label for="profile-email">Email</label>
 
             <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
           </div>
 
           <div class="form-group">
-            <label for="profile-name" class="text-white">Full Name</label>
+            <label for="profile-name">Full Name</label>
 
             <input id="profile-name" type="text" class="form-control" v-model="userInfo.fullName" />
           </div>
 
           <div class="form-group">
-            <label for="profile-birthday" class="text-white">Birthday</label>
+            <label for="profile-birthday">Birthday</label>
 
             <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
           </div>
 
           <div class="form-group">
-            <label for="profile-gender" class="text-white">Gender</label>
+            <label for="profile-gender">Gender</label>
 
             <select id="profile-gender" class="form-control" v-model="userInfo.gender">
               <option value="Male">Male</option>
@@ -35,20 +35,20 @@
           </div>
 
           <div class="form-group">
-            <label for="profile-height" class="text-white">Height(cm)</label>
+            <label for="profile-height">Height(cm)</label>
 
             <input id="profile-height" type="text" class="form-control" v-model="userInfo.height" />
           </div>
 
           <div class="form-group">
-            <label for="profile-weight" class="text-white">Weight(kg)</label>
+            <label for="profile-weight">Weight(kg)</label>
 
             <input id="profile-weight" type="text" class="form-control" v-model="userInfo.weight" />
           </div>
 
           <div class="form-group">
             <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo._id)">
-              Update
+              Update profile
               <font-awesome-icon icon="save" />
             </button>
           </div>
@@ -56,8 +56,15 @@
       </div>
 
       <div class="col-xs-12 col-md-4">
-        <h6 class="text-white">Profile picture</h6>
-        <img :src="userInfo.avatar" alt="" class="rounded border" />
+        <h6>Profile picture</h6>
+        <img :src="userInfo.avatar" alt="" class="rounded border mb-3" />
+
+        <label for="upload-avatar" class="btn btn-block btn-secondary upload-avatar-label">
+          Upload new picture
+          <input id="upload-avatar" type="file" @change="uploadAvatar" ref="uploadAvatar" />
+        </label>
+
+        <p v-if="showMessage" class="text-danger small text-center">{{ message }}</p>
       </div>
     </div>
   </div>
@@ -77,7 +84,9 @@ export default {
 
   data () {
     return {
-      userInfo: {}
+      userInfo: {},
+      message: '',
+      showMessage: false
     }
   },
 
@@ -108,6 +117,25 @@ export default {
 
     customFormatter (date) {
       return moment(date).format('DD/MM/YYYY')
+    },
+
+    uploadAvatar (e) {
+      const imageValue = e.target.files[0]
+      const limitSize = 1024000
+      const imageType = imageValue.type.replace('image/', '')
+
+      this.$refs.uploadAvatar.value = ''
+      this.message = ''
+
+      if (imageValue.size > limitSize) {
+        this.message = 'Please upload a picture smaller than 1 MB.'
+        this.showMessage = true
+      }
+
+      if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
+        this.message = 'We only support PNG or JPG pictures.'
+        this.showMessage = true
+      }
     }
   },
 
@@ -133,10 +161,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+  .upload-avatar-label {
+    cursor: pointer;
+    position: relative;
+  }
 
-hr {
-  border-color: $hr-border-color;
-}
+  #upload-avatar {
+    bottom: 0;
+    cursor: pointer;
+    font-size: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
 </style>
