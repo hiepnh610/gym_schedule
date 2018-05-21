@@ -57,7 +57,7 @@
 
       <div class="col-xs-12 col-md-4">
         <h6>Profile picture</h6>
-        <img :src="userInfo.avatar" alt="" class="rounded border mb-3" />
+        <img :src="`http://localhost:3000/` + userInfo.avatar.path" alt="" class="rounded border mb-3" v-if="userInfo.avatar" />
 
         <label for="upload-avatar" class="btn btn-block btn-secondary upload-avatar-label">
           Upload new picture
@@ -67,12 +67,12 @@
         <p v-if="showMessage" class="text-danger small text-center">{{ message }}</p>
       </div>
     </div>
-    
-    <div class="modal modal-success modal-xs fade" v-show="showImageModal" :class="{ 'show animated bounceIn': showImageModal }" :style="{ display: 'block' }">
+
+    <div class="modal modal-success modal-xs fade" v-show="showAvatarModal" :class="{ 'show animated bounceIn': showAvatarModal }" :style="{ display: 'block' }">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body text-center">
-            <img :src="imagePath" alt="" />
+            <img :src="avatarPath" alt="" />
           </div>
 
           <div class="modal-footer">
@@ -102,9 +102,9 @@ export default {
       userInfo: {},
       message: '',
       showMessage: false,
-      showImageModal: false,
-      imagePath: '',
-      imageValue: null
+      showAvatarModal: false,
+      avatarPath: '',
+      avatarValue: null
     }
   },
 
@@ -138,15 +138,15 @@ export default {
     },
 
     selectImage (e) {
-      this.imageValue = e.target.files[0]
+      this.avatarValue = e.target.files[0]
 
       const limitSize = 1024000
-      const imageType = this.imageValue.type.replace('image/', '')
+      const imageType = this.avatarValue.type.replace('image/', '')
 
       this.$refs.inputFile.value = ''
       this.message = ''
 
-      if (this.imageValue.size > limitSize) {
+      if (this.avatarValue.size > limitSize) {
         this.message = 'Please upload a picture smaller than 1 MB.'
         this.showMessage = true
         return
@@ -158,14 +158,14 @@ export default {
         return
       }
 
-      this.imagePath = URL.createObjectURL(this.imageValue)
+      this.avatarPath = URL.createObjectURL(this.avatarValue)
       this.$store.dispatch('setShowBackgroundModal', true)
-      this.showImageModal = true
+      this.showAvatarModal = true
     },
 
     closeModal () {
       this.$store.dispatch('setShowBackgroundModal', false)
-      this.showImageModal = false
+      this.showAvatarModal = false
     },
 
     uploadAvatar () {
@@ -174,12 +174,16 @@ export default {
       }
 
       let formData = new FormData()
-      formData.append('avatar', this.imageValue)
+      formData.append('avatar', this.avatarValue)
+      formData.append('userId', this.$session.getAll().id)
 
       axios
         .post(config.domainAddress + config.api.upload, formData, configHeader)
-        .then(function () {
-          this.$toasted.success('Update Successfully!!!')
+        .then(function (response) {
+          this.userInfo.avatar.path = response.data.path
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.showAvatarModal = false
+          this.$toasted.success('Upload Successfully!!!')
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
@@ -189,6 +193,8 @@ export default {
           }
 
           this.$toasted.error('Error happened!!!')
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.showAvatarModal = false
         }.bind(this))
     }
   },

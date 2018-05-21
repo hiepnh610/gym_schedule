@@ -1,11 +1,11 @@
 const express = require('express');
 const router  = express.Router();
 
-const plan       = require('./plan');
-const user       = require('./user');
-const login      = require('./login');
-const signUp     = require('./sign_up');
-const workoutDay = require('./workout_day');
+const plan        = require('./plan');
+const user        = require('./user');
+const login       = require('./login');
+const signUp      = require('./sign_up');
+const workoutDay  = require('./workout_day');
 const uploadImage = require('./upload');
 
 router.route('/login').post(login);
@@ -23,7 +23,6 @@ router.route('/user').get(user.getInfo);
 router.route('/user/:user_id').put(user.updateInfo);
 
 router.route('/modify_password/:user_id').put(user.modifyPassword);
-router.route('/avatar/:user_id').put(user.updateAvatar);
 
 router.route('/upload').post(uploadImage);
 

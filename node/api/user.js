@@ -89,20 +89,4 @@ const modifyPassword = (req, res) => {
     });
 }
 
-const updateAvatar = (req, res) => {
-    User.findById(req.params.user_id, (err, user) => {
-        if(err) return res.send(err);
-
-        user.set({
-            avatar: req.body.avatar
-        });
-
-        user.save((err, user) => {
-            if(err) return res.send(err);
-
-            res.status(200).json({ message: 'Update Successfully!' });
-        });
-    });
-}
-
-module.exports = { getInfo, updateInfo, modifyPassword, updateAvatar };
+module.exports = { getInfo, updateInfo, modifyPassword };
