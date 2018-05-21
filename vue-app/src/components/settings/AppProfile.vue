@@ -61,10 +61,25 @@
 
         <label for="upload-avatar" class="btn btn-block btn-secondary upload-avatar-label">
           Upload new picture
-          <input id="upload-avatar" type="file" @change="uploadAvatar" ref="uploadAvatar" />
+          <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" />
         </label>
 
         <p v-if="showMessage" class="text-danger small text-center">{{ message }}</p>
+      </div>
+    </div>
+    
+    <div class="modal modal-success modal-xs fade" v-show="showImageModal" :class="{ 'show animated bounceIn': showImageModal }" :style="{ display: 'block' }">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <img :src="imagePath" alt="" />
+          </div>
+
+          <div class="modal-footer">
+            <a href="" class="btn btn-md btn-success" @click.prevent="uploadAvatar">Save</a>
+            <a href="" class="btn btn-md btn-light" @click.prevent="closeModal">Close</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -86,7 +101,10 @@ export default {
     return {
       userInfo: {},
       message: '',
-      showMessage: false
+      showMessage: false,
+      showImageModal: false,
+      imagePath: '',
+      imageValue: null
     }
   },
 
@@ -119,23 +137,59 @@ export default {
       return moment(date).format('DD/MM/YYYY')
     },
 
-    uploadAvatar (e) {
-      const imageValue = e.target.files[0]
-      const limitSize = 1024000
-      const imageType = imageValue.type.replace('image/', '')
+    selectImage (e) {
+      this.imageValue = e.target.files[0]
 
-      this.$refs.uploadAvatar.value = ''
+      const limitSize = 1024000
+      const imageType = this.imageValue.type.replace('image/', '')
+
+      this.$refs.inputFile.value = ''
       this.message = ''
 
-      if (imageValue.size > limitSize) {
+      if (this.imageValue.size > limitSize) {
         this.message = 'Please upload a picture smaller than 1 MB.'
         this.showMessage = true
+        return
       }
 
       if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
         this.message = 'We only support PNG or JPG pictures.'
         this.showMessage = true
+        return
       }
+
+      this.imagePath = URL.createObjectURL(this.imageValue)
+      this.$store.dispatch('setShowBackgroundModal', true)
+      this.showImageModal = true
+    },
+
+    closeModal () {
+      this.$store.dispatch('setShowBackgroundModal', false)
+      this.showImageModal = false
+    },
+
+    uploadAvatar () {
+      const configHeader = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+
+      let formData = new FormData()
+      formData.append('avatar', this.imageValue)
+
+      axios
+        .post(config.domainAddress + config.api.upload, formData, configHeader)
+        .then(function () {
+          this.$toasted.success('Update Successfully!!!')
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+
+          this.$toasted.error('Error happened!!!')
+        }.bind(this))
     }
   },
 
