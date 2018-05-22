@@ -10,25 +10,25 @@
           <div class="form-group">
             <label for="profile-email">Email</label>
 
-            <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
+            <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="user.email" />
           </div>
 
           <div class="form-group">
             <label for="profile-name">Full Name</label>
 
-            <input id="profile-name" type="text" class="form-control" v-model="userInfo.fullName" />
+            <input id="profile-name" type="text" class="form-control" v-model="user.fullName" />
           </div>
 
           <div class="form-group">
             <label for="profile-birthday">Birthday</label>
 
-            <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
+            <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="user.dob"></datepicker>
           </div>
 
           <div class="form-group">
             <label for="profile-gender">Gender</label>
 
-            <select id="profile-gender" class="form-control" v-model="userInfo.gender">
+            <select id="profile-gender" class="form-control" v-model="user.gender">
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
@@ -37,17 +37,17 @@
           <div class="form-group">
             <label for="profile-height">Height(cm)</label>
 
-            <input id="profile-height" type="text" class="form-control" v-model="userInfo.height" />
+            <input id="profile-height" type="text" class="form-control" v-model="user.height" />
           </div>
 
           <div class="form-group">
             <label for="profile-weight">Weight(kg)</label>
 
-            <input id="profile-weight" type="text" class="form-control" v-model="userInfo.weight" />
+            <input id="profile-weight" type="text" class="form-control" v-model="user.weight" />
           </div>
 
           <div class="form-group">
-            <button class="btn btn-md btn-success" @click.prevent="userUpdate(userInfo._id)">
+            <button class="btn btn-md btn-success" @click.prevent="userUpdate(user._id)">
               Update profile
               <font-awesome-icon icon="save" />
             </button>
@@ -58,17 +58,17 @@
       <div class="col-xs-12 col-md-4">
         <h6>Profile picture</h6>
         <div>
-          <img :src="`http://localhost:3000/` + userInfo.avatar.path" alt="" class="rounded border mb-3" v-if="userInfo.avatar" />
+          <img :src="`http://localhost:3000/` + avatarLink" alt="" class="rounded border mb-3" v-if="avatarLink" />
 
           <img src="../../assets/images/avatar-default.png" alt="" class="rounded border mb-3" v-else />
         </div>
 
         <label for="upload-avatar" class="btn btn-block btn-secondary upload-avatar-label">
           Upload new picture
-          <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" />
+          <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" accept=".jpg, .jpeg, .png" />
         </label>
 
-        <p v-if="showMessage" class="text-danger small text-center">{{ message }}</p>
+        <p v-if="errorMessage" class="text-danger small text-center">{{ errorMessage }}</p>
       </div>
     </div>
 
@@ -76,7 +76,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body text-center">
-            <img :src="avatarPath" alt="" />
+            <img :src="avatarPathFake" alt="" />
           </div>
 
           <div class="modal-footer">
@@ -103,21 +103,21 @@ export default {
 
   data () {
     return {
-      userInfo: {},
-      message: '',
-      showMessage: false,
+      user: {},
+      errorMessage: '',
       showAvatarModal: false,
-      avatarPath: '',
-      avatarValue: null
+      avatarPathFake: '',
+      avatarValue: null,
+      avatarLink: ''
     }
   },
 
   methods: {
     userUpdate (id) {
-      const formatTimeToUTC = moment.utc(this.userInfo.dob).format()
-      const params = this.userInfo
+      const formatTimeToUTC = moment.utc(this.user.dob).format()
+      const params = this.user
 
-      if (this.userInfo.dob) {
+      if (this.user.dob) {
         params.dob = formatTimeToUTC
       }
 
@@ -148,21 +148,19 @@ export default {
       const imageType = this.avatarValue.type.replace('image/', '')
 
       this.$refs.inputFile.value = ''
-      this.message = ''
+      this.errorMessage = ''
 
       if (this.avatarValue.size > limitSize) {
-        this.message = 'Please upload a picture smaller than 1 MB.'
-        this.showMessage = true
+        this.errorMessage = 'Please upload a picture smaller than 1 MB.'
         return
       }
 
       if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
-        this.message = 'We only support PNG or JPG pictures.'
-        this.showMessage = true
+        this.errorMessage = 'We only support PNG or JPG pictures.'
         return
       }
 
-      this.avatarPath = URL.createObjectURL(this.avatarValue)
+      this.avatarPathFake = URL.createObjectURL(this.avatarValue)
       this.$store.dispatch('setShowBackgroundModal', true)
       this.showAvatarModal = true
     },
@@ -184,7 +182,7 @@ export default {
       axios
         .post(config.domainAddress + config.api.upload, formData, configHeader)
         .then(function (response) {
-          this.userInfo.avatar.path = response.data.path
+          this.avatarLink = response.data.avatar.path
           this.$store.dispatch('setShowBackgroundModal', false)
           this.showAvatarModal = false
           this.$toasted.success('Upload Successfully!!!')
@@ -211,7 +209,8 @@ export default {
         }
       })
       .then(function (response) {
-        this.userInfo = response.data
+        this.user = response.data
+        this.avatarLink = response.data.avatar ? response.data.avatar.path : ''
       }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
