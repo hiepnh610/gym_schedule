@@ -5,7 +5,8 @@ const mkdirp = require('mkdirp');
 const User = require('../model/user');
 
 const uploadPath = 'images';
-const multerConfig = {
+
+const storageConfig = {
     destination: (req, file, cb) => {
         cb(null, uploadPath);
     },
@@ -15,25 +16,25 @@ const multerConfig = {
     }
 };
 
-const storage = multer.diskStorage(multerConfig);
+const imageFilter = (req, file, next) => {
+    if(!file) next();
+
+    const image = file.mimetype.startsWith('image/');
+
+    if(image) {
+        next(null, true);
+    } else {
+        return next(new Error('Only image files are allowed!'), false);
+    }
+};
+
+const storage = multer.diskStorage(storageConfig);
 
 const upload = multer({
     storage: storage,
 
-    fileFilter: function(req, file, next) {
-        if(!file) next();
-
-        const image = file.mimetype.startsWith('image/');
-
-        if(image) {
-            next(null, true);
-        } else {
-            return next(new Error('Only image files are allowed!'), false);
-        }
-    }
+    fileFilter: imageFilter
 }).single('avatar');
-
-mkdirp.sync(uploadPath);
 
 const uploadImage = (req, res) => {
     upload(req, res, (err) => {
@@ -52,5 +53,7 @@ const uploadImage = (req, res) => {
         });
     })
 }
+
+mkdirp.sync(uploadPath);
 
 module.exports = uploadImage;

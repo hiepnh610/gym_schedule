@@ -49,7 +49,8 @@
           <div class="form-group">
             <button class="btn btn-md btn-success" @click.prevent="userUpdate(user._id)">
               Update profile
-              <font-awesome-icon icon="save" />
+              <font-awesome-icon icon="save" v-if="!updateInfoIsLoading" />
+              <font-awesome-icon icon="spinner" spin v-if="updateInfoIsLoading" />
             </button>
           </div>
         </form>
@@ -80,7 +81,10 @@
           </div>
 
           <div class="modal-footer">
-            <a href="" class="btn btn-md btn-success" @click.prevent="uploadAvatar">Save</a>
+            <a href="" class="btn btn-md btn-success" @click.prevent="uploadAvatar">
+              Save
+              <font-awesome-icon icon="spinner" spin v-if="updateAvatarIsLoading" />
+            </a>
             <a href="" class="btn btn-md btn-light" @click.prevent="closeModal">Close</a>
           </div>
         </div>
@@ -108,7 +112,9 @@ export default {
       showAvatarModal: false,
       avatarPathFake: '',
       avatarValue: null,
-      avatarLink: ''
+      avatarLink: '',
+      updateInfoIsLoading: false,
+      updateAvatarIsLoading: false
     }
   },
 
@@ -121,9 +127,12 @@ export default {
         params.dob = formatTimeToUTC
       }
 
+      this.updateInfoIsLoading = true
+
       axios
         .put(config.domainAddress + config.api.user + id, params)
         .then(function () {
+          this.updateInfoIsLoading = false
           this.$toasted.success('Update Successfully!!!')
         }.bind(this))
         .catch(function (error) {
@@ -133,6 +142,7 @@ export default {
             this.errContent = 'Error happened.'
           }
 
+          this.updateInfoIsLoading = false
           this.$toasted.error('Error happened!!!')
         }.bind(this))
     },
@@ -179,12 +189,16 @@ export default {
       formData.append('avatar', this.avatarValue)
       formData.append('userId', this.$session.getAll().id)
 
+      this.updateAvatarIsLoading = true
+
       axios
         .post(config.domainAddress + config.api.upload, formData, configHeader)
         .then(function (response) {
           this.avatarLink = response.data.avatar.path
-          this.$store.dispatch('setShowBackgroundModal', false)
+          this.updateAvatarIsLoading = false
           this.showAvatarModal = false
+
+          this.$store.dispatch('setShowBackgroundModal', false)
           this.$toasted.success('Upload Successfully!!!')
         }.bind(this))
         .catch(function (error) {
@@ -194,9 +208,11 @@ export default {
             this.errContent = 'Error happened.'
           }
 
-          this.$toasted.error('Error happened!!!')
-          this.$store.dispatch('setShowBackgroundModal', false)
+          this.updateAvatarIsLoading = false
           this.showAvatarModal = false
+
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.$toasted.error('Error happened!!!')
         }.bind(this))
     }
   },
