@@ -57,7 +57,11 @@
 
       <div class="col-xs-12 col-md-4">
         <h6>Profile picture</h6>
-        <img :src="`http://localhost:3000/` + userInfo.avatar.path" alt="" class="rounded border mb-3" v-if="userInfo.avatar" />
+        <div>
+          <img :src="`http://localhost:3000/` + userInfo.avatar.path" alt="" class="rounded border mb-3" v-if="userInfo.avatar" />
+
+          <img src="../../assets/images/avatar-default.png" alt="" class="rounded border mb-3" v-else />
+        </div>
 
         <label for="upload-avatar" class="btn btn-block btn-secondary upload-avatar-label">
           Upload new picture
