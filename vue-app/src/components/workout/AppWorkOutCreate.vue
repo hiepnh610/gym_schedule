@@ -3,6 +3,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
+          <h2 class="text-center mb-4 text-success">Workout Information</h2>
+
           <form>
             <div class="form-group">
               <label for="name-workout">Workout Day Name</label>
@@ -24,8 +26,13 @@
               </select>
             </div>
 
+            <p v-show="message" class="text-danger">{{ message }}</p>
+
             <div class="form-group text-center mb-0">
-              <button class="btn btn-md btn-success" @click.prevent="workoutCreate">Submit</button>
+              <button class="btn btn-md btn-success" @click.prevent="workoutCreate">
+                Submit
+                <font-awesome-icon icon="spinner" spin v-if="loading" />
+              </button>
 
               <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
@@ -39,14 +46,19 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 export default {
   name: 'AppWorkOutCreate',
 
+  components: { FontAwesomeIcon },
+
   data () {
     return {
       workoutName: '',
-      workoutDay: ''
+      workoutDay: '',
+      message: '',
+      loading: false
     }
   },
 
@@ -56,11 +68,25 @@ export default {
     },
 
     workoutCreate () {
+      if (!this.workoutName) {
+        this.message = 'The workout name cannot be blank.'
+
+        return
+      }
+
+      if (!this.workoutDay) {
+        this.message = 'The workout day cannot be blank.'
+
+        return
+      }
+
       const params = {
         name: this.workoutName,
         week_day: this.workoutDay,
         plan_id: this.$route.params.id
       }
+
+      this.loading = true
 
       axios
         .post(config.domainAddress + config.api.workout, params)
@@ -71,21 +97,23 @@ export default {
             week_day: response.data.week_day
           }
 
-          this.$store.dispatch('setShowBackgroundModal', false)
-          this.$store.dispatch('setCreateWorkout', dataItem)
+          this.loading = false
           this.workoutName = ''
           this.workoutDay = ''
+
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.$store.dispatch('setCreateWorkout', dataItem)
 
           this.$toasted.success('Create Successfully!!!')
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
+            this.message = error.response.data.message
           } else {
-            this.errContent = 'Error happened.'
+            this.$toasted.error('Error happened!!!')
           }
 
-          this.$toasted.error('Error happened!!!')
+          this.loading = false
         }.bind(this))
     }
   },

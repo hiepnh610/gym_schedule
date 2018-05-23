@@ -26,6 +26,10 @@ const getWorkoutDay = (req, res) => {
 };
 
 const createWorkoutDay = (req, res) => {
+    if (!req.body.name) return res.status(400).json({ 'message': 'The workout name cannot be blank.' });
+
+    if (!req.body.week_day) return res.status(400).json({ 'message': 'The workout day cannot be blank.' });
+
     workoutDay = new WorkoutDay({
         name: req.body.name,
         week_day: req.body.week_day,
@@ -40,6 +44,10 @@ const createWorkoutDay = (req, res) => {
 };
 
 const updateWorkoutDay = (req, res) => {
+    if (!req.body.name) return res.status(400).json({ 'message': 'The workout name cannot be blank.' });
+
+    if (!req.body.week_day) return res.status(400).json({ 'message': 'The workout day cannot be blank.' });
+
     WorkoutDay.findById(req.params.workout_day_id, (err, workout_day) => {
         if(err) return res.send(err);
 

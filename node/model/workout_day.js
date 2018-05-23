@@ -6,7 +6,8 @@ const Plan = require('./plan');
 const WorkoutDaySchema = new Schema({
     plan_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Plan'
+        ref: 'Plan',
+        required: true,
     },
     name: {
         required: true,

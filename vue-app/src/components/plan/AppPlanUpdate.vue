@@ -81,11 +81,23 @@ export default {
     },
 
     planUpdate (id) {
-      if (!this.namePlan) return this.message = 'The routine name cannot be blank.'
+      if (!this.namePlan) {
+        this.message = 'The routine name cannot be blank.'
 
-      if (!this.typePlan) return this.message = 'The type cannot be blank.'
+        return
+      }
 
-      if (!this.frequencyPlan) return this.message = 'The frequency cannot be blank.'
+      if (!this.typePlan) {
+        this.message = 'The type cannot be blank.'
+
+        return
+      }
+
+      if (!this.frequencyPlan) {
+        this.message = 'The frequency cannot be blank.'
+
+        return
+      }
 
       const params = {
         name: this.namePlan,

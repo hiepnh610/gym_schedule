@@ -3,6 +3,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
+          <h2 class="text-center mb-4 text-success">Workout Information</h2>
+
           <form>
             <div class="form-group">
               <label for="name-workout">Workout Day Name</label>
@@ -24,8 +26,13 @@
               </select>
             </div>
 
+            <p v-show="message" class="text-danger">{{ message }}</p>
+
             <div class="form-group text-center mb-0">
-              <button class="btn btn-md btn-success" @click.prevent="workoutUpdate(dataWorkoutOrigin._id)">Submit</button>
+              <button class="btn btn-md btn-success" @click.prevent="workoutUpdate(dataWorkoutOrigin._id)">
+                Submit
+                <font-awesome-icon icon="spinner" spin v-if="loading" />
+              </button>
 
               <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
@@ -39,16 +46,21 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 export default {
   name: 'AppWorkoutUpdate',
+
+  components: { FontAwesomeIcon },
 
   props: ['dataWorkoutOrigin'],
 
   data () {
     return {
       workoutName: '',
-      workoutDay: ''
+      workoutDay: '',
+      message: '',
+      loading: false
     }
   },
 
@@ -58,14 +70,30 @@ export default {
     },
 
     workoutUpdate (id) {
+      if (!this.workoutName) {
+        this.message = 'The workout name cannot be blank.'
+
+        return
+      }
+
+      if (!this.workoutDay) {
+        this.message = 'The workout day cannot be blank.'
+
+        return
+      }
+
       const params = {
         name: this.workoutName,
         week_day: this.workoutDay
       }
 
+      this.loading = true
+
       axios
         .put(config.domainAddress + config.api.workout + id, params)
         .then(function (response) {
+          this.loading = false
+
           this.$store.dispatch('setShowBackgroundModal', false)
           this.$store.dispatch('setUpdateWorkout', response.data)
 
@@ -75,10 +103,10 @@ export default {
           if (error.response && error.response.data && error.response.data.message) {
             this.errContent = error.response.data.message
           } else {
-            this.errContent = 'Error happened.'
+            this.$toasted.error('Error happened!!!')
           }
 
-          this.$toasted.error('Error happened!!!')
+          this.loading = false
         }.bind(this))
     }
   },
