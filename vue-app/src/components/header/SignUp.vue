@@ -26,7 +26,7 @@
               <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
             </div>
 
-            <p v-show="isError" class="text-white mt-2">{{ errContent }}</p>
+            <p v-show="errContent" class="text-white mt-2">{{ errContent }}</p>
 
             <div class="form-group text-center">
               <button class="btn btn-md btn-success" :disabled="disabledBtn">
@@ -60,7 +60,6 @@ export default {
       fullName: '',
       password: '',
       password_confirm: '',
-      isError: false,
       isSuccess: false,
       disabledBtn: false,
       errContent: ''
@@ -94,7 +93,6 @@ export default {
           }.bind(this))
           .catch(function (error) {
             this.disabledBtn = false
-            this.isError = true
 
             if (error.response && error.response.data && error.response.data.message) {
               this.errContent = error.response.data.message

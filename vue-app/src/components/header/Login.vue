@@ -16,6 +16,8 @@
               <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
             </div>
 
+            <p v-show="errContent" class="text-white mt-2">{{ errContent }}</p>
+
             <div class="form-group text-center">
               <button class="btn btn-md btn-success" :disabled="disabledBtn">
                 <font-awesome-icon icon="spinner" spin v-if="disabledBtn" />
@@ -47,7 +49,8 @@ export default {
       email: '',
       password: '',
       isSuccess: false,
-      disabledBtn: false
+      disabledBtn: false,
+      errContent: ''
     }
   },
 
@@ -77,7 +80,11 @@ export default {
           .catch(function (error) {
             this.disabledBtn = false
 
-            if (error) console.log(error.response.data)
+            if (error.response && error.response.data && error.response.data.message) {
+              this.errContent = error.response.data.message
+            } else {
+              this.errContent = 'Error happened.'
+            }
           }.bind(this))
       }
     }
