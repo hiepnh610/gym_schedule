@@ -45,6 +45,15 @@ const getInfo = (req, res) => {
 };
 
 const updateInfo = (req, res) => {
+
+    if (!req.body.fullName) return res.status(400).json({ message: 'The email cannot be blank.' });
+
+    if (typeof(req.body.height) !== Number) return res.status(400).json({ message: 'The height field must be a valid height.' });
+
+    if (typeof(req.body.weight) !== Number) return res.status(400).json({ message: 'The weight field must be a valid weight.' });
+
+    if (req.body.gender !== 'Male' || req.body.gender !== 'Female') return res.status(400).json({ message: 'The gender field must be a valid gender.' });
+
     User.findById(req.params.user_id, (err, user) => {
         if(err) return res.send(err);
 

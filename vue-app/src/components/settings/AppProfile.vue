@@ -53,6 +53,8 @@
               <font-awesome-icon icon="spinner" spin v-if="updateInfoIsLoading" />
             </button>
           </div>
+
+          <p v-show="message" class="text-white">{{ message }}</p>
         </form>
       </div>
 
@@ -69,7 +71,7 @@
           <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" accept=".jpg, .jpeg, .png" />
         </label>
 
-        <p v-if="errorMessage" class="text-danger small text-center">{{ errorMessage }}</p>
+        <p v-if="errorAvatar" class="text-danger small text-center">{{ errorAvatar }}</p>
       </div>
     </div>
 
@@ -107,14 +109,15 @@ export default {
 
   data () {
     return {
-      user: {},
-      errorMessage: '',
-      showAvatarModal: false,
+      avatarLink: '',
       avatarPathFake: '',
       avatarValue: null,
-      avatarLink: '',
+      errorAvatar: '',
+      message: '',
+      showAvatarModal: false,
+      updateAvatarIsLoading: false,
       updateInfoIsLoading: false,
-      updateAvatarIsLoading: false
+      user: {}
     }
   },
 
@@ -137,9 +140,7 @@ export default {
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
+            this.message = 'Error happened.'
           }
 
           this.updateInfoIsLoading = false
@@ -158,15 +159,15 @@ export default {
       const imageType = this.avatarValue.type.replace('image/', '')
 
       this.$refs.inputFile.value = ''
-      this.errorMessage = ''
+      this.errorAvatar = ''
 
       if (this.avatarValue.size > limitSize) {
-        this.errorMessage = 'Please upload a picture smaller than 1 MB.'
+        this.errorAvatar = 'Please upload a picture smaller than 1 MB.'
         return
       }
 
       if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
-        this.errorMessage = 'We only support PNG or JPG pictures.'
+        this.errorAvatar = 'We only support PNG or JPG pictures.'
         return
       }
 
@@ -203,9 +204,7 @@ export default {
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
+            this.message = 'Error happened.'
           }
 
           this.updateAvatarIsLoading = false
@@ -230,9 +229,9 @@ export default {
       }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
       }.bind(this))
   }
