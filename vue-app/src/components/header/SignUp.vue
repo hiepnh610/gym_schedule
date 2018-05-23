@@ -8,8 +8,6 @@
               <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
               <p v-show="errors.has('email')" class="text-white mt-2">{{ errors.first('email') }}</p>
-
-              <p v-show="isError" class="text-white mt-2">{{ errContent }}</p>
             </div>
 
             <div class="form-group">
@@ -27,6 +25,8 @@
 
               <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
             </div>
+
+            <p v-show="isError" class="text-white mt-2">{{ errContent }}</p>
 
             <div class="form-group text-center">
               <button class="btn btn-md btn-success" :disabled="disabledBtn">
