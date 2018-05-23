@@ -25,6 +25,13 @@ const getPlan = (req, res) => {
 };
 
 const createPlan = (req, res) => {
+
+    if (!req.body.name) return res.status(400).json({ 'message': 'The routine name cannot be blank.' });
+
+    if (!req.body.type) return res.status(400).json({ 'message': 'The type cannot be blank.' });
+
+    if (!req.body.frequency) return res.status(400).json({ 'message': 'The frequency cannot be blank.' });
+
     plan = new Plan({
         created_by: req.body.created_by,
         frequency: req.body.frequency,
@@ -40,6 +47,12 @@ const createPlan = (req, res) => {
 };
 
 const updatePlan = (req, res) => {
+    if (!req.body.name) return res.status(400).json({ 'message': 'The routine name cannot be blank.' });
+
+    if (!req.body.type) return res.status(400).json({ 'message': 'The type cannot be blank.' });
+
+    if (!req.body.frequency) return res.status(400).json({ 'message': 'The frequency cannot be blank.' });
+
     Plan.findById(req.params.plan_id, (err, plan) => {
         if(err) return res.send(err);
 

@@ -36,8 +36,13 @@
               </select>
             </div>
 
+            <p v-show="message" class="text-danger">{{ message }}</p>
+
             <div class="form-group text-center mb-0">
-              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planUpdate(dataPlanOrigin._id)">Update</button>
+              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planUpdate(dataPlanOrigin._id)">
+                Update
+                <font-awesome-icon icon="spinner" spin v-if="loading" />
+              </button>
 
               <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
@@ -51,9 +56,12 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 export default {
   name: 'AppPlanUpdate',
+
+  components: { FontAwesomeIcon },
 
   props: ['dataPlanOrigin'],
 
@@ -61,7 +69,9 @@ export default {
     return {
       namePlan: '',
       typePlan: '',
-      frequencyPlan: ''
+      frequencyPlan: '',
+      loading: false,
+      message: ''
     }
   },
 
@@ -71,15 +81,25 @@ export default {
     },
 
     planUpdate (id) {
+      if (!this.namePlan) return this.message = 'The routine name cannot be blank.'
+
+      if (!this.typePlan) return this.message = 'The type cannot be blank.'
+
+      if (!this.frequencyPlan) return this.message = 'The frequency cannot be blank.'
+
       const params = {
         name: this.namePlan,
         type: this.typePlan,
         frequency: this.frequencyPlan
       }
 
+      this.loading = true
+
       axios
         .put(config.domainAddress + config.api.plans + id, params)
         .then(function (response) {
+          this.loading = false
+
           this.$store.dispatch('setShowBackgroundModal', false)
           this.$store.dispatch('setUpdatePlan', response.data)
 
@@ -87,12 +107,12 @@ export default {
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
+            this.message = error.response.data.message
           } else {
-            this.errContent = 'Error happened.'
+            this.$toasted.error('Error happened!!!')
           }
 
-          this.$toasted.error('Error happened!!!')
+          this.loading = false
         }.bind(this))
     }
   },

@@ -16,7 +16,7 @@
               <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
             </div>
 
-            <p v-show="errContent" class="text-white mt-2">{{ errContent }}</p>
+            <p v-show="message" class="text-white mt-2">{{ message }}</p>
 
             <div class="form-group text-center">
               <button class="btn btn-md btn-success" :disabled="disabledBtn">
@@ -50,7 +50,7 @@ export default {
       password: '',
       isSuccess: false,
       disabledBtn: false,
-      errContent: ''
+      message: ''
     }
   },
 
@@ -81,9 +81,9 @@ export default {
             this.disabledBtn = false
 
             if (error.response && error.response.data && error.response.data.message) {
-              this.errContent = error.response.data.message
+              this.message = error.response.data.message
             } else {
-              this.errContent = 'Error happened.'
+              this.message = 'Error happened.'
             }
           }.bind(this))
       }

@@ -36,8 +36,13 @@
               </select>
             </div>
 
+            <p v-show="message" class="text-danger">{{ message }}</p>
+
             <div class="form-group text-center mb-0">
-              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planCreate">Submit</button>
+              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planCreate">
+                Submit
+                <font-awesome-icon icon="spinner" spin v-if="loading" />
+              </button>
 
               <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
@@ -51,16 +56,20 @@
 <script>
 import axios from 'axios'
 import config from '@/config'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 export default {
   name: 'AppPlanCreate',
+
+  components: { FontAwesomeIcon },
 
   data () {
     return {
       namePlan: '',
       typePlan: '',
       frequencyPlan: '',
-      errContent: ''
+      message: '',
+      loading: false
     }
   },
 
@@ -70,6 +79,12 @@ export default {
     },
 
     planCreate () {
+      if (!this.namePlan) return this.message = 'The routine name cannot be blank.'
+
+      if (!this.typePlan) return this.message = 'The type cannot be blank.'
+
+      if (!this.frequencyPlan) return this.message = 'The frequency cannot be blank.'
+
       const params = {
         name: this.namePlan,
         type: this.typePlan,
@@ -77,24 +92,29 @@ export default {
         created_by: this.$session.get('id')
       }
 
+      this.loading = true
+
       axios
         .post(config.domainAddress + config.api.plans, params)
         .then(function (response) {
-          this.$store.dispatch('setShowBackgroundModal', false)
-          this.$store.dispatch('setCreatePlan', response.data)
           this.namePlan = ''
           this.typePlan = ''
           this.frequencyPlan = ''
+
+          this.loading = false
+
+          this.$store.dispatch('setShowBackgroundModal', false)
+          this.$store.dispatch('setCreatePlan', response.data)
           this.$toasted.success('Create Successfully!!!')
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
+            this.message = error.response.data.message
           } else {
-            this.errContent = 'Error happened.'
+            this.$toasted.error('Error happened!!!')
           }
 
-          this.$toasted.error('Error happened!!!')
+          this.loading = false
         }.bind(this))
     }
   },
