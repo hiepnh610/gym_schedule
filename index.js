@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 app.use('/api', router);
 
-app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(config.PORT, () => {
     console.log(`This app listen on port ${config.PORT}`);

@@ -37,13 +37,13 @@
           <div class="form-group">
             <label for="profile-height">Height(cm)</label>
 
-            <input id="profile-height" type="text" class="form-control" v-model="user.height" />
+            <input id="profile-height" type="text" class="form-control" v-model.number="user.height" />
           </div>
 
           <div class="form-group">
             <label for="profile-weight">Weight(kg)</label>
 
-            <input id="profile-weight" type="text" class="form-control" v-model="user.weight" />
+            <input id="profile-weight" type="text" class="form-control" v-model.number="user.weight" />
           </div>
 
           <div class="form-group">

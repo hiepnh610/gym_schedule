@@ -52,7 +52,7 @@ const uploadImage = (req, res) => {
             });
         });
     })
-}
+};
 
 mkdirp.sync(uploadPath);
 
