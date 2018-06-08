@@ -1,20 +1,26 @@
-const multer = require('multer');
-const path   = require('path');
-const mkdirp = require('mkdirp');
+const aws      = require('aws-sdk');
+const multer   = require('multer');
+const multerS3 = require('multer-s3');
+const path     = require('path');
 
 const User = require('../model/user');
 
-const uploadPath = 'images';
+const s3 = new aws.S3({
+    apiVersion: '2006-03-01'
+});
 
-const storageConfig = {
-    destination: (req, file, cb) => {
-        cb(null, uploadPath);
+const bucket = 'gymschedule';
+
+const multerS3Config = multerS3({
+    s3: s3,
+    bucket: bucket,
+    metadata: (req, file, cb) => {
+        cb(null, { fieldName: file.fieldname });
     },
-
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    key: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
-};
+});
 
 const imageFilter = (req, file, next) => {
     if(!file) next();
@@ -28,16 +34,16 @@ const imageFilter = (req, file, next) => {
     }
 };
 
-const storage = multer.diskStorage(storageConfig);
-
 const upload = multer({
-    storage: storage,
+    storage: multerS3Config,
 
     fileFilter: imageFilter
 }).single('avatar');
 
 const uploadImage = (req, res) => {
-    upload(req, res, (err) => {
+    upload(req, res, (error) => {
+        if (error) return res.status(400).send(error);
+
         User.findById(req.body.userId, (err, user) => {
             if(err) return res.send(err);
 
@@ -53,7 +59,5 @@ const uploadImage = (req, res) => {
         });
     })
 };
-
-mkdirp.sync(uploadPath);
 
 module.exports = uploadImage;

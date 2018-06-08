@@ -61,7 +61,7 @@
       <div class="col-xs-12 col-md-4">
         <h6>Profile picture</h6>
         <div>
-          <img :src="`http://localhost:3000/` + avatarLink" alt="" class="rounded border mb-3" v-if="avatarLink" />
+          <img :src="avatarLink" alt="" class="rounded border mb-3" v-if="avatarLink" />
 
           <img src="../../assets/images/avatar-default.png" alt="" class="rounded border mb-3" v-else />
         </div>
@@ -195,7 +195,7 @@ export default {
       axios
         .post(config.domainAddress + config.api.upload, formData, configHeader)
         .then(function (response) {
-          this.avatarLink = response.data.avatar.path
+          this.avatarLink = response.data.avatar.location
           this.updateAvatarIsLoading = false
           this.showAvatarModal = false
 
@@ -225,7 +225,7 @@ export default {
       })
       .then(function (response) {
         this.user = response.data
-        this.avatarLink = response.data.avatar ? response.data.avatar.path : ''
+        this.avatarLink = response.data.avatar ? response.data.avatar.location : ''
       }.bind(this))
       .catch(function (error) {
         if (error.response && error.response.data && error.response.data.message) {
