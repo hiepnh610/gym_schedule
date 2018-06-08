@@ -9,7 +9,8 @@ export default new Vuex.Store({
     showCreateModal: false,
     showUpdateModal: false,
     listPlans: [],
-    listWorkout: []
+    listWorkout: [],
+    avatar: ''
   },
 
   mutations: {
@@ -74,6 +75,10 @@ export default new Vuex.Store({
           state.listWorkout[i].week_day = data.week_day
         }
       }
+    },
+
+    avatar: (state, data) => {
+      state.avatar = data
     }
   },
 
@@ -120,6 +125,10 @@ export default new Vuex.Store({
 
     setUpdateWorkout: (context, data) => {
       context.commit('updateWorkout', data)
+    },
+
+    setAvatar: (context, data) => {
+      context.commit('avatar', data)
     }
   },
 
@@ -142,6 +151,10 @@ export default new Vuex.Store({
 
     listWorkout: state => {
       return state.listWorkout
+    },
+
+    avatar: state => {
+      return state.avatar
     }
   },
 

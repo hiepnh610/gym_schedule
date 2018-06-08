@@ -16,6 +16,12 @@
       </div>
 
       <div class="pull-right" v-else>
+        <div class="avatar mr-2">
+          <img :src="getAvatar" alt="" class="rounded border" v-if="getAvatar" />
+
+          <img src="../../assets/images/avatar-default.png" alt="" class="rounded border" v-else />
+        </div>
+
         <router-link to="/settings/profile" class="text-capitalize text-white mr-2">
           <span v-text="nameDisplay"></span>
         </router-link>
@@ -39,7 +45,8 @@ export default {
   data () {
     return {
       isLogin: false,
-      nameDisplay: String
+      nameDisplay: String,
+      avatar: ''
     }
   },
 
@@ -47,6 +54,12 @@ export default {
     if (this.$session.exists()) {
       this.isLogin = true
       this.nameDisplay = this.$session.get('name')
+    }
+  },
+
+  computed: {
+    getAvatar () {
+      return this.$store.getters.avatar
     }
   },
 
@@ -60,4 +73,12 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/mixins.scss';
+
+  .avatar {
+    display: inline-block;
+    max-width: $avatar-header * 2;
+  }
+</style>

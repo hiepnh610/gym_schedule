@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '@/config'
 import AppNav from './header/AppNav.vue'
 
 export default {
@@ -39,6 +41,27 @@ export default {
     showBackgroundModal () {
       return this.$store.getters.showBackgroundModal
     }
+  },
+
+  created () {
+    axios
+      .get(config.domainAddress + config.api.user, {
+        params: {
+          id: this.$session.get('id')
+        }
+      })
+      .then(function (response) {
+        if (response.data.avatar) {
+          this.$store.dispatch('setAvatar', response.data.avatar.location)
+        }
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
   }
 }
 </script>
