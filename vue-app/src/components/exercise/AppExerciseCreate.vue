@@ -8,9 +8,9 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <div class="d-flex">
-                <img src="http://via.placeholder.com/75x75" class="rounded-0" />
+                <img src="../../assets/images/exercise/bench-press.jpg" class="rounded-0 img-thumbnail" />
 
-                <div class="body"> Benchpress with Barbell (Flat)</div>
+                <div class="body">Benchpress with Barbell (Flat)</div>
               </div>
             </li>
           </ul>
@@ -66,8 +66,14 @@ export default {
       padding-left: 0;
       padding-right: 0;
 
+      .d-flex {
+        align-items:flex-start;
+        align-content:flex-start;
+      }
+
       img {
         margin-right: $size-base;
+        max-width: $size-base * 5;
       }
     }
   }

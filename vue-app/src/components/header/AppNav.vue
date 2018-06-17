@@ -17,9 +17,9 @@
 
       <div class="pull-right" v-else>
         <div class="avatar mr-2">
-          <img :src="getAvatar" alt="" class="rounded border" v-if="getAvatar" />
+          <img :src="getAvatar" alt="" class="rounded" v-if="getAvatar" />
 
-          <img src="../../assets/images/avatar-default.png" alt="" class="rounded border" v-else />
+          <img src="../../assets/images/avatar-default.png" alt="" class="rounded" v-else />
         </div>
 
         <router-link to="/settings/profile" class="text-capitalize text-white mr-2">
