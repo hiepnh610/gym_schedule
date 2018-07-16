@@ -13,6 +13,14 @@
                 <div class="body">Benchpress with Barbell (Flat)</div>
               </div>
             </li>
+
+            <li class="list-group-item">
+              <div class="d-flex">
+                <img src="../../assets/images/exercise/deadlift.jpg" class="rounded-0 img-thumbnail" />
+
+                <div class="body">Stiffleg Deadlift (for your Hamstrings)</div>
+              </div>
+            </li>
           </ul>
 
           <div class="form-group text-center mb-0 aligh-center">
