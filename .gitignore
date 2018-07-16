@@ -3,7 +3,6 @@
 
 vue/node_modules
 node/api/config-s3.js
-images/
 .DS_Store
 node_modules/
 npm-debug.log*
