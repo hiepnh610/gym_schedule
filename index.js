@@ -12,7 +12,8 @@ const router = require('./node/api');
 mongoose.connect(config.mongoUri, {
     keepAlive: true,
     reconnectTries: 30,
-    socketTimeoutMS: 0
+    socketTimeoutMS: 0,
+    useNewUrlParser: true
 });
 
 app.use(cors());
