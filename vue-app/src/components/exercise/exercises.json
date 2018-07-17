@@ -1,11 +1,156 @@
 [
     {
-        "name": "Benchpress with Barbell (Flat)",
-        "image": "../../assets/images/exercise/bench-press.jpg"
+        "name": "Squat",
+        "image": ""
+    },
+
+    {
+        "name": "Legpress",
+        "image": ""
+    },
+
+    {
+        "name": "Leg Curl",
+        "image": ""
+    },
+
+    {
+        "name": "Calf Raise Seated",
+        "image": ""
     },
 
     {
         "name": "Stiffleg Deadlift (for your Hamstrings)",
         "image": "../../assets/images/exercise/deadlift.jpg"
+    },
+
+    {
+        "name": "Front Squat",
+        "image": ""
+    },
+
+    {
+        "name": "Lunges",
+        "image": ""
+    },
+
+    {
+        "name": "Calf Raise Standing",
+        "image": ""
+    },
+
+    {
+        "name": "Deadlift (or Sumo Dead)",
+        "image": ""
+    },
+
+    {
+        "name": "Row with Dumbell",
+        "image": ""
+    },
+
+    {
+        "name": "Lat Pulldown",
+        "image": ""
+    },
+
+    {
+        "name": "Reverse Butterfly",
+        "image": ""
+    },
+
+    {
+        "name": "Biceps Curl with Barbell",
+        "image": ""
+    },
+
+    {
+        "name": "Scott Curl Dumbell",
+        "image": ""
+    },
+
+    {
+        "name": "Pull Ups (wide grip)",
+        "image": ""
+    },
+
+    {
+        "name": "Bent Over Row (with Barbell)",
+        "image": ""
+    },
+
+    {
+        "name": "Lat Pulldown (with undergrip)",
+        "image": ""
+    },
+
+    {
+        "name": "Face Pulls",
+        "image": ""
+    },
+
+    {
+        "name": "Biceps Curl with Dumbell",
+        "image": ""
+    },
+
+    {
+        "name": "Hammer Curl Dumbell",
+        "image": ""
+    },
+
+    {
+        "name": "Benchpress with Barbell (Flat)",
+        "image": "../../assets/images/exercise/bench-press.jpg"
+    },
+
+    {
+        "name": "Incline Benchpress with Dumbell",
+        "image": ""
+    },
+
+    {
+        "name": "Flys with Dumbell",
+        "image": ""
+    },
+
+    {
+        "name": "Lateral Raises with Dumbell",
+        "image": ""
+    },
+
+    {
+        "name": "French-Press",
+        "image": ""
+    },
+
+    {
+        "name": "Triceps Cable Pushdown",
+        "image": ""
+    },
+
+    {
+        "name": "Military Press",
+        "image": ""
+    },
+
+    {
+        "name": "Incline Benchpress with Barbell",
+        "image": ""
+    },
+
+    {
+        "name": "Dips",
+        "image": ""
+    },
+
+    {
+        "name": "Bent-over reverse fly",
+        "image": ""
+    },
+
+    {
+        "name": "Seated overhead triceps Push with dumbell",
+        "image": ""
     }
 ]
