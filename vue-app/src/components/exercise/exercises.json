@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Benchpress with Barbell (Flat)",
+        "image": "../../assets/images/exercise/bench-press.jpg"
+    },
+
+    {
+        "name": "Stiffleg Deadlift (for your Hamstrings)",
+        "image": "../../assets/images/exercise/deadlift.jpg"
+    }
+]
