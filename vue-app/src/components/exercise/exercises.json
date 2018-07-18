@@ -1,22 +1,22 @@
 [
     {
         "name": "Squat",
-        "image": ""
+        "image": "../../assets/images/exercise/squat.jpg"
     },
 
     {
         "name": "Legpress",
-        "image": ""
+        "image": "../../assets/images/exercise/leg-press.jpg"
     },
 
     {
         "name": "Leg Curl",
-        "image": ""
+        "image": "../../assets/images/exercise/leg-curl.jpg"
     },
 
     {
         "name": "Calf Raise Seated",
-        "image": ""
+        "image": "../../assets/images/exercise/calf-raise-seated.jpg"
     },
 
     {
@@ -26,62 +26,62 @@
 
     {
         "name": "Front Squat",
-        "image": ""
+        "image": "../../assets/images/exercise/front-squat.jpg"
     },
 
     {
         "name": "Lunges",
-        "image": ""
+        "image": "../../assets/images/exercise/lunges.jpg"
     },
 
     {
         "name": "Calf Raise Standing",
-        "image": ""
+        "image": "../../assets/images/exercise/calf-raise-standing.jpg"
     },
 
     {
         "name": "Deadlift (or Sumo Dead)",
-        "image": ""
+        "image": "../../assets/images/exercise/sumo-dead.jpg"
     },
 
     {
         "name": "Row with Dumbell",
-        "image": ""
+        "image": "../../assets/images/exercise/row-with-dumbell.jpg"
     },
 
     {
         "name": "Lat Pulldown",
-        "image": ""
+        "image": "../../assets/images/exercise/lat-pull-down.jpg"
     },
 
     {
         "name": "Reverse Butterfly",
-        "image": ""
+        "image": "../../assets/images/exercise/reverse-butterfly.jpg"
     },
 
     {
         "name": "Biceps Curl with Barbell",
-        "image": ""
+        "image": "../../assets/images/exercise/biceps-curl-with-barbell.jpg"
     },
 
     {
         "name": "Scott Curl Dumbell",
-        "image": ""
+        "image": "../../assets/images/exercise/scott-curl-dumbell.jpg"
     },
 
     {
         "name": "Pull Ups (wide grip)",
-        "image": ""
+        "image": "../../assets/images/exercise/lat-pull-down-with-undergrip.jpg"
     },
 
     {
         "name": "Bent Over Row (with Barbell)",
-        "image": ""
+        "image": "../../assets/images/exercise/bent-over-row-with-barbell.jpg"
     },
 
     {
         "name": "Lat Pulldown (with undergrip)",
-        "image": ""
+        "image": "../../assets/images/exercise/lat-pull-down-with-undergrip.jpg"
     },
 
     {
