@@ -30,4 +30,32 @@ const createExercise = (req, res) => {
     });
 };
 
-module.exports = { getExercises, createExercise };
+const updateExercise = (req, res) => {
+    Exercise.findById(req.params.exercise_id, (err, exercise) => {
+        if(err) return res.send(err);
+
+        exercise.set({
+            history: req.body.history,
+            sets: req.body.sets,
+            track_note: req.body.track_note
+        });
+
+        exercise.save((err, exercise) => {
+            if(err) return res.send(err);
+
+            res.json(exercise);
+        });
+    });
+};
+
+const deleteExercise = (req, res) => {
+    Exercise.remove({
+        _id: req.params.exercise_id
+    }, (err, exercise) => {
+        if(err) return res.send(err);
+
+        res.json({ message: 'Exercise Deleted.' });
+    });
+};
+
+module.exports = { getExercises, createExercise, updateExercise, deleteExercise };
