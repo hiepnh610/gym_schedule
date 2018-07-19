@@ -6,19 +6,11 @@
           <h2 class="text-center text-success">Exercises</h2>
 
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+            <li class="list-group-item" v-for="exercise in exercises">
               <div class="d-flex">
-                <img src="../../assets/images/exercise/bench-press.jpg" class="rounded-0 img-thumbnail" />
+                <img :src="exercise.image" class="rounded-0 img-thumbnail" />
 
-                <div class="body">Benchpress with Barbell (Flat)</div>
-              </div>
-            </li>
-
-            <li class="list-group-item">
-              <div class="d-flex">
-                <img src="../../assets/images/exercise/deadlift.jpg" class="rounded-0 img-thumbnail" />
-
-                <div class="body">Stiffleg Deadlift (for your Hamstrings)</div>
+                <div class="body">{{ exercise.name }}</div>
               </div>
             </li>
           </ul>
@@ -38,6 +30,7 @@ export default {
 
   data () {
     return {
+      exercises: require('./exercises.json')
     }
   },
 
