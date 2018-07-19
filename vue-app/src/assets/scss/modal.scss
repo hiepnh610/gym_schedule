@@ -22,4 +22,13 @@
       }
     }
   }
+
+  &.show {
+    .modal-dialog {
+      margin-bottom: 0;
+      margin-top: 0;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
 }

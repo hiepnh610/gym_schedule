@@ -68,8 +68,7 @@ export default {
       padding-right: 0;
 
       .d-flex {
-        align-items:flex-start;
-        align-content:flex-start;
+        align-items: center;
       }
 
       img {
