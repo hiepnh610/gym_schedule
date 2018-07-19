@@ -1,14 +1,33 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
+const workOutDay = require('./workout_day');
+
 const ExerciseSchema = new Schema({
+    history: {
+        required: false,
+        type: String
+    },
+    image: {
+        required: true,
+        type: String
+    },
     name: {
         required: true,
         type: String
     },
-    image_url: {
-        required: true,
+    sets: {
+        required: false,
+        type: Array
+    },
+    track_note: {
+        required: false,
         type: String
+    },
+    workout_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'workOutDay',
+        required: true,
     }
 }, { timestamps: { createdAt: 'created_at' }});
 

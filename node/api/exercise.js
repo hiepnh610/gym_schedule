@@ -1,22 +1,26 @@
-const express = require('express');
-const router  = express.Router();
-
 const Exercise = require('../model/exercise');
 
 let exercise = {};
 
-const getExercise = (req, res) => {
-    Exercise.find((err, exercises) => {
-        if(err) return res.send(err);
+const getExercises = (req, res) => {
+    Exercise.find({ '_id': req.query.id })
+    .populate('_id')
+    .exec(function (err, list) {
+        if(err) return res.status(400).send(err);
 
-        res.json(exercises);
+        res.status(200).json(list);
     });
 };
 
 const createExercise = (req, res) => {
+    if (!req.body.name) return res.status(400).json({ 'message': 'The exercise name cannot be blank.' });
+
+    if (!req.body.image) return res.status(400).json({ 'message': 'The exercise image cannot be blank.' });
+
     exercise = new Exercise({
-        image_url: req.body.image_url,
-        name: req.body.name
+        image: req.body.image,
+        name: req.body.name,
+        workout_id: req.body.workout_id
     });
 
     exercise.save((err) => {
@@ -26,4 +30,4 @@ const createExercise = (req, res) => {
     });
 };
 
-module.exports = { getExercise, createExercise };
+module.exports = { getExercises, createExercise };

@@ -1,6 +1,3 @@
-const express = require('express');
-const router  = express.Router();
-
 const WorkoutDay = require('../model/workout_day');
 
 let workoutDay = {};
@@ -9,9 +6,9 @@ const listWorkout = (req, res) => {
     WorkoutDay.find({ '_id': req.query.id })
     .populate('_id')
     .exec(function (err, list) {
-       if(err) return res.status(400).send(err);
+        if(err) return res.status(400).send(err);
 
-       res.status(200).json(list);
+        res.status(200).json(list);
     });
 };
 
@@ -19,9 +16,9 @@ const getWorkoutDay = (req, res) => {
     WorkoutDay.find({ 'plan_id': req.query.id })
     .populate('plan_id')
     .exec(function (err, plans) {
-       if(err) return res.status(400).send(err);
+        if(err) return res.status(400).send(err);
 
-       res.status(200).json(plans);
+        res.status(200).json(plans);
     });
 };
 

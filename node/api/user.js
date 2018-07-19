@@ -1,6 +1,3 @@
-const express = require('express');
-const router  = express.Router();
-
 const User = require('../model/user');
 
 const comparePassword = User.schema.methods.comparePassword;
@@ -12,7 +9,7 @@ const getInfo = (req, res) => {
     User.find({ '_id': req.query.id })
     // .populate('_id')
     .exec(function (err, userInfo) {
-       if(err) return res.status(400).send(err);
+        if(err) return res.status(400).send(err);
 
         const newUserInfo = {
             _id: userInfo[0]._id,
@@ -40,7 +37,7 @@ const getInfo = (req, res) => {
             newUserInfo.avatar = userInfo[0].avatar
         }
 
-       res.status(200).json(newUserInfo);
+        res.status(200).json(newUserInfo);
     });
 };
 
