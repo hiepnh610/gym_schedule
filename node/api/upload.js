@@ -45,7 +45,7 @@ const uploadImage = (req, res) => {
         if (error) return res.status(400).send(error);
 
         User.findById(req.body.userId, (err, user) => {
-            if(err) return res.send(err);
+            if(err) return res.status(400).send(err);
 
             user.set({
                 avatar: req.file

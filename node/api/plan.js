@@ -52,7 +52,7 @@ const updatePlan = (req, res) => {
     if (!req.body.frequency) return res.status(400).json({ 'message': 'The frequency cannot be blank.' });
 
     Plan.findById(req.params.plan_id, (err, plan) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         plan.set({
             frequency: req.body.frequency,
@@ -61,7 +61,7 @@ const updatePlan = (req, res) => {
         });
 
         plan.save((err, plan) => {
-            if(err) return res.send(err);
+            if(err) return res.status(400).send(err);
 
             res.status(200).json(plan);
         });
@@ -72,7 +72,7 @@ const deletePlan = (req, res) => {
     Plan.remove({
         _id: req.params.plan_id
     }, (err, plan) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         res.json({ message: 'Plan deleted.' });
     });

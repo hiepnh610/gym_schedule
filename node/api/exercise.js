@@ -2,13 +2,23 @@ const Exercise = require('../model/exercise');
 
 let exercise = {};
 
-const getExercises = (req, res) => {
+const listExercise = (req, res) => {
     Exercise.find({ '_id': req.query.id })
     .populate('_id')
     .exec(function (err, list) {
         if(err) return res.status(400).send(err);
 
         res.status(200).json(list);
+    });
+};
+
+const getExercise = (req, res) => {
+    Exercise.find({ 'workout_id': req.query.id })
+    .populate('workout_id')
+    .exec(function (err, exer) {
+        if(err) return res.status(400).send(err);
+
+        res.status(200).json(exer);
     });
 };
 
@@ -24,7 +34,7 @@ const createExercise = (req, res) => {
     });
 
     exercise.save((err) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         res.status(201).json({ message: 'Exercise created.' });
     });
@@ -41,7 +51,7 @@ const updateExercise = (req, res) => {
         });
 
         exercise.save((err, exercise) => {
-            if(err) return res.send(err);
+            if(err) return res.status(400).send(err);
 
             res.json(exercise);
         });
@@ -52,10 +62,10 @@ const deleteExercise = (req, res) => {
     Exercise.remove({
         _id: req.params.exercise_id
     }, (err, exercise) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         res.json({ message: 'Exercise Deleted.' });
     });
 };
 
-module.exports = { getExercises, createExercise, updateExercise, deleteExercise };
+module.exports = { listExercise, getExercise, createExercise, updateExercise, deleteExercise };

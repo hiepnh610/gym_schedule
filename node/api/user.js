@@ -51,7 +51,7 @@ const updateInfo = (req, res) => {
     if (req.body.gender !== 'Male' && req.body.gender !== 'Female') return res.status(400).json({ message: 'The gender field must be a valid gender.' });
 
     User.findById(req.params.user_id, (err, user) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         user.set({
             dob: req.body.dob,
@@ -62,7 +62,7 @@ const updateInfo = (req, res) => {
         });
 
         user.save((err, user) => {
-            if(err) return res.send(err);
+            if(err) return res.status(400).send(err);
 
             res.status(200).json({ message: 'Update Successfully!' });
         });
@@ -71,7 +71,7 @@ const updateInfo = (req, res) => {
 
 const modifyPassword = (req, res) => {
     User.findById(req.params.user_id, (err, user) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         const current_password = req.body.current_password;
         const compare_password = comparePassword(current_password, user.password);

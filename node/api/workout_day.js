@@ -46,7 +46,7 @@ const updateWorkoutDay = (req, res) => {
     if (!req.body.week_day) return res.status(400).json({ 'message': 'The workout day cannot be blank.' });
 
     WorkoutDay.findById(req.params.workout_day_id, (err, workout_day) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         workout_day.set({
             name: req.body.name,
@@ -65,7 +65,7 @@ const deleteWorkoutDay = (req, res) => {
     WorkoutDay.remove({
         _id: req.params.workout_day_id
     }, (err, workout_day) => {
-        if(err) return res.send(err);
+        if(err) return res.status(400).send(err);
 
         res.json({ message: 'Workout Day Deleted.' });
     });
