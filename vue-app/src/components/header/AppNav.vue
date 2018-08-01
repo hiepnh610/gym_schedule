@@ -1,12 +1,16 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="header">
     <div class="container">
       <a class="navbar-brand text-uppercase" href="/">Gym Schedule</a>
 
       <div class="collapse navbar-collapse" id="main-nav" v-if="!isLogin">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="/sign-up">Sign Up</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link">/</a>
           </li>
 
           <li class="nav-item">
@@ -74,8 +78,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
+
+  #header {
+    background: rgba($header-bg-color, .6);
+  }
+
+  #main-nav {
+    .navbar-nav {
+      margin-left: auto;
+
+      a {
+        color: $header-text-color;
+        padding-left: $header-size / 4;
+        padding-right: $header-size / 4;
+      }
+    }
+  }
 
   .avatar {
     display: inline-block;
