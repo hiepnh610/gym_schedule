@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 col-lg-8 offset-lg-2">
+    <div class="col-12 col-lg-10 offset-lg-1">
       <table class="table table-bordered list-plans text-center mb-5">
         <thead class="bg-success">
           <tr>
@@ -95,17 +95,11 @@ export default {
 @import '../../assets/scss/mixins.scss';
 
 .list-plans {
-  border-style: dotted;
-  color: $table-plan-bg-color;
-
-  th, td {
-    border-style: dotted;
-  }
-
   thead {
     tr {
       th {
         border-bottom-width: 1px;
+        color: $table-plan-text-color;
         text-align: center;
       }
     }

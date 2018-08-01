@@ -54,8 +54,12 @@ $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
 
 
+$body-bg-color:              $gray-100 !default;
+
+
 $hr-border-color:            $white !default;
 $table-plan-bg-color:        $white !default;
+$table-plan-text-color:      $white !default;
 
 
 $header-bg-color:            $black !default;
@@ -64,3 +68,11 @@ $header-text-color:          $white !default;
 
 
 $avatar-header:              $size-base !default;
+
+
+$border-radius-size:         $size-base !default;
+$border-bg-color:            $gray-200 !default;
+$border-text-color:          $black !default;
+
+
+$button-spacing:             $size-base !default;

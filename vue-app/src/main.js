@@ -24,6 +24,7 @@ import '@/assets/scss/config.scss'
 import '@/assets/scss/modal.scss'
 import '@/assets/scss/form.scss'
 import '@/assets/scss/table.scss'
+import '@/assets/scss/button.scss'
 
 const Options = {
   duration: 5000,
