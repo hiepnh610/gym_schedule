@@ -64,6 +64,7 @@ export default {
       axios
         .post(config.domainAddress + config.api.exercise, params)
         .then(function (response) {
+          this.$store.dispatch('setListExercise', response.data)
           this.$toasted.success('Create Successfully!!!')
         }.bind(this))
         .catch(function (error) {

@@ -33,10 +33,10 @@ const createExercise = (req, res) => {
         workout_id: req.body.workout_id
     });
 
-    exercise.save((err) => {
+    exercise.save((err, exercise) => {
         if(err) return res.status(400).send(err);
 
-        res.status(201).json({ message: 'Exercise created.' });
+        res.status(201).json(exercise);
     });
 };
 

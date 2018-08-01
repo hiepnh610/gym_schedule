@@ -10,6 +10,7 @@ export default new Vuex.Store({
     showUpdateModal: false,
     listPlans: [],
     listWorkout: [],
+    listExercise: [],
     avatar: ''
   },
 
@@ -79,6 +80,10 @@ export default new Vuex.Store({
 
     avatar: (state, data) => {
       state.avatar = data
+    },
+
+    listExercise: (state, data) => {
+      state.listExercise = data
     }
   },
 
@@ -129,6 +134,10 @@ export default new Vuex.Store({
 
     setAvatar: (context, data) => {
       context.commit('avatar', data)
+    },
+
+    setListExercise: (context, data) => {
+      context.commit('listExercise', data)
     }
   },
 
@@ -155,6 +164,10 @@ export default new Vuex.Store({
 
     avatar: state => {
       return state.avatar
+    },
+
+    listExercise: state => {
+      return state.listExercise
     }
   },
 

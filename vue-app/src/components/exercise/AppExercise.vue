@@ -2,6 +2,8 @@
   <div class="text-center">
     <h1 class="text-center text-white mb-5">{{ exerciseName }}</h1>
 
+    <list-exercise v-if="listExercise.length > 0"></list-exercise>
+
     <p class="align-center text-white mb-5">Please add some exercies from the under button.</p>
 
     <a href="" class="btn btn-md btn-success" @click.prevent="createExercise">
@@ -19,11 +21,12 @@ import config from '@/config'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 import AppExerciseCreate from './AppExerciseCreate.vue'
+import listExercise from './list-exercise.vue'
 
 export default {
-  name: 'AppPlan',
+  name: 'AppExercise',
 
-  components: { AppExerciseCreate, FontAwesomeIcon },
+  components: { AppExerciseCreate, listExercise, FontAwesomeIcon },
 
   data () {
     return {
@@ -36,6 +39,23 @@ export default {
   },
 
   created () {
+    axios
+      .get(config.domainAddress + config.api.exercise, {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function (response) {
+        this.$store.dispatch('setListExercise', response.data)
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
+
     axios
       .get(config.domainAddress + config.api.listWorkout, {
         params: {
@@ -58,6 +78,12 @@ export default {
     createExercise () {
       this.$store.dispatch('setShowBackgroundModal', true)
       this.$store.dispatch('setShowCreateModal', true)
+    }
+  },
+
+  computed: {
+    listExercise () {
+      return this.$store.getters.listExercise
     }
   }
 }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
-const workout = require('./workout_day');
+const WorkoutDay = require('./workout_day');
 
 const ExerciseSchema = new Schema({
     history: {
@@ -26,7 +26,7 @@ const ExerciseSchema = new Schema({
     },
     workout_id: {
         type: Schema.Types.ObjectId,
-        ref: 'workout',
+        ref: 'WorkoutDay',
         required: true,
     }
 }, { timestamps: { createdAt: 'created_at' }});
