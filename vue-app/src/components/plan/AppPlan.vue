@@ -16,55 +16,55 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import axios from 'axios'
+  import config from '@/config'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import AppPlanCreate from './AppPlanCreate.vue'
-import AppListPlans from './AppListPlans.vue'
+  import AppPlanCreate from './AppPlanCreate.vue'
+  import AppListPlans from './AppListPlans.vue'
 
-export default {
-  name: 'AppPlan',
+  export default {
+    name: 'AppPlan',
 
-  components: { AppPlanCreate, AppListPlans, FontAwesomeIcon },
+    components: { AppPlanCreate, AppListPlans, FontAwesomeIcon },
 
-  data () {
-    return {
-    }
-  },
+    data () {
+      return {
+      }
+    },
 
-  methods: {
-    createPlan () {
-      this.$store.dispatch('setShowBackgroundModal', true)
-      this.$store.dispatch('setShowCreateModal', true)
-    }
-  },
+    methods: {
+      createPlan () {
+        this.$store.dispatch('setShowBackgroundModal', true)
+        this.$store.dispatch('setShowCreateModal', true)
+      }
+    },
 
-  created () {
-    axios
-      .get(config.domainAddress + config.api.plans, {
-        params: {
-          id: this.$session.get('id')
-        }
-      })
-      .then(function (response) {
-        this.$store.dispatch('setListPlans', response.data)
-      }.bind(this))
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.errContent = 'Error happened.'
-        }
-      }.bind(this))
-  },
+    created () {
+      axios
+        .get(config.domainAddress + config.api.plans, {
+          params: {
+            id: this.$session.get('id')
+          }
+        })
+        .then(function (response) {
+          this.$store.dispatch('setListPlans', response.data)
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
+    },
 
-  computed: {
-    listPlans () {
-      return this.$store.getters.listPlans
+    computed: {
+      listPlans () {
+        return this.$store.getters.listPlans
+      }
     }
   }
-}
 </script>
 
 <style lang="scss"></style>

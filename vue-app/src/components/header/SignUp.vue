@@ -2,7 +2,7 @@
   <div id="sign-up-page">
     <div class="container">
       <div id="sign-up-form" v-show="!isSuccess">
-        <div class="animated bounceIn">
+        <div class="animated fadeInUp">
           <form @submit.prevent="signUp">
             <div class="form-group">
               <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
@@ -40,126 +40,135 @@
 
       <app-modal :is-success="isSuccess" :is-sign-up="true"></app-modal>
     </div>
+
+    <p v-if="loaded" class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae commodi culpa voluptates, deserunt asperiores delectus atque soluta consectetur ipsum fugit magni ut iste cumque veritatis qui dolorum dolorem, est aliquid.</p>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import axios from 'axios'
+  import config from '@/config'
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
-import AppNav from './AppNav.vue'
-import AppModal from '../modal/AppModal.vue'
+  import AppNav from './AppNav.vue'
+  import AppModal from '../modal/AppModal.vue'
 
-export default {
-  components: { AppNav, AppModal, FontAwesomeIcon },
+  export default {
+    components: { AppNav, AppModal, FontAwesomeIcon },
 
-  data () {
-    return {
-      email: '',
-      fullName: '',
-      password: '',
-      password_confirm: '',
-      isSuccess: false,
-      disabledBtn: false,
-      message: ''
-    }
-  },
+    data () {
+      return {
+        email: '',
+        fullName: '',
+        password: '',
+        password_confirm: '',
+        isSuccess: false,
+        disabledBtn: false,
+        message: '',
+        loaded: false
+      }
+    },
 
-  methods: {
-    signUp () {
-      if (this.email && this.fullName && this.password) {
-        const params = {
-          email: this.email,
-          fullName: this.fullName,
-          password: this.password,
-          password_confirm: this.password_confirm
+    beforeCreated () {
+      this.loaded = true
+
+      console.log(this.loaded)
+    },
+
+    methods: {
+      signUp () {
+        if (this.email && this.fullName && this.password) {
+          const params = {
+            email: this.email,
+            fullName: this.fullName,
+            password: this.password,
+            password_confirm: this.password_confirm
+          }
+
+          this.disabledBtn = true
+
+          axios
+            .post(config.domainAddress + config.api.sign_up, params)
+            .then(function (response) {
+              this.isSuccess = true
+              this.disabledBtn = false
+              this.$store.dispatch('setShowBackgroundModal', true)
+
+              this.$session.start()
+              this.$session.set('name', response.data.name)
+              this.$session.set('email', response.data.email)
+              this.$session.set('id', response.data.id)
+              this.$session.set('authenticate', response.data.authenticate)
+            }.bind(this))
+            .catch(function (error) {
+              this.disabledBtn = false
+
+              if (error.response && error.response.data && error.response.data.message) {
+                this.message = error.response.data.message
+              } else {
+                this.message = 'Error happened.'
+              }
+            }.bind(this))
         }
-
-        this.disabledBtn = true
-
-        axios
-          .post(config.domainAddress + config.api.sign_up, params)
-          .then(function (response) {
-            this.isSuccess = true
-            this.disabledBtn = false
-            this.$store.dispatch('setShowBackgroundModal', true)
-
-            this.$session.start()
-            this.$session.set('name', response.data.name)
-            this.$session.set('email', response.data.email)
-            this.$session.set('id', response.data.id)
-            this.$session.set('authenticate', response.data.authenticate)
-          }.bind(this))
-          .catch(function (error) {
-            this.disabledBtn = false
-
-            if (error.response && error.response.data && error.response.data.message) {
-              this.message = error.response.data.message
-            } else {
-              this.message = 'Error happened.'
-            }
-          }.bind(this))
       }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
 
-#sign-up-page {
-  &:before {
-    background-image: url('../../assets/images/sign-up-bg.jpg');
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    bottom: 0;
-    content: '';
-    height: 100%;
-    left: 0;
-    min-height: 100%;
-    padding: $size-base * 4 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-  }
-
-  &:after {
-    background: rgba(#000, .075);
-    bottom: 0;
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-  }
-
-  #sign-up-form {
-    color: #fff;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    width: $size-base * 30;
-    z-index: 1;
-    @include translate(-50%, -50%);
-
-    label {
-      font-weight: normal;
+  #sign-up-page {
+    &:before {
+      background-image: url('../../assets/images/sign-up-bg.jpg');
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      bottom: 0;
+      content: '';
+      height: 100%;
+      left: 0;
+      min-height: 100%;
+      padding: $size-base * 4 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
     }
 
-    a {
-      color: #fff;
+    &:after {
+      background: rgba(#000, .075);
+      bottom: 0;
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+    }
 
-      &:hover {
-        text-decoration: none;
+    #sign-up-form {
+      color: #fff;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      width: $size-base * 30;
+      z-index: 1;
+      @include translate(-50%, -50%);
+
+      label {
+        font-weight: normal;
+      }
+
+      a {
+        color: #fff;
+
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
   }
-}
 </style>

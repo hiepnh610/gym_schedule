@@ -8,25 +8,25 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      settingsName: ['profile', 'account'],
-      urlParam: this.$route.path
+  export default {
+    data () {
+      return {
+        settingsName: ['profile', 'account'],
+        urlParam: this.$route.path
+      }
+    },
+
+    created () {
+      const splitParam = this.urlParam.split('/')
+
+      this.urlParam = splitParam[splitParam.length - 1]
     }
-  },
-
-  created () {
-    const splitParam = this.urlParam.split('/')
-
-    this.urlParam = splitParam[splitParam.length - 1]
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
 
   .list-group {
     .header {

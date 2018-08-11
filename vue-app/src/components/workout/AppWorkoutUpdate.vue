@@ -44,94 +44,94 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import axios from 'axios'
+  import config from '@/config'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'AppWorkoutUpdate',
+  export default {
+    name: 'AppWorkoutUpdate',
 
-  components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon },
 
-  props: ['dataWorkoutOrigin'],
+    props: ['dataWorkoutOrigin'],
 
-  data () {
-    return {
-      workoutName: '',
-      workoutDay: '',
-      message: '',
-      loading: false
-    }
-  },
-
-  methods: {
-    closeModal () {
-      this.$store.dispatch('setShowBackgroundModal', false)
+    data () {
+      return {
+        workoutName: '',
+        workoutDay: '',
+        message: '',
+        loading: false
+      }
     },
 
-    workoutUpdate (id) {
-      if (!this.workoutName) {
-        this.message = 'The workout name cannot be blank.'
+    methods: {
+      closeModal () {
+        this.$store.dispatch('setShowBackgroundModal', false)
+      },
 
-        return
+      workoutUpdate (id) {
+        if (!this.workoutName) {
+          this.message = 'The workout name cannot be blank.'
+
+          return
+        }
+
+        if (!this.workoutDay) {
+          this.message = 'The workout day cannot be blank.'
+
+          return
+        }
+
+        const params = {
+          name: this.workoutName,
+          week_day: this.workoutDay
+        }
+
+        this.loading = true
+
+        axios
+          .put(config.domainAddress + config.api.workout + id, params)
+          .then(function (response) {
+            this.loading = false
+
+            this.$store.dispatch('setShowBackgroundModal', false)
+            this.$store.dispatch('setUpdateWorkout', response.data)
+
+            this.$toasted.success('Update Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.errContent = error.response.data.message
+            } else {
+              this.$toasted.error('Error happened!!!')
+            }
+
+            this.loading = false
+          }.bind(this))
       }
-
-      if (!this.workoutDay) {
-        this.message = 'The workout day cannot be blank.'
-
-        return
-      }
-
-      const params = {
-        name: this.workoutName,
-        week_day: this.workoutDay
-      }
-
-      this.loading = true
-
-      axios
-        .put(config.domainAddress + config.api.workout + id, params)
-        .then(function (response) {
-          this.loading = false
-
-          this.$store.dispatch('setShowBackgroundModal', false)
-          this.$store.dispatch('setUpdateWorkout', response.data)
-
-          this.$toasted.success('Update Successfully!!!')
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.$toasted.error('Error happened!!!')
-          }
-
-          this.loading = false
-        }.bind(this))
-    }
-  },
-
-  computed: {
-    showBackgroundModal () {
-      return this.$store.getters.showBackgroundModal
     },
 
-    showUpdateModal () {
-      return this.$store.getters.showUpdateModal
+    computed: {
+      showBackgroundModal () {
+        return this.$store.getters.showBackgroundModal
+      },
+
+      showUpdateModal () {
+        return this.$store.getters.showUpdateModal
+      },
+
+      dataWorkout () {
+        return this.dataWorkoutOrigin
+      }
     },
 
-    dataWorkout () {
-      return this.dataWorkoutOrigin
-    }
-  },
-
-  watch: {
-    dataWorkout () {
-      this.workoutName = this.dataWorkout.name
-      this.workoutDay = this.dataWorkout.week_day
+    watch: {
+      dataWorkout () {
+        this.workoutName = this.dataWorkout.name
+        this.workoutDay = this.dataWorkout.week_day
+      }
     }
   }
-}
 </script>
 
 <style lang="scss"></style>

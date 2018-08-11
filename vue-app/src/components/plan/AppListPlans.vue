@@ -38,71 +38,71 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
+  import axios from 'axios'
+  import config from '@/config'
 
-import AppPlanUpdate from './AppPlanUpdate.vue'
+  import AppPlanUpdate from './AppPlanUpdate.vue'
 
-export default {
-  name: 'AppListPlans',
+  export default {
+    name: 'AppListPlans',
 
-  components: { AppPlanUpdate },
+    components: { AppPlanUpdate },
 
-  data () {
-    return {
-      errContent: '',
-      dataPlanOrigin: ''
-    }
-  },
-
-  computed: {
-    getListPlans () {
-      return this.$store.getters.listPlans
-    }
-  },
-
-  methods: {
-    updatePlan (plan) {
-      this.$store.dispatch('setShowBackgroundModal', true)
-      this.$store.dispatch('setShowUpdateModal', true)
-      this.dataPlanOrigin = plan
+    data () {
+      return {
+        errContent: '',
+        dataPlanOrigin: ''
+      }
     },
 
-    deletePlan (id) {
-      this.$store.dispatch('setDeletePlan', id)
+    computed: {
+      getListPlans () {
+        return this.$store.getters.listPlans
+      }
+    },
 
-      axios
-        .delete(config.domainAddress + config.api.plans + id)
-        .then(function () {
-          this.$toasted.success('Delete Successfully!!!')
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
+    methods: {
+      updatePlan (plan) {
+        this.$store.dispatch('setShowBackgroundModal', true)
+        this.$store.dispatch('setShowUpdateModal', true)
+        this.dataPlanOrigin = plan
+      },
 
-          this.$toasted.error('Error happened!!!')
-        }.bind(this))
-    }
-  }
-}
-</script>
+      deletePlan (id) {
+        this.$store.dispatch('setDeletePlan', id)
 
-<style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+        axios
+          .delete(config.domainAddress + config.api.plans + id)
+          .then(function () {
+            this.$toasted.success('Delete Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.errContent = error.response.data.message
+            } else {
+              this.errContent = 'Error happened.'
+            }
 
-.list-plans {
-  thead {
-    tr {
-      th {
-        border-bottom-width: 1px;
-        color: $table-plan-text-color;
-        text-align: center;
+            this.$toasted.error('Error happened!!!')
+          }.bind(this))
       }
     }
   }
-}
+</script>
+
+<style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
+
+  .list-plans {
+    thead {
+      tr {
+        th {
+          border-bottom-width: 1px;
+          color: $table-plan-text-color;
+          text-align: center;
+        }
+      }
+    }
+  }
 </style>

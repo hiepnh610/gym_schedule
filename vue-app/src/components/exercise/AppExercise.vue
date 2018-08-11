@@ -16,82 +16,83 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import axios from 'axios'
+  import config from '@/config'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import AppExerciseCreate from './AppExerciseCreate.vue'
-import listExercise from './list-exercise.vue'
+  import AppExerciseCreate from './AppExerciseCreate.vue'
+  import listExercise from './list-exercise.vue'
 
-export default {
-  name: 'AppExercise',
+  export default {
+    name: 'AppExercise',
 
-  components: { AppExerciseCreate, listExercise, FontAwesomeIcon },
+    components: { AppExerciseCreate, listExercise, FontAwesomeIcon },
 
-  data () {
-    return {
-      exerciseName: ''
-    }
-  },
+    data () {
+      return {
+        exerciseName: ''
+      }
+    },
 
-  props: {
-    id: { type: String }
-  },
+    props: {
+      id: { type: String }
+    },
 
-  created () {
-    axios
-      .get(config.domainAddress + config.api.exercise, {
-        params: {
-          id: this.id
-        }
-      })
-      .then(function (response) {
-        this.$store.dispatch('setListExercise', response.data)
-      }.bind(this))
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.errContent = 'Error happened.'
-        }
-      }.bind(this))
+    created () {
+      axios
+        .get(config.domainAddress + config.api.exercise, {
+          params: {
+            id: this.id
+          }
+        })
+        .then(function (response) {
+          this.$store.dispatch('setListExercise', response.data)
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
 
-    axios
-      .get(config.domainAddress + config.api.listWorkout, {
-        params: {
-          id: this.id
-        }
-      })
-      .then(function (response) {
-        this.exerciseName = response.data[0].name
-      }.bind(this))
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.errContent = 'Error happened.'
-        }
-      }.bind(this))
-  },
+      axios
+        .get(config.domainAddress + config.api.listWorkout, {
+          params: {
+            id: this.id
+          }
+        })
+        .then(function (response) {
+          this.exerciseName = response.data[0].name
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
+    },
 
-  methods: {
-    createExercise () {
-      this.$store.dispatch('setShowBackgroundModal', true)
-      this.$store.dispatch('setShowCreateModal', true)
-    }
-  },
+    methods: {
+      createExercise () {
+        this.$store.dispatch('setShowBackgroundModal', true)
+        this.$store.dispatch('setShowCreateModal', true)
+      }
+    },
 
-  computed: {
-    listExercise () {
-      return this.$store.getters.listExercise
+    computed: {
+      listExercise () {
+        return this.$store.getters.listExercise
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
+
   h1 {
     margin-bottom: $size-base * 2;
   }

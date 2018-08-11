@@ -33,76 +33,76 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
+  import axios from 'axios'
+  import config from '@/config'
 
-import AppWorkoutUpdate from './AppWorkoutUpdate.vue'
+  import AppWorkoutUpdate from './AppWorkoutUpdate.vue'
 
-export default {
-  name: 'AppListWorkout',
+  export default {
+    name: 'AppListWorkout',
 
-  components: { AppWorkoutUpdate },
+    components: { AppWorkoutUpdate },
 
-  data () {
-    return {
-      dataWorkoutOrigin: ''
-    }
-  },
-
-  computed: {
-    getListWorkout () {
-      return this.$store.getters.listWorkout
-    }
-  },
-
-  methods: {
-    updateWorkout (workout) {
-      this.$store.dispatch('setShowBackgroundModal', true)
-      this.$store.dispatch('setShowUpdateModal', true)
-      this.dataWorkoutOrigin = workout
+    data () {
+      return {
+        dataWorkoutOrigin: ''
+      }
     },
 
-    deleteWorkout (id) {
-      this.$store.dispatch('setDeleteWorkout', id)
+    computed: {
+      getListWorkout () {
+        return this.$store.getters.listWorkout
+      }
+    },
 
-      axios
-        .delete(config.domainAddress + config.api.workout + id)
-        .then(function () {
-          this.$toasted.success('Delete Successfully!!!')
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
+    methods: {
+      updateWorkout (workout) {
+        this.$store.dispatch('setShowBackgroundModal', true)
+        this.$store.dispatch('setShowUpdateModal', true)
+        this.dataWorkoutOrigin = workout
+      },
 
-          this.$toasted.error('Error happened!!!')
-        }.bind(this))
-    }
-  }
-}
-</script>
+      deleteWorkout (id) {
+        this.$store.dispatch('setDeleteWorkout', id)
 
-<style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+        axios
+          .delete(config.domainAddress + config.api.workout + id)
+          .then(function () {
+            this.$toasted.success('Delete Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.errContent = error.response.data.message
+            } else {
+              this.errContent = 'Error happened.'
+            }
 
-.list-workout {
-  border-style: dotted;
-  color: $table-plan-bg-color;
-
-  th, td {
-    border-style: dotted;
-  }
-
-  thead {
-    tr {
-      th {
-        border-bottom-width: 1px;
-        text-align: center;
+            this.$toasted.error('Error happened!!!')
+          }.bind(this))
       }
     }
   }
-}
+</script>
+
+<style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
+
+  .list-workout {
+    border-style: dotted;
+    color: $table-plan-bg-color;
+
+    th, td {
+      border-style: dotted;
+    }
+
+    thead {
+      tr {
+        th {
+          border-bottom-width: 1px;
+          text-align: center;
+        }
+      }
+    }
+  }
 </style>

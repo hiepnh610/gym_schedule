@@ -54,103 +54,103 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import axios from 'axios'
+  import config from '@/config'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'AppPlanUpdate',
+  export default {
+    name: 'AppPlanUpdate',
 
-  components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon },
 
-  props: ['dataPlanOrigin'],
+    props: ['dataPlanOrigin'],
 
-  data () {
-    return {
-      namePlan: '',
-      typePlan: '',
-      frequencyPlan: '',
-      loading: false,
-      message: ''
-    }
-  },
-
-  methods: {
-    closeModal () {
-      this.$store.dispatch('setShowBackgroundModal', false)
+    data () {
+      return {
+        namePlan: '',
+        typePlan: '',
+        frequencyPlan: '',
+        loading: false,
+        message: ''
+      }
     },
 
-    planUpdate (id) {
-      if (!this.namePlan) {
-        this.message = 'The routine name cannot be blank.'
+    methods: {
+      closeModal () {
+        this.$store.dispatch('setShowBackgroundModal', false)
+      },
 
-        return
+      planUpdate (id) {
+        if (!this.namePlan) {
+          this.message = 'The routine name cannot be blank.'
+
+          return
+        }
+
+        if (!this.typePlan) {
+          this.message = 'The type cannot be blank.'
+
+          return
+        }
+
+        if (!this.frequencyPlan) {
+          this.message = 'The frequency cannot be blank.'
+
+          return
+        }
+
+        const params = {
+          name: this.namePlan,
+          type: this.typePlan,
+          frequency: this.frequencyPlan
+        }
+
+        this.loading = true
+
+        axios
+          .put(config.domainAddress + config.api.plans + id, params)
+          .then(function (response) {
+            this.loading = false
+
+            this.$store.dispatch('setShowBackgroundModal', false)
+            this.$store.dispatch('setUpdatePlan', response.data)
+
+            this.$toasted.success('Update Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.message = error.response.data.message
+            } else {
+              this.$toasted.error('Error happened!!!')
+            }
+
+            this.loading = false
+          }.bind(this))
       }
-
-      if (!this.typePlan) {
-        this.message = 'The type cannot be blank.'
-
-        return
-      }
-
-      if (!this.frequencyPlan) {
-        this.message = 'The frequency cannot be blank.'
-
-        return
-      }
-
-      const params = {
-        name: this.namePlan,
-        type: this.typePlan,
-        frequency: this.frequencyPlan
-      }
-
-      this.loading = true
-
-      axios
-        .put(config.domainAddress + config.api.plans + id, params)
-        .then(function (response) {
-          this.loading = false
-
-          this.$store.dispatch('setShowBackgroundModal', false)
-          this.$store.dispatch('setUpdatePlan', response.data)
-
-          this.$toasted.success('Update Successfully!!!')
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.message = error.response.data.message
-          } else {
-            this.$toasted.error('Error happened!!!')
-          }
-
-          this.loading = false
-        }.bind(this))
-    }
-  },
-
-  computed: {
-    showBackgroundModal () {
-      return this.$store.getters.showBackgroundModal
     },
 
-    showUpdateModal () {
-      return this.$store.getters.showUpdateModal
+    computed: {
+      showBackgroundModal () {
+        return this.$store.getters.showBackgroundModal
+      },
+
+      showUpdateModal () {
+        return this.$store.getters.showUpdateModal
+      },
+
+      dataPlan () {
+        return this.dataPlanOrigin
+      }
     },
 
-    dataPlan () {
-      return this.dataPlanOrigin
-    }
-  },
-
-  watch: {
-    dataPlan () {
-      this.namePlan = this.dataPlan.name
-      this.typePlan = this.dataPlan.type
-      this.frequencyPlan = this.dataPlan.frequency
+    watch: {
+      dataPlan () {
+        this.namePlan = this.dataPlan.name
+        this.typePlan = this.dataPlan.type
+        this.frequencyPlan = this.dataPlan.frequency
+      }
     }
   }
-}
 </script>
 
 <style lang="scss"></style>

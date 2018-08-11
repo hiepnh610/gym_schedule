@@ -21,26 +21,26 @@
 </template>
 
 <script>
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'AppModal',
+  export default {
+    name: 'AppModal',
 
-  components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon },
 
-  props: ['isSuccess', 'isSignUp'],
+    props: ['isSuccess', 'isSignUp'],
 
-  data () {
-    return {
+    data () {
+      return {
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/variables.scss';
 
-svg {
-  font-size: $size-base * 4;
-}
+  svg {
+    font-size: $size-base * 4;
+  }
 </style>

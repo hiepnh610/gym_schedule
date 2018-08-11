@@ -96,150 +96,150 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import Datepicker from 'vuejs-datepicker'
-import moment from 'moment'
+  import axios from 'axios'
+  import config from '@/config'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import Datepicker from 'vuejs-datepicker'
+  import moment from 'moment'
 
-export default {
-  name: 'AppProfile',
+  export default {
+    name: 'AppProfile',
 
-  components: { FontAwesomeIcon, Datepicker },
+    components: { FontAwesomeIcon, Datepicker },
 
-  data () {
-    return {
-      avatarPathFake: '',
-      avatarValue: null,
-      errorAvatar: '',
-      message: '',
-      showAvatarModal: false,
-      updateAvatarIsLoading: false,
-      updateInfoIsLoading: false,
-      user: {}
-    }
-  },
-
-  methods: {
-    userUpdate (id) {
-      const formatTimeToUTC = moment.utc(this.user.dob).format()
-      const params = this.user
-
-      if (this.user.dob) {
-        params.dob = formatTimeToUTC
+    data () {
+      return {
+        avatarPathFake: '',
+        avatarValue: null,
+        errorAvatar: '',
+        message: '',
+        showAvatarModal: false,
+        updateAvatarIsLoading: false,
+        updateInfoIsLoading: false,
+        user: {}
       }
+    },
 
-      this.updateInfoIsLoading = true
+    methods: {
+      userUpdate (id) {
+        const formatTimeToUTC = moment.utc(this.user.dob).format()
+        const params = this.user
 
+        if (this.user.dob) {
+          params.dob = formatTimeToUTC
+        }
+
+        this.updateInfoIsLoading = true
+
+        axios
+          .put(config.domainAddress + config.api.user + id, params)
+          .then(function () {
+            this.updateInfoIsLoading = false
+            this.$toasted.success('Update Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.message = 'Error happened.'
+            }
+
+            this.updateInfoIsLoading = false
+            this.$toasted.error('Error happened!!!')
+          }.bind(this))
+      },
+
+      customFormatter (date) {
+        return moment(date).format('DD/MM/YYYY')
+      },
+
+      selectImage (e) {
+        this.avatarValue = e.target.files[0]
+
+        const limitSize = 1024000
+        const imageType = this.avatarValue.type.replace('image/', '')
+
+        this.$refs.inputFile.value = ''
+        this.errorAvatar = ''
+
+        if (this.avatarValue.size > limitSize) {
+          this.errorAvatar = 'Please upload a picture smaller than 1 MB.'
+          return
+        }
+
+        if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
+          this.errorAvatar = 'We only support PNG or JPG pictures.'
+          return
+        }
+
+        this.avatarPathFake = URL.createObjectURL(this.avatarValue)
+        this.$store.dispatch('setShowBackgroundModal', true)
+        this.showAvatarModal = true
+      },
+
+      closeModal () {
+        this.$store.dispatch('setShowBackgroundModal', false)
+        this.showAvatarModal = false
+      },
+
+      uploadAvatar () {
+        const configHeader = {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }
+
+        let formData = new FormData()
+        formData.append('avatar', this.avatarValue)
+        formData.append('userId', this.$session.getAll().id)
+
+        this.updateAvatarIsLoading = true
+
+        axios
+          .post(config.domainAddress + config.api.upload, formData, configHeader)
+          .then(function (response) {
+            this.$store.dispatch('setAvatar', response.data.avatar.location)
+            this.updateAvatarIsLoading = false
+            this.showAvatarModal = false
+
+            this.$store.dispatch('setShowBackgroundModal', false)
+            this.$toasted.success('Upload Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.message = 'Error happened.'
+            }
+
+            this.updateAvatarIsLoading = false
+            this.showAvatarModal = false
+
+            this.$store.dispatch('setShowBackgroundModal', false)
+            this.$toasted.error('Error happened!!!')
+          }.bind(this))
+      }
+    },
+
+    created () {
       axios
-        .put(config.domainAddress + config.api.user + id, params)
-        .then(function () {
-          this.updateInfoIsLoading = false
-          this.$toasted.success('Update Successfully!!!')
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.message = 'Error happened.'
+        .get(config.domainAddress + config.api.user, {
+          params: {
+            id: this.$session.get('id')
           }
-
-          this.updateInfoIsLoading = false
-          this.$toasted.error('Error happened!!!')
-        }.bind(this))
-    },
-
-    customFormatter (date) {
-      return moment(date).format('DD/MM/YYYY')
-    },
-
-    selectImage (e) {
-      this.avatarValue = e.target.files[0]
-
-      const limitSize = 1024000
-      const imageType = this.avatarValue.type.replace('image/', '')
-
-      this.$refs.inputFile.value = ''
-      this.errorAvatar = ''
-
-      if (this.avatarValue.size > limitSize) {
-        this.errorAvatar = 'Please upload a picture smaller than 1 MB.'
-        return
-      }
-
-      if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
-        this.errorAvatar = 'We only support PNG or JPG pictures.'
-        return
-      }
-
-      this.avatarPathFake = URL.createObjectURL(this.avatarValue)
-      this.$store.dispatch('setShowBackgroundModal', true)
-      this.showAvatarModal = true
-    },
-
-    closeModal () {
-      this.$store.dispatch('setShowBackgroundModal', false)
-      this.showAvatarModal = false
-    },
-
-    uploadAvatar () {
-      const configHeader = {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      }
-
-      let formData = new FormData()
-      formData.append('avatar', this.avatarValue)
-      formData.append('userId', this.$session.getAll().id)
-
-      this.updateAvatarIsLoading = true
-
-      axios
-        .post(config.domainAddress + config.api.upload, formData, configHeader)
+        })
         .then(function (response) {
-          this.$store.dispatch('setAvatar', response.data.avatar.location)
-          this.updateAvatarIsLoading = false
-          this.showAvatarModal = false
-
-          this.$store.dispatch('setShowBackgroundModal', false)
-          this.$toasted.success('Upload Successfully!!!')
+          this.user = response.data
         }.bind(this))
         .catch(function (error) {
           if (error.response && error.response.data && error.response.data.message) {
+            this.message = error.response.data.message
+          } else {
             this.message = 'Error happened.'
           }
-
-          this.updateAvatarIsLoading = false
-          this.showAvatarModal = false
-
-          this.$store.dispatch('setShowBackgroundModal', false)
-          this.$toasted.error('Error happened!!!')
         }.bind(this))
-    }
-  },
+    },
 
-  created () {
-    axios
-      .get(config.domainAddress + config.api.user, {
-        params: {
-          id: this.$session.get('id')
-        }
-      })
-      .then(function (response) {
-        this.user = response.data
-      }.bind(this))
-      .catch(function (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.message = 'Error happened.'
-        }
-      }.bind(this))
-  },
-
-  computed: {
-    getAvatar () {
-      return this.$store.getters.avatar
+    computed: {
+      getAvatar () {
+        return this.$store.getters.avatar
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>

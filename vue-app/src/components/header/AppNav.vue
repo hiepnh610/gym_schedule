@@ -39,42 +39,42 @@
 </template>
 
 <script>
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'AppNav',
+  export default {
+    name: 'AppNav',
 
-  components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon },
 
-  data () {
-    return {
-      isLogin: false,
-      nameDisplay: String,
-      avatar: ''
-    }
-  },
+    data () {
+      return {
+        isLogin: false,
+        nameDisplay: String,
+        avatar: ''
+      }
+    },
 
-  mounted () {
-    if (this.$session.exists()) {
-      this.isLogin = true
-      this.nameDisplay = this.$session.get('name')
-    }
-  },
+    mounted () {
+      if (this.$session.exists()) {
+        this.isLogin = true
+        this.nameDisplay = this.$session.get('name')
+      }
+    },
 
-  computed: {
-    getAvatar () {
-      return this.$store.getters.avatar
-    }
-  },
+    computed: {
+      getAvatar () {
+        return this.$store.getters.avatar
+      }
+    },
 
-  methods: {
-    logout () {
-      this.$session.destroy()
-      this.$router.push('/sign-up')
-      this.isLogin = false
+    methods: {
+      logout () {
+        this.$session.destroy()
+        this.$router.push('/sign-up')
+        this.isLogin = false
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>

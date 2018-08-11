@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "moment": "^2.22.1",
-    "nodemon": "^1.17.5",
+    "nodemon": "^1.18.3",
     "npm": "^5.8.0"
   }
 }

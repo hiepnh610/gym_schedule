@@ -25,68 +25,68 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
+  import axios from 'axios'
+  import config from '@/config'
 
-export default {
-  name: 'AppExerciseCreate',
+  export default {
+    name: 'AppExerciseCreate',
 
-  data () {
-    return {
-      exercises: require('./exercises.json')
-    }
-  },
-
-  methods: {
-    closeModal () {
-      this.$store.dispatch('setShowBackgroundModal', false)
+    data () {
+      return {
+        exercises: require('./exercises.json')
+      }
     },
 
-    exerciseCreate (exercise) {
-      if (!exercise.name) {
-        this.message = 'The exercise name cannot be blank.'
+    methods: {
+      closeModal () {
+        this.$store.dispatch('setShowBackgroundModal', false)
+      },
 
-        return
+      exerciseCreate (exercise) {
+        if (!exercise.name) {
+          this.message = 'The exercise name cannot be blank.'
+
+          return
+        }
+
+        if (!exercise.image) {
+          this.message = 'The exercise image cannot be blank.'
+
+          return
+        }
+
+        const params = {
+          image: exercise.image,
+          name: exercise.name,
+          workout_id: this.$route.params.id
+        }
+
+        axios
+          .post(config.domainAddress + config.api.exercise, params)
+          .then(function (response) {
+            this.$store.dispatch('setListExercise', response.data)
+            this.$toasted.success('Create Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.message = error.response.data.message
+            } else {
+              this.$toasted.error('Error happened!!!')
+            }
+          }.bind(this))
       }
-
-      if (!exercise.image) {
-        this.message = 'The exercise image cannot be blank.'
-
-        return
-      }
-
-      const params = {
-        image: exercise.image,
-        name: exercise.name,
-        workout_id: this.$route.params.id
-      }
-
-      axios
-        .post(config.domainAddress + config.api.exercise, params)
-        .then(function (response) {
-          this.$store.dispatch('setListExercise', response.data)
-          this.$toasted.success('Create Successfully!!!')
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.message = error.response.data.message
-          } else {
-            this.$toasted.error('Error happened!!!')
-          }
-        }.bind(this))
-    }
-  },
-
-  computed: {
-    showBackgroundModal () {
-      return this.$store.getters.showBackgroundModal
     },
 
-    showCreateExercise () {
-      return this.$store.getters.showCreateModal
+    computed: {
+      showBackgroundModal () {
+        return this.$store.getters.showBackgroundModal
+      },
+
+      showCreateExercise () {
+        return this.$store.getters.showCreateModal
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>

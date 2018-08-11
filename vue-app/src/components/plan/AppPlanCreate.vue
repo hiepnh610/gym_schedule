@@ -54,93 +54,93 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import axios from 'axios'
+  import config from '@/config'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'AppPlanCreate',
+  export default {
+    name: 'AppPlanCreate',
 
-  components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon },
 
-  data () {
-    return {
-      namePlan: '',
-      typePlan: '',
-      frequencyPlan: '',
-      message: '',
-      loading: false
-    }
-  },
-
-  methods: {
-    closeModal () {
-      this.$store.dispatch('setShowBackgroundModal', false)
+    data () {
+      return {
+        namePlan: '',
+        typePlan: '',
+        frequencyPlan: '',
+        message: '',
+        loading: false
+      }
     },
 
-    planCreate () {
-      if (!this.namePlan) {
-        this.message = 'The routine name cannot be blank.'
+    methods: {
+      closeModal () {
+        this.$store.dispatch('setShowBackgroundModal', false)
+      },
 
-        return
+      planCreate () {
+        if (!this.namePlan) {
+          this.message = 'The routine name cannot be blank.'
+
+          return
+        }
+
+        if (!this.typePlan) {
+          this.message = 'The type cannot be blank.'
+
+          return
+        }
+
+        if (!this.frequencyPlan) {
+          this.message = 'The frequency cannot be blank.'
+
+          return
+        }
+
+        const params = {
+          name: this.namePlan,
+          type: this.typePlan,
+          frequency: this.frequencyPlan,
+          created_by: this.$session.get('id')
+        }
+
+        this.loading = true
+
+        axios
+          .post(config.domainAddress + config.api.plans, params)
+          .then(function (response) {
+            this.namePlan = ''
+            this.typePlan = ''
+            this.frequencyPlan = ''
+
+            this.loading = false
+
+            this.$store.dispatch('setShowBackgroundModal', false)
+            this.$store.dispatch('setCreatePlan', response.data)
+            this.$toasted.success('Create Successfully!!!')
+          }.bind(this))
+          .catch(function (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+              this.message = error.response.data.message
+            } else {
+              this.$toasted.error('Error happened!!!')
+            }
+
+            this.loading = false
+          }.bind(this))
       }
-
-      if (!this.typePlan) {
-        this.message = 'The type cannot be blank.'
-
-        return
-      }
-
-      if (!this.frequencyPlan) {
-        this.message = 'The frequency cannot be blank.'
-
-        return
-      }
-
-      const params = {
-        name: this.namePlan,
-        type: this.typePlan,
-        frequency: this.frequencyPlan,
-        created_by: this.$session.get('id')
-      }
-
-      this.loading = true
-
-      axios
-        .post(config.domainAddress + config.api.plans, params)
-        .then(function (response) {
-          this.namePlan = ''
-          this.typePlan = ''
-          this.frequencyPlan = ''
-
-          this.loading = false
-
-          this.$store.dispatch('setShowBackgroundModal', false)
-          this.$store.dispatch('setCreatePlan', response.data)
-          this.$toasted.success('Create Successfully!!!')
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.message = error.response.data.message
-          } else {
-            this.$toasted.error('Error happened!!!')
-          }
-
-          this.loading = false
-        }.bind(this))
-    }
-  },
-
-  computed: {
-    showBackgroundModal () {
-      return this.$store.getters.showBackgroundModal
     },
 
-    showCreatePlan () {
-      return this.$store.getters.showCreateModal
+    computed: {
+      showBackgroundModal () {
+        return this.$store.getters.showBackgroundModal
+      },
+
+      showCreatePlan () {
+        return this.$store.getters.showCreateModal
+      }
     }
   }
-}
 </script>
 
 <style lang="scss"></style>

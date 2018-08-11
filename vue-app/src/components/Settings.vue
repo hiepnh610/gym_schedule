@@ -13,31 +13,31 @@
 </template>
 
 <script>
-import AppSidebar from './settings/AppSidebar.vue'
+  import AppSidebar from './settings/AppSidebar.vue'
 
-export default {
-  name: 'Settings',
+  export default {
+    name: 'Settings',
 
-  components: { AppSidebar },
+    components: { AppSidebar },
 
-  created () {
-    const isAuthenticated = this.$session.exists()
-    const routePath = this.$route.path
+    created () {
+      const isAuthenticated = this.$session.exists()
+      const routePath = this.$route.path
 
-    if (isAuthenticated) {
-      if (routePath === '/settings') {
-        this.$router.push('/settings/profile')
+      if (isAuthenticated) {
+        if (routePath === '/settings') {
+          this.$router.push('/settings/profile')
+        }
       }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/variables.scss';
-@import '../assets/scss/mixins.scss';
+  @import '../assets/scss/variables.scss';
+  @import '../assets/scss/mixins.scss';
 
-#settings {
-  padding-top: $size-base * 8;
-}
+  #settings {
+    padding-top: $size-base * 8;
+  }
 </style>

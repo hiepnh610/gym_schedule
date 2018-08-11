@@ -13,9 +13,9 @@
 </template>
 
 <script>
-export default {
-  name: 'DashBoard'
-}
+  export default {
+    name: 'DashBoard'
+  }
 </script>
 
 <style lang="scss" scoped>

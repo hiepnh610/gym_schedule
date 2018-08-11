@@ -38,58 +38,58 @@
 </template>
 
 <script>
-import axios from 'axios'
-import config from '@/config'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import axios from 'axios'
+  import config from '@/config'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
-  name: 'AppAccount',
+  export default {
+    name: 'AppAccount',
 
-  components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon },
 
-  data () {
-    return {
-      userInfo: {
-        id: this.$session.get('id')
-      }
-    }
-  },
-
-  methods: {
-    userUpdate (id) {
-      if (this.userInfo.new_password === this.userInfo.confirm_new_password) {
-        const params = {
-          current_password: this.userInfo.current_password,
-          new_password: this.userInfo.new_password
+    data () {
+      return {
+        userInfo: {
+          id: this.$session.get('id')
         }
+      }
+    },
 
-        axios
-          .put(config.domainAddress + config.api.modifyPassword + id, params)
-          .then(function () {
-            this.$toasted.success('Update Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.errContent = error.response.data.message
-            } else {
-              this.errContent = 'Error happened.'
-            }
+    methods: {
+      userUpdate (id) {
+        if (this.userInfo.new_password === this.userInfo.confirm_new_password) {
+          const params = {
+            current_password: this.userInfo.current_password,
+            new_password: this.userInfo.new_password
+          }
 
-            this.$toasted.error('Error happened!!!')
-          }.bind(this))
-      } else {
-        this.$toasted.error('The password does not match.')
+          axios
+            .put(config.domainAddress + config.api.modifyPassword + id, params)
+            .then(function () {
+              this.$toasted.success('Update Successfully!!!')
+            }.bind(this))
+            .catch(function (error) {
+              if (error.response && error.response.data && error.response.data.message) {
+                this.errContent = error.response.data.message
+              } else {
+                this.errContent = 'Error happened.'
+              }
+
+              this.$toasted.error('Error happened!!!')
+            }.bind(this))
+        } else {
+          this.$toasted.error('The password does not match.')
+        }
       }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
-@import '../../assets/scss/mixins.scss';
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/mixins.scss';
 
-hr {
-  border-color: $hr-border-color;
-}
+  hr {
+    border-color: $hr-border-color;
+  }
 </style>
