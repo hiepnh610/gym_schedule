@@ -1,17 +1,17 @@
 <template>
   <div class="text-center">
-    <h1 class="text-center text-white mb-5">{{ exerciseName }}</h1>
+    <h1 class="text-center mb-5">{{ planName }}</h1>
 
-    <list-exercise v-if="listExercise.length > 0"></list-exercise>
+    <list-workouts v-if="listWorkouts.length > 0"></list-workouts>
 
-    <p class="align-center text-white mb-5">Please add some exercies from the under button.</p>
+    <p v-if="listWorkouts.length === 0" class="align-center mb-5">Please create a workout day from the under button.</p>
 
-    <a href="" class="btn btn-md btn-success" @click.prevent="createExercise">
+    <a href="" class="btn btn-md btn-success" @click.prevent="createWorkout" v-if="displayBtn">
       <font-awesome-icon icon="plus-circle" />
-      Add Exercise
+      Create Workout Day
     </a>
 
-    <app-exercise-create></app-exercise-create>
+    <workout-create></workout-create>
   </div>
 </template>
 
@@ -20,70 +20,78 @@
   import config from '@/config'
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-  import AppExerciseCreate from './AppExerciseCreate.vue'
-  import listExercise from './list-exercise.vue'
+  import workoutCreate from './workout-create.vue'
+  import listWorkouts from './list-workouts.vue'
 
   export default {
-    name: 'AppExercise',
+    name: 'main-workouts',
 
-    components: { AppExerciseCreate, listExercise, FontAwesomeIcon },
-
-    data () {
-      return {
-        exerciseName: ''
-      }
-    },
+    components: { workoutCreate, listWorkouts, FontAwesomeIcon },
 
     props: {
       id: { type: String }
     },
 
-    created () {
-      axios
-        .get(config.domainAddress + config.api.exercise, {
-          params: {
-            id: this.id
-          }
-        })
-        .then(function (response) {
-          this.$store.dispatch('setListExercise', response.data)
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
-        }.bind(this))
-
-      axios
-        .get(config.domainAddress + config.api.listWorkout, {
-          params: {
-            id: this.id
-          }
-        })
-        .then(function (response) {
-          this.exerciseName = response.data[0].name
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
-        }.bind(this))
+    data () {
+      return {
+        planName: '',
+        planFrequency: ''
+      }
     },
 
     methods: {
-      createExercise () {
+      createWorkout () {
         this.$store.dispatch('setShowBackgroundModal', true)
         this.$store.dispatch('setShowCreateModal', true)
       }
     },
 
+    created () {
+      axios
+        .get(config.domainAddress + config.api.workout, {
+          params: {
+            id: this.id
+          }
+        })
+        .then(function (response) {
+          this.$store.dispatch('setListWorkout', response.data)
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
+
+      axios
+        .get(config.domainAddress + config.api.listPlans, {
+          params: {
+            id: this.id
+          }
+        })
+        .then(function (response) {
+          this.planName = response.data[0].name
+          this.planFrequency = response.data[0].frequency
+        }.bind(this))
+        .catch(function (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
+          }
+        }.bind(this))
+    },
+
     computed: {
-      listExercise () {
-        return this.$store.getters.listExercise
+      listWorkouts () {
+        return this.$store.getters.listWorkout
+      },
+
+      displayBtn () {
+        if (this.listWorkouts.length < this.planFrequency) {
+          return true
+        }
       }
     }
   }

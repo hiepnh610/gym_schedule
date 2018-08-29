@@ -43,7 +43,7 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   export default {
-    name: 'AppAccount',
+    name: 'account',
 
     components: { FontAwesomeIcon },
 

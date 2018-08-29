@@ -29,7 +29,7 @@
   import config from '@/config'
 
   export default {
-    name: 'AppExerciseCreate',
+    name: 'exercise-create',
 
     data () {
       return {

@@ -1,38 +1,33 @@
 <template>
   <div class="row">
-    <div class="col-12 col-lg-10 offset-lg-1">
-      <table class="table table-bordered list-plans text-center mb-5">
+    <div class="col-12 col-lg-8 offset-lg-2">
+      <table class="table table-bordered list-workout text-center mb-5">
         <thead class="bg-success">
           <tr>
             <th>name</th>
-            <th>type</th>
-            <th>frequency</th>
+            <th>week day</th>
             <th></th>
           </tr>
         </thead>
 
         <tbody>
-          <tr v-for="plan in getListPlans">
+          <tr v-for="workout in getListWorkout">
             <td>
-              <router-link :to="'workout/' + plan._id" class="text-success text-capitalize">{{ plan.name }}</router-link>
+              <router-link :to="'../exercise/' + workout._id" class="text-success text-capitalize">{{ workout.name }}</router-link>
             </td>
 
-            <td>{{ plan.type }}</td>
-
-            <td v-if="plan.frequency > 1">{{ plan.frequency }} days/week</td>
-
-            <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
+            <td>{{ workout.week_day }}</td>
 
             <td>
-              <a href="" class="btn btn-sm btn-secondary mr-1" @click.prevent="updatePlan(plan)">Edit</a>
+              <a href="" class="btn btn-sm btn-secondary mr-1" @click.prevent="updateWorkout(workout)">Edit</a>
 
-              <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
+              <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteWorkout(workout._id)">Delete</a>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <app-plan-update :data-plan-origin="dataPlanOrigin"></app-plan-update>
+      <workout-update :data-workout-origin="dataWorkoutOrigin"></workout-update>
     </div>
   </div>
 </template>
@@ -41,38 +36,37 @@
   import axios from 'axios'
   import config from '@/config'
 
-  import AppPlanUpdate from './AppPlanUpdate.vue'
+  import workoutUpdate from './workout-update.vue'
 
   export default {
-    name: 'AppListPlans',
+    name: 'list-workouts',
 
-    components: { AppPlanUpdate },
+    components: { workoutUpdate },
 
     data () {
       return {
-        errContent: '',
-        dataPlanOrigin: ''
+        dataWorkoutOrigin: ''
       }
     },
 
     computed: {
-      getListPlans () {
-        return this.$store.getters.listPlans
+      getListWorkout () {
+        return this.$store.getters.listWorkout
       }
     },
 
     methods: {
-      updatePlan (plan) {
+      updateWorkout (workout) {
         this.$store.dispatch('setShowBackgroundModal', true)
         this.$store.dispatch('setShowUpdateModal', true)
-        this.dataPlanOrigin = plan
+        this.dataWorkoutOrigin = workout
       },
 
-      deletePlan (id) {
-        this.$store.dispatch('setDeletePlan', id)
+      deleteWorkout (id) {
+        this.$store.dispatch('setDeleteWorkout', id)
 
         axios
-          .delete(config.domainAddress + config.api.plans + id)
+          .delete(config.domainAddress + config.api.workout + id)
           .then(function () {
             this.$toasted.success('Delete Successfully!!!')
           }.bind(this))
@@ -94,12 +88,18 @@
   @import '../../assets/scss/variables.scss';
   @import '../../assets/scss/mixins.scss';
 
-  .list-plans {
+  .list-workout {
+    border-style: dotted;
+
+    th, td {
+      border-style: dotted;
+    }
+
     thead {
       tr {
         th {
+          color: $white;
           border-bottom-width: 1px;
-          color: $table-plan-text-color;
           text-align: center;
         }
       }

@@ -49,7 +49,7 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   export default {
-    name: 'AppWorkoutUpdate',
+    name: 'workout-update',
 
     components: { FontAwesomeIcon },
 

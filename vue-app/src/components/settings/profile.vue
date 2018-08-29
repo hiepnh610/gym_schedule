@@ -103,7 +103,7 @@
   import moment from 'moment'
 
   export default {
-    name: 'AppProfile',
+    name: 'profile',
 
     components: { FontAwesomeIcon, Datepicker },
 

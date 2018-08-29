@@ -1,21 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Login from '@/components/header/Login'
-import SignUp from '@/components/header/SignUp'
+import login from '@/components/header/login'
+import signUp from '@/components/header/sign-up'
 
-import DashBoard from '@/components/Dashboard'
+import dashboard from '@/components/dashboard'
 
-import AppPlan from '@/components/plan/AppPlan'
+import plans from '@/components/plan/main-plans'
 
-import AppWorkout from '@/components/workout/AppWorkout'
+import workouts from '@/components/workout/main-workouts'
 
-import AppExercise from '@/components/exercise/AppExercise'
+import exercises from '@/components/exercise/main-exercises'
 
-import Settings from '@/components/Settings'
+import settings from '@/components/settings'
 
-import AppProfile from '@/components/settings/AppProfile'
-import AppAccount from '@/components/settings/AppAccount'
+import profile from '@/components/settings/profile'
+import account from '@/components/settings/account'
 
 Vue.use(Router)
 
@@ -23,53 +23,53 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      component: Login,
-      name: 'Login',
+      component: login,
+      name: 'login',
       path: ''
     },
     {
-      component: SignUp,
-      name: 'SignUp',
+      component: signUp,
+      name: 'sign-up',
       path: '/sign-up'
     },
     {
-      component: DashBoard,
-      name: 'DashBoard',
+      component: dashboard,
+      name: 'dashboard',
       path: '/dashboard',
       children: [
         {
           path: 'plan',
-          name: 'AppPlan',
-          component: AppPlan
+          name: 'main-plans',
+          component: plans
         },
         {
-          component: AppWorkout,
-          name: 'AppWorkout',
+          component: workouts,
+          name: 'main-workouts',
           path: 'workout/:id',
           props: true
         },
         {
-          component: AppExercise,
-          name: 'AppExercise',
+          component: exercises,
+          name: 'main-exercises',
           path: 'exercise/:id',
           props: true
         }
       ]
     },
     {
-      component: Settings,
-      name: 'Settings',
+      component: settings,
+      name: 'settings',
       path: '/settings',
       children: [
         {
           path: 'profile',
-          name: 'AppProfile',
-          component: AppProfile
+          name: 'profile',
+          component: profile
         },
         {
           path: 'account',
-          name: 'AppAccount',
-          component: AppAccount
+          name: 'account',
+          component: account
         }
       ]
     }

@@ -2,7 +2,7 @@
   <div class="text-center">
     <h1 class="text-center mb-5">Plan</h1>
 
-    <app-list-plans v-if="listPlans.length > 0"></app-list-plans>
+    <list-plans v-if="listPlans.length > 0"></list-plans>
 
     <p v-if="listPlans.length === 0" class="align-center mb-5">Please create a plan from the under button.</p>
 
@@ -11,7 +11,7 @@
       Create Plan
     </a>
 
-    <app-plan-create></app-plan-create>
+    <plan-create></plan-create>
   </div>
 </template>
 
@@ -20,13 +20,13 @@
   import config from '@/config'
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-  import AppPlanCreate from './AppPlanCreate.vue'
-  import AppListPlans from './AppListPlans.vue'
+  import planCreate from './plan-create.vue'
+  import listPlans from './list-plans.vue'
 
   export default {
-    name: 'AppPlan',
+    name: 'main-plans',
 
-    components: { AppPlanCreate, AppListPlans, FontAwesomeIcon },
+    components: { planCreate, listPlans, FontAwesomeIcon },
 
     data () {
       return {

@@ -1,9 +1,9 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="showBackgroundModal && showCreatePlan" :class="{ 'show animated bounceIn': showBackgroundModal && showCreatePlan }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="showBackgroundModal && showUpdateModal" :class="{ 'show animated bounceIn': showBackgroundModal && showUpdateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <h2 class="text-center mb-4 text-success">Plan Information</h2>
+          <h2 class="text-center mb-4 text-success">Update Plan Information</h2>
 
           <form>
             <div class="form-group">
@@ -39,8 +39,8 @@
             <p v-show="message" class="text-danger">{{ message }}</p>
 
             <div class="form-group text-center mb-0">
-              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planCreate">
-                Submit
+              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planUpdate(dataPlanOrigin._id)">
+                Update
                 <font-awesome-icon icon="spinner" spin v-if="loading" />
               </button>
 
@@ -59,17 +59,19 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   export default {
-    name: 'AppPlanCreate',
+    name: 'plan-update',
 
     components: { FontAwesomeIcon },
+
+    props: ['dataPlanOrigin'],
 
     data () {
       return {
         namePlan: '',
         typePlan: '',
         frequencyPlan: '',
-        message: '',
-        loading: false
+        loading: false,
+        message: ''
       }
     },
 
@@ -78,7 +80,7 @@
         this.$store.dispatch('setShowBackgroundModal', false)
       },
 
-      planCreate () {
+      planUpdate (id) {
         if (!this.namePlan) {
           this.message = 'The routine name cannot be blank.'
 
@@ -100,24 +102,20 @@
         const params = {
           name: this.namePlan,
           type: this.typePlan,
-          frequency: this.frequencyPlan,
-          created_by: this.$session.get('id')
+          frequency: this.frequencyPlan
         }
 
         this.loading = true
 
         axios
-          .post(config.domainAddress + config.api.plans, params)
+          .put(config.domainAddress + config.api.plans + id, params)
           .then(function (response) {
-            this.namePlan = ''
-            this.typePlan = ''
-            this.frequencyPlan = ''
-
             this.loading = false
 
             this.$store.dispatch('setShowBackgroundModal', false)
-            this.$store.dispatch('setCreatePlan', response.data)
-            this.$toasted.success('Create Successfully!!!')
+            this.$store.dispatch('setUpdatePlan', response.data)
+
+            this.$toasted.success('Update Successfully!!!')
           }.bind(this))
           .catch(function (error) {
             if (error.response && error.response.data && error.response.data.message) {
@@ -136,8 +134,20 @@
         return this.$store.getters.showBackgroundModal
       },
 
-      showCreatePlan () {
-        return this.$store.getters.showCreateModal
+      showUpdateModal () {
+        return this.$store.getters.showUpdateModal
+      },
+
+      dataPlan () {
+        return this.dataPlanOrigin
+      }
+    },
+
+    watch: {
+      dataPlan () {
+        this.namePlan = this.dataPlan.name
+        this.typePlan = this.dataPlan.type
+        this.frequencyPlan = this.dataPlan.frequency
       }
     }
   }

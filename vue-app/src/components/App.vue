@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-nav></app-nav>
+    <navigation></navigation>
 
     <router-view></router-view>
 
@@ -11,12 +11,12 @@
 <script>
   import axios from 'axios'
   import config from '@/config'
-  import AppNav from './header/AppNav.vue'
+  import navigation from './header/navigation.vue'
 
   export default {
     name: 'App',
 
-    components: { AppNav },
+    components: { navigation },
 
     beforeCreate () {
       const isAuthenticated = this.$session.exists()

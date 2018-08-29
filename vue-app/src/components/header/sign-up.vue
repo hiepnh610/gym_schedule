@@ -15,13 +15,13 @@
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" v-model="password" />
+              <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" ref="passwordRef" v-model="password" />
 
               <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:password'" data-vv-delay="1000" v-model="password_confirm" />
+              <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="password_confirm" />
 
               <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
             </div>
@@ -38,23 +38,22 @@
         </div>
       </div>
 
-      <app-modal :is-success="isSuccess" :is-sign-up="true"></app-modal>
+      <modal :is-success="isSuccess" :is-sign-up="true"></modal>
     </div>
-
-    <p v-if="loaded" class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae commodi culpa voluptates, deserunt asperiores delectus atque soluta consectetur ipsum fugit magni ut iste cumque veritatis qui dolorum dolorem, est aliquid.</p>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
   import config from '@/config'
-  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-  import AppNav from './AppNav.vue'
-  import AppModal from '../modal/AppModal.vue'
+  import modal from '../modal/modal.vue'
 
   export default {
-    components: { AppNav, AppModal, FontAwesomeIcon },
+    name: 'sign-up',
+
+    components: { modal, FontAwesomeIcon },
 
     data () {
       return {
@@ -64,15 +63,8 @@
         password_confirm: '',
         isSuccess: false,
         disabledBtn: false,
-        message: '',
-        loaded: false
+        message: ''
       }
-    },
-
-    beforeCreated () {
-      this.loaded = true
-
-      console.log(this.loaded)
     },
 
     methods: {

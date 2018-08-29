@@ -24,7 +24,7 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
   export default {
-    name: 'AppModal',
+    name: 'modal',
 
     components: { FontAwesomeIcon },
 

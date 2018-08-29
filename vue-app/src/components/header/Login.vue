@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <app-modal :is-success="isSuccess"></app-modal>
+      <modal :is-success="isSuccess"></modal>
     </div>
   </div>
 </template>
@@ -38,11 +38,12 @@
   import config from '@/config'
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-  import AppNav from './AppNav.vue'
-  import AppModal from '../modal/AppModal.vue'
+  import modal from '../modal/modal.vue'
 
   export default {
-    components: { AppNav, AppModal, FontAwesomeIcon },
+    name: 'login',
+
+    components: { modal, FontAwesomeIcon },
 
     data () {
       return {
