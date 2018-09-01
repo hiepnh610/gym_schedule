@@ -1,0 +1,156 @@
+[
+    {
+        "name": "Squat",
+        "image": "/exercise/squat.jpg"
+    },
+
+    {
+        "name": "Legpress",
+        "image": "/exercise/leg-press.jpg"
+    },
+
+    {
+        "name": "Leg Curl",
+        "image": "/exercise/leg-curl.jpg"
+    },
+
+    {
+        "name": "Calf Raise Seated",
+        "image": "/exercise/calf-raise-seated.jpg"
+    },
+
+    {
+        "name": "Stiffleg Deadlift (for your Hamstrings)",
+        "image": "/exercise/deadlift.jpg"
+    },
+
+    {
+        "name": "Front Squat",
+        "image": "/exercise/front-squat.jpg"
+    },
+
+    {
+        "name": "Lunges",
+        "image": "/exercise/lunges.jpg"
+    },
+
+    {
+        "name": "Calf Raise Standing",
+        "image": "/exercise/calf-raise-standing.jpg"
+    },
+
+    {
+        "name": "Deadlift (or Sumo Dead)",
+        "image": "/exercise/sumo-deadlift.jpg"
+    },
+
+    {
+        "name": "Row with Dumbell",
+        "image": "/exercise/row-with-dumbell.jpg"
+    },
+
+    {
+        "name": "Lat Pulldown",
+        "image": "/exercise/lat-pull-down.jpg"
+    },
+
+    {
+        "name": "Reverse Butterfly",
+        "image": "/exercise/reverse-butterfly.jpg"
+    },
+
+    {
+        "name": "Biceps Curl with Barbell",
+        "image": "/exercise/biceps-curl-with-barbell.jpg"
+    },
+
+    {
+        "name": "Scott Curl Dumbell",
+        "image": "/exercise/scott-curl-dumbell.jpg"
+    },
+
+    {
+        "name": "Pull Ups (wide grip)",
+        "image": "/exercise/lat-pull-down-with-undergrip.jpg"
+    },
+
+    {
+        "name": "Bent Over Row (with Barbell)",
+        "image": "/exercise/bent-over-row-with-barbell.jpg"
+    },
+
+    {
+        "name": "Lat Pulldown (with undergrip)",
+        "image": "/exercise/lat-pull-down-with-undergrip.jpg"
+    },
+
+    {
+        "name": "Face Pulls",
+        "image": "/exercise/face-pulls.jpg"
+    },
+
+    {
+        "name": "Biceps Curl with Dumbell",
+        "image": "/exercise/biceps-curl-with-dumbell.jpg"
+    },
+
+    {
+        "name": "Hammer Curl Dumbell",
+        "image": "/exercise/hammer-curl-dumbell.jpg"
+    },
+
+    {
+        "name": "Benchpress with Barbell (Flat)",
+        "image": "/exercise/bench-press.jpg"
+    },
+
+    {
+        "name": "Incline Benchpress with Dumbell",
+        "image": "/exercise/incline-benchpress-with-dumbell.jpg"
+    },
+
+    {
+        "name": "Flys with Dumbell",
+        "image": "/exercise/flys-with-dumbell.jpg"
+    },
+
+    {
+        "name": "Lateral Raises with Dumbell",
+        "image": "/exercise/lateral-raises-with-dumbell.jpg"
+    },
+
+    {
+        "name": "French-Press",
+        "image": "/exercise/french-press.jpg"
+    },
+
+    {
+        "name": "Triceps Cable Pushdown",
+        "image": "/exercise/triceps-cable-pushdown.jpg"
+    },
+
+    {
+        "name": "Military Press",
+        "image": "/exercise/military-press.jpg"
+    },
+
+    {
+        "name": "Incline Benchpress with Barbell",
+        "image": "/exercise/incline-benchpress-with-barbell.jpg"
+    },
+
+    {
+        "name": "Dips",
+        "image": "/exercise/dips.jpg"
+    },
+
+    {
+        "name": "Bent-over reverse fly",
+        "image": "/exercise/bent-over-reverse-fly.jpg"
+    },
+
+    {
+        "name": "Seated overhead triceps Push with dumbell",
+        "image": "/exercise/seated-overhead-triceps-push-with-dumbell.jpg"
+    }
+]
