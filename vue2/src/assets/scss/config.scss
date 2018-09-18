@@ -1,0 +1,23 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+body {
+  background: $body-bg-color;
+  font-family: 'Open Sans', sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  @extend %transition;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: $white !important;
+}

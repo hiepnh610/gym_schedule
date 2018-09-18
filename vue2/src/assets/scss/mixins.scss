@@ -1,0 +1,92 @@
+@mixin transform($transforms) {
+  -webkit-transform : $transforms;
+     -moz-transform : $transforms;
+      -ms-transform : $transforms;
+       -o-transform : $transforms;
+          transform : $transforms;
+}
+
+@mixin rotateX($x) {
+  @include transform(rotateX(#{$x}deg));
+}
+
+@mixin rotateY($y) {
+  @include transform(rotateY(#{$y}deg));
+}
+
+@mixin rotateZ($z) {
+  @include transform(rotateZ(#{$z}deg));
+}
+
+@mixin scale($scale1,$scale2) {
+  @include transform(scale($scale1,$scale2));
+}
+
+@mixin translate ($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+@mixin skew ($x, $y) {
+  @include transform(skew(#{$x}deg, #{$y}deg));
+}
+
+@mixin max-width($width) {
+  @media screen and (max-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin transition($transition-property, $transition-duration, $transition-timing-function, $transition-delay) {
+  -webkit-transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
+     -moz-transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
+      -ms-transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
+          transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin box-shadow($top:"", $left:"", $blur:"", $color:"", $inset:"") {
+  @if ($top $left $blur $color) {
+    -webkit-box-shadow: $top $left $blur $color #{$inset};
+       -moz-box-shadow: $top $left $blur $color #{$inset};
+        -ms-box-shadow: $top $left $blur $color #{$inset};
+            box-shadow: $top $left $blur $color #{$inset};
+  }
+}
+
+@mixin opacity($opacity) {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+  $IEValue: $opacity*100;
+  opacity: $opacity;
+  filter: alpha(opacity=$IEValue);
+}
+
+%transition {
+  @include transition(all, .2s, ease, 0s);
+}
+
+%fa {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1;
+  transform: translate(0, 0);
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin gradient($positionStart, $positionMiddle ,$color-start, $color-middle, $color-end) {
+  background: -webkit-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
+  background: -moz-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
+  background: -ms-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
+  background: -o-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
+  background: linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
+}

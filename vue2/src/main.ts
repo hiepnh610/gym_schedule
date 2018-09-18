@@ -19,7 +19,14 @@ import { faSpinner } from '@fortawesome/fontawesome-free-solid'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'animate.css/animate.min.css'
 
-const Options = {
+interface Options {
+  duration: number,
+  iconPack: string,
+  position: string,
+  theme: string
+}
+
+const fontawesomeOptions: Options = {
   duration: 5000,
   iconPack: 'fontawesome',
   position: 'top-right',
@@ -30,7 +37,7 @@ Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)
 Vue.use(VueCookie)
 Vue.use(VueSession, { persist: true })
-Vue.use(Toasted, Options)
+Vue.use(Toasted, fontawesomeOptions)
 Vue.config.productionTip = false
 
 fontawesome.library.add(brands, faSpinner)
