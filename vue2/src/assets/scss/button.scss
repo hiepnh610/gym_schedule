@@ -1,0 +1,16 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+.btn {
+  border-radius: $border-radius-size * 0.1;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.btn-sm {
+  padding-left: $button-spacing;
+  padding-right: $button-spacing;
+}

@@ -28,7 +28,7 @@
       "scripthost"
     ],
     "typeRoots": [
-      "node_modules/@types", "src/shared/types"
+      "node_modules/@types", "./src/shared/types"
     ],
   },
   "include": [

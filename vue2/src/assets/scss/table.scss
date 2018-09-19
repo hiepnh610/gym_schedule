@@ -1,0 +1,20 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+.table {
+  thead {
+    tr {
+      th {
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        vertical-align: middle;
+      }
+    }
+  }
+}
