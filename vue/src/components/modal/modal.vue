@@ -20,21 +20,19 @@
   </div>
 </template>
 
-<script>
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-  export default {
-    name: 'modal',
-
-    components: { FontAwesomeIcon },
-
-    props: ['isSuccess', 'isSignUp'],
-
-    data () {
-      return {
-      }
-    }
-  }
+@Component({
+  components: {
+  FontAwesomeIcon,
+  },
+  })
+export default class Modal extends Vue {
+  @Prop() isSuccess!: boolean
+  @Prop() isSignUp!: boolean
+}
 </script>
 
 <style lang="scss" scoped>

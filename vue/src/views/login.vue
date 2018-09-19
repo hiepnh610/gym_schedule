@@ -33,64 +33,67 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import axios from 'axios'
+import config from '@/config'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Response, Params } from '@/util'
 
-  import modal from '@/components/modal/modal.vue'
+import modal from '@/components/modal/modal.vue'
 
-  export default {
-    name: 'login',
+@Component({
+  components: {
+  modal,
+  FontAwesomeIcon,
+  },
+  })
+export default class Login extends Vue {
+  disabledBtn: boolean = false
+  email: string = ''
+  isSuccess: boolean = false
+  message: string = ''
+  password: string = ''
 
-    components: { modal, FontAwesomeIcon },
-
-    data () {
-      return {
-        email: '',
-        password: '',
-        isSuccess: false,
-        disabledBtn: false,
-        message: ''
+  login () {
+    if (this.email && this.password) {
+      interface Params {
+        email: string,
+        password: string
       }
-    },
 
-    methods: {
-      login () {
-        if (this.email && this.password) {
-          const params = {
-            email: this.email,
-            password: this.password
+      const params: Params = {
+        email: this.email,
+        password: this.password
+      }
+
+      this.disabledBtn = true
+
+      axios
+        .post(config.domainAddress + config.api.login, params)
+        .then(function (response: Response) {
+          this.isSuccess = true
+          this.disabledBtn = false
+          this.$store.dispatch('setShowBackgroundModal', true)
+
+          this.$session.start()
+          this.$session.set('name', response.data.name)
+          this.$session.set('email', response.data.email)
+          this.$session.set('id', response.data.id)
+          this.$session.set('authenticate', response.data.authenticate)
+        }.bind(this))
+        .catch(function (error: Response) {
+          this.disabledBtn = false
+
+          if (error.response && error.response.data && error.response.data.message) {
+            this.message = error.response.data.message
+          } else {
+            this.message = 'Error happened.'
           }
-
-          this.disabledBtn = true
-
-          axios
-            .post(config.domainAddress + config.api.login, params)
-            .then(function (response) {
-              this.isSuccess = true
-              this.disabledBtn = false
-              this.$store.dispatch('setShowBackgroundModal', true)
-
-              this.$session.start()
-              this.$session.set('name', response.data.name)
-              this.$session.set('email', response.data.email)
-              this.$session.set('id', response.data.id)
-              this.$session.set('authenticate', response.data.authenticate)
-            }.bind(this))
-            .catch(function (error) {
-              this.disabledBtn = false
-
-              if (error.response && error.response.data && error.response.data.message) {
-                this.message = error.response.data.message
-              } else {
-                this.message = 'Error happened.'
-              }
-            }.bind(this))
-        }
-      }
+        }.bind(this))
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
