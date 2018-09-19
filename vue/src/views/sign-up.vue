@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="password_confirm" />
+              <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="passwordConfirm" />
 
               <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
             </div>
@@ -43,68 +43,66 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import axios from 'axios'
+import config from '@/config'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Response, ParamsSignUp } from '@/util'
 
-  import modal from '@/components/modal/modal.vue'
+import modal from '@/components/modal/modal.vue'
 
-  export default {
-    name: 'sign-up',
+@Component({
+  components: {
+  modal,
+  FontAwesomeIcon,
+  },
+  })
+export default class SignUp extends Vue {
+  email: string = ''
+  fullName: string = ''
+  password: string = ''
+  passwordConfirm: string = ''
+  isSuccess: boolean = false
+  disabledBtn: boolean = false
+  message: string = ''
 
-    components: { modal, FontAwesomeIcon },
-
-    data () {
-      return {
-        email: '',
-        fullName: '',
-        password: '',
-        password_confirm: '',
-        isSuccess: false,
-        disabledBtn: false,
-        message: ''
+  signUp () {
+    if (this.email && this.fullName && this.password) {
+      const params: ParamsSignUp = {
+        email: this.email,
+        fullName: this.fullName,
+        password: this.password,
+        passwordConfirm: this.passwordConfirm
       }
-    },
 
-    methods: {
-      signUp () {
-        if (this.email && this.fullName && this.password) {
-          const params = {
-            email: this.email,
-            fullName: this.fullName,
-            password: this.password,
-            password_confirm: this.password_confirm
+      this.disabledBtn = true
+
+      axios
+        .post(config.domainAddress + config.api.signUp, params)
+        .then(function (response: Response) {
+          this.isSuccess = true
+          this.disabledBtn = false
+          this.$store.dispatch('setShowBackgroundModal', true)
+
+          this.$session.start()
+          this.$session.set('name', response.data.name)
+          this.$session.set('email', response.data.email)
+          this.$session.set('id', response.data.id)
+          this.$session.set('authenticate', response.data.authenticate)
+        }.bind(this))
+        .catch(function (error: Response) {
+          this.disabledBtn = false
+
+          if (error.response && error.response.data && error.response.data.message) {
+            this.message = error.response.data.message
+          } else {
+            this.message = 'Error happened.'
           }
-
-          this.disabledBtn = true
-
-          axios
-            .post(config.domainAddress + config.api.sign_up, params)
-            .then(function (response) {
-              this.isSuccess = true
-              this.disabledBtn = false
-              this.$store.dispatch('setShowBackgroundModal', true)
-
-              this.$session.start()
-              this.$session.set('name', response.data.name)
-              this.$session.set('email', response.data.email)
-              this.$session.set('id', response.data.id)
-              this.$session.set('authenticate', response.data.authenticate)
-            }.bind(this))
-            .catch(function (error) {
-              this.disabledBtn = false
-
-              if (error.response && error.response.data && error.response.data.message) {
-                this.message = error.response.data.message
-              } else {
-                this.message = 'Error happened.'
-              }
-            }.bind(this))
-        }
-      }
+        }.bind(this))
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

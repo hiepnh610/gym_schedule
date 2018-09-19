@@ -38,43 +38,41 @@
   </nav>
 </template>
 
-<script>
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-  export default {
-    name: 'AppNav',
+@Component({
+  components: {
+  FontAwesomeIcon,
+  },
+  })
+export default class Navigation extends Vue {
+  isLogin: boolean = false
+  nameDisplay!: string
+  avatar!: string
 
-    components: { FontAwesomeIcon },
+  mounted () {
+    const _this: any = this
 
-    data () {
-      return {
-        isLogin: false,
-        nameDisplay: String,
-        avatar: ''
-      }
-    },
-
-    mounted () {
-      if (this.$session.exists()) {
-        this.isLogin = true
-        this.nameDisplay = this.$session.get('name')
-      }
-    },
-
-    computed: {
-      getAvatar () {
-        return this.$store.getters.avatar
-      }
-    },
-
-    methods: {
-      logout () {
-        this.$session.destroy()
-        this.$router.push('/sign-up')
-        this.isLogin = false
-      }
+    if (_this.$session.exists()) {
+      this.isLogin = true
+      this.nameDisplay = _this.$session.get('name')
     }
   }
+
+  get getAvatar () {
+    return this.$store.getters.avatar
+  }
+
+  logout () {
+    const _this: any = this
+
+    _this.$session.destroy()
+    _this.$router.push('/sign-up')
+    this.isLogin = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,74 +1,73 @@
 <template>
   <div id="app">
-    <navigation></navigation>
+    <navigation />
 
-    <router-view></router-view>
+    <router-view />
 
     <div class="modal-backdrop fade show" v-if="showBackgroundModal"></div>
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import navigation from '@/components/header/navigation.vue'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import axios from 'axios'
+import config from '@/config'
+import { Response, Params } from '@/util'
 
-  export default {
-    name: 'App',
+import Navigation from '@/components/header/navigation.vue'
 
-    components: { navigation },
+@Component({
+  components: {
+  Navigation,
+  },
+  })
+export default class App extends Vue {
+  beforeCreate () {
+    const _this: any = this
+    const isAuthenticated: boolean = _this.$session.exists()
+    const routePath: string = this.$route.path
 
-    beforeCreate () {
-      const isAuthenticated = this.$session.exists()
-      const routePath = this.$route.path
+    if (isAuthenticated) {
+      if (routePath === '/sign-up' || routePath === '/') this.$router.push('/dashboard')
 
-      if (isAuthenticated) {
-        if (routePath === '/sign-up' || routePath === '/') {
-          this.$router.push('/dashboard')
-        }
-
-        if (routePath === '/settings') {
-          this.$router.push('/settings/profile')
-        }
-      } else {
-        if (routePath !== '/') {
-          this.$router.push('/sign-up')
-        }
-      }
-    },
-
-    computed: {
-      showBackgroundModal () {
-        return this.$store.getters.showBackgroundModal
-      }
-    },
-
-    created () {
-      if (this.$session.exists()) {
-        axios
-          .get(config.domainAddress + config.api.user, {
-            params: {
-              id: this.$session.get('id')
-            }
-          })
-          .then(function (response) {
-            if (response.data.avatar) {
-              this.$store.dispatch('setAvatar', response.data.avatar.location)
-            }
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.errContent = error.response.data.message
-            } else {
-              this.errContent = 'Error happened.'
-            }
-          }.bind(this))
-      }
+      if (routePath === '/settings') this.$router.push('/settings/profile')
+    } else {
+      if (routePath !== '/') this.$router.push('/sign-up')
     }
   }
+
+  get showBackgroundModal () {
+    return this.$store.getters.showBackgroundModal
+  }
+
+  created () {
+    const _this: any = this
+
+    if (_this.$session.exists()) {
+      axios
+        .get(config.domainAddress + config.api.user, {
+          params: {
+            id: _this.$session.get('id')
+          }
+        })
+        .then(function (response: Response) {
+          if (response.data.avatar) {
+            _this.$store.dispatch('setAvatar', response.data.avatar.location)
+          }
+        })
+        .catch(function (error: Response) {
+          if (error.response && error.response.data && error.response.data.message) {
+            _this.errContent = error.response.data.message
+          } else {
+            _this.errContent = 'Error happened.'
+          }
+        })
+    }
+  }
+}
 </script>
 
-<style lang="scss" scopled>
+<style lang="scss" scoped>
   @import '@/assets/scss/variables.scss';
   @import '@/assets/scss/mixins.scss';
 
