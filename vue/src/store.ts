@@ -1,17 +1,12 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-
-import State from './store/state'
+import Vuex, { StoreOptions } from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: State,
+const store: StoreOptions = {
+  modules: {},
 
-  mutations: {
+  strict: process.env.NODE_ENV !== 'production'
+}
 
-  },
-  actions: {
-
-  }
-})
+export default new Vuex.Store(store)
