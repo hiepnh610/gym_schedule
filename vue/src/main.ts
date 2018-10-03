@@ -19,6 +19,14 @@ import { faSpinner } from '@fortawesome/fontawesome-free-solid'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'animate.css/animate.min.css'
 
+import './assets/scss/variables.scss'
+import './assets/scss/mixins.scss'
+import './assets/scss/config.scss'
+import './assets/scss/button.scss'
+import './assets/scss/form.scss'
+import './assets/scss/table.scss'
+import './assets/scss/modal.scss'
+
 interface Options {
   duration: number,
   iconPack: string,

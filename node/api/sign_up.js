@@ -5,7 +5,7 @@ const User = require('../model/user');
 const initSignUp = (req, res) => {
     if (!req.body.email) return res.status(400).json({ message: 'The email cannot be blank.' });
 
-    if (!req.body.fullName) return res.status(400).json({ message: 'The name cannot be blank.' });
+    if (!req.body.full_name) return res.status(400).json({ message: 'The name cannot be blank.' });
 
     if (!req.body.password) return res.status(400).json({ message: 'The password cannot be blank.' });
 
@@ -21,7 +21,7 @@ const initSignUp = (req, res) => {
 const signUp = (req, res) => {
     const user = new User({
         email: req.body.email,
-        fullName: req.body.fullName,
+        full_name: req.body.full_name,
         password: req.body.password
     });
 
@@ -38,7 +38,7 @@ const signUp = (req, res) => {
         const resData = {
             id: user._id,
             email: user.email,
-            name: user.fullName,
+            name: user.full_name,
             authenticate: true
         }
 

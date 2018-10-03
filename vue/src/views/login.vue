@@ -35,12 +35,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import axios from 'axios'
-import config from '@/config'
+import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
+
+import config from '@/config'
 import { Response, Params } from '@/util'
 
 import modal from '@/components/modal/modal.vue'
+
+const namespace: string = 'modal'
 
 @Component({
   components: {
@@ -49,6 +53,8 @@ import modal from '@/components/modal/modal.vue'
   },
   })
 export default class Login extends Vue {
+  @Action('setShowBackgroundModal', { namespace }) setShowBackgroundModal: any
+
   disabledBtn: boolean = false
   email: string = ''
   isSuccess: boolean = false
@@ -72,9 +78,10 @@ export default class Login extends Vue {
       axios
         .post(config.domainAddress + config.api.login, params)
         .then(function (response: Response) {
+          this.setShowBackgroundModal(true)
+
           this.isSuccess = true
           this.disabledBtn = false
-          this.$store.dispatch('setShowBackgroundModal', true)
 
           this.$session.start()
           this.$session.set('name', response.data.name)

@@ -13,6 +13,7 @@ mongoose.connect(config.mongoUri, {
     keepAlive: true,
     reconnectTries: 30,
     socketTimeoutMS: 0,
+    useCreateIndex: true,
     useNewUrlParser: true
 });
 

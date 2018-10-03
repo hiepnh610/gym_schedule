@@ -38,19 +38,23 @@
         </div>
       </div>
 
-      <modal :is-success="isSuccess" :is-sign-up="true"></modal>
+      <modal :is-success="isSuccess" :is-sign-up="isSignUp"></modal>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import axios from 'axios'
-import config from '@/config'
+import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
+
+import config from '@/config'
 import { Response, ParamsSignUp } from '@/util'
 
 import modal from '@/components/modal/modal.vue'
+
+const namespace: string = 'modal'
 
 @Component({
   components: {
@@ -59,21 +63,24 @@ import modal from '@/components/modal/modal.vue'
   },
   })
 export default class SignUp extends Vue {
+  @Action('setShowBackgroundModal', { namespace }) setShowBackgroundModal: any
+
+  disabledBtn: boolean = false
   email: string = ''
   fullName: string = ''
+  isSignUp: boolean = false
+  isSuccess: boolean = false
+  message: string = ''
   password: string = ''
   passwordConfirm: string = ''
-  isSuccess: boolean = false
-  disabledBtn: boolean = false
-  message: string = ''
 
   signUp () {
     if (this.email && this.fullName && this.password) {
       const params: ParamsSignUp = {
         email: this.email,
-        fullName: this.fullName,
+        full_name: this.fullName,
         password: this.password,
-        passwordConfirm: this.passwordConfirm
+        password_confirm: this.passwordConfirm
       }
 
       this.disabledBtn = true
@@ -81,9 +88,11 @@ export default class SignUp extends Vue {
       axios
         .post(config.domainAddress + config.api.signUp, params)
         .then(function (response: Response) {
+          this.setShowBackgroundModal(true)
+
           this.isSuccess = true
+          this.isSignUp = true
           this.disabledBtn = false
-          this.$store.dispatch('setShowBackgroundModal', true)
 
           this.$session.start()
           this.$session.set('name', response.data.name)

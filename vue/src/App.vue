@@ -10,11 +10,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
 import axios from 'axios'
+
 import config from '@/config'
 import { Response, Params } from '@/util'
 
 import Navigation from '@/components/header/navigation.vue'
+
+const namespace: string = 'modal'
 
 @Component({
   components: {
@@ -22,6 +26,8 @@ import Navigation from '@/components/header/navigation.vue'
   },
   })
 export default class App extends Vue {
+  @Getter('showBackgroundModal', { namespace }) showBackgroundModal: any
+
   beforeCreate () {
     const _this: any = this
     const isAuthenticated: boolean = _this.$session.exists()
@@ -34,10 +40,6 @@ export default class App extends Vue {
     } else {
       if (routePath !== '/') this.$router.push('/sign-up')
     }
-  }
-
-  get showBackgroundModal () {
-    return this.$store.getters.showBackgroundModal
   }
 
   created () {

@@ -8,6 +8,6 @@ export interface Params {
 }
 
 export interface ParamsSignUp extends Params {
-  fullName: string;
-  passwordConfirm: string;
+  full_name: string;
+  password_confirm: string;
 }

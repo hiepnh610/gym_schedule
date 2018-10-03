@@ -1,7 +1,9 @@
+import { Module } from 'vuex'
 import { getters } from './getters'
 import { actions } from './actions'
 import { mutations } from './mutations'
 import { ModalState } from './types'
+import { RootState } from '@/types'
 
 export const state: ModalState = {
   showBackgroundModal: false,
@@ -11,7 +13,7 @@ export const state: ModalState = {
 
 const namespaced: boolean = true
 
-export const modal = {
+export const modal: Module<ModalState, RootState> = {
   namespaced,
   state,
   getters,

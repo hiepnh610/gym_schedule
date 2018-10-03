@@ -14,7 +14,7 @@ const getInfo = (req, res) => {
         const newUserInfo = {
             _id: userInfo[0]._id,
             email: userInfo[0].email,
-            fullName: userInfo[0].fullName
+            full_name: userInfo[0].full_name
         };
 
         if(userInfo[0].dob ) {
@@ -42,7 +42,7 @@ const getInfo = (req, res) => {
 };
 
 const updateInfo = (req, res) => {
-    if (!req.body.fullName) return res.status(400).json({ message: 'The email cannot be blank.' });
+    if (!req.body.full_name) return res.status(400).json({ message: 'The email cannot be blank.' });
 
     if (isNaN(req.body.height)) return res.status(400).json({ message: 'The height field must be a valid height.' });
 
@@ -55,7 +55,7 @@ const updateInfo = (req, res) => {
 
         user.set({
             dob: req.body.dob,
-            fullName: req.body.fullName,
+            full_name: req.body.full_name,
             gender: req.body.gender,
             height: req.body.height,
             weight: req.body.weight
