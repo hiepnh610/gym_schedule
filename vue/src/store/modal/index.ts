@@ -6,7 +6,7 @@ import { ModalState } from './types'
 import { RootState } from '@/types'
 
 export const state: ModalState = {
-  showBackgroundModal: false,
+  showModalBackdrop: false,
   showCreateModal: false,
   showUpdateModal: false
 }

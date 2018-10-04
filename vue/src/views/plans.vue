@@ -16,29 +16,29 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  import planCreate from '@/components/plan/plan-create.vue'
-  import listPlans from '@/components/plan/list-plans.vue'
+import config from '@/config'
+import { Response, ParamsSignUp } from '@/util'
 
-  export default {
-    name: 'main-plans',
+import planCreate from '@/components/plan/plan-create.vue'
+import listPlans from '@/components/plan/list-plans.vue'
 
-    components: { planCreate, listPlans, FontAwesomeIcon },
-
-    data () {
-      return {
-      }
-    },
-
-    methods: {
-      createPlan () {
-        this.$store.dispatch('setShowBackgroundModal', true)
-        this.$store.dispatch('setShowCreateModal', true)
-      }
-    },
+@Component({
+  components: {
+  planCreate,
+  listPlans,
+  FontAwesomeIcon,
+  },
+  })
+export default class Plans extends Vue {
+    createPlan () {
+      this.$store.dispatch('setShowBackgroundModal', true)
+      this.$store.dispatch('setShowCreateModal', true)
+    }
 
     created () {
       axios

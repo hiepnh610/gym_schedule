@@ -13,9 +13,10 @@
 </template>
 
 <script>
-  export default {
-    name: 'dashboard'
-  }
+import { Component, Prop, Vue } from 'vue-property-decorator'
+@Component
+export default class Dashboard extends Vue {
+}
 </script>
 
 <style lang="scss" scoped>

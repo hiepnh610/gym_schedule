@@ -63,7 +63,7 @@ const namespace: string = 'modal'
   },
   })
 export default class SignUp extends Vue {
-  @Action('setShowBackgroundModal', { namespace }) setShowBackgroundModal: any
+  @Action('setShowModalBackdrop', { namespace }) setShowModalBackdrop: any
 
   disabledBtn: boolean = false
   email: string = ''
@@ -88,7 +88,7 @@ export default class SignUp extends Vue {
       axios
         .post(config.domainAddress + config.api.signUp, params)
         .then(function (response: Response) {
-          this.setShowBackgroundModal(true)
+          this.setShowModalBackdrop(true)
 
           this.isSuccess = true
           this.isSignUp = true

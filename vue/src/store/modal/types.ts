@@ -1,5 +1,5 @@
 export interface ModalState {
-  showBackgroundModal: boolean;
+  showModalBackdrop: boolean;
   showCreateModal: boolean;
   showUpdateModal: boolean;
 }
