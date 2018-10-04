@@ -11,33 +11,33 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
+      name: 'Login',
       component: Login
     },
 
     {
       path: '/sign-up',
-      name: 'signUp',
+      name: 'SignUp',
       component: () => import('./views/sign-up.vue')
     },
 
     {
       path: '/dashboard',
-      name: 'dashboard',
+      name: 'Dashboard',
       component: () => import('./views/dashboard.vue'),
       children: [
         {
           path: 'plan',
-          name: 'mainPlans',
+          name: 'Plans',
           component: () => import('./views/plans.vue')
-        }
+        },
 
-        // {
-        //   path: 'workout/:id',
-        //   name: 'mainWorkouts',
-        //   props: true,
-        //   component: () => import('./views/workouts.vue')
-        // },
+        {
+          path: 'workout/:id',
+          name: 'Workouts',
+          props: true,
+          component: () => import('./views/workouts.vue')
+        },
 
         // {
         //   path: 'exercise/:id',

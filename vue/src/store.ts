@@ -4,6 +4,7 @@ import Vuex, { StoreOptions } from 'vuex'
 import { RootState } from './types'
 import { modal } from './store/modal/index'
 import { plans } from './store/plans/index'
+import { workouts } from './store/workouts/index'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ const store: StoreOptions<RootState> = {
 
   modules: {
     modal,
-    plans
+    plans,
+    workouts
   },
 
   strict: process.env.NODE_ENV !== 'production'

@@ -15,73 +15,75 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  import workoutCreate from '@/components/workout/workout-create.vue'
-  import listWorkouts from '@/components/workout/list-workouts.vue'
+import config from '@/config'
+import { Response } from '@/util'
 
-  export default {
-    name: 'main-workouts',
+import workoutCreate from '@/components/workout/workout-create.vue'
+import listWorkouts from '@/components/workout/list-workouts.vue'
 
-    components: { workoutCreate, listWorkouts, FontAwesomeIcon },
+@Component({
+  components: {
+  workoutCreate,
+  listWorkouts,
+  FontAwesomeIcon,
+  },
+  })
+export default class Workouts extends Vue {
+  @Prop() id!: string
 
-    props: {
-      id: { type: String }
-    },
+  @Action('setShowModalBackdrop', { namespace: 'modal' }) setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: 'modal' }) setShowCreateModal: any
 
-    data () {
-      return {
-        planName: '',
-        planFrequency: ''
-      }
-    },
+  planName: string = ''
+  planFrequency: string = ''
 
-    methods: {
-      createWorkout () {
-        this.$store.dispatch('setShowBackgroundModal', true)
-        this.$store.dispatch('setShowCreateModal', true)
-      }
-    },
+  createWorkout () {
+    this.setShowModalBackdrop(true)
+    this.setShowCreateModal(true)
+  }
 
-    created () {
-      axios
-        .get(config.domainAddress + config.api.workout, {
-          params: {
-            id: this.id
-          }
-        })
-        .then(function (response) {
-          this.$store.dispatch('setListWorkout', response.data)
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
-        }.bind(this))
+  created () {
+    axios
+      .get(config.domainAddress + config.api.workout, {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function (response) {
+        this.$store.dispatch('setListWorkout', response.data)
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
 
-      axios
-        .get(config.domainAddress + config.api.listPlans, {
-          params: {
-            id: this.id
-          }
-        })
-        .then(function (response) {
-          this.planName = response.data[0].name
-          this.planFrequency = response.data[0].frequency
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
-        }.bind(this))
-    },
+    axios
+      .get(config.domainAddress + config.api.listPlans, {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function (response) {
+        this.planName = response.data[0].name
+        this.planFrequency = response.data[0].frequency
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
+    }
 
     computed: {
       listWorkouts () {
