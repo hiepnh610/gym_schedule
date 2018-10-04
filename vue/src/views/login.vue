@@ -63,11 +63,6 @@ export default class Login extends Vue {
 
   login () {
     if (this.email && this.password) {
-      interface Params {
-        email: string,
-        password: string
-      }
-
       const params: Params = {
         email: this.email,
         password: this.password

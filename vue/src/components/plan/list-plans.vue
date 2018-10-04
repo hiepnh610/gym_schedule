@@ -12,7 +12,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="plan in getListPlans" :key="plan._id">
+          <tr v-for="plan in listPlans" :key="plan._id">
             <td>
               <router-link :to="'workout/' + plan._id" class="text-success text-capitalize">{{ plan.name }}</router-link>
             </td>
@@ -54,19 +54,23 @@ import planUpdate from './plan-update.vue'
   },
   })
 export default class ListPlans extends Vue {
+  @Action('setShowModalBackdrop', { namespace: 'modal' }) setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: 'modal' }) setShowUpdateModal: any
+  @Action('setDeletePlan', { namespace: 'plans' }) setDeletePlan: any
+
   @Getter('listPlans', { namespace: 'plans' }) listPlans: any
 
-  errContent!: string
-  dataPlanOrigin!: string
+  errContent: string = ''
+  dataPlanOrigin: any = ''
 
   updatePlan (plan: any) {
-    this.$store.dispatch('setShowBackgroundModal', true)
-    this.$store.dispatch('setShowUpdateModal', true)
+    this.setShowModalBackdrop(true)
+    this.setShowUpdateModal(true)
     this.dataPlanOrigin = plan
   }
 
   deletePlan (id: string) {
-    this.$store.dispatch('setDeletePlan', id)
+    this.setDeletePlan(id)
 
     axios
       .delete(config.domainAddress + config.api.plans + id)

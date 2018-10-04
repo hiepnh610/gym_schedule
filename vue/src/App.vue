@@ -4,7 +4,7 @@
 
     <router-view />
 
-    <div class="modal-backdrop fade show" v-if="showBackgroundModal"></div>
+    <div class="modal-backdrop fade show" v-if="showModalBackdrop"></div>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import { State, Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response, Params } from '@/util'
+import { Response } from '@/util'
 
 import Navigation from '@/components/header/navigation.vue'
 
@@ -26,7 +26,7 @@ const namespace: string = 'modal'
   },
   })
 export default class App extends Vue {
-  @Getter('showBackgroundModal', { namespace }) showBackgroundModal: any
+  @Getter('showModalBackdrop', { namespace }) showModalBackdrop: any
 
   beforeCreate () {
     const _this: any = this

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="showBackgroundModal && showCreatePlan" :class="{ 'show animated bounceIn': showBackgroundModal && showCreatePlan }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showCreateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showCreateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -62,20 +62,31 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
+const namespaceModal: string = 'modal'
+const namespacePlan: string = 'plans'
+
 @Component({
   components: {
   FontAwesomeIcon
   },
   })
 export default class PlanCreate extends Vue {
-  namePlan!: string
-  typePlan!: string
-  frequencyPlan!: string
-  message!: string
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
+  @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
+  @Getter('showCreateModal', { namespace: namespaceModal }) showCreateModal: any
+
+  @Action('setCreatePlan', { namespace: namespacePlan }) setCreatePlan: any
+
+  namePlan: string = ''
+  typePlan: string = ''
+  frequencyPlan: string = ''
+  message: string = ''
   loading: boolean = false
 
   closeModal () {
-    this.$store.dispatch('setShowBackgroundModal', false)
+    this.setShowModalBackdrop(false)
+    this.setShowCreateModal(false)
   }
 
   planCreate () {
@@ -117,11 +128,15 @@ export default class PlanCreate extends Vue {
 
         this.loading = false
 
-        this.$store.dispatch('setShowBackgroundModal', false)
-        this.$store.dispatch('setCreatePlan', response.data)
+        this.setCreatePlan(response.data)
+        this.setShowModalBackdrop(false)
+        this.setShowCreateModal(false)
+
         this.$toasted.success('Create Successfully!!!')
       }.bind(this))
       .catch(function (error: Response) {
+        console.log(error)
+
         if (error.response && error.response.data && error.response.data.message) {
           this.message = error.response.data.message
         } else {
@@ -131,16 +146,6 @@ export default class PlanCreate extends Vue {
         this.loading = false
       }.bind(this))
   }
-
-  // computed: {
-  //   showBackgroundModal () {
-  //     return this.$store.getters.showBackgroundModal
-  //   },
-
-  //   showCreatePlan () {
-  //     return this.$store.getters.showCreateModal
-  //   }
-  // }
 }
 </script>
 

@@ -38,6 +38,7 @@ export default class Plans extends Vue {
   @Action('setShowModalBackdrop', { namespace: 'modal' }) setShowModalBackdrop: any
   @Action('setShowCreateModal', { namespace: 'modal' }) setShowCreateModal: any
 
+  @Action('setListPlans', { namespace: 'plans' }) setListPlans: any
   @Getter('listPlans', { namespace: 'plans' }) listPlans: any
 
   createPlan () {
@@ -56,7 +57,7 @@ export default class Plans extends Vue {
         }
       })
       .then(function (response: Response) {
-        this.$store.dispatch('setListPlans', response.data)
+        this.setListPlans(response.data)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

@@ -9,5 +9,9 @@ export const actions: ActionTree<ModalState, RootState> = {
 
   setShowCreateModal (context: any, data: boolean): any {
     context.commit('showCreateModal', data)
+  },
+
+  setShowUpdateModal (context: any, data: boolean): any {
+    context.commit('showUpdateModal', data)
   }
 }

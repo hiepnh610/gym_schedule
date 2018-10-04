@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="showBackgroundModal && showUpdateModal" :class="{ 'show animated bounceIn': showBackgroundModal && showUpdateModal }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showUpdateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showUpdateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -53,104 +53,105 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  export default {
-    name: 'plan-update',
+import config from '@/config'
+import { Response } from '@/util'
 
-    components: { FontAwesomeIcon },
+const namespaceModal: string = 'modal'
+const namespacePlan: string = 'plans'
 
-    props: ['dataPlanOrigin'],
+@Component({
+  components: {
+  FontAwesomeIcon
+  },
+  })
+export default class PlanUpdate extends Vue {
+  @Prop() dataPlanOrigin!: any
 
-    data () {
-      return {
-        namePlan: '',
-        typePlan: '',
-        frequencyPlan: '',
-        loading: false,
-        message: ''
-      }
-    },
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
+  @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
 
-    methods: {
-      closeModal () {
-        this.$store.dispatch('setShowBackgroundModal', false)
-      },
+  @Action('setUpdatePlan', { namespace: namespacePlan }) setUpdatePlan: any
 
-      planUpdate (id) {
-        if (!this.namePlan) {
-          this.message = 'The routine name cannot be blank.'
+  frequencyPlan: string = ''
+  loading: boolean = false
+  message: string = ''
+  namePlan: string = ''
+  typePlan: string = ''
 
-          return
-        }
-
-        if (!this.typePlan) {
-          this.message = 'The type cannot be blank.'
-
-          return
-        }
-
-        if (!this.frequencyPlan) {
-          this.message = 'The frequency cannot be blank.'
-
-          return
-        }
-
-        const params = {
-          name: this.namePlan,
-          type: this.typePlan,
-          frequency: this.frequencyPlan
-        }
-
-        this.loading = true
-
-        axios
-          .put(config.domainAddress + config.api.plans + id, params)
-          .then(function (response) {
-            this.loading = false
-
-            this.$store.dispatch('setShowBackgroundModal', false)
-            this.$store.dispatch('setUpdatePlan', response.data)
-
-            this.$toasted.success('Update Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.message = error.response.data.message
-            } else {
-              this.$toasted.error('Error happened!!!')
-            }
-
-            this.loading = false
-          }.bind(this))
-      }
-    },
-
-    computed: {
-      showBackgroundModal () {
-        return this.$store.getters.showBackgroundModal
-      },
-
-      showUpdateModal () {
-        return this.$store.getters.showUpdateModal
-      },
-
-      dataPlan () {
-        return this.dataPlanOrigin
-      }
-    },
-
-    watch: {
-      dataPlan () {
-        this.namePlan = this.dataPlan.name
-        this.typePlan = this.dataPlan.type
-        this.frequencyPlan = this.dataPlan.frequency
-      }
-    }
+  closeModal () {
+    this.setShowModalBackdrop(false)
+    this.setShowUpdateModal(false)
   }
+
+  planUpdate (id: string) {
+    if (!this.namePlan) {
+      this.message = 'The routine name cannot be blank.'
+
+      return
+    }
+
+    if (!this.typePlan) {
+      this.message = 'The type cannot be blank.'
+
+      return
+    }
+
+    if (!this.frequencyPlan) {
+      this.message = 'The frequency cannot be blank.'
+
+      return
+    }
+
+    interface Params {
+      frequency: string,
+      name: string,
+      type: string
+    }
+
+    const params: Params = {
+      frequency: this.frequencyPlan,
+      name: this.namePlan,
+      type: this.typePlan
+    }
+
+    this.loading = true
+
+    axios
+      .put(config.domainAddress + config.api.plans + id, params)
+      .then(function (response: Response) {
+        this.loading = false
+
+        this.setShowUpdateModal(false)
+        this.setShowModalBackdrop(false)
+        this.setUpdatePlan(response.data)
+
+        this.$toasted.success('Update Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+
+        this.loading = false
+      }.bind(this))
+  }
+
+  @Watch('dataPlanOrigin', { immediate: true, deep: true })
+  onPersonChanged (val: any, oldVal: any) {
+    this.namePlan = val.name
+    this.typePlan = val.type
+    this.frequencyPlan = val.frequency
+  }
+}
 </script>
 
 <style lang="scss"></style>

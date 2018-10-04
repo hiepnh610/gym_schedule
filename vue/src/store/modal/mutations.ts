@@ -8,5 +8,9 @@ export const mutations: MutationTree<ModalState> = {
 
   showCreateModal (state: any, data: boolean): void {
     state.showCreateModal = data
+  },
+
+  showUpdateModal (state: any, data: boolean): void {
+    state.showUpdateModal = data
   }
 }

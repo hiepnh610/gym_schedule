@@ -9,5 +9,9 @@ export const getters: GetterTree<ModalState, RootState> = {
 
   showCreateModal (state: any): boolean {
     return state.showCreateModal
+  },
+
+  showUpdateModal (state: any): boolean {
+    return state.showUpdateModal
   }
 }
