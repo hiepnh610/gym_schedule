@@ -5,5 +5,9 @@ import { RootState } from '@/types'
 export const actions: ActionTree<ModalState, RootState> = {
   setShowModalBackdrop (context: any, data: boolean): any {
     context.commit('showModalBackdrop', data)
+  },
+
+  setShowCreateModal (context: any, data: boolean): any {
+    context.commit('showCreateModal', data)
   }
 }

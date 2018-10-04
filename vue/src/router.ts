@@ -30,7 +30,7 @@ export default new Router({
           path: 'plan',
           name: 'mainPlans',
           component: () => import('./views/plans.vue')
-        },
+        }
 
         // {
         //   path: 'workout/:id',

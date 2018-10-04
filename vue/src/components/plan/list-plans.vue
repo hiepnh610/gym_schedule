@@ -37,57 +37,53 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  import planUpdate from './plan-update.vue'
+import config from '@/config'
+import { Response } from '@/util'
 
-  export default {
-    name: 'list-plans',
+import planUpdate from './plan-update.vue'
 
-    components: { planUpdate },
+@Component({
+  components: {
+  planUpdate
+  },
+  })
+export default class ListPlans extends Vue {
+  @Getter('listPlans', { namespace: 'plans' }) listPlans: any
 
-    data () {
-      return {
-        errContent: '',
-        dataPlanOrigin: ''
-      }
-    },
+  errContent!: string
+  dataPlanOrigin!: string
 
-    computed: {
-      getListPlans () {
-        return this.$store.getters.listPlans
-      }
-    },
-
-    methods: {
-      updatePlan (plan) {
-        this.$store.dispatch('setShowBackgroundModal', true)
-        this.$store.dispatch('setShowUpdateModal', true)
-        this.dataPlanOrigin = plan
-      },
-
-      deletePlan (id) {
-        this.$store.dispatch('setDeletePlan', id)
-
-        axios
-          .delete(config.domainAddress + config.api.plans + id)
-          .then(function () {
-            this.$toasted.success('Delete Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.errContent = error.response.data.message
-            } else {
-              this.errContent = 'Error happened.'
-            }
-
-            this.$toasted.error('Error happened!!!')
-          }.bind(this))
-      }
-    }
+  updatePlan (plan: any) {
+    this.$store.dispatch('setShowBackgroundModal', true)
+    this.$store.dispatch('setShowUpdateModal', true)
+    this.dataPlanOrigin = plan
   }
+
+  deletePlan (id: string) {
+    this.$store.dispatch('setDeletePlan', id)
+
+    axios
+      .delete(config.domainAddress + config.api.plans + id)
+      .then(function () {
+        this.$toasted.success('Delete Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+
+        this.$toasted.error('Error happened!!!')
+      }.bind(this))
+  }
+}
 </script>
 
 <style lang="scss" scoped>
