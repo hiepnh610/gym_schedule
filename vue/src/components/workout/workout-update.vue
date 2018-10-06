@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="showBackgroundModal && showUpdateModal" :class="{ 'show animated bounceIn': showBackgroundModal && showUpdateModal }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showUpdateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showUpdateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -43,95 +43,90 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  export default {
-    name: 'workout-update',
+import config from '@/config'
+import { Response } from '@/util'
 
-    components: { FontAwesomeIcon },
+const namespaceModal: string = 'modal'
+const namespaceWorkouts: string = 'workouts'
 
-    props: ['dataWorkoutOrigin'],
+@Component({
+  components: {
+  FontAwesomeIcon
+  },
+  })
+export default class WorkoutUpdate extends Vue {
+  @Prop() dataWorkoutOrigin!: any
 
-    data () {
-      return {
-        workoutName: '',
-        workoutDay: '',
-        message: '',
-        loading: false
-      }
-    },
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
+  @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
 
-    methods: {
-      closeModal () {
-        this.$store.dispatch('setShowBackgroundModal', false)
-      },
+  @Action('setUpdateWorkout', { namespace: namespaceWorkouts }) setUpdateWorkout: any
 
-      workoutUpdate (id) {
-        if (!this.workoutName) {
-          this.message = 'The workout name cannot be blank.'
+  loading: boolean = false
+  message: string = ''
+  workoutDay: string = ''
+  workoutName: string = ''
 
-          return
-        }
-
-        if (!this.workoutDay) {
-          this.message = 'The workout day cannot be blank.'
-
-          return
-        }
-
-        const params = {
-          name: this.workoutName,
-          week_day: this.workoutDay
-        }
-
-        this.loading = true
-
-        axios
-          .put(config.domainAddress + config.api.workout + id, params)
-          .then(function (response) {
-            this.loading = false
-
-            this.$store.dispatch('setShowBackgroundModal', false)
-            this.$store.dispatch('setUpdateWorkout', response.data)
-
-            this.$toasted.success('Update Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.errContent = error.response.data.message
-            } else {
-              this.$toasted.error('Error happened!!!')
-            }
-
-            this.loading = false
-          }.bind(this))
-      }
-    },
-
-    computed: {
-      showBackgroundModal () {
-        return this.$store.getters.showBackgroundModal
-      },
-
-      showUpdateModal () {
-        return this.$store.getters.showUpdateModal
-      },
-
-      dataWorkout () {
-        return this.dataWorkoutOrigin
-      }
-    },
-
-    watch: {
-      dataWorkout () {
-        this.workoutName = this.dataWorkout.name
-        this.workoutDay = this.dataWorkout.week_day
-      }
-    }
+  closeModal () {
+    this.setShowModalBackdrop(false)
+    this.setShowUpdateModal(false)
   }
+
+  workoutUpdate (id: string) {
+    if (!this.workoutName) {
+      this.message = 'The workout name cannot be blank.'
+
+      return
+    }
+
+    if (!this.workoutDay) {
+      this.message = 'The workout day cannot be blank.'
+
+      return
+    }
+
+    const params = {
+      name: this.workoutName,
+      week_day: this.workoutDay
+    }
+
+    this.loading = true
+
+    axios
+      .put(config.domainAddress + config.api.workout + id, params)
+      .then(function (response: Response) {
+        this.loading = false
+
+        this.setShowModalBackdrop(false)
+        this.setShowUpdateModal(false)
+        this.setUpdateWorkout(response.data)
+
+        this.$toasted.success('Update Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+
+        this.loading = false
+      }.bind(this))
+  }
+
+  @Watch('dataWorkoutOrigin', { immediate: true, deep: true })
+  dataWorkout (val: any, oldVal: any) {
+    this.workoutName = val.name
+    this.workoutDay = val.week_day
+  }
+}
 </script>
 
 <style lang="scss"></style>

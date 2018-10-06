@@ -11,7 +11,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="workout in getListWorkout" :key="workout._id">
+          <tr v-for="workout in listWorkouts" :key="workout._id">
             <td>
               <router-link :to="'../exercise/' + workout._id" class="text-success text-capitalize">{{ workout.name }}</router-link>
             </td>
@@ -32,56 +32,60 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  import workoutUpdate from './workout-update.vue'
+import config from '@/config'
+import { Response } from '@/util'
 
-  export default {
-    name: 'list-workouts',
+import workoutUpdate from './workout-update.vue'
 
-    components: { workoutUpdate },
+const namespaceModal: string = 'modal'
+const namespaceWorkouts: string = 'workouts'
 
-    data () {
-      return {
-        dataWorkoutOrigin: ''
-      }
-    },
+@Component({
+  components: {
+  workoutUpdate
+  },
+  })
+export default class ListWorkouts extends Vue {
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
 
-    computed: {
-      getListWorkout () {
-        return this.$store.getters.listWorkout
-      }
-    },
+  @Action('setDeleteWorkout', { namespace: namespaceWorkouts }) setDeleteWorkout: any
+  @Getter('listWorkouts', { namespace: namespaceWorkouts }) listWorkouts: any
 
-    methods: {
-      updateWorkout (workout) {
-        this.$store.dispatch('setShowBackgroundModal', true)
-        this.$store.dispatch('setShowUpdateModal', true)
-        this.dataWorkoutOrigin = workout
-      },
+  errContent: string = ''
+  dataWorkoutOrigin: any = ''
 
-      deleteWorkout (id) {
-        this.$store.dispatch('setDeleteWorkout', id)
-
-        axios
-          .delete(config.domainAddress + config.api.workout + id)
-          .then(function () {
-            this.$toasted.success('Delete Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.errContent = error.response.data.message
-            } else {
-              this.errContent = 'Error happened.'
-            }
-
-            this.$toasted.error('Error happened!!!')
-          }.bind(this))
-      }
-    }
+  updateWorkout (workout: any) {
+    this.setShowModalBackdrop(true)
+    this.setShowUpdateModal(true)
+    this.dataWorkoutOrigin = workout
   }
+
+  deleteWorkout (id: string) {
+    this.setDeleteWorkout(id)
+
+    axios
+      .delete(config.domainAddress + config.api.workout + id)
+      .then(function () {
+        this.$toasted.success('Delete Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+
+        this.$toasted.error('Error happened!!!')
+      }.bind(this))
+  }
+}
 </script>
 
 <style lang="scss" scoped>
