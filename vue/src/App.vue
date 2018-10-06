@@ -18,7 +18,7 @@ import { Response } from '@/util'
 
 import Navigation from '@/components/header/navigation.vue'
 
-const namespace: string = 'modal'
+const namespaceModal: string = 'modal'
 
 @Component({
   components: {
@@ -26,7 +26,7 @@ const namespace: string = 'modal'
   },
   })
 export default class App extends Vue {
-  @Getter('showModalBackdrop', { namespace }) showModalBackdrop: any
+  @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
 
   beforeCreate () {
     const _this: any = this

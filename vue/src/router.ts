@@ -39,12 +39,12 @@ export default new Router({
           component: () => import('./views/workouts.vue')
         },
 
-        // {
-        //   path: 'exercise/:id',
-        //   name: 'maiExercises',
-        //   props: true,
-        //   component: () => import('./views/exercises.vue')
-        // }
+        {
+          path: 'exercise/:id',
+          name: 'Exercises',
+          props: true,
+          component: () => import('./views/exercises.vue')
+        }
       ]
     }
   ]

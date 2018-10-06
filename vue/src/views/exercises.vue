@@ -2,7 +2,7 @@
   <div class="text-center">
     <h1 class="text-center mb-5">{{ exerciseName }}</h1>
 
-    <list-exercises v-if="listExercise.length > 0"></list-exercises>
+    <list-exercises v-if="listExercises.length > 0"></list-exercises>
 
     <p class="align-center mb-5">Please add some exercies from the under button.</p>
 
@@ -15,78 +15,81 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  import exerciseCreate from '@/components/exercise/exercise-create.vue'
-  import listExercises from '@/components/exercise/list-exercises.vue'
+import config from '@/config'
+import { Response } from '@/util'
 
-  export default {
-    name: 'main-exercises',
+import exerciseCreate from '@/components/exercise/exercise-create.vue'
+import listExercises from '@/components/exercise/list-exercises.vue'
 
-    components: { exerciseCreate, listExercises, FontAwesomeIcon },
+const namespaceModal: string = 'modal'
+const namespaceExercises: string = 'exercises'
 
-    data () {
-      return {
-        exerciseName: ''
-      }
-    },
+@Component({
+  components: {
+  exerciseCreate,
+  listExercises,
+  FontAwesomeIcon,
+  },
+  })
+export default class Exercises extends Vue {
+  @Prop() id!: string
 
-    props: {
-      id: { type: String }
-    },
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
 
-    created () {
-      axios
-        .get(config.domainAddress + config.api.exercise, {
-          params: {
-            id: this.id
-          }
-        })
-        .then(function (response) {
-          this.$store.dispatch('setListExercise', response.data)
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
-        }.bind(this))
+  @Action('setListExercises', { namespace: namespaceExercises }) setListExercises: any
+  @Getter('listExercises', { namespace: namespaceExercises }) listExercises: any
 
-      axios
-        .get(config.domainAddress + config.api.listWorkout, {
-          params: {
-            id: this.id
-          }
-        })
-        .then(function (response) {
-          this.exerciseName = response.data[0].name
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.errContent = 'Error happened.'
-          }
-        }.bind(this))
-    },
+  errContent: string = ''
+  exerciseName: string = ''
 
-    methods: {
-      createExercise () {
-        this.$store.dispatch('setShowBackgroundModal', true)
-        this.$store.dispatch('setShowCreateModal', true)
-      }
-    },
-
-    computed: {
-      listExercise () {
-        return this.$store.getters.listExercise
-      }
-    }
+  createExercise () {
+    this.setShowModalBackdrop(true)
+    this.setShowCreateModal(true)
   }
+
+  created () {
+    axios
+      .get(config.domainAddress + config.api.exercise, {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function (response: Response) {
+        this.setListExercises(response.data)
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
+
+    axios
+      .get(config.domainAddress + config.api.listWorkout, {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function (response: Response) {
+        this.exerciseName = response.data[0].name
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.errContent = 'Error happened.'
+        }
+      }.bind(this))
+  }
+}
 </script>
 
 <style lang="scss" scoped>

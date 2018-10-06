@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade text-left" v-show="showBackgroundModal && showCreateExercise" :class="{ 'show animated bounceIn': showBackgroundModal && showCreateExercise }" :style="{ display: 'block' }">
+  <div class="modal fade text-left" v-show="setShowModalBackdrop && showCreateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showCreateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
@@ -24,69 +24,75 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  export default {
-    name: 'exercise-create',
+import config from '@/config'
+import { Response } from '@/util'
+import ListExercises from './exercises.json'
 
-    data () {
-      return {
-        exercises: require('./exercises.json')
-      }
-    },
+const namespaceModal: string = 'modal'
+const namespaceExercise: string = 'exercises'
 
-    methods: {
-      closeModal () {
-        this.$store.dispatch('setShowBackgroundModal', false)
-      },
+interface ExerciseType {
+  [propName: string]: string
+}
 
-      exerciseCreate (exercise) {
-        if (!exercise.name) {
-          this.message = 'The exercise name cannot be blank.'
+@Component
+export default class ExerciseCreate extends Vue {
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
+  @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
+  @Getter('showCreateModal', { namespace: namespaceModal }) showCreateModal: any
 
-          return
-        }
+  @Action('setCreateWorkout', { namespace: namespaceExercise }) setCreateWorkout: any
+  @Action('setListExercises', { namespace: namespaceExercise }) setListExercises: any
 
-        if (!exercise.image) {
-          this.message = 'The exercise image cannot be blank.'
+  exercises: ExerciseType = ListExercises
+  message: string = ''
 
-          return
-        }
-
-        const params = {
-          image: exercise.image,
-          name: exercise.name,
-          workout_id: this.$route.params.id
-        }
-
-        axios
-          .post(config.domainAddress + config.api.exercise, params)
-          .then(function (response) {
-            this.$store.dispatch('setListExercise', response.data)
-            this.$toasted.success('Create Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.message = error.response.data.message
-            } else {
-              this.$toasted.error('Error happened!!!')
-            }
-          }.bind(this))
-      }
-    },
-
-    computed: {
-      showBackgroundModal () {
-        return this.$store.getters.showBackgroundModal
-      },
-
-      showCreateExercise () {
-        return this.$store.getters.showCreateModal
-      }
-    }
+  closeModal () {
+    this.setShowModalBackdrop(false)
+    this.setShowCreateModal(false)
   }
+
+  exerciseCreate (exercise: any) {
+    if (!exercise.name) {
+      this.message = 'The exercise name cannot be blank.'
+
+      return
+    }
+
+    if (!exercise.image) {
+      this.message = 'The exercise image cannot be blank.'
+
+      return
+    }
+
+    const params = {
+      image: exercise.image,
+      name: exercise.name,
+      workout_id: this.$route.params.id
+    }
+
+    axios
+      .post(config.domainAddress + config.api.exercise, params)
+      .then(function (response: Response) {
+        this.setListExercises(response.data)
+        this.$toasted.success('Create Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      }.bind(this))
+  }
+}
 </script>
 
 <style lang="scss" scoped>
