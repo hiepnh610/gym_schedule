@@ -28,7 +28,7 @@ import workoutCreate from '@/components/workout/workout-create.vue'
 import listWorkouts from '@/components/workout/list-workouts.vue'
 
 const namespaceModal: string = 'modal'
-const namespaceWorkout: string = 'workout'
+const namespaceWorkouts: string = 'workouts'
 
 @Component({
   components: {
@@ -43,8 +43,8 @@ export default class Workouts extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
 
-  @Action('setListWorkouts', { namespace: namespaceWorkout }) setListWorkouts: any
-  @Getter('listWorkouts', { namespace: namespaceWorkout }) listWorkouts: any
+  @Action('setListWorkouts', { namespace: namespaceWorkouts }) setListWorkouts: any
+  @Getter('listWorkouts', { namespace: namespaceWorkouts }) listWorkouts: any
 
   planName: string = ''
   planFrequency: string = ''
@@ -62,7 +62,7 @@ export default class Workouts extends Vue {
         }
       })
       .then(function (response: Response) {
-        this.setListWorkout(response.data)
+        this.setListWorkouts(response.data)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
