@@ -11,7 +11,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="workout in getListWorkout" :key="workout._id">
+          <tr v-for="workout in listWorkouts" :key="workout._id">
             <td>
               <router-link :to="'../exercise/' + workout._id" class="text-success text-capitalize">{{ workout.name }}</router-link>
             </td>
@@ -44,7 +44,7 @@ import { Response } from '@/util'
 import workoutUpdate from './workout-update.vue'
 
 const namespaceModal: string = 'modal'
-const namespaceWorkout: string = 'workout'
+const namespaceWorkouts: string = 'workouts'
 
 @Component({
   components: {
@@ -55,8 +55,8 @@ export default class ListWorkouts extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
 
-  @Action('setDeleteWorkout', { namespace: namespaceWorkout }) setDeleteWorkout: any
-  @Getter('listWorkouts', { namespace: namespaceWorkout }) listWorkouts: any
+  @Action('setDeleteWorkout', { namespace: namespaceWorkouts }) setDeleteWorkout: any
+  @Getter('listWorkouts', { namespace: namespaceWorkouts }) listWorkouts: any
 
   errContent: string = ''
   dataWorkoutOrigin: any = ''

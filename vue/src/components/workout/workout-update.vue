@@ -53,7 +53,7 @@ import config from '@/config'
 import { Response } from '@/util'
 
 const namespaceModal: string = 'modal'
-const namespaceWorkout: string = 'workout'
+const namespaceWorkouts: string = 'workouts'
 
 @Component({
   components: {
@@ -67,7 +67,7 @@ export default class WorkoutUpdate extends Vue {
   @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
   @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
 
-  @Action('setUpdateWorkout', { namespace: namespaceWorkout }) setUpdateWorkout: any
+  @Action('setUpdateWorkout', { namespace: namespaceWorkouts }) setUpdateWorkout: any
 
   loading: boolean = false
   message: string = ''

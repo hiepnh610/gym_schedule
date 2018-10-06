@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showCreatePlan" :class="{ 'show animated bounceIn': setShowModalBackdrop && showCreatePlan }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showCreateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showCreateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -53,7 +53,7 @@ import config from '@/config'
 import { Response } from '@/util'
 
 const namespaceModal: string = 'modal'
-const namespaceWorkout: string = 'workout'
+const namespaceWorkouts: string = 'workouts'
 
 @Component({
   components: {
@@ -66,7 +66,7 @@ export default class WorkoutCreate extends Vue {
   @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
   @Getter('showCreateModal', { namespace: namespaceModal }) showCreateModal: any
 
-  @Action('setCreateWorkout', { namespace: namespaceWorkout }) setCreateWorkout: any
+  @Action('setCreateWorkout', { namespace: namespaceWorkouts }) setCreateWorkout: any
 
   loading: boolean = false
   message: string = ''
