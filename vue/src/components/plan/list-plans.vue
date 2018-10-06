@@ -48,17 +48,20 @@ import { Response } from '@/util'
 
 import planUpdate from './plan-update.vue'
 
+const namespaceModal: string = 'modal'
+const namespacePlan: string = 'plans'
+
 @Component({
   components: {
   planUpdate
   },
   })
 export default class ListPlans extends Vue {
-  @Action('setShowModalBackdrop', { namespace: 'modal' }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: 'modal' }) setShowUpdateModal: any
-  @Action('setDeletePlan', { namespace: 'plans' }) setDeletePlan: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
 
-  @Getter('listPlans', { namespace: 'plans' }) listPlans: any
+  @Action('setDeletePlan', { namespace: namespacePlan }) setDeletePlan: any
+  @Getter('listPlans', { namespace: namespacePlan }) listPlans: any
 
   errContent: string = ''
   dataPlanOrigin: any = ''

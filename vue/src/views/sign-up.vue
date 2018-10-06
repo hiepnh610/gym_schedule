@@ -54,7 +54,7 @@ import { Response, ParamsSignUp } from '@/util'
 
 import modal from '@/components/modal/modal.vue'
 
-const namespace: string = 'modal'
+const namespaceModal: string = 'modal'
 
 @Component({
   components: {
@@ -63,7 +63,7 @@ const namespace: string = 'modal'
   },
   })
 export default class SignUp extends Vue {
-  @Action('setShowModalBackdrop', { namespace }) setShowModalBackdrop: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
 
   disabledBtn: boolean = false
   email: string = ''
