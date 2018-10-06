@@ -78,11 +78,11 @@ export default class PlanCreate extends Vue {
 
   @Action('setCreatePlan', { namespace: namespacePlan }) setCreatePlan: any
 
+  frequencyPlan: string = ''
+  loading: boolean = false
+  message: string = ''
   namePlan: string = ''
   typePlan: string = ''
-  frequencyPlan: string = ''
-  message: string = ''
-  loading: boolean = false
 
   closeModal () {
     this.setShowModalBackdrop(false)
@@ -150,3 +150,4 @@ export default class PlanCreate extends Vue {
 </script>
 
 <style lang="scss"></style>
+

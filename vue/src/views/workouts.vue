@@ -27,6 +27,9 @@ import { Response } from '@/util'
 import workoutCreate from '@/components/workout/workout-create.vue'
 import listWorkouts from '@/components/workout/list-workouts.vue'
 
+const namespaceModal: string = 'modal'
+const namespaceWorkout: string = 'workout'
+
 @Component({
   components: {
   workoutCreate,
@@ -37,8 +40,11 @@ import listWorkouts from '@/components/workout/list-workouts.vue'
 export default class Workouts extends Vue {
   @Prop() id!: string
 
-  @Action('setShowModalBackdrop', { namespace: 'modal' }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: 'modal' }) setShowCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
+
+  @Action('setListWorkouts', { namespace: namespaceWorkout }) setListWorkouts: any
+  @Getter('listWorkouts', { namespace: namespaceWorkout }) listWorkouts: any
 
   planName: string = ''
   planFrequency: string = ''
@@ -55,10 +61,10 @@ export default class Workouts extends Vue {
           id: this.id
         }
       })
-      .then(function (response) {
-        this.$store.dispatch('setListWorkout', response.data)
+      .then(function (response: Response) {
+        this.setListWorkout(response.data)
       }.bind(this))
-      .catch(function (error) {
+      .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
           this.errContent = error.response.data.message
         } else {
@@ -72,31 +78,25 @@ export default class Workouts extends Vue {
           id: this.id
         }
       })
-      .then(function (response) {
+      .then(function (response: Response) {
         this.planName = response.data[0].name
         this.planFrequency = response.data[0].frequency
       }.bind(this))
-      .catch(function (error) {
+      .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
           this.errContent = error.response.data.message
         } else {
           this.errContent = 'Error happened.'
         }
       }.bind(this))
-    }
+  }
 
-    computed: {
-      listWorkouts () {
-        return this.$store.getters.listWorkout
-      },
-
-      displayBtn () {
-        if (this.listWorkouts.length < this.planFrequency) {
-          return true
-        }
-      }
+  get displayBtn () {
+    if (this.listWorkouts.length < this.planFrequency) {
+      return true
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

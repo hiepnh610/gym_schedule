@@ -146,7 +146,7 @@ export default class PlanUpdate extends Vue {
   }
 
   @Watch('dataPlanOrigin', { immediate: true, deep: true })
-  onPersonChanged (val: any, oldVal: any) {
+  dataPlan (val: any, oldVal: any) {
     this.namePlan = val.name
     this.typePlan = val.type
     this.frequencyPlan = val.frequency
