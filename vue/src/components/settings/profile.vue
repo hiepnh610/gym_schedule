@@ -158,13 +158,13 @@ export default class Profile extends Vue {
         }
       })
       .then(function (response: Response) {
-        this.user._id = response.data._id ? response.data._id : ''
-        this.user.dob = response.data.dob ? response.data.dob : ''
+        this.user._id = response.data._id || ''
+        this.user.dob = response.data.dob || ''
         this.user.email = response.data.email
         this.user.fullName = response.data.full_name
-        this.user.gender = response.data.gender ? response.data.gender : ''
-        this.user.height = response.data.height ? response.data.height : ''
-        this.user.weight = response.data.weight ? response.data.weight : ''
+        this.user.gender = response.data.gender || ''
+        this.user.height = response.data.height || ''
+        this.user.weight = response.data.weight || ''
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
@@ -178,12 +178,12 @@ export default class Profile extends Vue {
   userUpdate (id: string) {
     const formatTimeToUTC = moment.utc(this.user.dob).format()
     const params = {
-      dob: this.user.dob ? this.user.dob : '',
+      dob: this.user.dob || '',
       email: this.user.email,
       full_name: this.user.fullName,
-      gender: this.user.gender ? this.user.gender : '',
-      height: this.user.height ? this.user.height : '',
-      weight: this.user.weight ? this.user.weight : ''
+      gender: this.user.gender || '',
+      height: this.user.height || '',
+      weight: this.user.weight || ''
     }
 
     if (this.user.dob) {
