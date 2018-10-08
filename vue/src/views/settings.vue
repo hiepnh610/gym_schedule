@@ -12,25 +12,29 @@
   </div>
 </template>
 
-<script>
-  import sidebar from '@/components/settings/sidebar.vue'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
-  export default {
-    name: 'settings',
+import sidebar from '@/components/settings/sidebar.vue'
 
-    components: { sidebar },
+@Component({
+  components: {
+  sidebar
+  },
+  })
+export default class Settings extends Vue {
+  created () {
+    const _this: any = this
+    const isAuthenticated: boolean = _this.$session.exists()
+    const routePath: string = this.$route.path
 
-    created () {
-      const isAuthenticated = this.$session.exists()
-      const routePath = this.$route.path
-
-      if (isAuthenticated) {
-        if (routePath === '/settings') {
-          this.$router.push('/settings/profile')
-        }
+    if (isAuthenticated) {
+      if (routePath === '/settings') {
+        this.$router.push('/settings/profile')
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -61,7 +61,7 @@
       <div class="col-xs-12 col-md-4">
         <h6>Profile picture</h6>
         <div>
-          <img :src="getAvatar" alt="" class="rounded border mb-3" v-if="getAvatar" />
+          <img :src="avatar" alt="" class="rounded border mb-3" v-if="avatar" />
 
           <img src="@/assets/images/avatar-default.png" alt="" class="rounded border mb-3" v-else />
         </div>
@@ -95,151 +95,160 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-  import Datepicker from 'vuejs-datepicker'
-  import moment from 'moment'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Datepicker from 'vuejs-datepicker'
+import moment from 'moment'
+import axios from 'axios'
 
-  export default {
-    name: 'profile',
+import config from '@/config'
+import { Response } from '@/util'
 
-    components: { FontAwesomeIcon, Datepicker },
+const namespaceModal: string = 'modal'
+const namespaceAvatar: string = 'avatar'
 
-    data () {
-      return {
-        avatarPathFake: '',
-        avatarValue: null,
-        errorAvatar: '',
-        message: '',
-        showAvatarModal: false,
-        updateAvatarIsLoading: false,
-        updateInfoIsLoading: false,
-        user: {}
-      }
-    },
+@Component({
+  components: {
+  FontAwesomeIcon,
+  Datepicker
+  },
+  })
+export default class Profile extends Vue {
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
 
-    methods: {
-      userUpdate (id) {
-        const formatTimeToUTC = moment.utc(this.user.dob).format()
-        const params = this.user
+  @Action('setAvatar', { namespace: namespaceAvatar }) setAvatar: any
+  @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
 
-        if (this.user.dob) {
-          params.dob = formatTimeToUTC
+  avatarPathFake: string = ''
+  avatarValue: any = null
+  errorAvatar: string = ''
+  message: string = ''
+  showAvatarModal: boolean = false
+  updateAvatarIsLoading: boolean = false
+  updateInfoIsLoading: boolean = false
+  user: any = {}
+
+  created () {
+    const _this: any = this
+    axios
+      .get(config.domainAddress + config.api.user, {
+        params: {
+          id: _this.$session.get('id')
         }
-
-        this.updateInfoIsLoading = true
-
-        axios
-          .put(config.domainAddress + config.api.user + id, params)
-          .then(function () {
-            this.updateInfoIsLoading = false
-            this.$toasted.success('Update Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.message = 'Error happened.'
-            }
-
-            this.updateInfoIsLoading = false
-            this.$toasted.error('Error happened!!!')
-          }.bind(this))
-      },
-
-      customFormatter (date) {
-        return moment(date).format('DD/MM/YYYY')
-      },
-
-      selectImage (e) {
-        this.avatarValue = e.target.files[0]
-
-        const limitSize = 1024000
-        const imageType = this.avatarValue.type.replace('image/', '')
-
-        this.$refs.inputFile.value = ''
-        this.errorAvatar = ''
-
-        if (this.avatarValue.size > limitSize) {
-          this.errorAvatar = 'Please upload a picture smaller than 1 MB.'
-          return
+      })
+      .then(function (response: Response) {
+        this.user = response.data
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
         }
-
-        if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
-          this.errorAvatar = 'We only support PNG or JPG pictures.'
-          return
-        }
-
-        this.avatarPathFake = URL.createObjectURL(this.avatarValue)
-        this.$store.dispatch('setShowBackgroundModal', true)
-        this.showAvatarModal = true
-      },
-
-      closeModal () {
-        this.$store.dispatch('setShowBackgroundModal', false)
-        this.showAvatarModal = false
-      },
-
-      uploadAvatar () {
-        const configHeader = {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        }
-
-        let formData = new FormData()
-        formData.append('avatar', this.avatarValue)
-        formData.append('userId', this.$session.getAll().id)
-
-        this.updateAvatarIsLoading = true
-
-        axios
-          .post(config.domainAddress + config.api.upload, formData, configHeader)
-          .then(function (response) {
-            this.$store.dispatch('setAvatar', response.data.avatar.location)
-            this.updateAvatarIsLoading = false
-            this.showAvatarModal = false
-
-            this.$store.dispatch('setShowBackgroundModal', false)
-            this.$toasted.success('Upload Successfully!!!')
-          }.bind(this))
-          .catch(function (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-              this.message = 'Error happened.'
-            }
-
-            this.updateAvatarIsLoading = false
-            this.showAvatarModal = false
-
-            this.$store.dispatch('setShowBackgroundModal', false)
-            this.$toasted.error('Error happened!!!')
-          }.bind(this))
-      }
-    },
-
-    created () {
-      axios
-        .get(config.domainAddress + config.api.user, {
-          params: {
-            id: this.$session.get('id')
-          }
-        })
-        .then(function (response) {
-          this.user = response.data
-        }.bind(this))
-        .catch(function (error) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.message = error.response.data.message
-          } else {
-            this.message = 'Error happened.'
-          }
-        }.bind(this))
-    },
-
-    computed: {
-      getAvatar () {
-        return this.$store.getters.avatar
-      }
-    }
+      }.bind(this))
   }
+
+  userUpdate (id: string) {
+    const formatTimeToUTC = moment.utc(this.user.dob).format()
+    const params = this.user
+
+    if (this.user.dob) {
+      params.dob = formatTimeToUTC
+    }
+
+    this.updateInfoIsLoading = true
+
+    axios
+      .put(config.domainAddress + config.api.user + id, params)
+      .then(function () {
+        this.updateInfoIsLoading = false
+        this.$toasted.success('Update Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = 'Error happened.'
+        }
+
+        this.updateInfoIsLoading = false
+        this.$toasted.error('Error happened!!!')
+      }.bind(this))
+  }
+
+  customFormatter (date: string) {
+    return moment(date).format('DD/MM/YYYY')
+  }
+
+  selectImage (e: any) {
+    const _this: any = this
+
+    this.avatarValue = e.target.files[0]
+
+    const limitSize: number = 1024000
+    const imageType: string = this.avatarValue.type.replace('image/', '')
+
+    _this.$refs.inputFile.value = ''
+    this.errorAvatar = ''
+
+    if (this.avatarValue.size > limitSize) {
+      this.errorAvatar = 'Please upload a picture smaller than 1 MB.'
+      return
+    }
+
+    if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
+      this.errorAvatar = 'We only support PNG or JPG pictures.'
+      return
+    }
+
+    this.avatarPathFake = URL.createObjectURL(this.avatarValue)
+    this.$store.dispatch('setShowBackgroundModal', true)
+    this.showAvatarModal = true
+  }
+
+  closeModal () {
+    this.setShowModalBackdrop(false)
+    this.showAvatarModal = false
+  }
+
+  uploadAvatar () {
+    const _this: any = this
+
+    const configHeader = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+
+    let formData: any = new FormData()
+
+    formData.append('avatar', this.avatarValue)
+    formData.append('userId', _this.$session.getAll().id)
+
+    this.updateAvatarIsLoading = true
+
+    axios
+      .post(config.domainAddress + config.api.upload, formData, configHeader)
+      .then(function (response) {
+        this.setAvatar(response.data.avatar.location)
+        this.setShowModalBackdrop(false)
+
+        this.updateAvatarIsLoading = false
+        this.showAvatarModal = false
+
+        this.$toasted.success('Upload Successfully!!!')
+      }.bind(this))
+      .catch(function (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = 'Error happened.'
+        }
+
+        this.updateAvatarIsLoading = false
+        this.showAvatarModal = false
+
+        this.setShowModalBackdrop(false)
+        this.$toasted.error('Error happened!!!')
+      }.bind(this))
+  }
+}
 </script>
 
 <style lang="scss" scoped>

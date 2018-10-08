@@ -37,52 +37,63 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
-  import config from '@/config'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 
-  export default {
-    name: 'account',
+import config from '@/config'
+import { Response } from '@/util'
 
-    components: { FontAwesomeIcon },
+interface userInfo {
+  confirm_new_password: string;
+  current_password: string;
+  id: string;
+  new_password: string;
+}
 
-    data () {
-      return {
-        userInfo: {
-          id: this.$session.get('id')
-        }
+const _this: any = this
+
+@Component({
+  components: {
+  FontAwesomeIcon
+  },
+  })
+export default class Account extends Vue {
+  errContent: string = ''
+  userInfo: userInfo = {
+    confirm_new_password: '',
+    current_password: '',
+    id: _this.$session.get('id'),
+    new_password: ''
+  }
+
+  userUpdate (id: string) {
+    if (this.userInfo.new_password === this.userInfo.confirm_new_password) {
+      const params = {
+        current_password: this.userInfo.current_password,
+        new_password: this.userInfo.new_password
       }
-    },
 
-    methods: {
-      userUpdate (id) {
-        if (this.userInfo.new_password === this.userInfo.confirm_new_password) {
-          const params = {
-            current_password: this.userInfo.current_password,
-            new_password: this.userInfo.new_password
+      axios
+        .put(config.domainAddress + config.api.modifyPassword + id, params)
+        .then(function () {
+          this.$toasted.success('Update Successfully!!!')
+        }.bind(this))
+        .catch(function (error: Response) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.errContent = 'Error happened.'
           }
 
-          axios
-            .put(config.domainAddress + config.api.modifyPassword + id, params)
-            .then(function () {
-              this.$toasted.success('Update Successfully!!!')
-            }.bind(this))
-            .catch(function (error) {
-              if (error.response && error.response.data && error.response.data.message) {
-                this.errContent = error.response.data.message
-              } else {
-                this.errContent = 'Error happened.'
-              }
-
-              this.$toasted.error('Error happened!!!')
-            }.bind(this))
-        } else {
-          this.$toasted.error('The password does not match.')
-        }
-      }
+          this.$toasted.error('Error happened!!!')
+        }.bind(this))
+    } else {
+      _this.$toasted.error('The password does not match.')
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

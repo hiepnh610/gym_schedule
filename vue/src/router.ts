@@ -46,6 +46,12 @@ export default new Router({
           component: () => import('./views/exercises.vue')
         }
       ]
+    },
+
+    {
+      name: 'settings',
+      path: '/settings',
+      component: () => import('./views/settings.vue')
     }
   ]
 })

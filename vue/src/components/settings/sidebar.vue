@@ -7,21 +7,20 @@
   </ul>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
-        settingsName: ['profile', 'account'],
-        urlParam: this.$route.path
-      }
-    },
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
-    created () {
-      const splitParam = this.urlParam.split('/')
+@Component
+export default class Sidebar extends Vue {
+  settingsName: string[] = ['profile', 'account']
+  urlParam: string = this.$route.path
 
-      this.urlParam = splitParam[splitParam.length - 1]
-    }
+  created () {
+    const splitParam: string = this.urlParam.split('/')
+
+    this.urlParam = splitParam[splitParam.length - 1]
   }
+}
 </script>
 
 <style lang="scss" scoped>
