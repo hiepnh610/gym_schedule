@@ -22,7 +22,7 @@ const login = (req, res) => {
             const response = {
                 id: user._id,
                 email: user.email,
-                name: user.fullName,
+                name: user.full_name,
                 authenticate: true
             }
 

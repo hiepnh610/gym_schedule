@@ -10,19 +10,19 @@
           <div class="form-group">
             <label for="profile-old-password">Old password</label>
 
-            <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.current_password" />
+            <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.currentPassword" />
           </div>
 
           <div class="form-group">
             <label for="profile-new-password">New password</label>
 
-            <input id="profile-new-password" type="password" class="form-control" v-model="userInfo.new_password" />
+            <input id="profile-new-password" type="password" class="form-control" v-model="userInfo.newPassword" />
           </div>
 
           <div class="form-group">
             <label for="profile-confirm-new-password">Confirm new password</label>
 
-            <input id="profile-confirm-new-password" type="password" class="form-control" v-model="userInfo.confirm_new_password" />
+            <input id="profile-confirm-new-password" type="password" class="form-control" v-model="userInfo.confirmNewPassword" />
           </div>
 
           <div class="form-group">
@@ -46,13 +46,11 @@ import config from '@/config'
 import { Response } from '@/util'
 
 interface userInfo {
-  confirm_new_password: string;
-  current_password: string;
+  confirmNewPassword: string;
+  currentPassword: string;
   id: string;
-  new_password: string;
+  newPassword: string;
 }
-
-const _this: any = this
 
 @Component({
   components: {
@@ -60,19 +58,27 @@ const _this: any = this
   },
   })
 export default class Account extends Vue {
-  errContent: string = ''
   userInfo: userInfo = {
-    confirm_new_password: '',
-    current_password: '',
-    id: _this.$session.get('id'),
-    new_password: ''
+    confirmNewPassword: '',
+    currentPassword: '',
+    id: '',
+    newPassword: ''
+  }
+
+  errContent: string = ''
+
+  created () {
+    const _this: any = this
+    this.userInfo.id = _this.$session.get('id')
   }
 
   userUpdate (id: string) {
-    if (this.userInfo.new_password === this.userInfo.confirm_new_password) {
+    const _this: any = this
+
+    if (this.userInfo.newPassword === this.userInfo.confirmNewPassword) {
       const params = {
-        current_password: this.userInfo.current_password,
-        new_password: this.userInfo.new_password
+        current_password: this.userInfo.currentPassword,
+        new_password: this.userInfo.newPassword
       }
 
       axios
