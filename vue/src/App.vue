@@ -18,6 +18,7 @@ import { Response } from '@/util'
 
 import Navigation from '@/components/header/navigation.vue'
 
+const namespaceAvatar: string = 'avatar'
 const namespaceModal: string = 'modal'
 
 @Component({
@@ -26,6 +27,8 @@ const namespaceModal: string = 'modal'
   },
   })
 export default class App extends Vue {
+  @Action('setAvatar', { namespace: namespaceAvatar }) setAvatar: any
+
   @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
 
   beforeCreate () {
@@ -54,9 +57,9 @@ export default class App extends Vue {
         })
         .then(function (response: Response) {
           if (response.data.avatar) {
-            _this.$store.dispatch('setAvatar', response.data.avatar.location)
+            this.setAvatar(response.data.avatar.location)
           }
-        })
+        }.bind(this))
         .catch(function (error: Response) {
           if (error.response && error.response.data && error.response.data.message) {
             _this.errContent = error.response.data.message

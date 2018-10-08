@@ -51,7 +51,19 @@ export default new Router({
     {
       name: 'settings',
       path: '/settings',
-      component: () => import('./views/settings.vue')
+      component: () => import('./views/settings.vue'),
+      children: [
+        {
+          path: 'profile',
+          name: 'profile',
+          component: () => import('./components/settings/profile.vue')
+        },
+        {
+          path: 'account',
+          name: 'account',
+          component: () => import('./components/settings/account.vue')
+        }
+      ]
     }
   ]
 })

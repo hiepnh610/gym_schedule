@@ -13,10 +13,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class Sidebar extends Vue {
   settingsName: string[] = ['profile', 'account']
-  urlParam: string = this.$route.path
+  urlParam: string = ''
 
   created () {
-    const splitParam: string = this.urlParam.split('/')
+    this.urlParam = this.$route.path
+    const splitParam: string[] = this.urlParam.split('/')
 
     this.urlParam = splitParam[splitParam.length - 1]
   }
@@ -33,4 +34,3 @@ export default class Sidebar extends Vue {
     }
   }
 </style>
-

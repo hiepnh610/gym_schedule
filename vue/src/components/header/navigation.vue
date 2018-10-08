@@ -21,7 +21,7 @@
 
       <div class="pull-right" v-else>
         <div class="avatar mr-2">
-          <img :src="getAvatar" alt="" class="rounded" v-if="getAvatar" />
+          <img :src="avatar" alt="" class="rounded" v-if="avatar" />
 
           <img src="../../assets/images/avatar-default.png" alt="" class="rounded" v-else />
         </div>
@@ -40,7 +40,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+const namespaceAvatar: string = 'avatar'
 
 @Component({
   components: {
@@ -48,9 +51,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   },
   })
 export default class Navigation extends Vue {
+  @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
+
   isLogin: boolean = false
   nameDisplay!: string
-  avatar!: string
 
   mounted () {
     const _this: any = this
@@ -59,10 +63,6 @@ export default class Navigation extends Vue {
       this.isLogin = true
       this.nameDisplay = _this.$session.get('name')
     }
-  }
-
-  get getAvatar () {
-    return this.$store.getters.avatar
   }
 
   logout () {

@@ -109,6 +109,16 @@ import { Response } from '@/util'
 const namespaceModal: string = 'modal'
 const namespaceAvatar: string = 'avatar'
 
+interface User {
+  _id: string;
+  dob: string;
+  email: string;
+  fullName: string;
+  gender: string;
+  height: string;
+  weight: string;
+}
+
 @Component({
   components: {
   FontAwesomeIcon,
@@ -128,10 +138,19 @@ export default class Profile extends Vue {
   showAvatarModal: boolean = false
   updateAvatarIsLoading: boolean = false
   updateInfoIsLoading: boolean = false
-  user: any = {}
+  user: User = {
+    _id: '',
+    dob: '',
+    email: '',
+    fullName: '',
+    gender: '',
+    height: '',
+    weight: ''
+  }
 
   created () {
     const _this: any = this
+
     axios
       .get(config.domainAddress + config.api.user, {
         params: {
@@ -139,7 +158,13 @@ export default class Profile extends Vue {
         }
       })
       .then(function (response: Response) {
-        this.user = response.data
+        this.user._id = response.data._id || ''
+        this.user.dob = response.data.dob || ''
+        this.user.email = response.data.email
+        this.user.fullName = response.data.full_name
+        this.user.gender = response.data.gender || ''
+        this.user.height = response.data.height || ''
+        this.user.weight = response.data.weight || ''
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
@@ -152,7 +177,14 @@ export default class Profile extends Vue {
 
   userUpdate (id: string) {
     const formatTimeToUTC = moment.utc(this.user.dob).format()
-    const params = this.user
+    const params = {
+      dob: this.user.dob || '',
+      email: this.user.email,
+      full_name: this.user.fullName,
+      gender: this.user.gender || '',
+      height: this.user.height || '',
+      weight: this.user.weight || ''
+    }
 
     if (this.user.dob) {
       params.dob = formatTimeToUTC
@@ -202,7 +234,8 @@ export default class Profile extends Vue {
     }
 
     this.avatarPathFake = URL.createObjectURL(this.avatarValue)
-    this.$store.dispatch('setShowBackgroundModal', true)
+
+    this.setShowModalBackdrop(true)
     this.showAvatarModal = true
   }
 
@@ -227,7 +260,7 @@ export default class Profile extends Vue {
 
     axios
       .post(config.domainAddress + config.api.upload, formData, configHeader)
-      .then(function (response) {
+      .then(function (response: Response) {
         this.setAvatar(response.data.avatar.location)
         this.setShowModalBackdrop(false)
 
@@ -236,7 +269,7 @@ export default class Profile extends Vue {
 
         this.$toasted.success('Upload Successfully!!!')
       }.bind(this))
-      .catch(function (error) {
+      .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
           this.message = 'Error happened.'
         }
