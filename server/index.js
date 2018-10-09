@@ -7,7 +7,7 @@ const morgan     = require('morgan');
 const path       = require('path');
 
 const config = require('./config');
-const router = require('./node/api');
+const router = require('./api');
 
 mongoose.connect(config.mongoUri, {
     keepAlive: true,

@@ -66,7 +66,7 @@ const namespaceModal: string = 'modal'
 const namespacePlan: string = 'plans'
 
 interface ParamsPlanCreate {
-  created_by: string;
+  'created_by': string;
   frequency: string;
   name: string;
   type: string;

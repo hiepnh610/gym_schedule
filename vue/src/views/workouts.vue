@@ -30,8 +30,6 @@ import listWorkouts from '@/components/workout/list-workouts.vue'
 const namespaceModal: string = 'modal'
 const namespaceWorkouts: string = 'workouts'
 
-
-
 @Component({
   components: {
   workoutCreate,
