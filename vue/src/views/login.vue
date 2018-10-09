@@ -40,9 +40,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response, Params } from '@/util'
+import { Response } from '@/util'
 
 import modal from '@/components/modal/modal.vue'
+
+interface ParamsLogin {
+  email: string;
+  password: string;
+}
 
 const namespaceModal: string = 'modal'
 
@@ -63,7 +68,7 @@ export default class Login extends Vue {
 
   login () {
     if (this.email && this.password) {
-      const params: Params = {
+      const params: ParamsLogin = {
         email: this.email,
         password: this.password
       }

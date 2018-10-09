@@ -41,6 +41,15 @@ interface ExerciseType {
   [propName: string]: string
 }
 
+interface ParamsExercisesCreate {
+  history: string;
+  image: string;
+  name: string;
+  sets: string[];
+  track_note: string;
+  workout_id: any;
+}
+
 @Component
 export default class ExerciseCreate extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
@@ -72,9 +81,12 @@ export default class ExerciseCreate extends Vue {
       return
     }
 
-    const params = {
+    const params: ParamsExercisesCreate = {
+      history: exercise.history || '',
       image: exercise.image,
       name: exercise.name,
+      sets: exercise.sets || [],
+      track_note: exercise.track_note || '',
       workout_id: this.$route.params.id
     }
 
@@ -82,6 +94,7 @@ export default class ExerciseCreate extends Vue {
       .post(config.domainAddress + config.api.exercise, params)
       .then(function (response: Response) {
         this.setListExercises(response.data)
+
         this.$toasted.success('Create Successfully!!!')
       }.bind(this))
       .catch(function (error: Response) {

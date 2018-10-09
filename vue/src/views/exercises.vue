@@ -22,7 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response } from '@/util'
+import { Response, ID } from '@/util'
 
 import exerciseCreate from '@/components/exercise/exercise-create.vue'
 import listExercises from '@/components/exercise/list-exercises.vue'
@@ -46,8 +46,8 @@ export default class Exercises extends Vue {
   @Action('setListExercises', { namespace: namespaceExercises }) setListExercises: any
   @Getter('listExercises', { namespace: namespaceExercises }) listExercises: any
 
-  errContent: string = ''
   exerciseName: string = ''
+  message: string = ''
 
   createExercise () {
     this.setShowModalBackdrop(true)
@@ -55,20 +55,20 @@ export default class Exercises extends Vue {
   }
 
   created () {
+    const params: ID = {
+      id: this.id
+    }
+
     axios
-      .get(config.domainAddress + config.api.exercise, {
-        params: {
-          id: this.id
-        }
-      })
+      .get(config.domainAddress + config.api.exercise, { params })
       .then(function (response: Response) {
         this.setListExercises(response.data)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
       }.bind(this))
 
@@ -83,9 +83,9 @@ export default class Exercises extends Vue {
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
       }.bind(this))
   }

@@ -50,9 +50,16 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response, ParamsSignUp } from '@/util'
+import { Response } from '@/util'
 
 import modal from '@/components/modal/modal.vue'
+
+interface ParamsSignUp {
+  email: string;
+  full_name: string;
+  password: string;
+  password_confirm: string;
+}
 
 const namespaceModal: string = 'modal'
 
