@@ -52,6 +52,11 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
+interface ParamsWorkoutUpdate {
+  name: string;
+  week_day: string;
+}
+
 const namespaceModal: string = 'modal'
 const namespaceWorkouts: string = 'workouts'
 
@@ -92,7 +97,7 @@ export default class WorkoutUpdate extends Vue {
       return
     }
 
-    const params = {
+    const params: ParamsWorkoutUpdate = {
       name: this.workoutName,
       week_day: this.workoutDay
     }
@@ -123,8 +128,8 @@ export default class WorkoutUpdate extends Vue {
 
   @Watch('dataWorkoutOrigin', { immediate: true, deep: true })
   dataWorkout (val: any, oldVal: any) {
-    this.workoutName = val.name
     this.workoutDay = val.week_day
+    this.workoutName = val.name
   }
 }
 </script>

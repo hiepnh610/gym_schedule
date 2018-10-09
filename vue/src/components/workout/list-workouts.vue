@@ -58,13 +58,14 @@ export default class ListWorkouts extends Vue {
   @Action('setDeleteWorkout', { namespace: namespaceWorkouts }) setDeleteWorkout: any
   @Getter('listWorkouts', { namespace: namespaceWorkouts }) listWorkouts: any
 
-  errContent: string = ''
+  message: string = ''
   dataWorkoutOrigin: any = ''
 
   updateWorkout (workout: any) {
+    this.dataWorkoutOrigin = workout
+
     this.setShowModalBackdrop(true)
     this.setShowUpdateModal(true)
-    this.dataWorkoutOrigin = workout
   }
 
   deleteWorkout (id: string) {
@@ -77,9 +78,9 @@ export default class ListWorkouts extends Vue {
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
 
         this.$toasted.error('Error happened!!!')

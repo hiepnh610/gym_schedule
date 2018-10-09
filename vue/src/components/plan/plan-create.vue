@@ -65,6 +65,13 @@ import { Response } from '@/util'
 const namespaceModal: string = 'modal'
 const namespacePlan: string = 'plans'
 
+interface ParamsPlanCreate {
+  created_by: string;
+  frequency: string;
+  name: string;
+  type: string;
+}
+
 @Component({
   components: {
   FontAwesomeIcon
@@ -110,11 +117,11 @@ export default class PlanCreate extends Vue {
 
     const _this: any = this
 
-    const params = {
-      name: this.namePlan,
-      type: this.typePlan,
+    const params: ParamsPlanCreate = {
+      created_by: _this.$session.get('id'),
       frequency: this.frequencyPlan,
-      created_by: _this.$session.get('id')
+      name: this.namePlan,
+      type: this.typePlan
     }
 
     this.loading = true

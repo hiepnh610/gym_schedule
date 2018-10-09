@@ -63,12 +63,13 @@ export default class ListPlans extends Vue {
   @Action('setDeletePlan', { namespace: namespacePlan }) setDeletePlan: any
   @Getter('listPlans', { namespace: namespacePlan }) listPlans: any
 
-  errContent: string = ''
+  message: string = ''
   dataPlanOrigin: any = ''
 
   updatePlan (plan: any) {
     this.setShowModalBackdrop(true)
     this.setShowUpdateModal(true)
+
     this.dataPlanOrigin = plan
   }
 
@@ -82,9 +83,9 @@ export default class ListPlans extends Vue {
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
 
         this.$toasted.error('Error happened!!!')

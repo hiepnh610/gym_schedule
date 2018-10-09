@@ -52,6 +52,18 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
+interface ParamsWorkoutCreate {
+  name: string;
+  plan_id: string;
+  week_day: string;
+}
+
+interface dataItem {
+  created_by: string;
+  name: string;
+  week_day: string;
+}
+
 const namespaceModal: string = 'modal'
 const namespaceWorkouts: string = 'workouts'
 
@@ -91,10 +103,10 @@ export default class WorkoutCreate extends Vue {
       return
     }
 
-    const params = {
+    const params: ParamsWorkoutCreate = {
       name: this.workoutName,
-      week_day: this.workoutDay,
-      plan_id: this.$route.params.id
+      plan_id: this.$route.params.id,
+      week_day: this.workoutDay
     }
 
     this.loading = true
@@ -102,7 +114,7 @@ export default class WorkoutCreate extends Vue {
     axios
       .post(config.domainAddress + config.api.workout, params)
       .then(function (response: Response) {
-        const dataItem = {
+        const dataItem: dataItem = {
           created_by: response.data.created_by,
           name: response.data.name,
           week_day: response.data.week_day

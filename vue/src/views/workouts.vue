@@ -22,13 +22,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response } from '@/util'
+import { Response, ID } from '@/util'
 
 import workoutCreate from '@/components/workout/workout-create.vue'
 import listWorkouts from '@/components/workout/list-workouts.vue'
 
 const namespaceModal: string = 'modal'
 const namespaceWorkouts: string = 'workouts'
+
+
 
 @Component({
   components: {
@@ -48,6 +50,7 @@ export default class Workouts extends Vue {
 
   planName: string = ''
   planFrequency: string = ''
+  message: string = ''
 
   createWorkout () {
     this.setShowModalBackdrop(true)
@@ -55,20 +58,20 @@ export default class Workouts extends Vue {
   }
 
   created () {
+    const params: ID = {
+      id: this.id
+    }
+
     axios
-      .get(config.domainAddress + config.api.workout, {
-        params: {
-          id: this.id
-        }
-      })
+      .get(config.domainAddress + config.api.workout, { params })
       .then(function (response: Response) {
         this.setListWorkouts(response.data)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
       }.bind(this))
 
@@ -84,9 +87,9 @@ export default class Workouts extends Vue {
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
       }.bind(this))
   }
