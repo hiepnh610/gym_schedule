@@ -1,0 +1,38 @@
+.btn {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &.btn-primary,
+  &.btn-danger {
+    background: $primary-color;
+    border-color: $primary-color;
+  }
+
+  &.btn-success {
+    background: $success-color;
+    border-color: $success-color;
+  }
+
+  &.btn-warning {
+    background: $warning-color;
+    border-color: $warning-color;
+  }
+
+  &.btn-outline-primary,
+  &.btn-outline-danger {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+
+  &.btn-outline-success {
+    border-color: $success-color;
+    color: $success-color;
+  }
+
+  &.btn-outline-warning {
+    border-color: $warning-color;
+    color: $warning-color;
+  }
+}

@@ -74,29 +74,3 @@ export default class Navigation extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/mixins.scss';
-
-  #header {
-    background: rgba($header-bg-color, .6);
-  }
-
-  #main-nav {
-    .navbar-nav {
-      margin-left: auto;
-
-      a {
-        color: $header-text-color;
-        padding-left: $header-size / 4;
-        padding-right: $header-size / 4;
-      }
-    }
-  }
-
-  .avatar {
-    display: inline-block;
-    max-width: $avatar-header * 2;
-  }
-</style>

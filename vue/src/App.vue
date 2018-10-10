@@ -71,29 +71,3 @@ export default class App extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/mixins.scss';
-
-  .loading {
-    background: rgba($black, .7);
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-
-    svg {
-      color: $white;
-      font-size: 4 * $size-base;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      @include translate(-50%, -50%);
-    }
-  }
-</style>

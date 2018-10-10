@@ -34,11 +34,3 @@ export default class Modal extends Vue {
   @Prop() isSignUp!: boolean
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-
-  svg {
-    font-size: $size-base * 4;
-  }
-</style>

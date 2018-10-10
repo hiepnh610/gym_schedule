@@ -88,26 +88,3 @@ export default class ListWorkouts extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/mixins.scss';
-
-  .list-workout {
-    border-style: dotted;
-
-    th, td {
-      border-style: dotted;
-    }
-
-    thead {
-      tr {
-        th {
-          color: $white;
-          border-bottom-width: 1px;
-          text-align: center;
-        }
-      }
-    }
-  }
-</style>

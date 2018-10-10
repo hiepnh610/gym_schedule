@@ -46,8 +46,8 @@ interface ParamsExercisesCreate {
   image: string;
   name: string;
   sets: string[];
-  track_note: string;
-  workout_id: any;
+  'track_note': string;
+  'workout_id': any;
 }
 
 @Component
@@ -107,30 +107,3 @@ export default class ExerciseCreate extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/mixins.scss';
-
-  .list-group {
-    max-height: 60vh;
-    margin-bottom: $size-base;
-    overflow-x: hidden;
-    overflow-y: scroll;
-
-    .list-group-item {
-      cursor: pointer;
-      padding-left: 0;
-      padding-right: 0;
-
-      .d-flex {
-        align-items: center;
-      }
-
-      img {
-        margin-right: $size-base;
-        max-width: $size-base * 5;
-      }
-    }
-  }
-</style>

@@ -93,20 +93,3 @@ export default class ListPlans extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/mixins.scss';
-
-  .list-plans {
-    thead {
-      tr {
-        th {
-          border-bottom-width: 1px;
-          color: $table-plan-text-color;
-          text-align: center;
-        }
-      }
-    }
-  }
-</style>

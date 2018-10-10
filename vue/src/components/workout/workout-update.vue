@@ -54,7 +54,7 @@ import { Response } from '@/util'
 
 interface ParamsWorkoutUpdate {
   name: string;
-  week_day: string;
+  'week_day': string;
 }
 
 const namespaceModal: string = 'modal'
@@ -133,5 +133,3 @@ export default class WorkoutUpdate extends Vue {
   }
 }
 </script>
-
-<style lang="scss"></style>

@@ -153,5 +153,3 @@ export default class PlanUpdate extends Vue {
   }
 }
 </script>
-
-<style lang="scss"></style>

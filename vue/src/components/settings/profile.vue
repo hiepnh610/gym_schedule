@@ -283,23 +283,3 @@ export default class Profile extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .upload-avatar-label {
-    cursor: pointer;
-    position: relative;
-  }
-
-  #upload-avatar {
-    bottom: 0;
-    cursor: pointer;
-    font-size: 0;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-  }
-</style>

@@ -70,5 +70,3 @@ export default class Plans extends Vue {
   }
 }
 </script>
-
-<style lang="scss"></style>
