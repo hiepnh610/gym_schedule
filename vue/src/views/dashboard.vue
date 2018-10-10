@@ -18,12 +18,3 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class Dashboard extends Vue {
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/mixins.scss';
-
-  #dashboard {
-    padding-top: $size-base * 8;
-  }
-</style>

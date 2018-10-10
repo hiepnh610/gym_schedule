@@ -155,5 +155,3 @@ export default class PlanCreate extends Vue {
   }
 }
 </script>
-
-<style lang="scss"></style>

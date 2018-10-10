@@ -54,14 +54,14 @@ import { Response } from '@/util'
 
 interface ParamsWorkoutCreate {
   name: string;
-  plan_id: string;
-  week_day: string;
+  'plan_id': string;
+  'week_day': string;
 }
 
 interface dataItem {
-  created_by: string;
+  createdBy: string;
   name: string;
-  week_day: string;
+  weekDay: string;
 }
 
 const namespaceModal: string = 'modal'
@@ -115,9 +115,9 @@ export default class WorkoutCreate extends Vue {
       .post(config.domainAddress + config.api.workout, params)
       .then(function (response: Response) {
         const dataItem: dataItem = {
-          created_by: response.data.created_by,
+          createdBy: response.data.created_by,
           name: response.data.name,
-          week_day: response.data.week_day
+          weekDay: response.data.week_day
         }
 
         this.loading = false
@@ -142,5 +142,3 @@ export default class WorkoutCreate extends Vue {
   }
 }
 </script>
-
-<style lang="scss"></style>

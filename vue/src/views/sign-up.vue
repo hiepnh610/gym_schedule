@@ -56,9 +56,9 @@ import modal from '@/components/modal/modal.vue'
 
 interface ParamsSignUp {
   email: string;
-  full_name: string;
+  'full_name': string;
   password: string;
-  password_confirm: string;
+  'password_confirm': string;
 }
 
 const namespaceModal: string = 'modal'
@@ -120,61 +120,3 @@ export default class SignUp extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/mixins.scss';
-
-  #sign-up-page {
-    &:before {
-      background-image: url('../assets/images/sign-up-bg.jpg');
-      background-position: 50% 50%;
-      background-repeat: no-repeat;
-      background-size: cover;
-      bottom: 0;
-      content: '';
-      height: 100%;
-      left: 0;
-      min-height: 100%;
-      padding: $size-base * 4 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 100%;
-    }
-
-    &:after {
-      background: rgba(#000, .075);
-      bottom: 0;
-      content: '';
-      height: 100%;
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 100%;
-    }
-
-    #sign-up-form {
-      color: #fff;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      width: $size-base * 30;
-      z-index: 1;
-      @include translate(-50%, -50%);
-
-      label {
-        font-weight: normal;
-      }
-
-      a {
-        color: #fff;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
-  }
-</style>

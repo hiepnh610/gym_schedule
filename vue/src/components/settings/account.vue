@@ -101,12 +101,3 @@ export default class Account extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/mixins.scss';
-
-  hr {
-    border-color: $hr-border-color;
-  }
-</style>

@@ -36,12 +36,3 @@ export default class Settings extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/mixins.scss';
-
-  #settings {
-    padding-top: $size-base * 8;
-  }
-</style>

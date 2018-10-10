@@ -43,11 +43,11 @@
           transition: $transition-property $transition-duration $transition-timing-function $transition-delay, visibility 0s ease 0s;
 }
 
-@mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
+@mixin border-radius($height) {
+  -webkit-border-radius: $height / 2;
+     -moz-border-radius: $height / 2;
+      -ms-border-radius: $height / 2;
+          border-radius: $height / 2;
 }
 
 @mixin box-shadow($top:"", $left:"", $blur:"", $color:"", $inset:"") {
@@ -68,25 +68,4 @@
 
 %transition {
   @include transition(all, .2s, ease, 0s);
-}
-
-%fa {
-  display: inline-block;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-size: 12px;
-  font-weight: normal;
-  line-height: 1;
-  transform: translate(0, 0);
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@mixin gradient($positionStart, $positionMiddle ,$color-start, $color-middle, $color-end) {
-  background: -webkit-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
-  background: -moz-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
-  background: -ms-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
-  background: -o-linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
-  background: linear-gradient($positionStart, $color-start 0%, $color-middle $positionMiddle, $color-end 100%);
 }

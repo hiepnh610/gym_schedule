@@ -23,14 +23,3 @@ export default class Sidebar extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/mixins.scss';
-
-  .list-group {
-    .header {
-      background: $gray-200;
-    }
-  }
-</style>

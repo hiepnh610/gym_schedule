@@ -1,14 +1,16 @@
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$primary-color:             #bf0b2c !default;
+$navy-blue-color:           #02173d !default;
+$success-color:             #0aa38c !default;
+$warning-color:             #f5900f !default;
+
+$black-color:               #000 !default;
+$dark-gray-color:           #333 !default;
+$gray-color:                #666 !default;
+$light-gray-color:          #666 !default;
+$lighter-gray-color:        #f8f8f8 !default;
+$white-color:               #fff !default;
+
+$border-color:              #eee;
 
 $size-base: 1rem;
 
@@ -54,25 +56,5 @@ $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
 
 
-$body-bg-color:              $gray-100 !default;
-
-
-$hr-border-color:            $white !default;
-$table-plan-bg-color:        $white !default;
-$table-plan-text-color:      $white !default;
-
-
-$header-bg-color:            $black !default;
-$header-size:                $size-base !default;
-$header-text-color:          $white !default;
-
-
-$avatar-header:              $size-base !default;
-
-
-$border-radius-size:         $size-base !default;
-$border-bg-color:            $gray-200 !default;
-$border-text-color:          $black !default;
-
-
-$button-spacing:             $size-base !default;
+$body-bg-color:              $white-color !default;
+$border-radius-size:         $size-base / 8;

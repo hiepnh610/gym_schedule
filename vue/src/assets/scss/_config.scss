@@ -1,0 +1,23 @@
+body {
+  background: $body-bg-color;
+  font-family: 'Lato', sans-serif;
+  font-size: $size-base;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  @extend %transition;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  background-color: $white-color !important;
+}

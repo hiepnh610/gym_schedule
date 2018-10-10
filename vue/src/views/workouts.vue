@@ -99,12 +99,3 @@ export default class Workouts extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/mixins.scss';
-
-  h1 {
-    margin-bottom: $size-base * 2;
-  }
-</style>
