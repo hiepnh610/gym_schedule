@@ -1,0 +1,32 @@
+#login {
+  background: transparent url('../images/login-bg.jpg') no-repeat center center /cover;
+  float: left;
+  height: 100vh;
+  padding: 0 15px;
+  position: relative;
+  width: 100vw;
+
+  &:before {
+    background: rgba($black-color, .2);
+    bottom: 0;
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .container {
+    height: 100%;
+    position: relative;
+  }
+}
+
+#login-form {
+  float: left;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  @include translate(-50%, -50%);
+}

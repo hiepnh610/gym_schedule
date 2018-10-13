@@ -1,0 +1,39 @@
+$padding-nav-link: $size-base / 8;
+
+.red-color {
+  #main-header {
+    background: $first-primary-color;
+  }
+}
+
+#main-header {
+  height: 50px;
+
+  .navbar {
+    padding-bottom: 0;
+    padding-top: 5px;
+  }
+}
+
+#main-logo {
+  h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+}
+
+#main-nav {
+  flex-grow: inherit;
+  margin-left: auto;
+
+  ul {
+    li {
+      a {
+        color: $white-color;
+        padding-left: $padding-nav-link;
+        padding-right: $padding-nav-link;
+      }
+    }
+  }
+}

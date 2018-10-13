@@ -9,6 +9,10 @@
       &.btn-#{$btn} {
         background: nth($agrs, $index);
         border-color: nth($agrs, $index);
+
+        &:hover {
+          background: rgba(nth($agrs, $index), .85);
+        }
       }
 
       &.btn-outline-#{$index} {
@@ -22,6 +26,12 @@
     &:focus {
       outline: none;
       box-shadow: none;
+    }
+
+    &.btn-lg {
+      height: 50px;
+      min-width: 180px;
+      @include border-radius(50px);
     }
   }
 }
