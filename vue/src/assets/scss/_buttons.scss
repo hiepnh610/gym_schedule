@@ -1,38 +1,31 @@
-.btn {
-  &:focus {
-    outline: none;
-    box-shadow: none;
+@mixin btn($primary-color, $success-color, $warning-color, $danger-color) {
+  $agrs: $primary-color $success-color $warning-color $danger-color;
+  $btns: primary success warning danger;
+
+  @each $btn in $btns {
+    $index: index($btns, $btn);
+
+    .btn {
+      &.btn-#{$btn} {
+        background: nth($agrs, $index);
+        border-color: nth($agrs, $index);
+      }
+
+      &.btn-outline-#{$index} {
+        border-color: nth($agrs, $index);
+        color: nth($agrs, $index);
+      }
+    }
   }
 
-  &.btn-primary,
-  &.btn-danger {
-    background: $primary-color;
-    border-color: $primary-color;
+  .btn {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
+}
 
-  &.btn-success {
-    background: $success-color;
-    border-color: $success-color;
-  }
-
-  &.btn-warning {
-    background: $warning-color;
-    border-color: $warning-color;
-  }
-
-  &.btn-outline-primary,
-  &.btn-outline-danger {
-    border-color: $primary-color;
-    color: $primary-color;
-  }
-
-  &.btn-outline-success {
-    border-color: $success-color;
-    color: $success-color;
-  }
-
-  &.btn-outline-warning {
-    border-color: $warning-color;
-    color: $warning-color;
-  }
+.red-color {
+  @include btn($first-primary-color, $first-success-color, $first-warning-color, $first-danger-color);
 }

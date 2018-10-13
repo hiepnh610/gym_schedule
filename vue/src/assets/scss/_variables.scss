@@ -1,7 +1,10 @@
-$primary-color:             #bf0b2c !default;
+$first-primary-color:             #bf0b2c !default;
+
+$first-success-color:             #0aa38c !default;
+$first-warning-color:             #f5900f !default;
+$first-danger-color:              $first-primary-color;
+
 $navy-blue-color:           #02173d !default;
-$success-color:             #0aa38c !default;
-$warning-color:             #f5900f !default;
 
 $black-color:               #000 !default;
 $dark-gray-color:           #333 !default;
@@ -13,6 +16,9 @@ $white-color:               #fff !default;
 $border-color:              #eee;
 
 $size-base: 1rem;
+
+$body-bg-color:              $white-color !default;
+$border-radius-size:         $size-base / 4;
 
 //== Media queries breakpoints
 //
@@ -54,7 +60,3 @@ $screen-lg-desktop:          $screen-lg-min !default;
 $screen-xs-max:              ($screen-sm-min - 1) !default;
 $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
-
-
-$body-bg-color:              $white-color !default;
-$border-radius-size:         $size-base / 8;

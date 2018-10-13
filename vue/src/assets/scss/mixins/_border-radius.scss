@@ -1,0 +1,6 @@
+@mixin border-radius($height) {
+  -webkit-border-radius: $height / 2;
+     -moz-border-radius: $height / 2;
+      -ms-border-radius: $height / 2;
+          border-radius: $height / 2;
+}

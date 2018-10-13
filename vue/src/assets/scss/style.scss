@@ -1,5 +1,13 @@
 @import "_variables";
-@import "_mixins";
+
+@import "mixins/border-radius";
+@import "mixins/box-shadow";
+@import "mixins/extend";
+@import "mixins/opacity";
+@import "mixins/responsive";
+@import "mixins/transform";
+@import "mixins/transition";
+
 @import "_config";
 @import "_buttons";
 @import "_form";
