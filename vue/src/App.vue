@@ -1,10 +1,14 @@
 <template>
   <div id="app" class="red-color">
-    <navigation />
+    <div id="app-content" v-if="!isLoading">
+      <navigation />
 
-    <router-view />
+      <router-view />
 
-    <div class="modal-backdrop fade show" v-if="showModalBackdrop"></div>
+      <div class="modal-backdrop fade show" v-if="showModalBackdrop"></div>
+    </div>
+
+    <splash v-else />
   </div>
 </template>
 
@@ -17,6 +21,7 @@ import config from '@/config'
 import { Response } from '@/util'
 
 import Navigation from '@/components/header/navigation.vue'
+import Splash from '@/components/splash/splash.vue'
 
 const namespaceAvatar: string = 'avatar'
 const namespaceModal: string = 'modal'
@@ -24,6 +29,7 @@ const namespaceModal: string = 'modal'
 @Component({
   components: {
   Navigation,
+  Splash,
   },
   })
 export default class App extends Vue {
@@ -31,7 +37,20 @@ export default class App extends Vue {
 
   @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
 
-  beforeCreate () {
+  isLoading: boolean | null = true
+
+  created () {
+    this.setAuthenticate()
+    this.getInfoUser()
+  }
+
+  mounted () {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1000)
+  }
+
+  setAuthenticate (): void {
     const _this: any = this
     const isAuthenticated: boolean = _this.$session.exists()
     const routePath: string = this.$route.path
@@ -45,7 +64,7 @@ export default class App extends Vue {
     }
   }
 
-  created () {
+  getInfoUser (): void {
     const _this: any = this
 
     if (_this.$session.exists()) {

@@ -1,0 +1,15 @@
+$size-splash: $size-base * 4;
+
+#splash {
+  font-size: $size-splash;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  @include translate(-50%, -50%);
+}
+
+.red-color {
+  #splash {
+    color: $first-primary-color;
+  }
+}
