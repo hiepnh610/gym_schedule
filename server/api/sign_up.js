@@ -11,7 +11,7 @@ const initSignUp = (req, res) => {
 
     if (req.body.password.length < 8) return res.status(400).json({ message: 'The password field must be at least 8 characters.' });
 
-    if (req.body.password_confirm !== req.body.password) return res.status(400).json({ message: 'Password does not match the confirm password.' });
+    if (req.body.confirm_password !== req.body.password) return res.status(400).json({ message: 'Password does not match the confirm password.' });
 
     if (!validator.isEmail(req.body.email)) return res.status(400).json({ message: 'The email field must be a valid email.' });
 

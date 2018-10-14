@@ -5,7 +5,7 @@
         <div class="animated fadeInUp">
           <form @submit.prevent="signUp">
             <div class="form-group">
-              <input type="text" class="form-control" name="email" placeholder="Your Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
+              <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
               <p v-show="errors.has('email')" class="text-white mt-2">{{ errors.first('email') }}</p>
             </div>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" name="re-password" placeholder="Password Confirm" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="passwordConfirm" />
+              <input type="password" class="form-control" name="re-password" placeholder="Confirm Password" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="confirmPassword" />
 
               <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
             </div>
@@ -52,8 +52,6 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
-import modal from '@/components/modal/modal.vue'
-
 interface ParamsSignUp {
   email: string;
   'full_name': string;
@@ -65,7 +63,6 @@ const namespaceModal: string = 'modal'
 
 @Component({
   components: {
-  modal,
   FontAwesomeIcon,
   },
   })
@@ -79,7 +76,7 @@ export default class SignUp extends Vue {
   isSuccess: boolean = false
   message: string = ''
   password: string = ''
-  passwordConfirm: string = ''
+  confirmPassword: string = ''
 
   signUp () {
     if (this.email && this.fullName && this.password) {
@@ -87,7 +84,7 @@ export default class SignUp extends Vue {
         email: this.email,
         full_name: this.fullName,
         password: this.password,
-        password_confirm: this.passwordConfirm
+        password_confirm: this.confirmPassword
       }
 
       this.disabledBtn = true

@@ -31,8 +31,6 @@
           </div>
         </div>
       </div>
-
-      <modal :is-success="isSuccess"></modal>
     </div>
   </div>
 </template>
@@ -46,8 +44,6 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
-import modal from '@/components/modal/modal.vue'
-
 interface ParamsLogin {
   email: string;
   password: string;
@@ -57,7 +53,6 @@ const namespaceModal: string = 'modal'
 
 @Component({
   components: {
-  modal,
   FontAwesomeIcon,
   },
   })
