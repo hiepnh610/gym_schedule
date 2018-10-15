@@ -1,17 +1,22 @@
 <template>
-  <div class="text-center">
-    <h1 class="text-center mb-5">Plan</h1>
+  <div id="plans-page">
+    <div class="text-center">
+      <div class="page-title">
+        <div class="container">
+          <h2 class="text-center mb-5">Plans</h2>
+        </div>
+      </div>
 
-    <list-plans v-if="listPlans.length > 0"></list-plans>
+      <list-plans v-if="listPlans.length > 0"></list-plans>
 
-    <p v-if="listPlans.length === 0" class="align-center mb-5">Please create a plan from the under button.</p>
+      <p v-if="listPlans.length === 0" class="align-center">Please create a plan from the under button.</p>
 
-    <a href="" class="btn btn-md btn-success" @click.prevent="createPlan">
-      <font-awesome-icon icon="plus-circle" />
-      Create Plan
-    </a>
+      <a href="" class="btn btn-lg btn-primary" @click.prevent="createPlan">
+        Create Plan
+      </a>
 
-    <plan-create></plan-create>
+      <plan-create></plan-create>
+    </div>
   </div>
 </template>
 

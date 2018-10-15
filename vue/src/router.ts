@@ -24,28 +24,27 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: () => import('./views/dashboard.vue'),
-      children: [
-        {
-          path: 'plan',
-          name: 'Plans',
-          component: () => import('./views/plans.vue')
-        },
+      component: () => import('./views/dashboard.vue')
+    },
 
-        {
-          path: 'workout/:id',
-          name: 'Workouts',
-          props: true,
-          component: () => import('./views/workouts.vue')
-        },
+    {
+      path: '/plans',
+      name: 'Plans',
+      component: () => import('./views/plans.vue')
+    },
 
-        {
-          path: 'exercise/:id',
-          name: 'Exercises',
-          props: true,
-          component: () => import('./views/exercises.vue')
-        }
-      ]
+    {
+      path: '/workouts/:id',
+      name: 'Workouts',
+      props: true,
+      component: () => import('./views/workouts.vue')
+    },
+
+    {
+      path: '/exercises/:id',
+      name: 'Exercises',
+      props: true,
+      component: () => import('./views/exercises.vue')
     },
 
     {

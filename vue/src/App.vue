@@ -47,20 +47,17 @@ export default class App extends Vue {
   mounted () {
     setTimeout(() => {
       this.isLoading = false
-    }, 1000)
+    }, 500)
   }
 
   setAuthenticate (): void {
     const _this: any = this
     const isAuthenticated: boolean = _this.$session.exists()
-    const routePath: string = this.$route.path
 
     if (isAuthenticated) {
-      if (routePath === '/sign-up' || routePath === '/') this.$router.push('/dashboard')
-
-      if (routePath === '/settings') this.$router.push('/settings/profile')
+      if (window.location.href === (window.location.origin + '/') || window.location.href === (window.location.origin + '/sign-up')) this.$router.push('/dashboard')
     } else {
-      if (routePath !== '/') this.$router.push('/sign-up')
+      if (window.location.href !== (window.location.origin + '/')) this.$router.push('/sign-up')
     }
   }
 

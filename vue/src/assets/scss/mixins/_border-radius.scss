@@ -1,6 +1,13 @@
-@mixin border-radius($height) {
-  -webkit-border-radius: $height / 2;
-     -moz-border-radius: $height / 2;
-      -ms-border-radius: $height / 2;
-          border-radius: $height / 2;
+@mixin border-radius($input, $type) {
+  @if $type == 'auto' {
+    -webkit-border-radius: $input / 2;
+       -moz-border-radius: $input / 2;
+        -ms-border-radius: $input / 2;
+            border-radius: $input / 2;
+  } @else {
+    -webkit-border-radius: $input;
+       -moz-border-radius: $input;
+        -ms-border-radius: $input;
+            border-radius: $input;
+  }
 }

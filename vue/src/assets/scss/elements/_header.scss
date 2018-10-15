@@ -10,8 +10,20 @@ $padding-nav-link: $size-base / 8;
   height: 50px;
 
   .navbar {
+    height: 100%;
     padding-bottom: 0;
-    padding-top: 5px;
+    padding-top: 0;
+  }
+
+  .avatar {
+    color: $white-color;
+    font-size: 20px;
+  }
+
+  .dropdown-menu {
+    left: auto;
+    right: 0;
+    top: 40px;
   }
 }
 
@@ -27,13 +39,9 @@ $padding-nav-link: $size-base / 8;
   flex-grow: inherit;
   margin-left: auto;
 
-  ul {
-    li {
-      a {
-        color: $white-color;
-        padding-left: $padding-nav-link;
-        padding-right: $padding-nav-link;
-      }
-    }
+  a {
+    color: $white-color;
+    padding-left: $padding-nav-link;
+    padding-right: $padding-nav-link;
   }
 }

@@ -2,7 +2,8 @@ input,
 input.form-control,
 select,
 select.form-control {
-  @include border-radius($border-radius-size);
+  border-color: $border-color;
+  @include border-radius($border-radius-size, '');
   @include box-shadow(0, 0, 0, transparent);
 
   &:focus {
@@ -10,12 +11,17 @@ select.form-control {
   }
 }
 
+select,
+select.form-control {
+  @extend %appearance;
+}
+
 .input-group-lg {
   input,
   input.form-control,
   select,
   select.form-control {
-    border-radius: $border-radius-size;
+    @include border-radius($border-radius-size, '');
     height: 50px;
   }
 
@@ -34,4 +40,15 @@ select.form-control {
 
 .form-group {
   margin-bottom: 30px;
+}
+
+.red-color {
+  input,
+  input.form-control,
+  select,
+  select.form-control {
+    &:focus {
+      border-color: $first-primary-color;
+    }
+  }
 }

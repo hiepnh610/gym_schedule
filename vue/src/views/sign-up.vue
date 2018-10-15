@@ -1,44 +1,46 @@
 <template>
-  <div id="sign-up-page">
+  <div id="sign-up">
     <div class="container">
-      <div id="sign-up-form" v-show="!isSuccess">
-        <div class="animated fadeInUp">
-          <form @submit.prevent="signUp">
-            <div class="form-group">
-              <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
+      <div id="sign-up-form">
+        <div class="row justify-content-md-center">
+          <div class="col-12 col-md-10 col-lg-6">
+            <div class="animated fadeInUp">
+              <form @submit.prevent="signUp">
+                <div class="form-group input-group-lg">
+                  <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
 
-              <p v-show="errors.has('email')" class="text-white mt-2">{{ errors.first('email') }}</p>
+                  <p v-show="errors.has('email')" class="text-white mt-2">{{ errors.first('email') }}</p>
+                </div>
+
+                <div class="form-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
+                </div>
+
+                <div class="form-group input-group-lg">
+                  <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" ref="passwordRef" v-model="password" />
+
+                  <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
+                </div>
+
+                <div class="form-group input-group-lg">
+                  <input type="password" class="form-control" name="re-password" placeholder="Confirm Password" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="confirmPassword" />
+
+                  <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
+                </div>
+
+                <p v-show="message" class="text-white mt-2">{{ message }}</p>
+
+                <div class="form-group text-center">
+                  <button class="btn btn-lg btn-primary" :disabled="disabledBtn">
+                    <font-awesome-icon icon="spinner" spin v-if="disabledBtn" />
+                    Sign Up
+                  </button>
+                </div>
+              </form>
             </div>
-
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
-            </div>
-
-            <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" ref="passwordRef" v-model="password" />
-
-              <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
-            </div>
-
-            <div class="form-group">
-              <input type="password" class="form-control" name="re-password" placeholder="Confirm Password" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="confirmPassword" />
-
-              <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
-            </div>
-
-            <p v-show="message" class="text-white mt-2">{{ message }}</p>
-
-            <div class="form-group text-center">
-              <button class="btn btn-md btn-success" :disabled="disabledBtn">
-                <font-awesome-icon icon="spinner" spin v-if="disabledBtn" />
-                Sign Up
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-
-      <modal :is-success="isSuccess" :is-sign-up="isSignUp"></modal>
     </div>
   </div>
 </template>
@@ -56,10 +58,8 @@ interface ParamsSignUp {
   email: string;
   'full_name': string;
   password: string;
-  'password_confirm': string;
+  'confirm_password': string;
 }
-
-const namespaceModal: string = 'modal'
 
 @Component({
   components: {
@@ -67,13 +67,9 @@ const namespaceModal: string = 'modal'
   },
   })
 export default class SignUp extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-
   disabledBtn: boolean = false
   email: string = ''
   fullName: string = ''
-  isSignUp: boolean = false
-  isSuccess: boolean = false
   message: string = ''
   password: string = ''
   confirmPassword: string = ''
@@ -84,7 +80,7 @@ export default class SignUp extends Vue {
         email: this.email,
         full_name: this.fullName,
         password: this.password,
-        password_confirm: this.confirmPassword
+        confirm_password: this.confirmPassword
       }
 
       this.disabledBtn = true
@@ -92,11 +88,7 @@ export default class SignUp extends Vue {
       axios
         .post(config.domainAddress + config.api.signUp, params)
         .then(function (response: Response) {
-          this.setShowModalBackdrop(true)
-
-          this.isSuccess = true
-          this.isSignUp = true
-          this.disabledBtn = false
+          window.location.href = location.origin + '/dashboard'
 
           this.$session.start()
           this.$session.set('name', response.data.name)

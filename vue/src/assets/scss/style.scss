@@ -10,11 +10,18 @@
 @import "mixins/extend";
 
 @import "_config";
-@import "_buttons";
-@import "_form";
-@import "_modal";
-@import "_table";
 
-@import "_header";
-@import "_login";
-@import "_loading";
+@import "elements/buttons";
+@import "elements/form";
+@import "elements/modal";
+@import "elements/table";
+@import "elements/drop-down";
+@import "elements/colors";
+@import "elements/header";
+@import "elements/loading";
+@import "elements/page-title";
+
+@import "pages/login";
+@import "pages/sign-up";
+@import "pages/dashboard";
+@import "pages/plans";

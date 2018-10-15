@@ -1,3 +1,10 @@
 %transition {
   @include transition(all, .2s, ease, 0s);
 }
+
+%appearance {
+  text-indent: 1px;
+  text-overflow: '';
+  -webkit-appearance: none;
+     -moz-appearance: none;
+}

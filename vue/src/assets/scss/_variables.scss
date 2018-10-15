@@ -15,10 +15,13 @@ $white-color:               #fff !default;
 
 $border-color:              #eee;
 
-$size-base: 1rem;
+$size-base:                  1rem;
+$small-size-base:            0.875rem;
 
 $body-bg-color:              $white-color !default;
 $border-radius-size:         $size-base / 4;
+$modal-header-bg:            $border-color;
+$modal-footer-bg:            $border-color;
 
 //== Media queries breakpoints
 //

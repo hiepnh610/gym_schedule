@@ -4,7 +4,7 @@
       <div id="login-form">
         <div class="row justify-content-md-center">
           <div class="col-12 col-md-10 col-lg-6">
-            <div class="animated fadeInUp" v-show="!isSuccess">
+            <div class="animated fadeInUp">
               <form @submit.prevent="login">
                 <div class="form-group input-group-lg">
                   <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
@@ -49,19 +49,14 @@ interface ParamsLogin {
   password: string;
 }
 
-const namespaceModal: string = 'modal'
-
 @Component({
   components: {
   FontAwesomeIcon,
   },
   })
 export default class Login extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-
   disabledBtn: boolean = false
   email: string = ''
-  isSuccess: boolean = false
   message: string = ''
   password: string = ''
 
@@ -77,10 +72,7 @@ export default class Login extends Vue {
       axios
         .post(config.domainAddress + config.api.login, params)
         .then(function (response: Response) {
-          this.setShowModalBackdrop(true)
-
-          this.isSuccess = true
-          this.disabledBtn = false
+          window.location.href = location.origin + '/dashboard'
 
           this.$session.start()
           this.$session.set('name', response.data.name)

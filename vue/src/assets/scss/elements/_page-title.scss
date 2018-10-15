@@ -1,0 +1,32 @@
+.page-title {
+  background-attachment: fixed;
+  background-image: url('../images/page-title.jpg');
+  background-position: 0 95%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 350px;
+  position: relative;
+
+  &::before {
+    background: rgba($navy-blue-color, .2);
+    bottom: 0;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  h2 {
+    color: $white-color;
+    font-size: 3.75rem;
+    font-weight: 900;
+    left: 50%;
+    position: absolute;
+    text-transform: uppercase;
+    top: 50%;
+    @include translate(-50%, -50%);
+  }
+}
