@@ -18,25 +18,33 @@
               <div class="form-group input-group-lg">
                 <label for="type-plan">Type</label>
 
-                <select id="type-plan" class="form-control" v-model="typePlan">
-                  <option value="General" selected>General</option>
-                  <option value="Bulking">Bulking</option>
-                  <option value="Cutting">Cutting</option>
-                </select>
+                <div class="select-custom">
+                  <font-awesome-icon icon="caret-down" />
+
+                  <select id="type-plan" class="form-control" v-model="typePlan">
+                    <option value="General" selected>General</option>
+                    <option value="Bulking">Bulking</option>
+                    <option value="Cutting">Cutting</option>
+                  </select>
+                </div>
               </div>
 
               <div class="form-group input-group-lg">
                 <label for="frequency-plan">Frequency</label>
 
-                <select id="frequency-plan" class="form-control" v-model="frequencyPlan">
-                  <option value="1">1 day / week</option>
-                  <option value="2">2 days / week</option>
-                  <option value="3">3 days / week</option>
-                  <option value="4">4 days / week</option>
-                  <option value="5">5 days / week</option>
-                  <option value="6">6 days / week</option>
-                  <option value="7">7 days / week</option>
-                </select>
+                <div class="select-custom">
+                  <font-awesome-icon icon="caret-down" />
+
+                  <select id="frequency-plan" class="form-control" v-model="frequencyPlan">
+                    <option value="1">1 day / week</option>
+                    <option value="2">2 days / week</option>
+                    <option value="3">3 days / week</option>
+                    <option value="4">4 days / week</option>
+                    <option value="5">5 days / week</option>
+                    <option value="6">6 days / week</option>
+                    <option value="7">7 days / week</option>
+                  </select>
+                </div>
               </div>
 
               <p v-show="message" class="text-danger">{{ message }}</p>
@@ -44,7 +52,7 @@
 
             <div class="form-group form-button text-center mb-0">
               <button href="dashboard" class="btn btn-md btn-primary" @click.prevent="planCreate">
-                Submit
+                Create
                 <font-awesome-icon icon="spinner" spin v-if="loading" />
               </button>
 
@@ -96,6 +104,10 @@ export default class PlanCreate extends Vue {
   typePlan: string = ''
 
   closeModal () {
+    this.frequencyPlan = ''
+    this.namePlan = ''
+    this.typePlan = ''
+
     this.setShowModalBackdrop(false)
     this.setShowCreateModal(false)
   }

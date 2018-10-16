@@ -28,11 +28,28 @@
       @include box-shadow(0, 0, 0, 0, transparent);
     }
 
+    &.btn-secondary {
+      background: $navy-blue-color;
+      border-color: $navy-blue-color;
+      color: $white-color;
+
+      &:hover {
+        background: rgba($navy-blue-color, .85);
+      }
+    }
+
     &.btn-lg {
-      max-height: 50px;
+      height: 50px;
       min-width: 180px;
       padding-bottom: .7rem;
       @include border-radius(50px, 'auto');
+    }
+
+    &.btn-md {
+      height: 40px;
+      margin: 0 5px;
+      min-width: 100px;
+      @include border-radius(40px, 'auto');
     }
   }
 }

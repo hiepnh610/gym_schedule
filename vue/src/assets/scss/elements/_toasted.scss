@@ -1,0 +1,11 @@
+.toasted-container {
+  .toasted.primary {
+    &.success {
+      background: $first-success-color;
+    }
+
+    &.error {
+      background: $first-primary-color;
+    }
+  }
+}

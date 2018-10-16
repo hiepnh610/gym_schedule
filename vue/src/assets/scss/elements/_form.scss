@@ -42,6 +42,18 @@ select.form-control {
   margin-bottom: 30px;
 }
 
+.select-custom {
+  position: relative;
+
+  svg {
+    color: $navy-blue-color;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    @include translate(0, -50%);
+  }
+}
+
 .red-color {
   input,
   input.form-control,
