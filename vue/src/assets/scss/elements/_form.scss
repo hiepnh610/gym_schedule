@@ -4,10 +4,10 @@ select,
 select.form-control {
   border-color: $border-color;
   @include border-radius($border-radius-size, '');
-  @include box-shadow(0, 0, 0, transparent);
+  @include box-shadow(0, 0, 0, 0, transparent);
 
   &:focus {
-    @include box-shadow(0, 0, 0, transparent);
+    @include box-shadow(0, 0, 0, 0, transparent);
   }
 }
 

@@ -51,12 +51,12 @@
             </div>
 
             <div class="form-group form-button text-center mb-0">
-              <button href="dashboard" class="btn btn-md btn-primary" @click.prevent="planCreate">
+              <button class="btn btn-md btn-primary" @click.prevent="planCreate">
                 Create
                 <font-awesome-icon icon="spinner" spin v-if="loading" />
               </button>
 
-              <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>

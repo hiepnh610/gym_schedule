@@ -1,6 +1,6 @@
-@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
-  -webkit-box-shadow: $top $left $blur $color #{$inset};
-     -moz-box-shadow: $top $left $blur $color #{$inset};
-      -ms-box-shadow: $top $left $blur $color #{$inset};
-          box-shadow: $top $left $blur $color #{$inset};
+@mixin box-shadow($top, $left, $blur, $spread, $color, $inset:"") {
+  -webkit-box-shadow: $top $left $blur $spread $color #{$inset};
+     -moz-box-shadow: $top $left $blur $spread $color #{$inset};
+      -ms-box-shadow: $top $left $blur $spread $color #{$inset};
+          box-shadow: $top $left $blur $spread $color #{$inset};
 }

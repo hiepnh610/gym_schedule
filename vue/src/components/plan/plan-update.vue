@@ -2,49 +2,61 @@
   <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showUpdateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showUpdateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-body">
+        <div class="modal-header">
           <h2 class="text-center mb-4 text-success">Update Plan Information</h2>
+        </div>
 
+        <div class="modal-body">
           <form>
-            <div class="form-group">
-              <label for="name-plan">Routine Name</label>
+            <div class="form-group-header">
+              <div class="form-group input-group-lg">
+                <label for="name-plan">Routine Name</label>
 
-              <input type="text" id="name-plan" class="form-control" v-model="namePlan" />
+                <input type="text" id="name-plan" class="form-control" v-model="namePlan" />
+              </div>
+
+              <div class="form-group input-group-lg">
+                <label for="type-plan">Type</label>
+
+                <div class="select-custom">
+                  <font-awesome-icon icon="caret-down" />
+
+                  <select id="type-plan" class="form-control" v-model="typePlan">
+                    <option value="General">General</option>
+                    <option value="Bulking">Bulking</option>
+                    <option value="Cutting">Cutting</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group input-group-lg">
+                <label for="frequency-plan">Frequency</label>
+
+                <div class="select-custom">
+                  <font-awesome-icon icon="caret-down" />
+
+                  <select id="frequency-plan" class="form-control" v-model="frequencyPlan">
+                    <option value="1">1 day / week</option>
+                    <option value="2">2 days / week</option>
+                    <option value="3">3 days / week</option>
+                    <option value="4">4 days / week</option>
+                    <option value="5">5 days / week</option>
+                    <option value="6">6 days / week</option>
+                    <option value="7">7 days / week</option>
+                  </select>
+                </div>
+              </div>
+
+              <p v-show="message" class="text-danger">{{ message }}</p>
             </div>
 
-            <div class="form-group">
-              <label for="type-plan">Type</label>
-
-              <select id="type-plan" class="form-control" v-model="typePlan">
-                <option value="General">General</option>
-                <option value="Bulking">Bulking</option>
-                <option value="Cutting">Cutting</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="frequency-plan">Frequency</label>
-
-              <select id="frequency-plan" class="form-control" v-model="frequencyPlan">
-                <option value="1">1 day / week</option>
-                <option value="2">2 days / week</option>
-                <option value="3">3 days / week</option>
-                <option value="4">4 days / week</option>
-                <option value="5">5 days / week</option>
-                <option value="6">6 days / week</option>
-                <option value="7">7 days / week</option>
-              </select>
-            </div>
-
-            <p v-show="message" class="text-danger">{{ message }}</p>
-
-            <div class="form-group text-center mb-0">
-              <button href="dashboard" class="btn btn-md btn-success" @click.prevent="planUpdate(dataPlanOrigin._id)">
+            <div class="form-group form-button text-center mb-0">
+              <button class="btn btn-md btn-danger" @click.prevent="planUpdate(dataPlanOrigin._id)">
                 Update
                 <font-awesome-icon icon="spinner" spin v-if="loading" />
               </button>
 
-              <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>

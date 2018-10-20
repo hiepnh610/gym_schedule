@@ -1,38 +1,40 @@
 <template>
-  <div class="row">
-    <div class="col-12 col-lg-10 offset-lg-1">
-      <table class="table table-bordered list-plans text-center mb-5">
-        <thead class="bg-success">
-          <tr>
-            <th>name</th>
-            <th>type</th>
-            <th>frequency</th>
-            <th></th>
-          </tr>
-        </thead>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-striped text-center mb-5">
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>type</th>
+              <th>frequency</th>
+              <th></th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr v-for="plan in listPlans" :key="plan._id">
-            <td>
-              <router-link :to="'workout/' + plan._id" class="text-success text-capitalize">{{ plan.name }}</router-link>
-            </td>
+          <tbody>
+            <tr v-for="plan in listPlans" :key="plan._id">
+              <td>
+                <router-link :to="'workout/' + plan._id" class="text-capitalize">{{ plan.name }}</router-link>
+              </td>
 
-            <td>{{ plan.type }}</td>
+              <td>{{ plan.type }}</td>
 
-            <td v-if="plan.frequency > 1">{{ plan.frequency }} days/week</td>
+              <td v-if="plan.frequency > 1">{{ plan.frequency }} days/week</td>
 
-            <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
+              <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
 
-            <td>
-              <a href="" class="btn btn-sm btn-secondary mr-1" @click.prevent="updatePlan(plan)">Edit</a>
+              <td>
+                <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updatePlan(plan)">Edit</a>
 
-              <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-      <plan-update :data-plan-origin="dataPlanOrigin"></plan-update>
+        <plan-update :data-plan-origin="dataPlanOrigin"></plan-update>
+      </div>
     </div>
   </div>
 </template>

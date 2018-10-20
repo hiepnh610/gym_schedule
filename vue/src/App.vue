@@ -53,11 +53,13 @@ export default class App extends Vue {
   setAuthenticate (): void {
     const _this: any = this
     const isAuthenticated: boolean = _this.$session.exists()
+    const isOriginPage = window.location.href === (window.location.origin + '/')
+    const isSignUpPage = window.location.href === (window.location.origin + '/sign-up')
 
     if (isAuthenticated) {
-      if (window.location.href === (window.location.origin + '/') || window.location.href === (window.location.origin + '/sign-up')) this.$router.push('/dashboard')
+      if (isOriginPage || isSignUpPage) this.$router.push('/plans')
     } else {
-      if (window.location.href !== (window.location.origin + '/')) this.$router.push('/sign-up')
+      if (!isOriginPage) this.$router.push('/sign-up')
     }
   }
 
@@ -72,9 +74,7 @@ export default class App extends Vue {
           }
         })
         .then(function (response: Response) {
-          if (response.data.avatar) {
-            this.setAvatar(response.data.avatar.location)
-          }
+          if (response.data.avatar) this.setAvatar(response.data.avatar.location)
         }.bind(this))
         .catch(function (error: Response) {
           if (error.response && error.response.data && error.response.data.message) {

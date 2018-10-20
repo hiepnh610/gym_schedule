@@ -9,6 +9,7 @@
       &.btn-#{$btn} {
         background: nth($agrs, $index);
         border-color: nth($agrs, $index);
+        color: $white-color;
 
         &:hover {
           background: rgba(nth($agrs, $index), .85);
@@ -49,6 +50,15 @@
       height: 40px;
       margin: 0 5px;
       min-width: 100px;
+      @include border-radius(40px, 'auto');
+    }
+
+    &.btn-sm {
+      font-size: $small-size-base;
+      height: 30px;
+      margin: 0 5px;
+      min-width: 80px;
+      padding: 3px 0;
       @include border-radius(40px, 'auto');
     }
   }

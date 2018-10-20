@@ -31,6 +31,13 @@
         color: $gray-color;
         font-style: italic;
       }
+
+      input,
+      input.form-control,
+      select,
+      select.form-control {
+        color: $navy-blue-color;
+      }
     }
 
     .form-button {
