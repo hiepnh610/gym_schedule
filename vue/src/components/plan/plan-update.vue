@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="text-center mb-4 text-success">Update Plan Information</h2>
+          <h2 class="text-secondary text-uppercase">Update Information</h2>
         </div>
 
         <div class="modal-body">
@@ -51,12 +51,12 @@
             </div>
 
             <div class="form-group form-button text-center mb-0">
-              <button class="btn btn-md btn-danger" @click.prevent="planUpdate(dataPlanOrigin._id)">
+              <button class="btn btn-sm btn-danger" @click.prevent="planUpdate(dataPlanOrigin._id)">
                 Update
                 <font-awesome-icon icon="spinner" spin v-if="loading" />
               </button>
 
-              <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-sm btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>

@@ -3,7 +3,7 @@ import { Workouts, WorkoutState } from './types'
 import { RootState } from '@/types'
 
 export const actions: ActionTree<WorkoutState, RootState> = {
-  setListWorkouts (context: any, data: Workouts): any {
+  setListWorkouts (context: any, data: any): any {
     context.commit('listWorkouts', data)
   },
 
@@ -11,11 +11,11 @@ export const actions: ActionTree<WorkoutState, RootState> = {
     return context.commit('deleteWorkout', data)
   },
 
-  setCreateWorkout (context: any, data: Workouts): any {
+  setCreateWorkout (context: any, data: any): any {
     context.commit('createWorkout', data)
   },
 
-  setUpdateWorkout (context: any, data: Workouts): any {
+  setUpdateWorkout (context: any, data: any): any {
     context.commit('updateWorkout', data)
   }
 }

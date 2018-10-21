@@ -1,33 +1,45 @@
 <template>
-  <div class="row">
-    <div class="col-12 col-lg-8 offset-lg-2">
-      <table class="table table-bordered list-workout text-center mb-5">
-        <thead class="bg-success">
-          <tr>
-            <th>name</th>
-            <th>week day</th>
-            <th></th>
-          </tr>
-        </thead>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-striped text-center mb-5">
+          <thead class="bg-success">
+            <tr>
+              <th>image</th>
+              <th>name</th>
+              <th>week day</th>
+              <th>quantity</th>
+              <th></th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr v-for="workout in listWorkouts" :key="workout._id">
-            <td>
-              <router-link :to="'../exercise/' + workout._id" class="text-success text-capitalize">{{ workout.name }}</router-link>
-            </td>
+          <tbody>
+            <tr v-for="workout in listWorkouts" :key="workout._id">
+              <td>
+                <div class="image">
+                  <font-awesome-icon icon="image" />
+                </div>
+              </td>
 
-            <td>{{ workout.week_day }}</td>
+              <td>
+                <router-link :to="'../exercise/' + workout._id" class="text-capitalize">{{ workout.name }}</router-link>
+              </td>
 
-            <td>
-              <a href="" class="btn btn-sm btn-secondary mr-1" @click.prevent="updateWorkout(workout)">Edit</a>
+              <td>{{ workout.weekDay }}</td>
 
-              <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteWorkout(workout._id)">Delete</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <td>{{ quantity }}</td>
 
-      <workout-update :data-workout-origin="dataWorkoutOrigin"></workout-update>
+              <td>
+                <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updateWorkout(workout)">Edit</a>
+
+                <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteWorkout(workout._id)">Remove</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <workout-update :data-workout-origin="dataWorkoutOrigin"></workout-update>
+      </div>
     </div>
   </div>
 </template>
@@ -48,7 +60,8 @@ const namespaceWorkouts: string = 'workouts'
 
 @Component({
   components: {
-  workoutUpdate
+  workoutUpdate,
+  FontAwesomeIcon
   },
   })
 export default class ListWorkouts extends Vue {
@@ -60,6 +73,7 @@ export default class ListWorkouts extends Vue {
 
   message: string = ''
   dataWorkoutOrigin: any = ''
+  quantity: number = 0
 
   updateWorkout (workout: any) {
     this.dataWorkoutOrigin = workout

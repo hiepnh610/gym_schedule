@@ -33,7 +33,7 @@
         }
 
         &:nth-of-type(even) {
-          background: $table-bg;
+          background: $table-row-bg;
         }
 
         &:last-child {
@@ -56,6 +56,22 @@
 
           a {
             color: $first-primary-color;
+          }
+
+          .image {
+            border: 1px solid $table-border;
+            display: inline-block;
+            height: 70px;
+            position: relative;
+            width: 70px;
+            @include border-radius($border-radius-size, '');
+
+            svg {
+              left: 50%;
+              position: absolute;
+              top: 50%;
+              @include translate(-50%, -50%);
+            }
           }
         }
       }

@@ -1,7 +1,7 @@
 export interface Workouts {
   _id: string;
   name: string;
-  week_day: string;
+  weekDay: string;
 }
 
 export interface WorkoutState {

@@ -15,7 +15,7 @@
           <tbody>
             <tr v-for="plan in listPlans" :key="plan._id">
               <td>
-                <router-link :to="'workout/' + plan._id" class="text-capitalize">{{ plan.name }}</router-link>
+                <router-link :to="'workouts/' + plan._id" class="text-capitalize">{{ plan.name }}</router-link>
               </td>
 
               <td>{{ plan.type }}</td>
@@ -27,7 +27,7 @@
               <td>
                 <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updatePlan(plan)">Edit</a>
 
-                <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Delete</a>
+                <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Remove</a>
               </td>
             </tr>
           </tbody>

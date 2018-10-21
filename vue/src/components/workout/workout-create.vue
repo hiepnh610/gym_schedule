@@ -2,39 +2,47 @@
   <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showCreateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showCreateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-secondary text-uppercase">Workout Information</h2>
+        </div>
+
         <div class="modal-body">
-          <h2 class="text-center mb-4 text-success">Workout Information</h2>
-
           <form>
-            <div class="form-group">
-              <label for="name-workout">Workout Day Name</label>
+            <div class="form-group-header">
+              <div class="form-group input-group-lg">
+                <label for="name-workout">Workout Day Name</label>
 
-              <input type="text" id="name-workout" class="form-control" v-model="workoutName" />
+                <input type="text" id="name-workout" class="form-control" v-model="workoutName" />
+              </div>
+
+              <div class="form-group input-group-lg">
+                <label for="workout-day">Pick a Workout Day</label>
+
+                <div class="select-custom">
+                  <font-awesome-icon icon="caret-down" />
+
+                  <select id="workout-day" class="form-control" v-model="workoutDay">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                  </select>
+                </div>
+              </div>
+
+              <p v-show="message" class="text-danger">{{ message }}</p>
             </div>
 
-            <div class="form-group">
-              <label for="workout-day">Pick a Workout Day</label>
-
-              <select id="workout-day" class="form-control" v-model="workoutDay">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-              </select>
-            </div>
-
-            <p v-show="message" class="text-danger">{{ message }}</p>
-
-            <div class="form-group text-center mb-0">
-              <button class="btn btn-md btn-success" @click.prevent="workoutCreate">
+            <div class="form-group form-button text-center mb-0">
+              <button class="btn btn-sm btn-primary" @click.prevent="workoutCreate">
                 Submit
                 <font-awesome-icon icon="spinner" spin v-if="loading" />
               </button>
 
-              <button class="btn btn-md btn-secondary" @click.prevent="closeModal">Cancel</button>
+              <button class="btn btn-sm btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>

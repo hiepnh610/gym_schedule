@@ -1,6 +1,5 @@
 .page-title {
   background-attachment: fixed;
-  background-image: url('../images/page-title.jpg');
   background-position: 0 95%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -28,5 +27,17 @@
     text-transform: uppercase;
     top: 50%;
     @include translate(-50%, -50%);
+  }
+}
+
+#plans-page {
+  .page-title {
+    background-image: url('../images/plan-title.jpg');
+  }
+}
+
+#workouts-page {
+  .page-title {
+    background-image: url('../images/login-bg.jpg');
   }
 }

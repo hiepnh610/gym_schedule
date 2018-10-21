@@ -9,7 +9,7 @@
 
       <list-plans v-if="listPlans.length > 0"></list-plans>
 
-      <p v-if="listPlans.length === 0" class="align-center">Please create a plan from the under button.</p>
+      <p v-if="listPlans.length === 0" class="align-center mt-5 mb-5">Please create a plan from the under button.</p>
 
       <a href="" class="btn btn-lg btn-primary" @click.prevent="createPlan">
         Create Plan
