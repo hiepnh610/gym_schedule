@@ -1,6 +1,6 @@
 .page-title {
   background-attachment: fixed;
-  background-position: 0 95%;
+  background-position: 50% 95%;
   background-repeat: no-repeat;
   background-size: cover;
   height: 350px;
@@ -39,5 +39,12 @@
 #workouts-page {
   .page-title {
     background-image: url('../images/login-bg.jpg');
+  }
+}
+
+#exercises-page {
+  .page-title {
+    background-image: url('../images/exercises-bg.jpg');
+    background-position: 0 50%;
   }
 }

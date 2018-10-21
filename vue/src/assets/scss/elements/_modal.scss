@@ -45,6 +45,31 @@
       padding: 1.875rem 0;
       @include border-radius(0 0 $border-radius-size $border-radius-size, '');
     }
+
+    .list-group-flush {
+      height: 430px;
+      overflow-y: scroll;
+
+      .list-group-item {
+        border-color: $table-border;
+        color: $gray-color;
+        cursor: pointer;
+        font-size: $small-size-base;
+        padding: 15px;
+        @extend %transition;
+
+        &:hover {
+          background: $lighter-gray-color;
+        }
+      }
+
+      img {
+        height: 70px;
+        margin-right: 15px;
+        width: 70px;
+        @include border-radius($border-radius-size, '');
+      }
+    }
   }
 
   &.show {

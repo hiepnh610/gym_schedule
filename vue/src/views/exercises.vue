@@ -1,17 +1,22 @@
 <template>
-  <div class="text-center">
-    <h1 class="text-center mb-5">{{ exerciseName }}</h1>
+  <div id="exercises-page">
+    <div class="text-center">
+      <div class="page-title">
+        <div class="container">
+          <h2 class="text-center mb-5">{{ exerciseName }}</h2>
+        </div>
+      </div>
 
-    <list-exercises v-if="listExercises.length > 0"></list-exercises>
+      <list-exercises v-if="listExercises.length > 0"></list-exercises>
 
-    <p class="align-center mb-5">Please add some exercies from the under button.</p>
+      <p class="align-center mt-5 mb-5" v-if="listExercises.length === 0">Please add some exercies from the under button.</p>
 
-    <a href="" class="btn btn-md btn-success" @click.prevent="createExercise">
-      <font-awesome-icon icon="plus-circle" />
-      Add Exercise
-    </a>
+      <a href="" class="btn btn-lg btn-primary" @click.prevent="createExercise">
+        Create Exercise
+      </a>
 
-    <exercise-create></exercise-create>
+      <exercise-create></exercise-create>
+    </div>
   </div>
 </template>
 

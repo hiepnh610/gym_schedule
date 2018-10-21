@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showUpdateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showUpdateModal }" :style="{ display: 'block' }">
+  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showUpdateModal" :class="{ 'show animated fadeInUp': setShowModalBackdrop && showUpdateModal }" :style="{ display: 'block' }">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

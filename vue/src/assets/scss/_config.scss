@@ -1,3 +1,19 @@
+* {
+  &::-webkit-scrollbar {
+    border-radius: 4px;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $first-primary-color;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 4px;
+  }
+}
+
 body {
   background: $body-bg-color;
   font-family: 'Lato', sans-serif;

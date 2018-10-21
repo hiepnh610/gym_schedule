@@ -22,7 +22,7 @@
               </td>
 
               <td>
-                <router-link :to="'../exercise/' + workout._id" class="text-capitalize">{{ workout.name }}</router-link>
+                <router-link :to="'../exercises/' + workout._id" class="text-capitalize">{{ workout.name }}</router-link>
               </td>
 
               <td>{{ workout.weekDay }}</td>

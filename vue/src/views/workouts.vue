@@ -9,7 +9,7 @@
 
       <list-workouts v-if="listWorkouts.length > 0"></list-workouts>
 
-      <p v-if="listWorkouts.length === 0" class="align-center mt-5 mb-5">Please create a workout day from the under button.</p>
+      <p class="align-center mt-5 mb-5" v-if="listWorkouts.length === 0">Please create a workout day from the under button.</p>
 
       <a href="" class="btn btn-lg btn-primary" @click.prevent="createWorkout" v-if="displayBtn">
         Create Workout Day

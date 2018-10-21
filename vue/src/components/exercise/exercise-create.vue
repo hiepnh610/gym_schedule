@@ -1,22 +1,24 @@
 <template>
-  <div class="modal fade text-left" v-show="setShowModalBackdrop && showCreateModal" :class="{ 'show animated bounceIn': setShowModalBackdrop && showCreateModal }" :style="{ display: 'block' }">
-    <div class="modal-dialog modal-lg">
+  <div class="modal modal-xs fade text-left" v-show="setShowModalBackdrop && showCreateModal" :class="{ 'show animated fadeInUp': setShowModalBackdrop && showCreateModal }" :style="{ display: 'block' }">
+    <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-body">
-          <h2 class="text-center text-success">Exercises</h2>
+        <div class="modal-header">
+          <h2 class="text-secondary text-uppercase">Exercises</h2>
+        </div>
 
+        <div class="modal-body">
           <ul class="list-group list-group-flush">
             <li class="list-group-item" v-for="(exercise, index) in exercises" :key="index">
               <div class="d-flex" @click.prevent="exerciseCreate(exercise)">
-                <img :src="exercise.image" class="rounded-0 img-thumbnail" />
+                <img :src="exercise.image" class="img-thumbnail" />
 
-                <div class="body">{{ exercise.name }}</div>
+                <div class="d-flex align-items-center">{{ exercise.name }}</div>
               </div>
             </li>
           </ul>
 
-          <div class="form-group text-center mb-0 aligh-center">
-            <button href="dashboard" class="btn btn-md btn-secondary" @click.prevent="closeModal">Close</button>
+          <div class="form-group form-button text-center mb-0">
+            <button class="btn btn-sm btn-secondary" @click.prevent="closeModal">Close</button>
           </div>
         </div>
       </div>
@@ -41,16 +43,11 @@ interface ExerciseType {
   [propName: string]: string
 }
 
-interface ParamsExercisesCreate {
-  history: string;
-  image: string;
-  name: string;
-  sets: string[];
-  'track_note': string;
-  'workout_id': any;
-}
-
-@Component
+@Component({
+  components: {
+  FontAwesomeIcon
+  },
+  })
 export default class ExerciseCreate extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
@@ -62,6 +59,7 @@ export default class ExerciseCreate extends Vue {
 
   exercises: ExerciseType = ListExercises
   message: string = ''
+  loading: boolean = false
 
   closeModal () {
     this.setShowModalBackdrop(false)
@@ -69,41 +67,6 @@ export default class ExerciseCreate extends Vue {
   }
 
   exerciseCreate (exercise: any) {
-    if (!exercise.name) {
-      this.message = 'The exercise name cannot be blank.'
-
-      return
-    }
-
-    if (!exercise.image) {
-      this.message = 'The exercise image cannot be blank.'
-
-      return
-    }
-
-    const params: ParamsExercisesCreate = {
-      history: exercise.history || '',
-      image: exercise.image,
-      name: exercise.name,
-      sets: exercise.sets || [],
-      track_note: exercise.track_note || '',
-      workout_id: this.$route.params.id
-    }
-
-    axios
-      .post(config.domainAddress + config.api.exercise, params)
-      .then(function (response: Response) {
-        this.setListExercises(response.data)
-
-        this.$toasted.success('Create Successfully!!!')
-      }.bind(this))
-      .catch(function (error: Response) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.$toasted.error('Error happened!!!')
-        }
-      }.bind(this))
   }
 }
 </script>
