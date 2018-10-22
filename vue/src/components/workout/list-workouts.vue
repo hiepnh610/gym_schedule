@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <table class="table table-striped text-center mb-5">
-          <thead class="bg-success">
+          <thead>
             <tr>
               <th>image</th>
               <th>name</th>
@@ -14,7 +14,7 @@
           </thead>
 
           <tbody>
-            <tr v-for="workout in listWorkouts" :key="workout._id">
+            <tr v-for="(workout, index) in listWorkouts" :key="index">
               <td>
                 <div class="image">
                   <font-awesome-icon icon="image" />

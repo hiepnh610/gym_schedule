@@ -3,7 +3,7 @@ const Schema   = mongoose.Schema;
 
 const Plan = require('./plan');
 
-const WorkoutDaySchema = new Schema({
+const WorkoutSchema = new Schema({
     plan_id: {
         type: Schema.Types.ObjectId,
         ref: 'Plan',
@@ -19,6 +19,6 @@ const WorkoutDaySchema = new Schema({
     }
 }, { timestamps: { createdAt: 'created_at' }});
 
-const WorkoutDay = mongoose.model('WorkoutDay', WorkoutDaySchema);
+const Workout = mongoose.model('Workout', WorkoutSchema);
 
-module.exports = WorkoutDay;
+module.exports = Workout;

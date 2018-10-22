@@ -20,7 +20,7 @@ const ExerciseSchema = new Schema({
         required: false,
         type: Array
     },
-    track_note: {
+    track_log: {
         required: false,
         type: String
     },
@@ -28,6 +28,10 @@ const ExerciseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Workout',
         required: true,
+    },
+    status: {
+        required: false,
+        type: String
     }
 }, { timestamps: { createdAt: 'created_at' }});
 

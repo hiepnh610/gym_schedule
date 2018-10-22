@@ -30,7 +30,8 @@ const createExercise = (req, res) => {
     exercise = new Exercise({
         image: req.body.image,
         name: req.body.name,
-        workout_id: req.body.workout_id
+        workout_id: req.body.workout_id,
+        status: req.body.status ? req.body.status : 'Not Started'
     });
 
     exercise.save((err, exercise) => {
@@ -47,7 +48,7 @@ const updateExercise = (req, res) => {
         exercise.set({
             history: req.body.history,
             sets: req.body.sets,
-            track_note: req.body.track_note
+            track_log: req.body.track_log
         });
 
         exercise.save((err, exercise) => {

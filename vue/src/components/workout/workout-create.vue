@@ -70,6 +70,7 @@ interface dataItem {
   createdBy: string;
   name: string;
   weekDay: string;
+  _id: string;
 }
 
 const namespaceModal: string = 'modal'
@@ -125,7 +126,8 @@ export default class WorkoutCreate extends Vue {
         const dataItem: dataItem = {
           createdBy: response.data.created_by,
           name: response.data.name,
-          weekDay: response.data.week_day
+          weekDay: response.data.week_day,
+          _id: response.data._id
         }
 
         this.loading = false
