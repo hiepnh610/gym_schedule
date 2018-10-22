@@ -5,7 +5,7 @@ const plan        = require('./plan');
 const user        = require('./user');
 const login       = require('./login');
 const signUp      = require('./sign_up');
-const workoutDay  = require('./workout_day');
+const workout     = require('./workout');
 const exercise    = require('./exercise');
 const uploadImage = require('./upload');
 
@@ -16,9 +16,9 @@ router.route('/list_plans').get(plan.listPlans);
 router.route('/plans').get(plan.getPlan).post(plan.createPlan);
 router.route('/plans/:plan_id').put(plan.updatePlan).delete(plan.deletePlan);
 
-router.route('/list_workout').get(workoutDay.listWorkout);
-router.route('/workout_day').get(workoutDay.getWorkoutDay).post(workoutDay.createWorkoutDay);
-router.route('/workout_day/:workout_day_id').put(workoutDay.updateWorkoutDay).delete(workoutDay.deleteWorkoutDay);
+router.route('/list_workout').get(workout.listWorkout);
+router.route('/workout').get(workout.getWorkout).post(workout.createWorkout);
+router.route('/workout/:workout_id').put(workout.updateWorkout).delete(workout.deleteWorkout);
 
 router.route('/list_exercise').get(exercise.listExercise);
 router.route('/exercise').get(exercise.getExercise).post(exercise.createExercise);

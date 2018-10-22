@@ -26,7 +26,7 @@ const api: apiTypes = {
   signUp: '/api/sign_up',
   upload: '/api/upload',
   user: '/api/user/',
-  workout: '/api/workout_day/',
+  workout: '/api/workout/',
   exercise: '/api/exercise/'
 }
 

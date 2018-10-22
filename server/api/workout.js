@@ -1,9 +1,9 @@
-const WorkoutDay = require('../model/workout_day');
+const Workout = require('../model/workout');
 
-let workoutDay = {};
+let workout = {};
 
 const listWorkout = (req, res) => {
-    WorkoutDay.find({ '_id': req.query.id })
+    Workout.find({ '_id': req.query.id })
     .populate('_id')
     .exec(function (err, list) {
         if(err) return res.status(400).send(err);
@@ -12,8 +12,8 @@ const listWorkout = (req, res) => {
     });
 };
 
-const getWorkoutDay = (req, res) => {
-    WorkoutDay.find({ 'plan_id': req.query.id })
+const getWorkout = (req, res) => {
+    Workout.find({ 'plan_id': req.query.id })
     .populate('plan_id')
     .exec(function (err, plans) {
         if(err) return res.status(400).send(err);
@@ -22,30 +22,30 @@ const getWorkoutDay = (req, res) => {
     });
 };
 
-const createWorkoutDay = (req, res) => {
+const createWorkout = (req, res) => {
     if (!req.body.name) return res.status(400).json({ 'message': 'The workout name cannot be blank.' });
 
     if (!req.body.week_day) return res.status(400).json({ 'message': 'The workout day cannot be blank.' });
 
-    workoutDay = new WorkoutDay({
+    workout = new Workout({
         name: req.body.name,
         week_day: req.body.week_day,
         plan_id: req.body.plan_id
     });
 
-    workoutDay.save((err, workout) => {
+    workout.save((err, workout) => {
         if(err) return res.status(400).send(err);
 
         res.status(201).json(workout);
     });
 };
 
-const updateWorkoutDay = (req, res) => {
+const updateWorkout = (req, res) => {
     if (!req.body.name) return res.status(400).json({ 'message': 'The workout name cannot be blank.' });
 
     if (!req.body.week_day) return res.status(400).json({ 'message': 'The workout day cannot be blank.' });
 
-    WorkoutDay.findById(req.params.workout_day_id, (err, workout_day) => {
+    Workout.findById(req.params.workout_day_id, (err, workout_day) => {
         if(err) return res.status(400).send(err);
 
         workout_day.set({
@@ -61,8 +61,8 @@ const updateWorkoutDay = (req, res) => {
     });
 };
 
-const deleteWorkoutDay = (req, res) => {
-    WorkoutDay.remove({
+const deleteWorkout = (req, res) => {
+    Workout.remove({
         _id: req.params.workout_day_id
     }, (err, workout_day) => {
         if(err) return res.status(400).send(err);
@@ -71,4 +71,4 @@ const deleteWorkoutDay = (req, res) => {
     });
 };
 
-module.exports = { listWorkout, getWorkoutDay, createWorkoutDay, updateWorkoutDay, deleteWorkoutDay };
+module.exports = { listWorkout, getWorkout, createWorkout, updateWorkout, deleteWorkout };
