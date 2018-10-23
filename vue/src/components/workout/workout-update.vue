@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="text-secondary text-uppercase">Update Information</h2>
+          <h2 class="text-secondary text-uppercase">Workout Information</h2>
         </div>
 
         <div class="modal-body">

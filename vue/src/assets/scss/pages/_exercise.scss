@@ -1,0 +1,20 @@
+#exercises-page {
+  .exercise-name {
+    padding: 12px 0;
+  }
+
+  .exercise-image {
+    img {
+      display: inline-block;
+      max-width: 100px;
+    }
+  }
+}
+
+.red-color {
+  #exercises-page {
+    .exercise-name {
+      color: $first-primary-color;
+    }
+  }
+}

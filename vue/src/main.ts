@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios'
 import VueCookie from 'vue-cookie'
 import VueSession from 'vue-session'
 import VeeValidate from 'vee-validate'
+import BootstrapVue from 'bootstrap-vue'
 
 import App from './App.vue'
 import router from './router'
@@ -17,6 +18,7 @@ import brands from '@fortawesome/fontawesome-free-brands'
 import { faSpinner } from '@fortawesome/fontawesome-free-solid'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'animate.css/animate.min.css'
 
 import './assets/scss/style.scss'
@@ -40,6 +42,7 @@ Vue.use(VeeValidate)
 Vue.use(VueCookie)
 Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, fontawesomeOptions)
+Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 fontawesome.library.add(brands, faSpinner)

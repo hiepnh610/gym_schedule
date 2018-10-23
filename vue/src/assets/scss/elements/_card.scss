@@ -1,0 +1,41 @@
+.card {
+  border: none;
+
+  .card-header {
+    background: none;
+    padding: 0;
+    @include border-radius(0, '');
+
+    .card-header-tabs {
+      margin: 0;
+
+      .nav-item {
+        margin-bottom: 0;
+        width: calc(100%/3);
+
+        .nav-link {
+          border: none;
+          color: $dark-gray-color;
+          font-size: $small-size-base;
+          padding: 15px;
+          @include border-radius(0, '');
+        }
+      }
+    }
+  }
+}
+
+.red-color {
+  .card .card-header {
+    border-bottom-color: $first-primary-color;
+
+    .card-header-tabs {
+      .nav-item.show .nav-link,
+      .nav-link.active {
+        background: $first-primary-color;
+        border: none;
+        color: $white-color;
+      }
+    }
+  }
+}
