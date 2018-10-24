@@ -17,11 +17,15 @@
           border: none;
           color: $dark-gray-color;
           font-size: $small-size-base;
-          padding: 15px;
+          padding: 10px 10px 9px;
           @include border-radius(0, '');
         }
       }
     }
+  }
+
+  .card-body {
+    padding: 0;
   }
 }
 

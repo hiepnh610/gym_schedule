@@ -50,8 +50,10 @@ interface ParamsExerciseCreate {
 }
 
 interface dataItem {
-  name: string;
   image: string;
+  name: string;
+  sets: any;
+  status: string;
 }
 
 @Component({
@@ -99,8 +101,10 @@ export default class ExerciseCreate extends Vue {
       .post(config.domainAddress + config.api.exercise, params)
       .then(function (response: Response) {
         const dataItem: dataItem = {
+          image: response.data.image,
           name: response.data.name,
-          image: response.data.image
+          sets: response.data.sets,
+          status: response.data.status
         }
 
         this.setCreateExercise(dataItem)
