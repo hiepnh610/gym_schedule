@@ -20,11 +20,14 @@ $small-size-base:            0.875rem;
 
 $body-bg-color:              $white-color !default;
 $border-radius-size:         $size-base / 4;
+
 $modal-header-bg:            $border-color;
 $modal-footer-bg:            $border-color;
+
 $table-bg:                   $border-color;
 $table-border:               $border-color;
 $table-row-bg:               $lighter-gray-color;
+$table-head-light:           $lighter-gray-color;
 
 //== Media queries breakpoints
 //

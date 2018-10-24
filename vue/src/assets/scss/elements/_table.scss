@@ -77,4 +77,13 @@
       }
     }
   }
+
+  .thead-light {
+    th {
+      background: $table-head-light;
+      border: none;
+      color: $light-gray-color;
+      font-size: $small-size-base;
+    }
+  }
 }

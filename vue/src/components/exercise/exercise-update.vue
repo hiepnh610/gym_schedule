@@ -16,7 +16,88 @@
           <b-card no-body>
             <b-tabs card>
               <b-tab title="Track Log" active>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit odit dolore a, mollitia voluptate deserunt culpa aspernatur rem facere, nisi, natus maiores ad aut nam. Laudantium provident fugit quibusdam eius?
+                <div class="track-log">
+                  <div class="track-log-header">
+                    <div class="row justify-content-between align-items-center">
+                      <div class="col-12 col-md-4">
+                        <a href="#">
+                          Add more set
+
+                          <font-awesome-icon icon="plus-circle" />
+                        </a>
+                      </div>
+
+                      <div class="col-12 col-md-4">
+                        <div class="select-custom">
+                          <font-awesome-icon icon="caret-down" />
+
+                          <select class="form-control">
+                            <option value="" disabled>Status</option>
+                            <option value="Not Started">Not Started</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Done">Done</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="track-log-content">
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>2 sets</th>
+                          <th>Weight</th>
+                          <th>Reps</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+
+                          <td>
+                            <input type="text" class="form-control">
+                          </td>
+
+                          <td>
+                            <input type="text" class="form-control">
+                          </td>
+
+                          <td>
+                            <font-awesome-icon icon="times-circle" />
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>2</td>
+
+                          <td>
+                            <input type="text" class="form-control">
+                          </td>
+
+                          <td>
+                            <input type="text" class="form-control">
+                          </td>
+
+                          <td>
+                            <font-awesome-icon icon="times-circle" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="form-group form-button text-center mb-0">
+                    <button class="btn btn-sm btn-primary">
+                      Update
+                      <font-awesome-icon icon="spinner" spin v-if="loading" />
+                    </button>
+
+                    <button class="btn btn-sm btn-secondary">Cancel</button>
+                  </div>
+                </div>
               </b-tab>
 
               <b-tab title="History">
@@ -56,5 +137,7 @@ export default class ExerciseUpdate extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
   @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
+
+  loading: boolean = false
 }
 </script>
