@@ -1,0 +1,51 @@
+.track-log {
+  .track-log-header {
+    padding: 7px 0;
+
+    .select-custom {
+      max-width: 110px;
+
+      svg,
+      .form-control {
+        font-size: $smallest-size-base;
+      }
+    }
+
+    a {
+      font-size: $small-size-base;
+    }
+  }
+
+  .track-log-content {
+    color: $light-gray-color;
+    font-size: $small-size-base;
+
+    input,
+    .form-control {
+      margin: 0 auto;
+      max-width: 100px;
+    }
+
+    table {
+      th,
+      td {
+        vertical-align: middle;
+      }
+
+      td {
+        border-bottom: 1px solid $table-border;
+        border-top: none;
+      }
+    }
+  }
+}
+
+.red-color {
+  .track-log {
+    .track-log-header {
+      a {
+        color: $first-primary-color;
+      }
+    }
+  }
+}

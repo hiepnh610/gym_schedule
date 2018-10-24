@@ -18,7 +18,7 @@
               <b-tab title="Track Log" active>
                 <div class="track-log">
                   <div class="track-log-header">
-                    <div class="row justify-content-between align-items-center">
+                    <div class="row justify-content-between">
                       <div class="col-12 col-md-4">
                         <a href="#">
                           Add more set
@@ -32,7 +32,7 @@
                           <font-awesome-icon icon="caret-down" />
 
                           <select class="form-control">
-                            <option value="" disabled>Status</option>
+                            <option value="" disabled selected>Status</option>
                             <option value="Not Started">Not Started</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Done">Done</option>
@@ -46,7 +46,7 @@
                     <table class="table">
                       <thead class="thead-light">
                         <tr>
-                          <th>2 sets</th>
+                          <th class="text-nowrap">2 sets</th>
                           <th>Weight</th>
                           <th>Reps</th>
                           <th></th>
@@ -66,7 +66,7 @@
                           </td>
 
                           <td>
-                            <font-awesome-icon icon="times-circle" />
+                            <font-awesome-icon icon="times-circle" class="text-danger" />
                           </td>
                         </tr>
 
@@ -82,7 +82,7 @@
                           </td>
 
                           <td>
-                            <font-awesome-icon icon="times-circle" />
+                            <font-awesome-icon icon="times-circle" class="text-danger" />
                           </td>
                         </tr>
                       </tbody>
