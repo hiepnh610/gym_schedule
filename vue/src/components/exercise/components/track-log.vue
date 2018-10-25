@@ -1,12 +1,12 @@
 <template>
   <div class="track-log">
     <div class="track-log-header">
-      <div class="row justify-content-between">
+      <div class="row justify-content-between align-items-center">
         <div class="col-12 col-md-4">
           <a href="#" @click.prevent="addMoreSet">
             Add more set
 
-            <font-awesome-icon icon="plus-circle" />
+            <font-awesome-icon icon="plus-circle" class="ml-2" />
           </a>
         </div>
 
@@ -14,7 +14,7 @@
           <div class="select-custom">
             <font-awesome-icon icon="caret-down" />
 
-            <select class="form-control">
+            <select class="form-control" v-model="status">
               <option value="" disabled selected>Status</option>
               <option value="Not Started">Not Started</option>
               <option value="In Progress">In Progress</option>
@@ -41,11 +41,11 @@
             <td>{{ index + 1 }}</td>
 
             <td>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" v-model.number="set.weight">
             </td>
 
             <td>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" v-model.number="set.reps">
             </td>
 
             <td>
@@ -64,16 +64,34 @@ import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
+interface Set {
+  weight: number;
+  reps: number;
+}
+
 @Component({
   components: {
   FontAwesomeIcon
   },
   })
 export default class TrackLog extends Vue {
-  setNumber: number[] = [1, 2]
+  setNumber: Array<Set> = [
+    {
+      weight: 0,
+      reps: 0
+    },
+    {
+      weight: 0,
+      reps: 0
+    }
+  ]
+  status: string = ''
 
   addMoreSet () {
-    this.setNumber.push(this.setNumber.length + 1)
+    this.setNumber.push({
+      weight: 0,
+      reps: 0
+    })
   }
 
   removeSet (index: number) {

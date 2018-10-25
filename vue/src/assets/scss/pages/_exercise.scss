@@ -4,17 +4,11 @@
   }
 
   .exercise-image {
+    background: $exercise-image-bg;
+
     img {
       display: inline-block;
       max-width: 100px;
-    }
-  }
-}
-
-.red-color {
-  #exercises-page {
-    .exercise-name {
-      color: $first-primary-color;
     }
   }
 }

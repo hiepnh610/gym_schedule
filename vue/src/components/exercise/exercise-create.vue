@@ -47,9 +47,11 @@ interface ParamsExerciseCreate {
   'workout_id': string;
   image: string;
   name: string;
+  status: string;
 }
 
 interface dataItem {
+  _id: string;
   image: string;
   name: string;
   sets: any;
@@ -94,13 +96,15 @@ export default class ExerciseCreate extends Vue {
     const params: ParamsExerciseCreate = {
       name: exercise.name,
       image: exercise.image,
-      workout_id: this.$route.params.id
+      workout_id: this.$route.params.id,
+      status: 'Not Started'
     }
 
     axios
       .post(config.domainAddress + config.api.exercise, params)
       .then(function (response: Response) {
         const dataItem: dataItem = {
+          _id: response.data._id,
           image: response.data.image,
           name: response.data.name,
           sets: response.data.sets,

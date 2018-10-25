@@ -6,7 +6,7 @@ const Workout = require('./workout');
 const ExerciseSchema = new Schema({
     history: {
         required: false,
-        type: String
+        type: Array
     },
     image: {
         required: true,
@@ -16,11 +16,15 @@ const ExerciseSchema = new Schema({
         required: true,
         type: String
     },
+    note: {
+        required: false,
+        type: Array
+    },
     sets: {
         required: false,
         type: Array
     },
-    track_log: {
+    status: {
         required: false,
         type: String
     },
@@ -28,10 +32,6 @@ const ExerciseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Workout',
         required: true,
-    },
-    status: {
-        required: false,
-        type: String
     }
 }, { timestamps: { createdAt: 'created_at' }});
 

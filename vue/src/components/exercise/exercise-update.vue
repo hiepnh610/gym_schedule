@@ -7,7 +7,7 @@
         </div>
 
         <div class="modal-body">
-          <div class="exercise-name text-center">{{ dataExerciseOrigin.name }}</div>
+          <div class="exercise-name text-center text-primary">{{ dataExerciseOrigin.name }}</div>
 
           <div class="exercise-image align-items-center">
             <img :src="dataExerciseOrigin.image" alt="">
@@ -16,21 +16,21 @@
           <b-card no-body>
             <b-tabs card>
               <b-tab title="Track Log" active>
-                <track-log />
+                <track-log ref="trackLog" />
               </b-tab>
 
               <b-tab title="History">
-                <history :exercise-name="dataExerciseOrigin.name" />
+                <history ref="history" :exercise-name="dataExerciseOrigin.name" />
               </b-tab>
 
               <b-tab title="Note">
-                <note />
+                <note ref="note" />
               </b-tab>
             </b-tabs>
           </b-card>
 
           <div class="form-group form-button text-center mb-0">
-            <button class="btn btn-sm btn-primary">
+            <button class="btn btn-sm btn-primary" @click.prevent="updateExercise">
               Update
               <font-awesome-icon icon="spinner" spin v-if="loading" />
             </button>
@@ -74,10 +74,17 @@ export default class ExerciseUpdate extends Vue {
   @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
 
   $refs!: {
+    trackLog: HTMLFormElement,
+    history: HTMLFormElement,
     note: HTMLFormElement
   }
 
   loading: boolean = false
+
+  updateExercise () {
+    console.log(this.$refs.trackLog.setNumber)
+    console.log(this.$refs.trackLog.status)
+  }
 
   closeModal () {
     this.setShowModalBackdrop(false)
