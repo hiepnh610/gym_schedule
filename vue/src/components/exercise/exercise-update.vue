@@ -15,12 +15,16 @@
 
           <b-card no-body>
             <b-tabs card>
-              <b-tab title="Track Log">
+              <b-tab title="Track Log" active>
                 <track-log />
               </b-tab>
 
-              <b-tab title="History" active>
+              <b-tab title="History">
                 <history :exercise-name="dataExerciseOrigin.name" />
+              </b-tab>
+
+              <b-tab title="Note">
+                <note />
               </b-tab>
             </b-tabs>
           </b-card>
@@ -50,6 +54,7 @@ import { Response } from '@/util'
 
 import trackLog from './components/track-log.vue'
 import history from './components/history.vue'
+import note from './components/note.vue'
 
 const namespaceModal: string = 'modal'
 
@@ -57,7 +62,8 @@ const namespaceModal: string = 'modal'
   components: {
   FontAwesomeIcon,
   trackLog,
-  history
+  history,
+  note
   },
   })
 export default class ExerciseUpdate extends Vue {
@@ -66,6 +72,10 @@ export default class ExerciseUpdate extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
   @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
+
+  $refs!: {
+    note: HTMLFormElement
+  }
 
   loading: boolean = false
 

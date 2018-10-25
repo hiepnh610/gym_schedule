@@ -1,7 +1,9 @@
 input,
 input.form-control,
 select,
-select.form-control {
+select.form-control,
+textarea,
+textarea.form-control {
   border-color: $border-color;
   @include border-radius($border-radius-size, '');
   @include box-shadow(0, 0, 0, 0, transparent);
