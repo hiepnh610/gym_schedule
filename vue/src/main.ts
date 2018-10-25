@@ -6,6 +6,7 @@ import VueCookie from 'vue-cookie'
 import VueSession from 'vue-session'
 import VeeValidate from 'vee-validate'
 import BootstrapVue from 'bootstrap-vue'
+import VueTextareaAutosize from 'vue-textarea-autosize'
 
 import App from './App.vue'
 import router from './router'
@@ -43,6 +44,7 @@ Vue.use(VueCookie)
 Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, fontawesomeOptions)
 Vue.use(BootstrapVue)
+Vue.use(VueTextareaAutosize)
 Vue.config.productionTip = false
 
 fontawesome.library.add(brands, faSpinner)
