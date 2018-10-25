@@ -1,4 +1,9 @@
+.smallest {
+  font-size: $smallest-size-base;
+}
+
 .red-color {
+  .text-primary,
   .text-danger {
     color: $first-primary-color !important;
   }

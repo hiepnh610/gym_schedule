@@ -1,0 +1,31 @@
+.history {
+  ul {
+    li {
+      padding-left: 34px !important;
+      position: relative;
+
+      &:before {
+        content: '';
+        height: $bullet-size;
+        left: 15px;
+        position: absolute;
+        top: 50%;
+        width: $bullet-size;
+        @include border-radius(50%, '');
+        @include translate(0, -50%);
+      }
+    }
+  }
+}
+
+.red-color {
+  .history {
+    ul {
+      li {
+        &:before {
+          background: $first-primary-color;
+        }
+      }
+    }
+  }
+}
