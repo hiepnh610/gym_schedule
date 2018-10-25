@@ -9,6 +9,12 @@
     .card-header-tabs {
       margin: 0;
 
+      &:focus {
+        border: none;
+        box-shadow: none;
+        outline: none;
+      }
+
       .nav-item {
         margin-bottom: 0;
         width: calc(100%/3);

@@ -29,7 +29,7 @@
       <table class="table">
         <thead class="thead-light">
           <tr>
-            <th class="text-nowrap">2 sets</th>
+            <th class="text-nowrap">{{ setNumber.length }} sets</th>
             <th>Weight</th>
             <th>Reps</th>
             <th></th>
@@ -37,8 +37,8 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>1</td>
+          <tr v-for="(set, index) in setNumber" :key="index">
+            <td>{{ index + 1 }}</td>
 
             <td>
               <input type="text" class="form-control">
@@ -49,7 +49,7 @@
             </td>
 
             <td>
-              <font-awesome-icon icon="times-circle" class="text-danger" />
+              <font-awesome-icon icon="times-circle" class="text-danger cursor-pointer" @click="removeSet(index)" />
             </td>
           </tr>
         </tbody>
@@ -70,10 +70,14 @@ import axios from 'axios'
   },
   })
 export default class TrackLog extends Vue {
-  setNumber: number = 2
+  setNumber: number[] = [1, 2]
 
-  addMoreSet () {}
+  addMoreSet () {
+    this.setNumber.push(this.setNumber.length + 1)
+  }
 
-  removeSet () {}
+  removeSet (index: number) {
+    this.setNumber.splice(index, 1)
+  }
 }
 </script>

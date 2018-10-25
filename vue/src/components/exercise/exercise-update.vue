@@ -15,8 +15,12 @@
 
           <b-card no-body>
             <b-tabs card>
-              <b-tab title="Track Log" active>
+              <b-tab title="Track Log">
                 <track-log />
+              </b-tab>
+
+              <b-tab title="History" active>
+                <history :exercise-name="dataExerciseOrigin.name" />
               </b-tab>
             </b-tabs>
           </b-card>
@@ -27,7 +31,7 @@
               <font-awesome-icon icon="spinner" spin v-if="loading" />
             </button>
 
-            <button class="btn btn-sm btn-secondary">Cancel</button>
+            <button class="btn btn-sm btn-secondary" @click.prevent="closeModal">Cancel</button>
           </div>
         </div>
       </div>
@@ -45,13 +49,15 @@ import config from '@/config'
 import { Response } from '@/util'
 
 import trackLog from './components/track-log.vue'
+import history from './components/history.vue'
 
 const namespaceModal: string = 'modal'
 
 @Component({
   components: {
   FontAwesomeIcon,
-  trackLog
+  trackLog,
+  history
   },
   })
 export default class ExerciseUpdate extends Vue {
@@ -62,5 +68,10 @@ export default class ExerciseUpdate extends Vue {
   @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
 
   loading: boolean = false
+
+  closeModal () {
+    this.setShowModalBackdrop(false)
+    this.setShowUpdateModal(false)
+  }
 }
 </script>

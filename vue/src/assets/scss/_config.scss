@@ -38,3 +38,8 @@ textarea:-webkit-autofill,
 select:-webkit-autofill {
   background-color: $white-color !important;
 }
+
+small,
+.small {
+  font-size: $small-size-base;
+}
