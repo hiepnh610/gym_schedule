@@ -1,5 +1,5 @@
 <template>
-  <div id="sign-up">
+  <div id="sign-up" v-if="!isLoading">
     <div class="container">
       <div id="sign-up-form">
         <div class="row justify-content-md-center">
@@ -43,6 +43,8 @@
       </div>
     </div>
   </div>
+
+  <splash v-else />
 </template>
 
 <script lang="ts">
@@ -54,6 +56,8 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
+import Splash from '@/components/splash/splash.vue'
+
 interface ParamsSignUp {
   email: string;
   'full_name': string;
@@ -64,6 +68,7 @@ interface ParamsSignUp {
 @Component({
   components: {
   FontAwesomeIcon,
+  Splash,
   },
   })
 export default class SignUp extends Vue {
@@ -73,6 +78,7 @@ export default class SignUp extends Vue {
   message: string = ''
   password: string = ''
   confirmPassword: string = ''
+  isLoading: boolean = true
 
   signUp () {
     if (this.email && this.fullName && this.password) {
@@ -106,6 +112,12 @@ export default class SignUp extends Vue {
           }
         }.bind(this))
     }
+  }
+
+  mounted () {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 500)
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div id="plans-page">
+  <div id="plans-page" v-if="!isLoading">
     <div class="text-center">
       <div class="page-title">
         <div class="container">
@@ -18,6 +18,8 @@
       <plan-create></plan-create>
     </div>
   </div>
+
+  <splash v-else />
 </template>
 
 <script lang="ts">
@@ -31,22 +33,28 @@ import { Response, ID } from '@/util'
 
 import planCreate from '@/components/plan/plan-create.vue'
 import listPlans from '@/components/plan/list-plans.vue'
+import Splash from '@/components/splash/splash.vue'
+
+const namespacePlan: string = 'plans'
+const namespaceModal: string = 'modal'
 
 @Component({
   components: {
   planCreate,
   listPlans,
   FontAwesomeIcon,
+  Splash,
   },
   })
 export default class Plans extends Vue {
-  @Action('setShowModalBackdrop', { namespace: 'modal' }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: 'modal' }) setShowCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
 
-  @Action('setListPlans', { namespace: 'plans' }) setListPlans: any
-  @Getter('listPlans', { namespace: 'plans' }) listPlans: any
+  @Action('setListPlans', { namespace: namespacePlan }) setListPlans: any
+  @Getter('listPlans', { namespace: namespacePlan }) listPlans: any
 
   message: string = ''
+  isLoading: boolean = true
 
   createPlan () {
     this.setShowModalBackdrop(true)
@@ -64,6 +72,10 @@ export default class Plans extends Vue {
       .get(config.domainAddress + config.api.plans, { params })
       .then(function (response: Response) {
         this.setListPlans(response.data)
+
+        setTimeout(() => {
+          this.isLoading = false
+        }, 500)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

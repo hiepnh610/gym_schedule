@@ -1,5 +1,5 @@
 <template>
-  <div id="workouts-page">
+  <div id="workouts-page" v-if="!isLoading">
     <div class="text-center">
       <div class="page-title">
         <div class="container">
@@ -18,6 +18,8 @@
       <workout-create></workout-create>
     </div>
   </div>
+
+  <splash v-else />
 </template>
 
 <script lang="ts">
@@ -31,6 +33,7 @@ import { Response, ID } from '@/util'
 
 import workoutCreate from '@/components/workout/workout-create.vue'
 import listWorkouts from '@/components/workout/list-workouts.vue'
+import Splash from '@/components/splash/splash.vue'
 
 const namespaceModal: string = 'modal'
 const namespaceWorkouts: string = 'workouts'
@@ -40,6 +43,7 @@ const namespaceWorkouts: string = 'workouts'
   workoutCreate,
   listWorkouts,
   FontAwesomeIcon,
+  Splash,
   },
   })
 export default class Workouts extends Vue {
@@ -54,6 +58,7 @@ export default class Workouts extends Vue {
   planName: string = ''
   planFrequency: string = ''
   message: string = ''
+  isLoading: boolean = true
 
   createWorkout () {
     this.setShowModalBackdrop(true)
@@ -69,6 +74,10 @@ export default class Workouts extends Vue {
       .get(config.domainAddress + config.api.workout, { params })
       .then(function (response: Response) {
         this.setListWorkouts(response.data)
+
+        setTimeout(() => {
+          this.isLoading = false
+        }, 500)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
