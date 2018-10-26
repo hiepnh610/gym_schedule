@@ -3,15 +3,7 @@ import { Workouts, WorkoutState } from './types'
 
 export const mutations: MutationTree<WorkoutState> = {
   listWorkouts (state: any, data: any): void {
-    for (var i = 0; i < data.length; i++) {
-      let newListWorkout: Workouts = {
-        _id: data[i]._id,
-        name: data[i].name,
-        weekDay: data[i].week_day
-      }
-
-      state.listWorkouts.push(newListWorkout)
-    }
+    state.listWorkouts = data
   },
 
   deleteWorkout (state: any, id: string): void {

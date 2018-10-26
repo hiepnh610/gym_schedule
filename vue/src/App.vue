@@ -1,14 +1,10 @@
 <template>
   <div id="app" class="red-color">
-    <div id="app-content" v-if="!isLoading">
-      <navigation />
+    <navigation />
 
-      <router-view />
+    <router-view />
 
-      <div class="modal-backdrop fade show" v-if="showModalBackdrop"></div>
-    </div>
-
-    <splash v-else />
+    <div class="modal-backdrop fade show" v-if="showModalBackdrop"></div>
   </div>
 </template>
 
@@ -21,7 +17,6 @@ import config from '@/config'
 import { Response } from '@/util'
 
 import Navigation from '@/components/header/navigation.vue'
-import Splash from '@/components/splash/splash.vue'
 
 const namespaceAvatar: string = 'avatar'
 const namespaceModal: string = 'modal'
@@ -29,7 +24,6 @@ const namespaceModal: string = 'modal'
 @Component({
   components: {
   Navigation,
-  Splash,
   },
   })
 export default class App extends Vue {
@@ -37,17 +31,9 @@ export default class App extends Vue {
 
   @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
 
-  isLoading: boolean | null = true
-
   created () {
     this.setAuthenticate()
     this.getInfoUser()
-  }
-
-  mounted () {
-    setTimeout(() => {
-      this.isLoading = false
-    }, 500)
   }
 
   setAuthenticate (): void {

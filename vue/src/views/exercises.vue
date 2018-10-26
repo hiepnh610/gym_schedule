@@ -1,5 +1,5 @@
 <template>
-  <div id="exercises-page">
+  <div id="exercises-page" v-if="!isLoading">
     <div class="text-center">
       <div class="page-title">
         <div class="container">
@@ -18,6 +18,8 @@
       <exercise-create></exercise-create>
     </div>
   </div>
+
+  <splash v-else />
 </template>
 
 <script lang="ts">
@@ -31,6 +33,7 @@ import { Response, ID } from '@/util'
 
 import exerciseCreate from '@/components/exercise/exercise-create.vue'
 import listExercises from '@/components/exercise/list-exercises.vue'
+import Splash from '@/components/splash/splash.vue'
 
 const namespaceModal: string = 'modal'
 const namespaceExercises: string = 'exercises'
@@ -40,6 +43,7 @@ const namespaceExercises: string = 'exercises'
   exerciseCreate,
   listExercises,
   FontAwesomeIcon,
+  Splash,
   },
   })
 export default class Exercises extends Vue {
@@ -53,6 +57,7 @@ export default class Exercises extends Vue {
 
   exerciseName: string = ''
   message: string = ''
+  isLoading: boolean = true
 
   createExercise () {
     this.setShowModalBackdrop(true)
@@ -68,6 +73,10 @@ export default class Exercises extends Vue {
       .get(config.domainAddress + config.api.exercise, { params })
       .then(function (response: Response) {
         this.setListExercises(response.data)
+
+        setTimeout(() => {
+          this.isLoading = false
+        }, 500)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

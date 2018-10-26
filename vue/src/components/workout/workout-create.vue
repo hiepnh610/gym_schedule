@@ -95,6 +95,9 @@ export default class WorkoutCreate extends Vue {
   workoutName: string = ''
 
   closeModal () {
+    this.workoutName = ''
+    this.workoutDay = ''
+
     this.setShowModalBackdrop(false)
     this.setShowCreateModal(false)
   }
@@ -131,6 +134,7 @@ export default class WorkoutCreate extends Vue {
         }
 
         this.loading = false
+
         this.workoutName = ''
         this.workoutDay = ''
 
