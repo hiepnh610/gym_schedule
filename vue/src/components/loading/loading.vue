@@ -1,5 +1,5 @@
 <template>
-  <div id="splash">
+  <div id="loading">
     <font-awesome-icon icon="spinner" spin />
   </div>
 </template>
@@ -13,6 +13,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   FontAwesomeIcon,
   },
   })
-export default class Splash extends Vue {
+export default class Loading extends Vue {
 }
 </script>

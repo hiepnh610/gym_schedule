@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <splash v-else />
+  <loading v-else />
 </template>
 
 <script lang="ts">
@@ -29,11 +29,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response, ID } from '@/util'
+import { Response, ID, setLoading } from '@/util'
 
 import exerciseCreate from '@/components/exercise/exercise-create.vue'
 import listExercises from '@/components/exercise/list-exercises.vue'
-import Splash from '@/components/splash/splash.vue'
+import Loading from '@/components/loading/loading.vue'
 
 const namespaceModal: string = 'modal'
 const namespaceExercises: string = 'exercises'
@@ -43,7 +43,7 @@ const namespaceExercises: string = 'exercises'
   exerciseCreate,
   listExercises,
   FontAwesomeIcon,
-  Splash,
+  Loading,
   },
   })
 export default class Exercises extends Vue {
@@ -74,9 +74,7 @@ export default class Exercises extends Vue {
       .then(function (response: Response) {
         this.setListExercises(response.data)
 
-        setTimeout(() => {
-          this.isLoading = false
-        }, 500)
+        setLoading(this, false)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

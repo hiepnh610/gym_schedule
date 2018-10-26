@@ -1,7 +1,5 @@
-$size-splash: $size-base * 4;
-
-#splash {
-  font-size: $size-splash;
+#loading {
+  font-size: $size-loading;
   left: 50%;
   position: absolute;
   top: 50%;
@@ -9,7 +7,7 @@ $size-splash: $size-base * 4;
 }
 
 .red-color {
-  #splash {
+  #loading {
     color: $first-primary-color;
   }
 }

@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <splash v-else />
+  <loading v-else />
 </template>
 
 <script lang="ts">
@@ -44,9 +44,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response } from '@/util'
+import { Response, setLoading } from '@/util'
 
-import Splash from '@/components/splash/splash.vue'
+import Loading from '@/components/loading/loading.vue'
 
 interface ParamsLogin {
   email: string;
@@ -56,7 +56,7 @@ interface ParamsLogin {
 @Component({
   components: {
   FontAwesomeIcon,
-  Splash,
+  Loading,
   },
   })
 export default class Login extends Vue {
@@ -99,9 +99,7 @@ export default class Login extends Vue {
   }
 
   mounted () {
-    setTimeout(() => {
-      this.isLoading = false
-    }, 500)
+    setLoading(this, false)
   }
 }
 </script>

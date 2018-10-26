@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <splash v-else />
+  <loading v-else />
 </template>
 
 <script lang="ts">
@@ -29,11 +29,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response, ID } from '@/util'
+import { Response, ID, setLoading } from '@/util'
 
 import planCreate from '@/components/plan/plan-create.vue'
 import listPlans from '@/components/plan/list-plans.vue'
-import Splash from '@/components/splash/splash.vue'
+import Loading from '@/components/loading/loading.vue'
 
 const namespacePlan: string = 'plans'
 const namespaceModal: string = 'modal'
@@ -43,7 +43,7 @@ const namespaceModal: string = 'modal'
   planCreate,
   listPlans,
   FontAwesomeIcon,
-  Splash,
+  Loading,
   },
   })
 export default class Plans extends Vue {
@@ -73,9 +73,7 @@ export default class Plans extends Vue {
       .then(function (response: Response) {
         this.setListPlans(response.data)
 
-        setTimeout(() => {
-          this.isLoading = false
-        }, 500)
+        setLoading(this, false)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
