@@ -60,7 +60,9 @@ select.form-control {
   input,
   input.form-control,
   select,
-  select.form-control {
+  select.form-control,
+  textarea,
+  textarea.form-control {
     &:focus {
       border-color: $first-primary-color;
     }

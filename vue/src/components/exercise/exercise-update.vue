@@ -30,7 +30,7 @@
           </b-card>
 
           <div class="form-group form-button text-center mb-0">
-            <button class="btn btn-sm btn-primary" @click.prevent="updateExercise">
+            <button class="btn btn-sm btn-primary" @click.prevent="updateExercise(dataExerciseOrigin._id)">
               Update
               <font-awesome-icon icon="spinner" spin v-if="loading" />
             </button>
@@ -55,6 +55,21 @@ import { Response } from '@/util'
 import trackLog from './components/track-log.vue'
 import history from './components/history.vue'
 import note from './components/note.vue'
+
+interface SetType {
+  weight: number;
+  reps: number;
+}
+
+interface historyType {
+  time: string;
+  sets: Array<SetType>;
+}
+
+interface ParamsExerciseUpdate {
+  status?: string;
+  sets: Array<SetType>;
+}
 
 const namespaceModal: string = 'modal'
 
@@ -81,9 +96,38 @@ export default class ExerciseUpdate extends Vue {
 
   loading: boolean = false
 
-  updateExercise () {
-    console.log(this.$refs.trackLog.setNumber)
-    console.log(this.$refs.trackLog.status)
+  updateExercise (id: string) {
+    const setNumber: Array<SetType> = this.$refs.trackLog.setNumber
+    const status: string = this.$refs.trackLog.status
+    const note: string = this.$refs.note.noteContent
+
+    const params: ParamsExerciseUpdate = {
+      sets: setNumber
+    }
+
+    if (status) {
+      params.status = status
+    }
+
+    axios
+      .put(config.domainAddress + config.api.exercise + id, params)
+      .then(function (response: Response) {
+        this.loading = false
+
+        this.setShowModalBackdrop(false)
+        this.setShowUpdateModal(false)
+
+        this.$toasted.success('Update Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+
+        this.loading = false
+      }.bind(this))
   }
 
   closeModal () {

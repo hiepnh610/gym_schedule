@@ -45,12 +45,19 @@ const updateExercise = (req, res) => {
     Exercise.findById(req.params.exercise_id, (err, exercise) => {
         if(err) return res.send(err);
 
-        exercise.set({
-            history: req.body.history,
-            note: req.body.track_log,
-            sets: req.body.sets,
-            status: req.body.status
-        });
+        const data = {
+            sets: req.body.sets
+        };
+
+        if (req.body.track_log) {
+            data.note = req.body.track_log;
+        }
+
+        if (req.body.status) {
+            data.status = req.body.status;
+        }
+
+        exercise.set(data);
 
         exercise.save((err, exercise) => {
             if(err) return res.status(400).send(err);
@@ -70,4 +77,10 @@ const deleteExercise = (req, res) => {
     });
 };
 
-module.exports = { listExercise, getExercise, createExercise, updateExercise, deleteExercise };
+module.exports = {
+    listExercise,
+    getExercise,
+    createExercise,
+    updateExercise,
+    deleteExercise
+};

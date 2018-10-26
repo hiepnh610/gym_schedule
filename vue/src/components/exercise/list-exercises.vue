@@ -27,7 +27,7 @@
 
               <td>{{ exercise.sets.length }}</td>
 
-              <td>{{ exercise.status }}</td>
+              <td :class="{ 'text-warning': (exercise.status === 'In Progress'), 'text-success': (exercise.status === 'Done') }">{{ exercise.status }}</td>
 
               <td>
                 <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updateExercise(exercise)">Edit</a>

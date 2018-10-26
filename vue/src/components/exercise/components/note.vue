@@ -21,10 +21,9 @@
     <div class="note-box p-3">
       <textarea-autosize
       class="form-control"
-      ref="note"
       :min-height="60"
-      :max-height="300">
-      </textarea-autosize>
+      :max-height="300"
+      v-model="noteContent" />
     </div>
   </div>
 </template>
@@ -41,5 +40,6 @@ import axios from 'axios'
   },
   })
 export default class Note extends Vue {
+  noteContent: string = ''
 }
 </script>

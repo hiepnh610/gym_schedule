@@ -9,10 +9,14 @@
   }
 
   .text-warning {
-    color: $first-warning-color;
+    color: $first-warning-color !important;
   }
 
   .text-secondary {
-    color: $navy-blue-color;
+    color: $navy-blue-color !important;
+  }
+
+  .text-success {
+    color: $first-success-color !important;
   }
 }
