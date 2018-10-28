@@ -69,7 +69,7 @@ const updatePlan = (req, res) => {
 };
 
 const deletePlan = (req, res) => {
-    Plan.remove({
+    Plan.deleteOne({
         _id: req.params.plan_id
     }, (err, plan) => {
         if(err) return res.status(400).send(err);

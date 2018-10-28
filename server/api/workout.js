@@ -62,8 +62,8 @@ const updateWorkout = (req, res) => {
 };
 
 const deleteWorkout = (req, res) => {
-    Workout.remove({
-        _id: req.params.workout_day_id
+    Workout.deleteOne({
+        _id: req.params.workout_id
     }, (err, workout_day) => {
         if(err) return res.status(400).send(err);
 

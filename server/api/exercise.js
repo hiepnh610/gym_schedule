@@ -45,12 +45,10 @@ const updateExercise = (req, res) => {
     Exercise.findById(req.params.exercise_id, (err, exercise) => {
         if(err) return res.send(err);
 
-        const data = {
-            sets: req.body.sets
-        };
+        const data = {};
 
-        if (req.body.track_log) {
-            data.note = req.body.track_log;
+        if (req.body.history) {
+            data.history = req.body.history;
         }
 
         if (req.body.status) {
@@ -68,7 +66,7 @@ const updateExercise = (req, res) => {
 };
 
 const deleteExercise = (req, res) => {
-    Exercise.remove({
+    Exercise.deleteOne({
         _id: req.params.exercise_id
     }, (err, exercise) => {
         if(err) return res.status(400).send(err);

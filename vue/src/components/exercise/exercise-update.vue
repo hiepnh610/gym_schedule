@@ -57,18 +57,17 @@ import history from './components/history.vue'
 import note from './components/note.vue'
 
 interface SetType {
-  weight: number;
-  reps: number;
+  weight?: number;
+  reps?: number;
 }
 
-interface historyType {
-  time: string;
-  sets: Array<SetType>;
+interface HistoryType {
+  sets?: Array<SetType>;
 }
 
 interface ParamsExerciseUpdate {
   status?: string;
-  sets: Array<SetType>;
+  history?: HistoryType;
 }
 
 const namespaceModal: string = 'modal'
@@ -101,8 +100,12 @@ export default class ExerciseUpdate extends Vue {
     const status: string = this.$refs.trackLog.status
     const note: string = this.$refs.note.noteContent
 
-    const params: ParamsExerciseUpdate = {
+    const sets: HistoryType = {
       sets: setNumber
+    }
+
+    const params: ParamsExerciseUpdate = {
+      history: sets
     }
 
     if (status) {

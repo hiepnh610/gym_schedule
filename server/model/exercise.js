@@ -3,10 +3,23 @@ const Schema   = mongoose.Schema;
 
 const Workout = require('./workout');
 
+const SetsType = new Schema({
+    reps: Number,
+    weight: Number
+});
+
+const HistoryType = new Schema({
+    sets: [SetsType]
+}, { timestamps: { createdAt: 'created_at' }});
+
+const NoteType = new Schema({
+    text: String
+}, { timestamps: { createdAt: 'created_at' }});
+
 const ExerciseSchema = new Schema({
     history: {
         required: false,
-        type: Array
+        type: [HistoryType]
     },
     image: {
         required: true,
@@ -18,11 +31,7 @@ const ExerciseSchema = new Schema({
     },
     note: {
         required: false,
-        type: Array
-    },
-    sets: {
-        required: false,
-        type: Array
+        type: [NoteType]
     },
     status: {
         required: false,
