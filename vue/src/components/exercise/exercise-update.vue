@@ -71,6 +71,7 @@ interface ParamsExerciseUpdate {
 }
 
 const namespaceModal: string = 'modal'
+const namespaceExercise: string = 'exercises'
 
 @Component({
   components: {
@@ -86,6 +87,8 @@ export default class ExerciseUpdate extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
   @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
+
+  @Action('setUpdateExercise', { namespace: namespaceExercise }) setUpdateExercise: any
 
   $refs!: {
     trackLog: HTMLFormElement,
@@ -119,6 +122,7 @@ export default class ExerciseUpdate extends Vue {
 
         this.setShowModalBackdrop(false)
         this.setShowUpdateModal(false)
+        this.setUpdateExercise(response.data)
 
         this.$toasted.success('Update Successfully!!!')
       }.bind(this))

@@ -24,7 +24,7 @@ export const mutations: MutationTree<ExerciseState> = {
         state.listExercises[i].history = data.history
         state.listExercises[i].image = data.image
         state.listExercises[i].name = data.name
-        state.listExercises[i].sets = data.sets
+        state.listExercises[i].status = data.status
         state.listExercises[i].track_note = data.track_note
         state.listExercises[i].workout_id = data.workout_id
       }

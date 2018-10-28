@@ -3,9 +3,9 @@ export interface Exercises {
   history: string;
   image: string;
   name: string;
-  sets: any;
   track_note: string;
   workout_id: string;
+  status: string;
 }
 
 export interface ExerciseState {
