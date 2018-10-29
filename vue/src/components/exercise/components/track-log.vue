@@ -75,6 +75,8 @@ interface Set {
   },
   })
 export default class TrackLog extends Vue {
+  @Prop() exerciseStatus!: string
+
   setNumber: Array<Set> = [
     {
       weight: 0,
@@ -96,6 +98,11 @@ export default class TrackLog extends Vue {
 
   removeSet (index: number) {
     this.setNumber.splice(index, 1)
+  }
+
+  @Watch('exerciseStatus', { immediate: true, deep: true })
+  dataWorkout (val: any, oldVal: any) {
+    this.status = val
   }
 }
 </script>

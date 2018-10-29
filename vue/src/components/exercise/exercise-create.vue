@@ -97,7 +97,7 @@ export default class ExerciseCreate extends Vue {
       name: exercise.name,
       image: exercise.image,
       workout_id: this.$route.params.id,
-      status: 'Not Started'
+      status: ''
     }
 
     axios

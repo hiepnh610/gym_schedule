@@ -3,23 +3,27 @@ const Plan = require('../model/plan');
 let plan = {};
 
 const listPlans = (req, res) => {
-    Plan.find({ '_id': req.query.id })
-    .populate('_id')
-    .exec(function (err, list) {
-        if(err) return res.status(400).send(err);
+    if (req.query.id) {
+        Plan.find({ '_id': req.query.id })
+        .populate('_id')
+        .exec(function (err, list) {
+            if(err) return res.status(400).send(err);
 
-        res.status(200).json(list);
-    });
+            res.status(200).json(list);
+        });
+    }
 };
 
 const getPlan = (req, res) => {
-    Plan.find({ 'created_by': req.query.id })
-    .populate('created_by')
-    .exec(function (err, plans) {
-        if(err) return res.status(400).send(err);
+    if (req.query.id) {
+        Plan.find({ 'created_by': req.query.id })
+        .populate('created_by')
+        .exec(function (err, plans) {
+            if(err) return res.status(400).send(err);
 
-        res.status(200).json(plans);
-    });
+            res.status(200).json(plans);
+        });
+    }
 };
 
 const createPlan = (req, res) => {
@@ -69,13 +73,15 @@ const updatePlan = (req, res) => {
 };
 
 const deletePlan = (req, res) => {
-    Plan.deleteOne({
-        _id: req.params.plan_id
-    }, (err, plan) => {
-        if(err) return res.status(400).send(err);
+    if (req.params.plan_id) {
+        Plan.deleteOne({
+            _id: req.params.plan_id
+        }, (err, plan) => {
+            if(err) return res.status(400).send(err);
 
-        res.json({ message: 'Plan deleted.' });
-    });
+            res.json({ message: 'Plan deleted.' });
+        });
+    }
 };
 
 module.exports = { listPlans, getPlan, createPlan, updatePlan, deletePlan }
