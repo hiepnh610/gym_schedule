@@ -9,19 +9,6 @@
             <font-awesome-icon icon="plus-circle" class="ml-2" />
           </a>
         </div>
-
-        <div class="col-12 col-md-4">
-          <div class="select-custom">
-            <font-awesome-icon icon="caret-down" />
-
-            <select class="form-control" v-model="status">
-              <option value="" disabled selected>Status</option>
-              <option value="Not Started">Not Started</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Done">Done</option>
-            </select>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -59,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
@@ -75,8 +62,6 @@ interface Set {
   },
   })
 export default class TrackLog extends Vue {
-  @Prop() exerciseStatus!: string
-
   setNumber: Array<Set> = [
     {
       weight: 0,
@@ -87,7 +72,6 @@ export default class TrackLog extends Vue {
       reps: 0
     }
   ]
-  status: string = ''
 
   addMoreSet () {
     this.setNumber.push({
@@ -98,11 +82,6 @@ export default class TrackLog extends Vue {
 
   removeSet (index: number) {
     this.setNumber.splice(index, 1)
-  }
-
-  @Watch('exerciseStatus', { immediate: true, deep: true })
-  dataWorkout (val: any, oldVal: any) {
-    this.status = val
   }
 }
 </script>

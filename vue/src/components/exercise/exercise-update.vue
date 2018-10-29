@@ -16,7 +16,7 @@
           <b-card no-body>
             <b-tabs card>
               <b-tab title="Track Log" active>
-                <track-log ref="trackLog" :exercise-status="status" />
+                <track-log ref="trackLog" />
               </b-tab>
 
               <b-tab title="History">
@@ -24,7 +24,7 @@
               </b-tab>
 
               <b-tab title="Note">
-                <note ref="note" />
+                <note ref="note" :exercise-note="dataExerciseOrigin.note" />
               </b-tab>
             </b-tabs>
           </b-card>
@@ -61,13 +61,17 @@ interface SetType {
   reps?: number;
 }
 
+interface NoteType {
+  text?: string;
+}
+
 interface HistoryType {
   sets?: Array<SetType>;
 }
 
 interface ParamsExerciseUpdate {
-  status?: string;
   history?: HistoryType;
+  note?: NoteType
 }
 
 const namespaceModal: string = 'modal'
@@ -97,23 +101,22 @@ export default class ExerciseUpdate extends Vue {
   }
 
   loading: boolean = false
-  status: string = ''
 
   updateExercise (id: string) {
     const setNumber: Array<SetType> = this.$refs.trackLog.setNumber
-    const status: string = this.$refs.trackLog.status
-    const note: string = this.$refs.note.noteContent
+    const noteContent: string = this.$refs.note.noteContent
 
     const sets: HistoryType = {
       sets: setNumber
     }
 
-    const params: ParamsExerciseUpdate = {
-      history: sets
+    const note: NoteType = {
+      text: noteContent
     }
 
-    if (status) {
-      params.status = status
+    const params: ParamsExerciseUpdate = {
+      history: sets,
+      note: note
     }
 
     axios
@@ -141,11 +144,6 @@ export default class ExerciseUpdate extends Vue {
   closeModal () {
     this.setShowModalBackdrop(false)
     this.setShowUpdateModal(false)
-  }
-
-  @Watch('dataExerciseOrigin', { immediate: true, deep: true })
-  dataWorkout (val: any, oldVal: any) {
-    this.status = val.status
   }
 }
 </script>

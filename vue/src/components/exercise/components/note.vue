@@ -1,13 +1,13 @@
 <template>
   <div class="note text-left">
-    <div class="note-list border-bottom pl-3 pr-3 pb-3 pt-2">
+    <div class="note-list border-bottom pl-3 pr-3 pb-3 pt-2" v-for="(note, index) in noteList" :key="index">
       <div class="row">
         <div class="col-12">
-          <p class="text-secondary mb-2"><small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure voluptates rem amet praesentium obcaecati nisi, labore alias ratione architecto odit dignissimos maxime dolore magnam facere sequi. Quasi consequuntur a ut!</small></p>
+          <p class="text-secondary mb-2"><small>{{ note.text }}</small></p>
         </div>
 
         <div class="col-6 text-left">
-          <small class="smallest">08/10/2018</small>
+          <small class="smallest">{{ customFormatter(note.created_at) }}</small>
         </div>
 
         <div class="col-6 text-right">
@@ -32,6 +32,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import moment from 'moment'
 import axios from 'axios'
 
 @Component({
@@ -40,6 +41,18 @@ import axios from 'axios'
   },
   })
 export default class Note extends Vue {
+  @Prop() exerciseNote!: any
+
   noteContent: string = ''
+  noteList: string[] = this.exerciseNote
+
+  customFormatter (date: string) {
+    return moment(date).format('DD/MM/YYYY')
+  }
+
+  @Watch('exerciseNote', { immediate: true, deep: true })
+  dataNote (val: any, oldVal: any) {
+    this.noteList = val
+  }
 }
 </script>
