@@ -33,10 +33,6 @@ const ExerciseSchema = new Schema({
         required: false,
         type: [NoteType]
     },
-    status: {
-        required: false,
-        type: String
-    },
     workout_id: {
         type: Schema.Types.ObjectId,
         ref: 'Workout',

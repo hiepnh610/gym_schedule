@@ -47,7 +47,6 @@ interface ParamsExerciseCreate {
   'workout_id': string;
   image: string;
   name: string;
-  status: string;
 }
 
 interface dataItem {
@@ -55,7 +54,6 @@ interface dataItem {
   image: string;
   name: string;
   sets: any;
-  status: string;
 }
 
 @Component({
@@ -96,8 +94,7 @@ export default class ExerciseCreate extends Vue {
     const params: ParamsExerciseCreate = {
       name: exercise.name,
       image: exercise.image,
-      workout_id: this.$route.params.id,
-      status: ''
+      workout_id: this.$route.params.id
     }
 
     axios
@@ -107,8 +104,7 @@ export default class ExerciseCreate extends Vue {
           _id: response.data._id,
           image: response.data.image,
           name: response.data.name,
-          sets: response.data.sets,
-          status: response.data.status
+          sets: response.data.sets
         }
 
         this.setCreateExercise(dataItem)

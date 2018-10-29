@@ -7,7 +7,6 @@
             <tr>
               <th>image</th>
               <th>name</th>
-              <th>status</th>
               <th></th>
             </tr>
           </thead>
@@ -23,8 +22,6 @@
               <td class="text-capitalize">
                 {{ exercise.name }}
               </td>
-
-              <td :class="{ 'text-warning': (exercise.status === 'In Progress'), 'text-success': (exercise.status === 'Done') }">{{ exercise.status }}</td>
 
               <td>
                 <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updateExercise(exercise)">Update</a>
