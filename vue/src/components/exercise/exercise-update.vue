@@ -16,7 +16,7 @@
           <b-card no-body>
             <b-tabs card>
               <b-tab title="Track Log" active>
-                <track-log ref="trackLog" />
+                <track-log ref="trackLog" :exercise-status="status" />
               </b-tab>
 
               <b-tab title="History">
@@ -97,6 +97,7 @@ export default class ExerciseUpdate extends Vue {
   }
 
   loading: boolean = false
+  status: string = ''
 
   updateExercise (id: string) {
     const setNumber: Array<SetType> = this.$refs.trackLog.setNumber
@@ -140,6 +141,11 @@ export default class ExerciseUpdate extends Vue {
   closeModal () {
     this.setShowModalBackdrop(false)
     this.setShowUpdateModal(false)
+  }
+
+  @Watch('dataExerciseOrigin', { immediate: true, deep: true })
+  dataWorkout (val: any, oldVal: any) {
+    this.status = val.status
   }
 }
 </script>

@@ -3,23 +3,27 @@ const Workout = require('../model/workout');
 let workout = {};
 
 const listWorkout = (req, res) => {
-    Workout.find({ '_id': req.query.id })
-    .populate('_id')
-    .exec(function (err, list) {
-        if(err) return res.status(400).send(err);
+    if (req.query.id) {
+        Workout.find({ '_id': req.query.id })
+        .populate('_id')
+        .exec(function (err, list) {
+            if(err) return res.status(400).send(err);
 
-        res.status(200).json(list);
-    });
+            res.status(200).json(list);
+        });
+    }
 };
 
 const getWorkout = (req, res) => {
-    Workout.find({ 'plan_id': req.query.id })
-    .populate('plan_id')
-    .exec(function (err, plans) {
-        if(err) return res.status(400).send(err);
+    if (req.query.id) {
+        Workout.find({ 'plan_id': req.query.id })
+        .populate('plan_id')
+        .exec(function (err, plans) {
+            if(err) return res.status(400).send(err);
 
-        res.status(200).json(plans);
-    });
+            res.status(200).json(plans);
+        });
+    }
 };
 
 const createWorkout = (req, res) => {
@@ -62,13 +66,15 @@ const updateWorkout = (req, res) => {
 };
 
 const deleteWorkout = (req, res) => {
-    Workout.deleteOne({
-        _id: req.params.workout_id
-    }, (err, workout_day) => {
-        if(err) return res.status(400).send(err);
+    if (req.params.workout_id) {
+        Workout.deleteOne({
+            _id: req.params.workout_id
+        }, (err, workout_day) => {
+            if(err) return res.status(400).send(err);
 
-        res.json({ message: 'Workout Day Deleted.' });
-    });
+            res.json({ message: 'Workout Day Deleted.' });
+        });
+    }
 };
 
 module.exports = { listWorkout, getWorkout, createWorkout, updateWorkout, deleteWorkout };
