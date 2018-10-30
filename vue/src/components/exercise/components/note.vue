@@ -1,13 +1,13 @@
 <template>
   <div class="note text-left">
-    <div class="note-list border-bottom pl-3 pr-3 pb-3 pt-2" v-for="(note, index) in noteList" :key="index">
+    <div class="note-list border-bottom pl-3 pr-3 pb-3 pt-2" v-for="(note, index) in exerciseNote" :key="index">
       <div class="row">
         <div class="col-12">
           <p class="text-secondary mb-2"><small>{{ note.text }}</small></p>
         </div>
 
         <div class="col-6 text-left">
-          <small class="smallest">{{ customFormatter(note.created_at) }}</small>
+          <small class="smallest">{{ DateFormat(note.created_at) }}</small>
         </div>
 
         <div class="col-6 text-right">
@@ -44,15 +44,9 @@ export default class Note extends Vue {
   @Prop() exerciseNote!: any
 
   noteContent: string = ''
-  noteList: string[] = this.exerciseNote
 
-  customFormatter (date: string) {
+  DateFormat (date: string) {
     return moment(date).format('DD/MM/YYYY')
-  }
-
-  @Watch('exerciseNote', { immediate: true, deep: true })
-  dataNote (val: any, oldVal: any) {
-    this.noteList = val
   }
 }
 </script>

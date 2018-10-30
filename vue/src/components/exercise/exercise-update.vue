@@ -20,7 +20,7 @@
               </b-tab>
 
               <b-tab title="History">
-                <history ref="history" :exercise-name="dataExerciseOrigin.name" />
+                <history ref="history" :exercise-name="dataExerciseOrigin.name" :exercise-history="dataExerciseOrigin.history" />
               </b-tab>
 
               <b-tab title="Note">
@@ -115,14 +115,28 @@ export default class ExerciseUpdate extends Vue {
     }
 
     const params: ParamsExerciseUpdate = {
-      history: sets,
-      note: note
+      history: sets
+    }
+
+    if (noteContent) {
+      params.note = note
     }
 
     axios
       .put(config.domainAddress + config.api.exercise + id, params)
       .then(function (response: Response) {
         this.loading = false
+
+        this.$refs.trackLog.setNumber = [
+          {
+            weight: 0,
+            reps: 0
+          },
+          {
+            weight: 0,
+            reps: 0
+          }
+        ]
 
         this.setShowModalBackdrop(false)
         this.setShowUpdateModal(false)
