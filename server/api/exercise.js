@@ -32,8 +32,10 @@ const createExercise = (req, res) => {
     if (!req.body.image) return res.status(400).json({ 'message': 'The exercise image cannot be blank.' });
 
     exercise = new Exercise({
+        history: [],
         image: req.body.image,
         name: req.body.name,
+        note: [],
         workout_id: req.body.workout_id
     });
 
@@ -49,17 +51,13 @@ const updateExercise = (req, res) => {
         Exercise.findById(req.params.exercise_id, (err, exercise) => {
             if(err) return res.send(err);
 
-            const data = {};
-
-            if (req.body.history) {
-                data.history = req.body.history;
+            if (req.body.history && req.body.history.sets.length > 0) {
+                exercise.history.push(req.body.history);
             }
 
-            if (req.body.note) {
-                data.note = req.body.note;
+            if (req.body.note && req.body.note.text.length > 0) {
+                exercise.note.push(req.body.note);
             }
-
-            exercise.set(data);
 
             exercise.save((err, exercise) => {
                 if(err) return res.status(400).send(err);
