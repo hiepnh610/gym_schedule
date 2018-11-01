@@ -23,8 +23,8 @@
         </div>
 
         <div class="d-flex align-items-center" v-else>
-          <div class="avatar mr-2 d-flex">
-            <img :src="avatar" alt="" class="rounded" v-if="avatar" />
+          <div class="avatar mr-2 d-flex align-items-start">
+            <img :src="avatar" alt="" v-if="avatar" />
 
             <font-awesome-icon icon="user" v-else />
           </div>

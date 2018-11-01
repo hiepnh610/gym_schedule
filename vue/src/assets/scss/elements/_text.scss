@@ -2,6 +2,10 @@
   font-size: $smallest-size-base;
 }
 
+.text-muted {
+  color: $gray-color;
+}
+
 .red-color {
   .text-primary,
   .text-danger {

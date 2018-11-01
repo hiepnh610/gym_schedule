@@ -13,6 +13,19 @@ textarea.form-control {
   }
 }
 
+input[readonly],
+input[readonly].form-control {
+  background: $white-color;
+
+  &:hover {
+    cursor: default;
+  }
+
+  &:focus {
+    border-color: transparent !important;
+  }
+}
+
 select,
 select.form-control {
   @extend %appearance;
@@ -30,7 +43,7 @@ select.form-control {
   input,
   input.form-control {
     padding-left: 20px;
-    color: $light-gray-color;
+    color: $gray-color;
     font-family: 'Lato', sans-serif;
     font-size: $size-base;
 
@@ -44,7 +57,7 @@ select.form-control {
   margin-bottom: 30px;
 }
 
-.select-custom {
+.form-group-has-icon {
   position: relative;
 
   svg {
@@ -52,6 +65,7 @@ select.form-control {
     position: absolute;
     right: 20px;
     top: 50%;
+    z-index: 1;
     @include translate(0, -50%);
   }
 }
