@@ -2,54 +2,61 @@
   <div class="profile">
     <div class="row">
       <div class="col-xs-12 col-md-8">
-        <h2>Personal Profile</h2>
+        <h4>Personal Profile</h4>
 
         <hr />
 
         <form>
-          <div class="form-group">
+          <div class="form-group input-group-lg">
             <label for="profile-email">Email</label>
 
             <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="user.email" />
           </div>
 
-          <div class="form-group">
+          <div class="form-group input-group-lg">
             <label for="profile-name">Full Name</label>
 
             <input id="profile-name" type="text" class="form-control" v-model="user.fullName" />
           </div>
 
-          <div class="form-group">
+          <div class="form-group input-group-lg">
             <label for="profile-birthday">Birthday</label>
 
-            <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="user.dob"></datepicker>
+            <div class="form-group-has-icon">
+              <font-awesome-icon icon="calendar-alt" />
+
+              <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="user.dob"></datepicker>
+            </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group input-group-lg">
             <label for="profile-gender">Gender</label>
 
-            <select id="profile-gender" class="form-control" v-model="user.gender">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
+            <div class="form-group-has-icon">
+              <font-awesome-icon icon="caret-down" />
+
+              <select id="profile-gender" class="form-control px-4" v-model="user.gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group input-group-lg">
             <label for="profile-height">Height(cm)</label>
 
             <input id="profile-height" type="text" class="form-control" v-model.number="user.height" />
           </div>
 
-          <div class="form-group">
+          <div class="form-group input-group-lg">
             <label for="profile-weight">Weight(kg)</label>
 
             <input id="profile-weight" type="text" class="form-control" v-model.number="user.weight" />
           </div>
 
           <div class="form-group">
-            <button class="btn btn-md btn-success" @click.prevent="userUpdate(user._id)">
+            <button class="btn btn-lg btn-primary" @click.prevent="userUpdate(user._id)">
               Update profile
-              <font-awesome-icon icon="save" v-if="!updateInfoIsLoading" />
               <font-awesome-icon icon="spinner" spin v-if="updateInfoIsLoading" />
             </button>
           </div>
@@ -60,34 +67,37 @@
 
       <div class="col-xs-12 col-md-4">
         <h6>Profile picture</h6>
-        <div>
-          <img :src="avatar" alt="" class="rounded border mb-3" v-if="avatar" />
 
-          <img src="@/assets/images/avatar-default.png" alt="" class="rounded border mb-3" v-else />
+        <div class="profile-avatar">
+          <div>
+            <img :src="avatar" alt="" class="rounded border" v-if="avatar" />
+
+            <img src="@/assets/images/avatar-default.png" alt="" v-else />
+          </div>
+
+          <label for="upload-avatar" class="text-white text-center py-3">
+            Upload new picture
+            <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" accept=".jpg, .jpeg, .png" />
+          </label>
         </div>
-
-        <label for="upload-avatar" class="btn btn-block btn-secondary upload-avatar-label">
-          Upload new picture
-          <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" accept=".jpg, .jpeg, .png" />
-        </label>
 
         <p v-if="errorAvatar" class="text-danger small text-center">{{ errorAvatar }}</p>
       </div>
     </div>
 
-    <div class="modal modal-success modal-xs fade" v-show="showAvatarModal" :class="{ 'show animated bounceIn': showAvatarModal }" :style="{ display: 'block' }">
+    <div class="modal fade" v-show="showAvatarModal" :class="{ 'show animated bounceIn': showAvatarModal }" :style="{ display: 'block' }">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body text-center">
             <img :src="avatarPathFake" alt="" />
           </div>
 
-          <div class="modal-footer">
-            <a href="" class="btn btn-md btn-success" @click.prevent="uploadAvatar">
+          <div class="modal-footer justify-content-center">
+            <a href="#" class="btn btn-md btn-primary" @click.prevent="uploadAvatar">
               Save
               <font-awesome-icon icon="spinner" spin v-if="updateAvatarIsLoading" />
             </a>
-            <a href="" class="btn btn-md btn-light" @click.prevent="closeModal">Close</a>
+            <a href="#" class="btn btn-md btn-secondary" @click.prevent="closeModal">Close</a>
           </div>
         </div>
       </div>

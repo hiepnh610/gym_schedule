@@ -18,7 +18,7 @@
               <div class="form-group input-group-lg">
                 <label for="type-plan">Type</label>
 
-                <div class="select-custom">
+                <div class="form-group-has-icon">
                   <font-awesome-icon icon="caret-down" />
 
                   <select id="type-plan" class="form-control" v-model="typePlan">
@@ -32,7 +32,7 @@
               <div class="form-group input-group-lg">
                 <label for="frequency-plan">Frequency</label>
 
-                <div class="select-custom">
+                <div class="form-group-has-icon">
                   <font-awesome-icon icon="caret-down" />
 
                   <select id="frequency-plan" class="form-control" v-model="frequencyPlan">

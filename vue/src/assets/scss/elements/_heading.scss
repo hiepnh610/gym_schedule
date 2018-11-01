@@ -1,0 +1,13 @@
+$headings: h1 h2 h3 h4 h5 h6;
+$size-heading: $size-h1 $size-h2 $size-h3 $size-h4 $size-h5 $size-h6;
+
+@each $heading in $headings {
+  $index: index($headings, $heading);
+
+  #{$heading},
+  .#{$heading} {
+    font-size: nth($size-heading, $index);
+    font-weight: 600;
+    margin-bottom: $size-base;
+  }
+}

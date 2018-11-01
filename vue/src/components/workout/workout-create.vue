@@ -18,7 +18,7 @@
               <div class="form-group input-group-lg">
                 <label for="workout-day">Pick a Workout Day</label>
 
-                <div class="select-custom">
+                <div class="form-group-has-icon">
                   <font-awesome-icon icon="caret-down" />
 
                   <select id="workout-day" class="form-control" v-model="workoutDay">

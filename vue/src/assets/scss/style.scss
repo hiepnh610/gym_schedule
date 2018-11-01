@@ -17,6 +17,7 @@
 @import "elements/table";
 @import "elements/drop-down";
 @import "elements/card";
+@import "elements/heading";
 @import "elements/text";
 @import "elements/colors";
 @import "elements/header";
@@ -27,8 +28,10 @@
 @import "elements/border";
 @import "elements/track-log";
 @import "elements/history";
+@import "elements/sidebar";
 
 @import "pages/login";
 @import "pages/sign-up";
 @import "pages/dashboard";
 @import "pages/exercise";
+@import "pages/settings";

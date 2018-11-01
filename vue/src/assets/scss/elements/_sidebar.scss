@@ -1,0 +1,14 @@
+.sidebar {
+  .sidebar-header {
+    background: $header-sidebar-bg;
+  }
+}
+
+.red-color {
+  .sidebar {
+    .router-link-active,
+    .router-link-exact-active {
+      color: $first-primary-color !important;
+    }
+  }
+}
