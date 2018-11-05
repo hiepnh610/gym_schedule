@@ -29,7 +29,22 @@ const getExerciseHistory = (req, res) => {
   }
 };
 
+const deleteExerciseHistory = (req, res) => {
+  if (req.params.history_id) {
+      const query = req.params.history_id;
+
+      Histories.deleteOne({
+          _id: query
+      }, (err, history) => {
+          if(err) return res.status(400).send(err);
+
+          res.json({ message: 'History Deleted.' });
+      });
+  }
+};
+
 module.exports = {
   createExerciseHistory,
-  getExerciseHistory
+  getExerciseHistory,
+  deleteExerciseHistory
 };

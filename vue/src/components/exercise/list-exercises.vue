@@ -45,12 +45,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response } from '@/util'
+import { Response, ID } from '@/util'
 
 import exerciseUpdate from './exercise-update.vue'
 
 const namespaceModal: string = 'modal'
 const namespaceExercises: string = 'exercises'
+const namespaceHistories: string = 'histories'
 
 @Component({
   components: {
@@ -65,10 +66,29 @@ export default class ListExercises extends Vue {
   @Action('setDeleteExercise', { namespace: namespaceExercises }) setDeleteExercise: any
   @Getter('listExercises', { namespace: namespaceExercises }) listExercises: any
 
+  @Action('setListHistories', { namespace: namespaceHistories }) setListHistories: any
+
   message: string = ''
   dataExerciseOrigin: any = ''
 
   updateExercise (exercise: any) {
+    const params: ID = {
+      id: exercise._id
+    }
+
+    axios
+      .get(config.domainAddress + config.api.history, { params })
+      .then(function (response: Response) {
+        this.setListHistories(response.data)
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+      }.bind(this))
+
     this.dataExerciseOrigin = exercise
 
     this.setShowModalBackdrop(true)

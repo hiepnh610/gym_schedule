@@ -53,7 +53,6 @@ interface dataItem {
   _id: string;
   image: string;
   name: string;
-  sets: any;
 }
 
 @Component({
@@ -103,8 +102,7 @@ export default class ExerciseCreate extends Vue {
         const dataItem: dataItem = {
           _id: response.data._id,
           image: response.data.image,
-          name: response.data.name,
-          sets: response.data.sets
+          name: response.data.name
         }
 
         this.setCreateExercise(dataItem)

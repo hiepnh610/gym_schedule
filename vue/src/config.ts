@@ -30,7 +30,7 @@ const api: apiTypes = {
   user: '/api/user/',
   workout: '/api/workout/',
   exercise: '/api/exercise/',
-  history: '/api/exercise/history',
+  history: '/api/exercise/history/',
   note: '/api/exercise/note'
 }
 

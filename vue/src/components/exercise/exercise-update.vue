@@ -20,11 +20,11 @@
               </b-tab>
 
               <b-tab title="History">
-                <history ref="history" :exercise-name="dataExerciseOrigin.name" :exercise-history="dataExerciseOrigin.history" />
+                <history ref="history" :exercise-name="dataExerciseOrigin.name" />
               </b-tab>
 
               <b-tab title="Note">
-                <note ref="note" :exercise-note="dataExerciseOrigin.note" />
+                <note ref="note" />
               </b-tab>
             </b-tabs>
           </b-card>
@@ -162,8 +162,6 @@ export default class ExerciseUpdate extends Vue {
 
           this.setShowModalBackdrop(false)
           this.setShowUpdateModal(false)
-
-          this.$toasted.success('Update Successfully!!!')
         }.bind(this))
         .catch(function (error: Response) {
           if (error.response && error.response.data && error.response.data.message) {
