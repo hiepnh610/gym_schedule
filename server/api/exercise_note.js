@@ -29,7 +29,22 @@ const getExerciseNote = (req, res) => {
   }
 };
 
+const deleteExerciseNote = (req, res) => {
+  if (req.params.note_id) {
+      const query = req.params.note_id;
+
+      Notes.deleteOne({
+          _id: query
+      }, (err, note) => {
+          if(err) return res.status(400).send(err);
+
+          res.json({ message: 'Note Deleted.' });
+      });
+  }
+};
+
 module.exports = {
   createExerciseNote,
-  getExerciseNote
+  getExerciseNote,
+  deleteExerciseNote
 };

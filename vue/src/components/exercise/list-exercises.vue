@@ -52,6 +52,7 @@ import exerciseUpdate from './exercise-update.vue'
 const namespaceModal: string = 'modal'
 const namespaceExercises: string = 'exercises'
 const namespaceHistories: string = 'histories'
+const namespaceNotes: string = 'notes'
 
 @Component({
   components: {
@@ -68,6 +69,8 @@ export default class ListExercises extends Vue {
 
   @Action('setListHistories', { namespace: namespaceHistories }) setListHistories: any
 
+  @Action('setListNotes', { namespace: namespaceNotes }) setListNotes: any
+
   message: string = ''
   dataExerciseOrigin: any = ''
 
@@ -80,6 +83,19 @@ export default class ListExercises extends Vue {
       .get(config.domainAddress + config.api.history, { params })
       .then(function (response: Response) {
         this.setListHistories(response.data)
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+      }.bind(this))
+
+    axios
+      .get(config.domainAddress + config.api.note, { params })
+      .then(function (response: Response) {
+        this.setListNotes(response.data)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

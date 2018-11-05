@@ -31,7 +31,7 @@ const api: apiTypes = {
   workout: '/api/workout/',
   exercise: '/api/exercise/',
   history: '/api/exercise/history/',
-  note: '/api/exercise/note'
+  note: '/api/exercise/note/'
 }
 
 export default { api, domainAddress }

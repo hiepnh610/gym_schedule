@@ -7,6 +7,7 @@ import { plans } from './store/plans/index'
 import { workouts } from './store/workouts/index'
 import { exercises } from './store/exercises/index'
 import { histories } from './store/exercise-history/index'
+import { notes } from './store/exercise-note/index'
 import { avatar } from './store/avatar/index'
 
 Vue.use(Vuex)
@@ -22,6 +23,7 @@ const store: StoreOptions<RootState> = {
     workouts,
     exercises,
     histories,
+    notes,
     avatar
   },
 
