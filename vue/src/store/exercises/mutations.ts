@@ -21,10 +21,8 @@ export const mutations: MutationTree<ExerciseState> = {
   updateExercise (state: any, data: Exercises): any {
     for (var i = 0; i < state.listExercises.length; i++) {
       if (state.listExercises[i]._id === data._id) {
-        state.listExercises[i].history = data.history
         state.listExercises[i].image = data.image
         state.listExercises[i].name = data.name
-        state.listExercises[i].note = data.note
         state.listExercises[i].workout_id = data.workout_id
       }
     }

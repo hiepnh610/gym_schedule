@@ -3,24 +3,7 @@ const Schema   = mongoose.Schema;
 
 const Workout = require('./workout');
 
-const SetsType = new Schema({
-    reps: Number,
-    weight: Number
-});
-
-const HistoryType = new Schema({
-    sets: [SetsType]
-}, { timestamps: { createdAt: 'created_at' }});
-
-const NoteType = new Schema({
-    text: String
-}, { timestamps: { createdAt: 'created_at' }});
-
 const ExerciseSchema = new Schema({
-    history: {
-        required: false,
-        type: [HistoryType]
-    },
     image: {
         required: true,
         type: String
@@ -28,10 +11,6 @@ const ExerciseSchema = new Schema({
     name: {
         required: true,
         type: String
-    },
-    note: {
-        required: false,
-        type: [NoteType]
     },
     workout_id: {
         type: Schema.Types.ObjectId,

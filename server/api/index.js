@@ -6,8 +6,11 @@ const user        = require('./user');
 const login       = require('./login');
 const signUp      = require('./sign_up');
 const workout     = require('./workout');
-const exercise    = require('./exercise');
 const uploadImage = require('./upload');
+
+const exercise    = require('./exercise');
+const exerciseNote = require('./exercise_note');
+const exerciseHistory = require('./exercise_history');
 
 router.route('/login').post(login);
 router.route('/sign_up').post(signUp);
@@ -22,7 +25,11 @@ router.route('/workout/:workout_id').put(workout.updateWorkout).delete(workout.d
 
 router.route('/list_exercise').get(exercise.listExercise);
 router.route('/exercise').get(exercise.getExercise).post(exercise.createExercise);
-router.route('/exercise/:exercise_id').put(exercise.updateExercise).delete(exercise.deleteExercise);
+router.route('/exercise/:exercise_id').delete(exercise.deleteExercise);
+
+router.route('/exercise/history').get(exerciseHistory.getExerciseHistory).post(exerciseHistory.createExerciseHistory);
+
+router.route('/exercise/note').get(exerciseNote.getExerciseNote).post(exerciseNote.createExerciseNote);
 
 router.route('/user').get(user.getInfo);
 router.route('/user/:user_id').put(user.updateInfo);

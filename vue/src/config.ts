@@ -10,7 +10,9 @@ interface apiTypes {
   upload: string,
   user: string,
   workout: string,
-  exercise: string
+  exercise: string,
+  history: string,
+  note: string
 }
 
 const domainAddress: string = 'http://localhost:3000'
@@ -27,7 +29,9 @@ const api: apiTypes = {
   upload: '/api/upload',
   user: '/api/user/',
   workout: '/api/workout/',
-  exercise: '/api/exercise/'
+  exercise: '/api/exercise/',
+  history: '/api/exercise/history',
+  note: '/api/exercise/note'
 }
 
 export default { api, domainAddress }

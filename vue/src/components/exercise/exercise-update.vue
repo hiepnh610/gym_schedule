@@ -61,17 +61,18 @@ interface SetType {
   reps?: number;
 }
 
-interface NoteType {
-  text?: string;
-}
-
 interface HistoryType {
   sets?: Array<SetType>;
 }
 
-interface ParamsExerciseUpdate {
+interface ParamsExerciseHistory {
   history?: HistoryType;
-  note?: NoteType
+  'exercise_id': string;
+}
+
+interface ParamsExerciseNote {
+  text?: string;
+  'exercise_id': string;
 }
 
 const namespaceModal: string = 'modal'
@@ -110,20 +111,18 @@ export default class ExerciseUpdate extends Vue {
       sets: setNumber
     }
 
-    const note: NoteType = {
-      text: noteContent
+    const Historyparams: ParamsExerciseHistory = {
+      history: sets,
+      'exercise_id': id
     }
 
-    const params: ParamsExerciseUpdate = {
-      history: sets
-    }
-
-    if (noteContent) {
-      params.note = note
+    const Noteparams: ParamsExerciseNote = {
+      text: noteContent,
+      'exercise_id': id
     }
 
     axios
-      .put(config.domainAddress + config.api.exercise + id, params)
+      .post(config.domainAddress + config.api.history, Historyparams)
       .then(function (response: Response) {
         this.loading = false
 
@@ -140,7 +139,6 @@ export default class ExerciseUpdate extends Vue {
 
         this.setShowModalBackdrop(false)
         this.setShowUpdateModal(false)
-        this.setUpdateExercise(response.data)
 
         this.$toasted.success('Update Successfully!!!')
       }.bind(this))
@@ -153,6 +151,30 @@ export default class ExerciseUpdate extends Vue {
 
         this.loading = false
       }.bind(this))
+
+    if (this.$refs.note.noteContent) {
+      axios
+        .post(config.domainAddress + config.api.note, Noteparams)
+        .then(function (response: Response) {
+          this.loading = false
+
+          this.$refs.note.noteContent = ''
+
+          this.setShowModalBackdrop(false)
+          this.setShowUpdateModal(false)
+
+          this.$toasted.success('Update Successfully!!!')
+        }.bind(this))
+        .catch(function (error: Response) {
+          if (error.response && error.response.data && error.response.data.message) {
+            this.errContent = error.response.data.message
+          } else {
+            this.$toasted.error('Error happened!!!')
+          }
+
+          this.loading = false
+        }.bind(this))
+    }
   }
 
   closeModal () {
