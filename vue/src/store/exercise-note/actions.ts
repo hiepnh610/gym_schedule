@@ -13,5 +13,9 @@ export const actions: ActionTree<NoteState, RootState> = {
 
   setCreateNote (context: any, data: Note): any {
     context.commit('createNote', data)
+  },
+
+  setUpdateNote (context: any, data: Note): any {
+    context.commit('updateNote', data)
   }
 }

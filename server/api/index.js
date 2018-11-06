@@ -31,7 +31,7 @@ router.route('/exercise/history').get(exerciseHistory.getExerciseHistory).post(e
 router.route('/exercise/history/:history_id').delete(exerciseHistory.deleteExerciseHistory);
 
 router.route('/exercise/note').get(exerciseNote.getExerciseNote).post(exerciseNote.createExerciseNote);
-router.route('/exercise/note/:note_id').delete(exerciseNote.deleteExerciseNote);
+router.route('/exercise/note/:note_id').put(exerciseNote.updateExerciseNote).delete(exerciseNote.deleteExerciseNote);
 
 router.route('/user').get(user.getInfo);
 router.route('/user/:user_id').put(user.updateInfo);
