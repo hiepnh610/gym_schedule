@@ -16,5 +16,13 @@ export const mutations: MutationTree<NoteState> = {
 
   createNote (state: any, data: Note): any {
     return state.listNotes.push(data)
+  },
+
+  updateNote (state: any, data: any): any {
+    for (var i = 0; i < state.listNotes.length; i++) {
+      if (state.listNotes[i]._id === data._id) {
+        state.listNotes[i].text = data.text
+      }
+    }
   }
 }
