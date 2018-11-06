@@ -27,6 +27,7 @@
     "vue-class-component": "^6.2.0",
     "vue-click-outside": "^1.0.7",
     "vue-cookie": "^1.1.4",
+    "vue-fullcalendar": "^1.0.9",
     "vue-property-decorator": "^7.2.0",
     "vue-router": "^3.0.1",
     "vue-session": "^1.0.0",

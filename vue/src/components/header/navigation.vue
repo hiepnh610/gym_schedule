@@ -23,6 +23,10 @@
         </div>
 
         <div class="d-flex align-items-center" v-else>
+          <router-link to="/calendar" class="text-capitalize text-white mr-2 d-flex">
+            <font-awesome-icon icon="calendar-alt" class="text-white mr-4" />
+          </router-link>
+
           <div class="avatar mr-2 d-flex align-items-start">
             <img :src="avatar" alt="" v-if="avatar" />
 
