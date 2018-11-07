@@ -37,6 +37,10 @@ export default class Calendar extends Vue {
   fcEvents: Array<fakeData> = [{
     title: 'Sunny Out of Office',
     start: '2018-11-06'
+  },
+  {
+    title: 'Sunny Out of Office',
+    start: '2018-11-06'
   }]
 
   created () {
