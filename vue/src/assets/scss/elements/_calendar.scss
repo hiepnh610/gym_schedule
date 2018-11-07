@@ -1,0 +1,49 @@
+.full-calendar-header {
+    .title {
+        font-size: $size-h4;
+    }
+}
+
+.full-calendar-body {
+    .weeks {
+        background: $calendar-bg;
+        border-color: $border-color;
+
+        .week {
+            border-color: $border-color;
+            color: $navy-blue-color;
+            padding: $calendar-padding;
+        }
+    }
+
+    .dates {
+        .week-row,
+        .day-cell {
+            border-color: $border-color !important;
+        }
+
+        .day-number {
+            color: $navy-blue-color;
+        }
+
+        .day-cell {
+            padding: $calendar-padding !important;
+
+            &.today {
+                .day-number {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}
+
+.red-color {
+    .full-calendar-body {
+        .dates {
+            .day-cell.today {
+                background: $first-primary-color;
+            }
+        }
+    }
+}

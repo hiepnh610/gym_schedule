@@ -1,3 +1,6 @@
+const moment = require('moment');
+const _ = require('lodash');
+
 const Histories = require('../model/exercise_history');
 
 const createExerciseHistory = (req, res) => {
@@ -29,6 +32,18 @@ const getExerciseHistory = (req, res) => {
   }
 };
 
+const getAllExerciseHistory = (req, res) => {
+  Histories.find({}, function(err, histories) {
+    if(err) return res.status(400).send(err);
+
+    const dateHistories = item => moment(item.updatedAt).format('DD/MM/YYYY');
+
+    const result = _.groupBy(histories, dateHistories);
+
+    res.status(200).json(result);
+  });
+};
+
 const deleteExerciseHistory = (req, res) => {
   if (req.params.history_id) {
       const query = req.params.history_id;
@@ -46,5 +61,6 @@ const deleteExerciseHistory = (req, res) => {
 module.exports = {
   createExerciseHistory,
   getExerciseHistory,
+  getAllExerciseHistory,
   deleteExerciseHistory
 };
