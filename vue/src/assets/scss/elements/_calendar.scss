@@ -27,6 +27,8 @@
         }
 
         .day-cell {
+            height: 100px;
+            min-height: auto;
             padding: $calendar-padding !important;
 
             &.today {
@@ -37,13 +39,15 @@
         }
 
         .events-day {
+            height: 100px;
+            min-height: auto !important;
             overflow: initial !important;
             position: relative;
 
             .event-box {
                 left: 1px;
                 position: absolute;
-                top: -9px;
+                top: 0;
 
                 .event-item {
                     background: transparent !important;

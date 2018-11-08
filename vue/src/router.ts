@@ -22,6 +22,18 @@ export default new Router({
     },
 
     {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import('./views/profile.vue')
+    },
+
+    {
+      path: '/news-feed',
+      name: 'NewsFeed',
+      component: () => import('./views/news-feed.vue')
+    },
+
+    {
       path: '/calendar',
       name: 'Calendar',
       component: () => import('./views/calendar.vue')

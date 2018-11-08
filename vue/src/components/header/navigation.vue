@@ -2,9 +2,9 @@
   <header id="main-header" class="fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
-        <a id="main-logo" class="navbar-brand text-uppercase" href="/">
+        <router-link to="/news-feed" class="navbar-brand text-uppercase" id="main-logo">
           <h1>Gym Schedule</h1>
-        </a>
+        </router-link>
 
         <div id="main-nav" class="collapse navbar-collapse" v-if="!isLogin">
           <ul class="navbar-nav">
@@ -23,6 +23,10 @@
         </div>
 
         <div class="d-flex align-items-center" v-else>
+          <router-link to="/plans" class="text-capitalize text-white mr-2 d-flex">
+            <font-awesome-icon icon="file-alt" class="text-white mr-3" />
+          </router-link>
+
           <router-link to="/calendar" class="text-capitalize text-white mr-2 d-flex">
             <font-awesome-icon icon="calendar-alt" class="text-white mr-4" />
           </router-link>
@@ -33,7 +37,7 @@
             <font-awesome-icon icon="user" v-else />
           </div>
 
-          <router-link to="/" class="text-capitalize text-white mr-2 d-flex">
+          <router-link to="/profile" class="text-capitalize text-white mr-2 d-flex">
             <span v-text="nameDisplay"></span>
           </router-link>
 
