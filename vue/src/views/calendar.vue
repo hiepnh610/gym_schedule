@@ -2,7 +2,7 @@
   <div id="calendar" v-if="!isLoading">
     <div class="container">
       <div class="text-center mb-5">
-        <full-calendar :events="fcEvents" locale="en" firstDay="1"></full-calendar>
+        <full-calendar :events="activitiesData" locale="en" firstDay="1"></full-calendar>
       </div>
     </div>
   </div>
@@ -21,8 +21,7 @@ import { Response, ID, setLoading } from '@/util'
 
 import Loading from '@/components/loading/loading.vue'
 
-interface fakeData {
-  title: String;
+interface activitiesDataType {
   start: String;
 }
 
@@ -34,17 +33,32 @@ interface fakeData {
   })
 export default class Calendar extends Vue {
   isLoading: boolean = true
-  fcEvents: Array<fakeData> = [{
-    title: 'Sunny Out of Office',
-    start: '2018-11-06'
-  },
-  {
-    title: 'Sunny Out of Office',
-    start: '2018-11-06'
-  }]
+  activitiesData: Array<activitiesDataType> = []
 
   created () {
-    setLoading(this, false)
+    axios
+      .get(config.domainAddress + config.api.calendar)
+      .then(function (response: Response) {
+        this.activitiesData = this.createNewData(response.data)
+        setLoading(this, false)
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+      }.bind(this))
+  }
+
+  createNewData (data: any) {
+    let newActivities: Array<activitiesDataType> = []
+
+    for (let item in data) {
+      newActivities.push({ start: item })
+    }
+
+    return newActivities
   }
 }
 </script>

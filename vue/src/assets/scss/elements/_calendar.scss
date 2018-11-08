@@ -35,14 +35,48 @@
                 }
             }
         }
+
+        .events-day {
+            overflow: initial !important;
+            position: relative;
+
+            .event-box {
+                left: 1px;
+                position: absolute;
+                top: -9px;
+
+                .event-item {
+                    background: transparent !important;
+                    height: 0 !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 0 !important;
+                }
+            }
+        }
     }
 }
 
 .red-color {
     .full-calendar-body {
         .dates {
+            .events-day.today {
+                .event-box {
+                    .event-item {
+                        border-left-color: $white-color !important;
+                        border-top-color: $white-color !important;
+                    }
+                }
+            }
+
             .day-cell.today {
                 background: $first-primary-color;
+            }
+
+            .event-item {
+                border: 10px solid $first-primary-color;
+                border-bottom-color: transparent;
+                border-right-color: transparent;
             }
         }
     }

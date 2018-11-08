@@ -1,18 +1,19 @@
 interface apiTypes {
-  avatar: string,
-  listPlans: string,
-  listWorkout: string,
-  listExercise: string,
-  login: string,
-  modifyPassword: string,
-  plans: string,
-  signUp: string,
-  upload: string,
-  user: string,
-  workout: string,
-  exercise: string,
-  history: string,
-  note: string
+  avatar: string;
+  listPlans: string;
+  listWorkout: string;
+  listExercise: string;
+  login: string;
+  modifyPassword: string;
+  plans: string;
+  signUp: string;
+  upload: string;
+  user: string;
+  workout: string;
+  exercise: string;
+  history: string;
+  note: string;
+  calendar: string;
 }
 
 const domainAddress: string = 'http://localhost:3000'
@@ -31,7 +32,8 @@ const api: apiTypes = {
   workout: '/api/workout/',
   exercise: '/api/exercise/',
   history: '/api/exercise/history/',
-  note: '/api/exercise/note/'
+  note: '/api/exercise/note/',
+  calendar: '/api/exercise/calendar/'
 }
 
 export default { api, domainAddress }
