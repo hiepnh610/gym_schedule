@@ -1,3 +1,7 @@
+.comp-full-calendar {
+    padding: 30px 20px;
+}
+
 .full-calendar-header {
     .title {
         font-size: $size-h4;
@@ -5,6 +9,8 @@
 }
 
 .full-calendar-body {
+    margin-top: $calendar-margin * 2;
+
     .weeks {
         background: $calendar-bg;
         border-color: $border-color;
@@ -32,6 +38,12 @@
             padding: $calendar-padding !important;
 
             &.today {
+                &.not-cur-month {
+                    .day-number {
+                        color: $white-color !important;
+                    }
+                }
+
                 .day-number {
                     color: $white-color;
                 }
@@ -74,7 +86,7 @@
             }
 
             .day-cell.today {
-                background: $first-primary-color;
+                background: $first-primary-color !important;
             }
 
             .event-item {
