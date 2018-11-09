@@ -1,8 +1,14 @@
 <template>
-  <div id="calendar" v-if="!isLoading">
+  <div id="calendar-page" v-if="!isLoading">
+    <div class="page-title">
+      <div class="container">
+        <h2 class="text-center mb-5">Calendar</h2>
+      </div>
+    </div>
+
     <div class="container">
       <div class="text-center mb-5">
-        <full-calendar :events="activitiesData" locale="en" firstDay="1"></full-calendar>
+        <full-calendar :events="activitiesData" locale="en" firstDay="1" @dayClick="dayClick"></full-calendar>
       </div>
     </div>
   </div>
@@ -14,6 +20,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import FullCalendar from 'vue-fullcalendar'
+
 import axios from 'axios'
 
 import config from '@/config'
@@ -29,6 +37,7 @@ interface activitiesDataType {
   components: {
   FontAwesomeIcon,
   Loading,
+  FullCalendar,
   },
   })
 export default class Calendar extends Vue {
@@ -59,6 +68,11 @@ export default class Calendar extends Vue {
     }
 
     return newActivities
+  }
+
+  dayClick (day: any, jsEvent: any) {
+    console.log(day)
+    console.log(jsEvent)
   }
 }
 </script>

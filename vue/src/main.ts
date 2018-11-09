@@ -6,7 +6,6 @@ import VueCookie from 'vue-cookie'
 import VueSession from 'vue-session'
 import VeeValidate from 'vee-validate'
 import BootstrapVue from 'bootstrap-vue'
-import fullCalendar from 'vue-fullcalendar'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 
 import App from './App.vue'
@@ -46,7 +45,6 @@ Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, fontawesomeOptions)
 Vue.use(BootstrapVue)
 Vue.use(VueTextareaAutosize)
-Vue.component('full-calendar', fullCalendar)
 Vue.config.productionTip = false
 
 fontawesome.library.add(brands, faSpinner)
