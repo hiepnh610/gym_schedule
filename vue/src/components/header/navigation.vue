@@ -27,7 +27,7 @@
             <font-awesome-icon icon="file-alt" class="text-white mr-3" />
           </router-link>
 
-          <router-link to="/calendar" class="text-capitalize text-white mr-2 d-flex">
+          <router-link to="/calendar/full" class="text-capitalize text-white mr-2 d-flex">
             <font-awesome-icon icon="calendar-alt" class="text-white mr-4" />
           </router-link>
 

@@ -34,12 +34,6 @@ export default new Router({
     },
 
     {
-      path: '/calendar',
-      name: 'Calendar',
-      component: () => import('./views/calendar.vue')
-    },
-
-    {
       path: '/plans',
       name: 'Plans',
       component: () => import('./views/plans.vue')
@@ -57,6 +51,25 @@ export default new Router({
       name: 'Exercises',
       props: true,
       component: () => import('./views/exercises.vue')
+    },
+
+    {
+      path: '/calendar',
+      name: 'Calendar',
+      component: () => import('./views/calendar.vue'),
+      children: [
+        {
+          path: 'full',
+          name: 'AllCalendar',
+          component: () => import('./components/calendar/full-calendar.vue')
+        },
+        {
+          path: 'detail/:date',
+          name: 'CalendarDetail',
+          props: true,
+          component: () => import('./components/calendar/calendar-detail.vue')
+        }
+      ]
     },
 
     {

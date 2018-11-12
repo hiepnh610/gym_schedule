@@ -14,6 +14,7 @@ interface apiTypes {
   history: string;
   note: string;
   calendar: string;
+  calendarDetail: string;
 }
 
 const domainAddress: string = 'http://localhost:3000'
@@ -33,7 +34,8 @@ const api: apiTypes = {
   exercise: '/api/exercise/',
   history: '/api/exercise/history/',
   note: '/api/exercise/note/',
-  calendar: '/api/exercise/calendar/'
+  calendar: '/api/exercise/calendar/',
+  calendarDetail: '/api/exercise/calendar_detail/'
 }
 
 export default { api, domainAddress }

@@ -9,7 +9,7 @@
 }
 
 .full-calendar-body {
-    margin-top: $calendar-margin * 2;
+    margin-top: $calendar-margin * 2 !important;
 
     .weeks {
         background: $calendar-bg;
@@ -55,6 +55,12 @@
             min-height: auto !important;
             overflow: initial !important;
             position: relative;
+
+            &.today {
+                .event-box {
+                    left: 0;
+                }
+            }
 
             .event-box {
                 left: 1px;

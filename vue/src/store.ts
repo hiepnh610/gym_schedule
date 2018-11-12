@@ -9,6 +9,7 @@ import { exercises } from './store/exercises/index'
 import { histories } from './store/exercise-history/index'
 import { notes } from './store/exercise-note/index'
 import { avatar } from './store/avatar/index'
+import { calendar } from './store/calendar/index'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ const store: StoreOptions<RootState> = {
     exercises,
     histories,
     notes,
-    avatar
+    avatar,
+    calendar
   },
 
   strict: process.env.NODE_ENV !== 'production'

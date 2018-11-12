@@ -1,78 +1,51 @@
 <template>
-  <div id="calendar-page" v-if="!isLoading">
+  <div id="calendar-page">
     <div class="page-title">
       <div class="container">
-        <h2 class="text-center mb-5">Calendar</h2>
+        <h2 class="text-center mb-5" v-if="calendarTitle">{{ convertDate }}</h2>
+
+        <h2 class="text-center mb-5" v-else>Calendar</h2>
       </div>
     </div>
 
     <div class="container">
-      <div class="text-center mb-5">
-        <full-calendar :events="activitiesData" locale="en" firstDay="1" @dayClick="dayClick"></full-calendar>
-      </div>
+      <router-view></router-view>
     </div>
   </div>
-
-  <loading v-else />
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import FullCalendar from 'vue-fullcalendar'
+import moment from 'moment'
 
-import axios from 'axios'
+const namespaceCalendar: string = 'calendar'
 
-import config from '@/config'
-import { Response, ID, setLoading } from '@/util'
-
-import Loading from '@/components/loading/loading.vue'
-
-interface activitiesDataType {
-  start: String;
-}
-
-@Component({
-  components: {
-  FontAwesomeIcon,
-  Loading,
-  FullCalendar,
-  },
-  })
+@Component
 export default class Calendar extends Vue {
-  isLoading: boolean = true
-  activitiesData: Array<activitiesDataType> = []
+  @Getter('calendarTitle', { namespace: namespaceCalendar }) calendarTitle: any
+
+  convertDate: string = ''
 
   created () {
-    axios
-      .get(config.domainAddress + config.api.calendar)
-      .then(function (response: Response) {
-        this.activitiesData = this.createNewData(response.data)
-        setLoading(this, false)
-      }.bind(this))
-      .catch(function (error: Response) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.message = 'Error happened.'
-        }
-      }.bind(this))
-  }
+    const _this: any = this
+    const isAuthenticated: boolean = _this.$session.exists()
+    const isCalendarPage = window.location.href === (window.location.origin + '/calendar') || window.location.href === (window.location.origin + '/calendar/')
 
-  createNewData (data: any) {
-    let newActivities: Array<activitiesDataType> = []
-
-    for (let item in data) {
-      newActivities.push({ start: item })
+    if (isAuthenticated) {
+      if (isCalendarPage) {
+        this.$router.push('/calendar/full')
+      }
     }
 
-    return newActivities
+    if (this.calendarTitle) {
+      this.convertDate = moment(new Date(this.calendarTitle)).format('DD, MMM, YYYY')
+    }
   }
 
-  dayClick (day: any, jsEvent: any) {
-    console.log(day)
-    console.log(jsEvent)
+  @Watch('calendarTitle', { immediate: true, deep: true })
+  dataCalendar (val: any, oldVal: any) {
+    this.convertDate = moment(new Date(val)).format('DD, MMM, YYYY')
   }
 }
 </script>
