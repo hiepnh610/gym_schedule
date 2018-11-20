@@ -25,7 +25,7 @@
 
           <a href="#" class="btn btn-sm btn-warning mr-1">Update</a>
 
-          <a href="#" class="btn btn-sm btn-danger">Remove</a>
+          <a href="#" class="btn btn-sm btn-danger" @click.prevent="deleteActivity(exercise._id)">Remove</a>
         </div>
       </div>
     </div>
@@ -77,6 +77,30 @@ export default class CalendarDetail extends Vue {
         } else {
           this.message = 'Error happened.'
         }
+      }.bind(this))
+  }
+
+  deleteActivity (id: String) {
+    const convertDate: any = moment(new Date(this.date)).format('MM-DD-YYYY')
+
+    const params: any = {
+      date: convertDate
+    }
+
+    axios
+      .delete(config.domainAddress + config.api.calendarDetail + id, { params })
+      .then(function () {
+        this.setDeleteExercise(id)
+        this.$toasted.success('Delete Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+
+        this.$toasted.error('Error happened!!!')
       }.bind(this))
   }
 }

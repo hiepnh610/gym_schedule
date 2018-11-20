@@ -103,7 +103,42 @@ const getActivitiesByDate = (req, res) => {
     });
 };
 
+const deleteActivitiesByDay = (req, res) => {
+    const dateSelected = new Date(req.query.date);
+
+    const startDate = moment(dateSelected).startOf('day');
+    const endDate = moment(dateSelected).endOf('day');
+
+    const deleteHistories = () => {
+        Histories.deleteOne({
+            'created_at': {
+                $gt: startDate,
+                $lt: endDate
+            },
+            'exercise_id': req.params.exercise_id
+        })
+        .exec();
+    };
+
+    const deleteNotes = () => {
+        Notes.deleteOne({
+            'created_at': {
+                $gt: startDate,
+                $lt: endDate
+            },
+            'exercise_id': req.params.exercise_id
+        })
+        .exec();
+    };
+
+    Q.all([deleteHistories(), deleteNotes()])
+    .spread(() => {
+        res.status(200).json({ message: 'Activity Deleted.' });
+    });
+};
+
 module.exports = {
     getAllActivities,
-    getActivitiesByDate
+    getActivitiesByDate,
+    deleteActivitiesByDay
 };

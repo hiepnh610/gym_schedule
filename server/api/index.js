@@ -30,6 +30,8 @@ router.route('/exercise/:exercise_id').delete(exercise.deleteExercise);
 
 router.route('/exercise/calendar').get(calendar.getAllActivities);
 router.route('/exercise/calendar_detail').get(calendar.getActivitiesByDate);
+router.route('/exercise/calendar_detail/:exercise_id').delete(calendar.deleteActivitiesByDay);
+
 router.route('/exercise/history').get(exerciseHistory.getExerciseHistory).post(exerciseHistory.createExerciseHistory);
 router.route('/exercise/history/:history_id').delete(exerciseHistory.deleteExerciseHistory);
 
