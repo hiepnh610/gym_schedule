@@ -1,0 +1,28 @@
+.list-group {
+  &.style-custom {
+    .list-group-item {
+      border-color: rgba($list-group-border-color, .3);
+      margin-bottom: $list-group-margin * 2;
+      min-height: $list-group-size-image * 9;
+      padding-left: $list-group-size-image * 10;
+      position: relative;
+      @include box-shadow(0, 4px, 6px, 0, $list-group-shadow-color);
+      @include border-radius($list-group-border-radius / 8, '');
+
+      img {
+        left: $list-group-size-image / 2;
+        max-width: $list-group-size-image * 8;
+        position: absolute;
+        top: $list-group-size-image / 2;
+      }
+
+      h4 {
+        color: $navy-blue-color;
+      }
+    }
+  }
+
+  .list-group-item {
+    border-color: $list-group-border-color;
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div id="calendar-page">
+  <div id="calendar-page" v-if="!isLoading">
     <div class="page-title">
       <div class="container">
         <h2 class="text-center mb-5" v-if="calendarTitle">{{ convertDate }}</h2>
@@ -12,6 +12,8 @@
       <router-view></router-view>
     </div>
   </div>
+
+  <loading v-else />
 </template>
 
 <script lang="ts">
@@ -19,13 +21,22 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import moment from 'moment'
 
+import { setLoading } from '@/util'
+
+import Loading from '@/components/loading/loading.vue'
+
 const namespaceCalendar: string = 'calendar'
 
-@Component
+@Component({
+  components: {
+  Loading,
+  }
+  })
 export default class Calendar extends Vue {
   @Getter('calendarTitle', { namespace: namespaceCalendar }) calendarTitle: any
 
   convertDate: string = ''
+  isLoading: boolean = true
 
   created () {
     const _this: any = this
@@ -41,6 +52,10 @@ export default class Calendar extends Vue {
     if (this.calendarTitle) {
       this.convertDate = moment(new Date(this.calendarTitle)).format('DD, MMM, YYYY')
     }
+  }
+
+  mounted () {
+    setLoading(this, false)
   }
 
   @Watch('calendarTitle', { immediate: true, deep: true })

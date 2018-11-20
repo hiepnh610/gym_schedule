@@ -20,12 +20,12 @@ const getExerciseHistory = (req, res) => {
         const query = req.query.id;
 
         Histories.find({ 'exercise_id': query })
-            .populate('exercise_id')
-            .exec(function (err, exer) {
-                if (err) return res.status(400).send(err);
+        .populate('exercise_id')
+        .exec(function (err, exer) {
+            if (err) return res.status(400).send(err);
 
-                res.status(200).json(exer);
-            });
+            res.status(200).json(exer);
+        });
     }
 };
 

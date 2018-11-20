@@ -48,6 +48,14 @@ $calendar-padding:           $size-base / 2;
 $calendar-margin:            $size-base;
 $calendar-bg:                $border-color;
 
+$list-group-border-color:    $border-color;
+$list-group-shadow-color:    $border-color;
+$list-group-margin:          $size-base;
+$list-group-size-image:      $size-base;
+$list-group-border-radius:   $size-base;
+
+$form-group-icon-color:      $gray-color;
+
 //== Media queries breakpoints
 //
 //## Define the breakpoints at which your layout will change, adapting to different screen sizes.

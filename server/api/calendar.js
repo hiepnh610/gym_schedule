@@ -19,10 +19,10 @@ const getAllActivities = (req, res) => {
     }
 
     Q.all([getHistories(), getNotes()])
-    .spread(function (x, y) {
+    .spread(function (histories, notes) {
         const dateFormat = item => moment(item.updatedAt).format('YYYY-MM-DD');
-        const mergeData = x.concat(y);
-        const groupDate = _.groupBy(mergeData, dateFormat);
+        const concatData = histories.concat(notes);
+        const groupDate = _.groupBy(concatData, dateFormat);
 
         res.status(200).json(groupDate);
     });
@@ -40,9 +40,9 @@ const getActivitiesByDate = (req, res) => {
                 $gt: startDate,
                 $lt: endDate
             }
-        }, (err, histories) => {
-            if(err) return res.status(400).send(err);
-        });
+        })
+        .populate('exercise_id')
+        .exec();
     }
 
     const getNotes = () => {
@@ -51,24 +51,55 @@ const getActivitiesByDate = (req, res) => {
                 $gt: startDate,
                 $lt: endDate
             }
-        }, (err, notes) => {
-            if(err) return res.status(400).send(err);
-        });
+        })
+        .populate('exercise_id')
+        .exec();
     }
 
     Q.all([getHistories(), getNotes()])
-    .spread(function (x, y) {
-        const mergeData = {};
+    .spread((histories, notes) => {
+        let result = [];
 
-        if (x.length > 0) {
-            mergeData.Histories = x;
+        if (notes.length) {
+            result = notes.map((note) => {
+                let newData = {};
+                const newReps = histories
+                .filter(history => history.exercise_id._id.toString() == note.exercise_id._id.toString())
+                .map(history => {
+                    return {
+                        _id: history._id,
+                        sets: history.sets
+                    }
+                });
+
+                newData['_id'] = note['exercise_id']['_id'];
+                newData['histories'] = _.flatten(newReps);
+                newData['note'] = {
+                    _id: note['_id'],
+                    text: note['text']
+                };
+                newData['name'] = note['exercise_id']['name'];
+                newData['image'] = note['exercise_id']['image'];
+
+                return newData;
+            });
+        } else {
+            result = histories.map((history) => {
+                let newData = {};
+
+                newData['_id'] = history['exercise_id']['_id'];
+                newData['name'] = history['exercise_id']['name'];
+                newData['image'] = history['exercise_id']['image'];
+                newData['histories'] = [{
+                    _id: history._id,
+                    sets: history.sets
+                }];
+
+                return newData;
+            });
         }
 
-        if (y.length > 0) {
-            mergeData.Notes = y;
-        }
-
-        res.status(200).json(mergeData);
+        res.status(200).json(result);
     });
 };
 

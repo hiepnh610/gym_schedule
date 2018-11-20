@@ -1,9 +1,9 @@
 <template>
   <div class="history">
-    <small class="d-block text-muted text-left border-bottom py-2 px-3">Logs for <em class="text-primary">{{ exerciseName }}</em></small>
+    <small class="d-block text-muted text-left py-2 px-3 bg-light">Logs for <em class="text-primary">{{ exerciseName }}</em></small>
 
     <ul class="list-unstyled m-0">
-      <li class="py-2 px-3 border-bottom" v-for="(history, index) in listHistories" :key="index">
+      <li class="py-2 px-3" v-for="(history, index) in listHistories" :key="index">
         <div class="row">
           <div class="col text-left">
             <small class="smallest history-date">

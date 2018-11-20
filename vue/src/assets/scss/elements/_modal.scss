@@ -24,6 +24,10 @@
   .modal-body {
     padding: 0;
 
+    > img {
+      @include border-radius($border-radius-size $border-radius-size 0 0, '');
+    }
+
     .form-group-header {
       padding: 1.875rem 1.875rem 0;
 

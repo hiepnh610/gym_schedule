@@ -5,5 +5,9 @@ import { RootState } from '@/types'
 export const getters: GetterTree<CalendarState, RootState> = {
   calendarTitle (state: any): string {
     return state.calendarTitle
+  },
+
+  listExercises (state: any): any {
+    return state.listExercises
   }
 }

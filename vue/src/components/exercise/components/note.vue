@@ -1,6 +1,6 @@
 <template>
   <div class="note text-left">
-    <div class="note-list border-bottom pl-3 pr-3 pb-3 pt-2" v-for="(note, index) in newListNotes" :key="index">
+    <div class="note-list pt-3 pr-3 pl-3" v-for="(note, index) in newListNotes" :key="index">
       <div class="row">
         <div class="col-12">
           <p class="text-secondary mb-2" v-if="isEdit !== index"><small>{{ note.text }}</small></p>

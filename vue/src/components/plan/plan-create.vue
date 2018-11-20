@@ -158,8 +158,6 @@ export default class PlanCreate extends Vue {
         this.$toasted.success('Create Successfully!!!')
       }.bind(this))
       .catch(function (error: Response) {
-        console.log(error)
-
         if (error.response && error.response.data && error.response.data.message) {
           this.message = error.response.data.message
         } else {

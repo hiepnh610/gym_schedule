@@ -66,7 +66,7 @@ export default class AllCalendar extends Vue {
   }
 
   dayClick (date: any, jsEvent: any) {
-    const dateSelected: string = moment(date).format('DD-MM-YYYY')
+    const dateSelected: string = moment(date).format('MM-DD-YYYY')
 
     this.$router.push({
       path: `detail/${dateSelected}`

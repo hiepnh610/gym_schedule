@@ -6,7 +6,8 @@ import { CalendarState } from './types'
 import { RootState } from '@/types'
 
 export const state: CalendarState = {
-  calendarTitle: ''
+  calendarTitle: '',
+  listExercises: []
 }
 
 const namespaced: boolean = true

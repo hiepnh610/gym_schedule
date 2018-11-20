@@ -1,5 +1,35 @@
 <template>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore voluptas sint exercitationem, iure impedit, cupiditate, hic ipsum excepturi aliquam magnam optio id officiis numquam possimus libero at beatae ipsam praesentium.</p>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="list-group style-custom">
+        <div class="list-group-item" v-for="(exercise, index) in listExercises" :key="index">
+          <img :src="exercise.image" alt="">
+
+          <h5 class="mb-2">{{ exercise.name }}</h5>
+
+          <small class="text-muted mb-1" v-if="exercise.note"><strong>Note:</strong> {{ exercise.note.text }}</small>
+
+          <div class="row" v-for="(history, index) in exercise.histories" :key="index">
+            <div class="col-3 mb-2 text-muted" v-for="(set, index) in history.sets" :key="index">
+              <small>
+                <strong>Set {{ index + 1 }}: </strong>
+
+                <span>{{ set.weight }} kg</span>
+
+                <span> - </span>
+
+                <span>{{ set.reps }} reps</span>
+              </small>
+            </div>
+          </div>
+
+          <a href="#" class="btn btn-sm btn-warning mr-1">Update</a>
+
+          <a href="#" class="btn btn-sm btn-danger">Remove</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -24,8 +54,12 @@ export default class CalendarDetail extends Vue {
 
   @Action('setCalendarTitle', { namespace: namespaceCalendar }) setCalendarTitle: any
 
+  @Action('setListExercises', { namespace: namespaceCalendar }) setListExercises: any
+  @Action('setDeleteExercise', { namespace: namespaceCalendar }) setDeleteExercise: any
+  @Getter('listExercises', { namespace: namespaceCalendar }) listExercises: any
+
   created () {
-    const convertDate: any = moment(new Date(this.date)).format('DD-MM-YYYY')
+    const convertDate: any = moment(new Date(this.date)).format('MM-DD-YYYY')
     const params: DateParam = {
       date: convertDate
     }
@@ -34,7 +68,9 @@ export default class CalendarDetail extends Vue {
 
     axios
       .get(config.domainAddress + config.api.calendarDetail, { params })
-      .then(function (response: Response) {})
+      .then(function (response: Response) {
+        this.setListExercises(response.data)
+      }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
           this.message = error.response.data.message
