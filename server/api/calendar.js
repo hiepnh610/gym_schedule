@@ -60,30 +60,70 @@ const getActivitiesByDate = (req, res) => {
     .spread((histories, notes) => {
         let result = [];
 
-        if (notes.length) {
-            result = notes.map((note) => {
-                let newData = {};
-                const newReps = histories
-                .filter(history => history.exercise_id._id.toString() == note.exercise_id._id.toString())
-                .map(history => {
-                    return {
-                        _id: history._id,
-                        sets: history.sets
-                    }
+        if (histories.length && notes.length) {
+            if (notes.length >= histories.length) {
+                result = notes.map((note) => {
+                    const newReps = _.flatten(histories
+                    .filter(history => history['exercise_id']['_id'].toString() == note['exercise_id']['_id'].toString())
+                    .map(history => {
+                        return {
+                            _id: history['_id'],
+                            sets: history['sets']
+                        }
+                    }));
+
+                    let newData = {};
+
+                    newData['_id'] = note['exercise_id']['_id'];
+                    newData['name'] = note['exercise_id']['name'];
+                    newData['image'] = note['exercise_id']['image'];
+                    newData['histories'] = newReps;
+                    newData['note'] = {
+                        _id: note['_id'],
+                        text: note['text']
+                    };
+
+                    return newData;
                 });
+            }
 
-                newData['_id'] = note['exercise_id']['_id'];
-                newData['histories'] = _.flatten(newReps);
-                newData['note'] = {
-                    _id: note['_id'],
-                    text: note['text']
-                };
-                newData['name'] = note['exercise_id']['name'];
-                newData['image'] = note['exercise_id']['image'];
+            if (notes.length < histories.length) {
+                result = histories.map((history) => {
+                    const newNotes = notes
+                        .filter(note => history['exercise_id']['_id'].toString() == note['exercise_id']['_id'].toString())
+                        .map(note => {
+                            return {
+                                _id: note['_id'],
+                                text: note['text']
+                            }
+                        });
 
-                return newData;
-            });
-        } else {
+                    // Convert note array to object.
+                    const convertNote = _.reduce(newNotes , (obj, note) => {
+                        obj['_id'] = note['_id'];
+                        obj['text'] = note['text'];
+
+                        return obj;
+                    }, {});
+
+                    let newData = {};
+
+                    newData['_id'] = history['exercise_id']['_id'];
+                    newData['name'] = history['exercise_id']['name'];
+                    newData['image'] = history['exercise_id']['image'];
+                    newData['histories'] = [{
+                        _id: history['_id'],
+                        sets: history['sets']
+                    }];
+
+                    if (!_.isEmpty(convertNote)) {
+                        newData['note'] = convertNote;
+                    }
+
+                    return newData;
+                });
+            }
+        } else if (histories.length) {
             result = histories.map((history) => {
                 let newData = {};
 
@@ -94,6 +134,20 @@ const getActivitiesByDate = (req, res) => {
                     _id: history._id,
                     sets: history.sets
                 }];
+
+                return newData;
+            });
+        } else {
+            result = notes.map((note) => {
+                let newData = {};
+
+                newData['_id'] = note['exercise_id']['_id'];
+                newData['name'] = note['exercise_id']['name'];
+                newData['image'] = note['exercise_id']['image'];
+                newData['note'] = {
+                    _id: note._id,
+                    text: note.text
+                };
 
                 return newData;
             });

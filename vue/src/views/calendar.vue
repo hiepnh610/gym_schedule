@@ -1,6 +1,6 @@
 <template>
   <div id="calendar-page" v-if="!isLoading">
-    <div class="page-title">
+    <div class="page-title mb-5">
       <div class="container">
         <h2 class="text-center mb-5" v-if="calendarTitle">{{ convertDate }}</h2>
 

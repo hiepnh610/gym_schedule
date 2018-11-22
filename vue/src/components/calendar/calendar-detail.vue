@@ -1,13 +1,13 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-12">
-      <div class="list-group style-custom">
+      <div class="list-group style-custom" v-if="listExercises.length > 0">
         <div class="list-group-item" v-for="(exercise, index) in listExercises" :key="index">
           <img :src="exercise.image" alt="">
 
           <h5 class="mb-2">{{ exercise.name }}</h5>
 
-          <small class="text-muted mb-1" v-if="exercise.note"><strong>Note:</strong> {{ exercise.note.text }}</small>
+          <p><small class="text-muted" v-if="exercise.note"><strong>Note:</strong> {{ exercise.note.text }}</small></p>
 
           <div class="row" v-for="(history, index) in exercise.histories" :key="index">
             <div class="col-3 mb-2 text-muted" v-for="(set, index) in history.sets" :key="index">
@@ -23,11 +23,13 @@
             </div>
           </div>
 
-          <a href="#" class="btn btn-sm btn-warning mr-1">Update</a>
+          <a href="#" class="btn btn-sm btn-warning mr-1 ml-0">Update</a>
 
           <a href="#" class="btn btn-sm btn-danger" @click.prevent="deleteActivity(exercise._id)">Remove</a>
         </div>
       </div>
+
+      <p class="text-center" v-else>You haven't add any logs.</p>
     </div>
   </div>
 </template>
@@ -35,6 +37,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import moment from 'moment'
 
 import axios from 'axios'
@@ -48,7 +51,11 @@ interface DateParam {
   date: string;
 }
 
-@Component
+@Component({
+  components: {
+  FontAwesomeIcon,
+  },
+  })
 export default class CalendarDetail extends Vue {
   @Prop() date!: string
 
