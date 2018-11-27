@@ -6,8 +6,8 @@ import { modal } from './store/modal/index'
 import { plans } from './store/plans/index'
 import { workouts } from './store/workouts/index'
 import { exercises } from './store/exercises/index'
-import { histories } from './store/exercise-history/index'
-import { notes } from './store/exercise-note/index'
+import { trackLog } from './store/track-log/index'
+import { notes } from './store/note/index'
 import { avatar } from './store/avatar/index'
 import { calendar } from './store/calendar/index'
 
@@ -23,7 +23,7 @@ const store: StoreOptions<RootState> = {
     plans,
     workouts,
     exercises,
-    histories,
+    trackLog,
     notes,
     avatar,
     calendar

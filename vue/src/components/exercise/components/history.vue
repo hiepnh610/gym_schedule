@@ -3,7 +3,7 @@
     <small class="d-block text-muted text-left py-2 px-3 bg-light">Logs for <em class="text-primary">{{ exerciseName }}</em></small>
 
     <ul class="list-unstyled m-0">
-      <li class="py-2 px-3" v-for="(history, index) in listHistories" :key="index">
+      <li class="py-2 px-3" v-for="(history, index) in newListTrackLogs" v-if="history.track_log.length > 0" :key="index">
         <div class="row">
           <div class="col text-left">
             <small class="smallest history-date">
@@ -13,7 +13,7 @@
 
           <div class="col text-left">
             <small class="smallest">
-              <span class="d-block mb-1" v-for="(set, index) in history.sets" :key="index">Set {{ index + 1 }}: {{ set.weight }} kg x {{ set.reps }} reps</span>
+              <span class="d-block mb-1" v-for="(log, index) in history.track_log" :key="index">Set {{ index + 1 }}: {{ log.weight }} kg x {{ log.reps }} reps</span>
             </small>
           </div>
 
@@ -38,7 +38,19 @@ import moment from 'moment'
 import config from '@/config'
 import { Response, ID } from '@/util'
 
-const namespaceHistories: string = 'histories'
+interface TrackLogType {
+  reps: Number;
+  weight: Number;
+}
+
+interface NewListTrackLogs {
+  _id: String;
+  'created_at': String;
+  'track_log': Array<TrackLogType>;
+  'exercise_id': String;
+}
+
+const namespaceTrackLog: string = 'trackLog'
 
 @Component({
   components: {
@@ -48,18 +60,20 @@ const namespaceHistories: string = 'histories'
 export default class History extends Vue {
   @Prop() exerciseName!: string
 
-  @Action('setDeleteHistory', { namespace: namespaceHistories }) setDeleteHistory: any
-  @Getter('listHistories', { namespace: namespaceHistories }) listHistories: any
+  @Action('setDeleteTrackLog', { namespace: namespaceTrackLog }) setDeleteTrackLog: any
+  @Getter('listTrackLog', { namespace: namespaceTrackLog }) listTrackLog: any
+
+  newListTrackLogs: Array<NewListTrackLogs> = []
 
   DateFormat (date: string): string {
     return moment(date).format('DD/MM/YYYY')
   }
 
   removeHistory (id: string) {
-    this.setDeleteHistory(id)
+    this.setDeleteTrackLog(id)
 
     axios
-      .delete(config.domainAddress + config.api.history + id)
+      .put(config.domainAddress + config.api.trackLog + id)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))
@@ -72,6 +86,11 @@ export default class History extends Vue {
 
         this.$toasted.error('Error happened!!!')
       }.bind(this))
+  }
+
+  @Watch('listTrackLog', { immediate: true, deep: true })
+  dataNotes (val: any, oldVal: any) {
+    this.newListTrackLogs = val
   }
 }
 </script>

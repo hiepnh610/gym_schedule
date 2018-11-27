@@ -12,6 +12,7 @@ interface apiTypes {
   workout: string;
   exercise: string;
   history: string;
+  trackLog: string;
   note: string;
   calendar: string;
   calendarDetail: string;
@@ -33,6 +34,7 @@ const api: apiTypes = {
   workout: '/api/workout/',
   exercise: '/api/exercise/',
   history: '/api/exercise/history/',
+  trackLog: '/api/exercise/track_log/',
   note: '/api/exercise/note/',
   calendar: '/api/exercise/calendar/',
   calendarDetail: '/api/exercise/calendar_detail/'

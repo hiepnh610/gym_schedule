@@ -51,7 +51,7 @@ import exerciseUpdate from './exercise-update.vue'
 
 const namespaceModal: string = 'modal'
 const namespaceExercises: string = 'exercises'
-const namespaceHistories: string = 'histories'
+const namespaceTrackLog: string = 'trackLog'
 const namespaceNotes: string = 'notes'
 
 @Component({
@@ -67,7 +67,7 @@ export default class ListExercises extends Vue {
   @Action('setDeleteExercise', { namespace: namespaceExercises }) setDeleteExercise: any
   @Getter('listExercises', { namespace: namespaceExercises }) listExercises: any
 
-  @Action('setListHistories', { namespace: namespaceHistories }) setListHistories: any
+  @Action('setListTrackLog', { namespace: namespaceTrackLog }) setListTrackLog: any
 
   @Action('setListNotes', { namespace: namespaceNotes }) setListNotes: any
 
@@ -82,20 +82,28 @@ export default class ListExercises extends Vue {
     axios
       .get(config.domainAddress + config.api.history, { params })
       .then(function (response: Response) {
-        this.setListHistories(response.data)
-      }.bind(this))
-      .catch(function (error: Response) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.message = 'Error happened.'
-        }
-      }.bind(this))
+        // Create separate data and push to store
+        // prevent affect other data when data mutation
+        const newListTrackLog = response.data.map((e: any) => {
+          return {
+            _id: e._id,
+            'created_at': e.created_at,
+            'track_log': e.track_log,
+            'exercise_id': e.exercise_id
+          }
+        })
 
-    axios
-      .get(config.domainAddress + config.api.note, { params })
-      .then(function (response: Response) {
-        this.setListNotes(response.data)
+        const newListNotes = response.data.map((e: any) => {
+          return {
+            _id: e._id,
+            'created_at': e.created_at,
+            'note': e.note,
+            'exercise_id': e.exercise_id
+          }
+        })
+
+        this.setListTrackLog(newListTrackLog)
+        this.setListNotes(newListNotes)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

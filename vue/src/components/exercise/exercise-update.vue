@@ -61,17 +61,9 @@ interface SetType {
   reps?: number;
 }
 
-interface HistoryType {
-  sets?: Array<SetType>;
-}
-
 interface ParamsExerciseHistory {
-  history?: HistoryType;
-  'exercise_id': string;
-}
-
-interface ParamsExerciseNote {
-  text?: string;
+  'track_log'?: Array<SetType>;
+  note?: string;
   'exercise_id': string;
 }
 
@@ -107,18 +99,13 @@ export default class ExerciseUpdate extends Vue {
     const setNumber: Array<SetType> = this.$refs.trackLog.setNumber
     const noteContent: string = this.$refs.note.noteContent
 
-    const sets: HistoryType = {
-      sets: setNumber
-    }
-
-    const Historyparams: ParamsExerciseHistory = {
-      history: sets,
+    let Historyparams: ParamsExerciseHistory = {
+      'track_log': setNumber,
       'exercise_id': id
     }
 
-    const Noteparams: ParamsExerciseNote = {
-      text: noteContent,
-      'exercise_id': id
+    if (this.$refs.note.noteContent) {
+      Historyparams.note = noteContent
     }
 
     axios
@@ -126,6 +113,7 @@ export default class ExerciseUpdate extends Vue {
       .then(function (response: Response) {
         this.loading = false
 
+        this.$refs.note.noteContent = ''
         this.$refs.trackLog.setNumber = [
           {
             weight: 0,
@@ -151,28 +139,6 @@ export default class ExerciseUpdate extends Vue {
 
         this.loading = false
       }.bind(this))
-
-    if (this.$refs.note.noteContent) {
-      axios
-        .post(config.domainAddress + config.api.note, Noteparams)
-        .then(function (response: Response) {
-          this.loading = false
-
-          this.$refs.note.noteContent = ''
-
-          this.setShowModalBackdrop(false)
-          this.setShowUpdateModal(false)
-        }.bind(this))
-        .catch(function (error: Response) {
-          if (error.response && error.response.data && error.response.data.message) {
-            this.errContent = error.response.data.message
-          } else {
-            this.$toasted.error('Error happened!!!')
-          }
-
-          this.loading = false
-        }.bind(this))
-    }
   }
 
   closeModal () {

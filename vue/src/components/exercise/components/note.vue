@@ -1,31 +1,31 @@
 <template>
   <div class="note text-left">
-    <div class="note-list pt-3 pr-3 pl-3" v-for="(note, index) in newListNotes" :key="index">
+    <div class="note-list pt-3 pr-3 pl-3" v-for="(history, index) in newListNotes" :key="index" v-if="history.note">
       <div class="row">
         <div class="col-12">
-          <p class="text-secondary mb-2" v-if="isEdit !== index"><small>{{ note.text }}</small></p>
+          <p class="text-secondary mb-2" v-if="isEdit !== index"><small>{{ history.note }}</small></p>
 
           <textarea-autosize
           class="form-control mb-2"
           :min-height="60"
           :max-height="300"
-          :value="note.text"
+          :value="history.note"
           v-if="isEdit === index"
           ref="textareaEdit" />
         </div>
 
         <div class="col-6 text-left">
-          <small class="smallest">{{ DateFormat(note.created_at) }}</small>
+          <small class="smallest">{{ DateFormat(history.created_at) }}</small>
         </div>
 
         <div class="col-6 text-right" v-if="isEdit !== index">
           <a href="#" class="text-warning smallest" @click.prevent="editNote(index)">Edit</a>
 
-          <a href="#" class="text-danger smallest ml-3" @click.prevent="removeNote(note._id)">Remove</a>
+          <a href="#" class="text-danger smallest ml-3" @click.prevent="removeNote(history._id)">Remove</a>
         </div>
 
         <div class="col-6 text-right" v-if="isEdit === index">
-          <a href="#" class="text-success smallest" @click.prevent="saveNoteEdited(note._id)">Save</a>
+          <a href="#" class="text-success smallest" @click.prevent="saveNoteEdited(history._id)">Save</a>
 
           <a href="#" class="text-secondary smallest ml-3" @click.prevent="cancelEditNote">Cancel</a>
         </div>
@@ -55,7 +55,7 @@ import { Response, ID } from '@/util'
 interface NewListNotes {
   _id: String;
   'created_at': String;
-  text: String;
+  note: String;
   'exercise_id': String;
 }
 
@@ -74,8 +74,6 @@ export default class Note extends Vue {
   @Action('setDeleteNote', { namespace: namespaceNotes }) setDeleteNote: any
   @Getter('listNotes', { namespace: namespaceNotes }) listNotes: any
 
-  @Action('setUpdateNote', { namespace: namespaceNotes }) setUpdateNote: any
-
   newListNotes: Array<NewListNotes> = []
   noteContent: string = ''
   isEdit: number = -1
@@ -88,7 +86,7 @@ export default class Note extends Vue {
     this.setDeleteNote(id)
 
     axios
-      .delete(config.domainAddress + config.api.note + id)
+      .put(config.domainAddress + config.api.note + id)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))
@@ -118,25 +116,25 @@ export default class Note extends Vue {
       text: textareaEdit[0].val
     }
 
-    axios
-      .put(config.domainAddress + config.api.note + id, params)
-      .then(function (response: Response) {
-        this.loading = false
-        this.isEdit = -1
+    // axios
+    //   .put(config.domainAddress + config.api.note + id, params)
+    //   .then(function (response: Response) {
+    //     this.loading = false
+    //     this.isEdit = -1
 
-        this.setUpdateNote(response.data)
+    //     this.setUpdateNote(response.data)
 
-        this.$toasted.success('Update Successfully!!!')
-      }.bind(this))
-      .catch(function (error: Response) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
-        } else {
-          this.$toasted.error('Error happened!!!')
-        }
+    //     this.$toasted.success('Update Successfully!!!')
+    //   }.bind(this))
+    //   .catch(function (error: Response) {
+    //     if (error.response && error.response.data && error.response.data.message) {
+    //       this.errContent = error.response.data.message
+    //     } else {
+    //       this.$toasted.error('Error happened!!!')
+    //     }
 
-        this.loading = false
-      }.bind(this))
+    //     this.loading = false
+    //   }.bind(this))
   }
 
   @Watch('listNotes', { immediate: true, deep: true })

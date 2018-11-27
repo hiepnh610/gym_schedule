@@ -2,7 +2,7 @@ const moment = require('moment');
 const _ = require('lodash');
 const Q = require('q');
 
-const Histories = require('../model/exercise_history');
+const Histories = require('../model/exercise_histories');
 const Notes = require('../model/exercise_note');
 
 const getAllActivities = (req, res) => {
@@ -61,16 +61,19 @@ const getActivitiesByDate = (req, res) => {
         let result = [];
 
         if (histories.length && notes.length) {
-            if (notes.length >= histories.length) {
+            if (notes.length > histories.length) {
                 result = notes.map((note) => {
-                    const newReps = _.flatten(histories
-                    .filter(history => history['exercise_id']['_id'].toString() == note['exercise_id']['_id'].toString())
-                    .map(history => {
-                        return {
-                            _id: history['_id'],
-                            sets: history['sets']
-                        }
-                    }));
+                    const newHistories = _.uniqBy(histories
+                        .filter(history => history['exercise_id']['_id'].toString() == note['exercise_id']['_id'].toString())
+                , h => h['exercise_id']['_id'].toString());
+
+                    const newReps = _.flatten(newHistories)
+                        .map(history => {
+                            return {
+                                _id: history['_id'],
+                                sets: history['sets']
+                            }
+                        });
 
                     let newData = {};
 
@@ -87,7 +90,7 @@ const getActivitiesByDate = (req, res) => {
                 });
             }
 
-            if (notes.length < histories.length) {
+            if (notes.length <= histories.length) {
                 result = histories.map((history) => {
                     const newNotes = notes
                         .filter(note => history['exercise_id']['_id'].toString() == note['exercise_id']['_id'].toString())
