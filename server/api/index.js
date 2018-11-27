@@ -7,7 +7,7 @@ const login       = require('./login');
 const signUp      = require('./sign_up');
 const workout     = require('./workout');
 const uploadImage = require('./upload');
-// const calendar    = require('./calendar');
+const calendar    = require('./calendar');
 
 const exercise    = require('./exercise');
 const exerciseHistories = require('./exercise_histories');
@@ -27,9 +27,9 @@ router.route('/list_exercise').get(exercise.listExercise);
 router.route('/exercise').get(exercise.getExercise).post(exercise.createExercise);
 router.route('/exercise/:exercise_id').delete(exercise.deleteExercise);
 
-// router.route('/exercise/calendar').get(calendar.getAllActivities);
-// router.route('/exercise/calendar_detail').get(calendar.getActivitiesByDate);
-// router.route('/exercise/calendar_detail/:exercise_id').delete(calendar.deleteActivitiesByDay);
+router.route('/exercise/calendar').get(calendar.getAllHistories);
+router.route('/exercise/calendar_detail').get(calendar.getHistoriesByDate);
+router.route('/exercise/calendar_detail/:history_id').delete(calendar.deleteHistoryByDate);
 
 router.route('/exercise/history').get(exerciseHistories.getExerciseHistory).post(exerciseHistories.createExerciseHistory);
 router.route('/exercise/track_log/:history_id').put(exerciseHistories.deleteExerciseTrackLog);

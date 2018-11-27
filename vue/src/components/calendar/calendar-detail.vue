@@ -7,18 +7,18 @@
 
           <h5 class="mb-2">{{ exercise.name }}</h5>
 
-          <p><small class="text-muted" v-if="exercise.note"><strong>Note:</strong> {{ exercise.note.text }}</small></p>
+          <p><small class="text-muted" v-if="exercise.note"><strong>Note:</strong> {{ exercise.note }}</small></p>
 
-          <div class="row" v-for="(history, index) in exercise.histories" :key="index">
-            <div class="col-3 mb-2 text-muted" v-for="(set, index) in history.sets" :key="index">
+          <div class="row">
+            <div class="col-3 mb-2 text-muted" v-for="(log, index) in exercise.track_log" :key="index">
               <small>
                 <strong>Set {{ index + 1 }}: </strong>
 
-                <span>{{ set.weight }} kg</span>
+                <span>{{ log.weight }} kg</span>
 
                 <span> - </span>
 
-                <span>{{ set.reps }} reps</span>
+                <span>{{ log.reps }} reps</span>
               </small>
             </div>
           </div>
@@ -88,14 +88,8 @@ export default class CalendarDetail extends Vue {
   }
 
   deleteActivity (id: String) {
-    const convertDate: any = moment(new Date(this.date)).format('MM-DD-YYYY')
-
-    const params: any = {
-      date: convertDate
-    }
-
     axios
-      .delete(config.domainAddress + config.api.calendarDetail + id, { params })
+      .delete(config.domainAddress + config.api.calendarDetail + id)
       .then(function () {
         this.setDeleteExercise(id)
         this.$toasted.success('Delete Successfully!!!')
