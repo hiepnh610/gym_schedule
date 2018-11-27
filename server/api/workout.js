@@ -6,7 +6,7 @@ const listWorkout = (req, res) => {
     if (req.query.id) {
         Workout.find({ '_id': req.query.id })
         .populate('_id')
-        .exec(function (err, list) {
+        .exec((err, list) => {
             if(err) return res.status(400).send(err);
 
             res.status(200).json(list);
@@ -18,7 +18,7 @@ const getWorkout = (req, res) => {
     if (req.query.id) {
         Workout.find({ 'plan_id': req.query.id })
         .populate('plan_id')
-        .exec(function (err, plans) {
+        .exec((err, plans) => {
             if(err) return res.status(400).send(err);
 
             res.status(200).json(plans);

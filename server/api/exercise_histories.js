@@ -25,7 +25,7 @@ const getExerciseHistory = (req, res) => {
 
         Histories.find({ 'exercise_id': query })
         .populate('exercise_id')
-        .exec(function (err, history) {
+        .exec((err, history) => {
             if (err) return res.status(400).send(err);
 
             res.status(200).json(history);

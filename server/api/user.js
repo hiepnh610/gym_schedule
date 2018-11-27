@@ -9,7 +9,7 @@ const getInfo = (req, res) => {
     if (req.query.id) {
         User.find({ '_id': req.query.id })
         // .populate('_id')
-        .exec(function (err, userInfo) {
+        .exec((err, userInfo) => {
             if(err) return res.status(400).send(err);
 
             if (userInfo.length > 0) {

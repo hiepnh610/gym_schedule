@@ -8,7 +8,7 @@ const listExercise = (req, res) => {
 
         Exercise.find({ '_id': query })
         .populate('_id')
-        .exec(function (err, list) {
+        .exec((err, list) => {
             if(err) return res.status(400).send(err);
 
             res.status(200).json(list);
@@ -22,7 +22,7 @@ const getExercise = (req, res) => {
 
         Exercise.find({ 'workout_id': query })
         .populate('workout_id')
-        .exec(function (err, exer) {
+        .exec((err, exer) => {
             if(err) return res.status(400).send(err);
 
             res.status(200).json(exer);

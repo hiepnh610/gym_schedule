@@ -6,7 +6,7 @@ const listPlans = (req, res) => {
     if (req.query.id) {
         Plan.find({ '_id': req.query.id })
         .populate('_id')
-        .exec(function (err, list) {
+        .exec((err, list) => {
             if(err) return res.status(400).send(err);
 
             res.status(200).json(list);
