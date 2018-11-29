@@ -86,7 +86,7 @@ export default class ListWorkouts extends Vue {
     this.setDeleteWorkout(id)
 
     axios
-      .delete(config.domainAddress + config.api.workout + id)
+      .delete(config.api.workout + id)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))

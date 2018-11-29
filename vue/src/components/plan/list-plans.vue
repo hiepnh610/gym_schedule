@@ -79,7 +79,7 @@ export default class ListPlans extends Vue {
     this.setDeletePlan(id)
 
     axios
-      .delete(config.domainAddress + config.api.plans + id)
+      .delete(config.api.plans + id)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))

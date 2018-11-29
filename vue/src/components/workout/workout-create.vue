@@ -124,7 +124,7 @@ export default class WorkoutCreate extends Vue {
     this.loading = true
 
     axios
-      .post(config.domainAddress + config.api.workout, params)
+      .post(config.api.workout, params)
       .then(function (response: Response) {
         const dataItem: dataItem = {
           createdBy: response.data.created_by,

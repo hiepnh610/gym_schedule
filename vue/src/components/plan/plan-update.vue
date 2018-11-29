@@ -136,7 +136,7 @@ export default class PlanUpdate extends Vue {
     this.loading = true
 
     axios
-      .put(config.domainAddress + config.api.plans + id, params)
+      .put(config.api.plans + id, params)
       .then(function (response: Response) {
         this.loading = false
 

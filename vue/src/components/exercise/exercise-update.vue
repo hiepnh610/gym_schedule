@@ -109,7 +109,7 @@ export default class ExerciseUpdate extends Vue {
     }
 
     axios
-      .post(config.domainAddress + config.api.history, Historyparams)
+      .post(config.api.history, Historyparams)
       .then(function (response: Response) {
         this.loading = false
 

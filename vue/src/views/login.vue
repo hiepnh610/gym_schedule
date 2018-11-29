@@ -76,7 +76,7 @@ export default class Login extends Vue {
       this.disabledBtn = true
 
       axios
-        .post(config.domainAddress + config.api.login, params)
+        .post(config.api.login, params)
         .then(function (response: Response) {
           window.location.href = location.origin + '/dashboard'
 

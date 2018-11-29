@@ -54,7 +54,7 @@ export default class App extends Vue {
 
     if (_this.$session.exists()) {
       axios
-        .get(config.domainAddress + config.api.user, {
+        .get(config.api.user, {
           params: {
             id: _this.$session.get('id')
           }

@@ -97,7 +97,7 @@ export default class ExerciseCreate extends Vue {
     }
 
     axios
-      .post(config.domainAddress + config.api.exercise, params)
+      .post(config.api.exercise, params)
       .then(function (response: Response) {
         const dataItem: dataItem = {
           _id: response.data._id,

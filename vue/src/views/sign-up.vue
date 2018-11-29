@@ -92,7 +92,7 @@ export default class SignUp extends Vue {
       this.disabledBtn = true
 
       axios
-        .post(config.domainAddress + config.api.signUp, params)
+        .post(config.api.signUp, params)
         .then(function (response: Response) {
           window.location.href = location.origin + '/dashboard'
 

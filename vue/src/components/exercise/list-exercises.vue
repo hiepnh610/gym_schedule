@@ -80,7 +80,7 @@ export default class ListExercises extends Vue {
     }
 
     axios
-      .get(config.domainAddress + config.api.history, { params })
+      .get(config.api.history, { params })
       .then(function (response: Response) {
         // Create separate data and push to store
         // prevent affect other data when data mutation
@@ -123,7 +123,7 @@ export default class ListExercises extends Vue {
     this.setDeleteExercise(id)
 
     axios
-      .delete(config.domainAddress + config.api.exercise + id)
+      .delete(config.api.exercise + id)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))

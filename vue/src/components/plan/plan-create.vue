@@ -143,7 +143,7 @@ export default class PlanCreate extends Vue {
     this.loading = true
 
     axios
-      .post(config.domainAddress + config.api.plans, params)
+      .post(config.api.plans, params)
       .then(function (response: Response) {
         this.namePlan = ''
         this.typePlan = ''

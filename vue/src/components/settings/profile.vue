@@ -162,7 +162,7 @@ export default class Profile extends Vue {
     const _this: any = this
 
     axios
-      .get(config.domainAddress + config.api.user, {
+      .get(config.api.user, {
         params: {
           id: _this.$session.get('id')
         }
@@ -203,7 +203,7 @@ export default class Profile extends Vue {
     this.updateInfoIsLoading = true
 
     axios
-      .put(config.domainAddress + config.api.user + id, params)
+      .put(config.api.user + id, params)
       .then(function () {
         this.updateInfoIsLoading = false
         this.$toasted.success('Update Successfully!!!')
@@ -269,7 +269,7 @@ export default class Profile extends Vue {
     this.updateAvatarIsLoading = true
 
     axios
-      .post(config.domainAddress + config.api.upload, formData, configHeader)
+      .post(config.api.upload, formData, configHeader)
       .then(function (response: Response) {
         this.setAvatar(response.data.avatar.location)
         this.setShowModalBackdrop(false)

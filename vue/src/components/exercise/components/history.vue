@@ -73,7 +73,7 @@ export default class History extends Vue {
     this.setDeleteTrackLog(id)
 
     axios
-      .put(config.domainAddress + config.api.trackLog + id)
+      .put(config.api.trackLog + id)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))

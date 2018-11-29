@@ -113,7 +113,7 @@ export default class WorkoutUpdate extends Vue {
     this.loading = true
 
     axios
-      .put(config.domainAddress + config.api.workout + id, params)
+      .put(config.api.workout + id, params)
       .then(function (response: Response) {
         this.loading = false
 

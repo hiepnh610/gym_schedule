@@ -71,7 +71,7 @@ export default class Workouts extends Vue {
     }
 
     axios
-      .get(config.domainAddress + config.api.workout, { params })
+      .get(config.api.workout, { params })
       .then(function (response: Response) {
         this.setListWorkouts(response.data)
 
@@ -86,7 +86,7 @@ export default class Workouts extends Vue {
       }.bind(this))
 
     axios
-      .get(config.domainAddress + config.api.listPlans, {
+      .get(config.api.listPlans, {
         params: {
           id: this.id
         }

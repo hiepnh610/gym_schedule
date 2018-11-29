@@ -69,7 +69,7 @@ export default class Plans extends Vue {
     }
 
     axios
-      .get(config.domainAddress + config.api.plans, { params })
+      .get(config.api.plans, { params })
       .then(function (response: Response) {
         this.setListPlans(response.data)
 

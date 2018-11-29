@@ -74,7 +74,7 @@ export default class CalendarDetail extends Vue {
     this.setCalendarTitle(this.date)
 
     axios
-      .get(config.domainAddress + config.api.calendarDetail, { params })
+      .get(config.api.calendarDetail, { params })
       .then(function (response: Response) {
         this.setListExercises(response.data)
       }.bind(this))
@@ -89,7 +89,7 @@ export default class CalendarDetail extends Vue {
 
   deleteActivity (id: String) {
     axios
-      .delete(config.domainAddress + config.api.calendarDetail + id)
+      .delete(config.api.calendarDetail + id)
       .then(function () {
         this.setDeleteExercise(id)
         this.$toasted.success('Delete Successfully!!!')

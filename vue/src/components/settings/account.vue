@@ -81,7 +81,7 @@ export default class Account extends Vue {
       }
 
       axios
-        .put(config.domainAddress + config.api.modifyPassword + id, params)
+        .put(config.api.modifyPassword + id, params)
         .then(function () {
           this.$toasted.success('Update Successfully!!!')
         }.bind(this))

@@ -86,7 +86,7 @@ export default class Note extends Vue {
     this.setDeleteNote(id)
 
     axios
-      .put(config.domainAddress + config.api.note + id)
+      .put(config.api.note + id)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))
@@ -117,7 +117,7 @@ export default class Note extends Vue {
     }
 
     // axios
-    //   .put(config.domainAddress + config.api.note + id, params)
+    //   .put(config.api.note + id, params)
     //   .then(function (response: Response) {
     //     this.loading = false
     //     this.isEdit = -1
