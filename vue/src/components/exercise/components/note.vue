@@ -59,8 +59,12 @@ interface NewListNotes {
   'exercise_id': String;
 }
 
-interface ParamsExerciseNoteUpdate {
-  text: string;
+interface ParamsExerciseNoteStatus {
+  status: string;
+}
+
+interface ParamsExerciseNoteUpdate extends ParamsExerciseNoteStatus {
+  note: string;
 }
 
 const namespaceNotes: string = 'notes'
@@ -72,6 +76,7 @@ const namespaceNotes: string = 'notes'
   })
 export default class Note extends Vue {
   @Action('setDeleteNote', { namespace: namespaceNotes }) setDeleteNote: any
+  @Action('setUpdateNote', { namespace: namespaceNotes }) setUpdateNote: any
   @Getter('listNotes', { namespace: namespaceNotes }) listNotes: any
 
   newListNotes: Array<NewListNotes> = []
@@ -85,8 +90,12 @@ export default class Note extends Vue {
   removeNote (id: string) {
     this.setDeleteNote(id)
 
+    const params: ParamsExerciseNoteStatus = {
+      status: 'Delete'
+    }
+
     axios
-      .put(config.api.note + id)
+      .put(config.api.note + id, params)
       .then(function () {
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))
@@ -113,28 +122,29 @@ export default class Note extends Vue {
     const textareaEdit: any = this.$refs.textareaEdit
 
     const params: ParamsExerciseNoteUpdate = {
-      text: textareaEdit[0].val
+      note: textareaEdit[0].val,
+      status: 'Update'
     }
 
-    // axios
-    //   .put(config.api.note + id, params)
-    //   .then(function (response: Response) {
-    //     this.loading = false
-    //     this.isEdit = -1
+    axios
+      .put(config.api.note + id, params)
+      .then(function (response: Response) {
+        this.loading = false
+        this.isEdit = -1
 
-    //     this.setUpdateNote(response.data)
+        this.setUpdateNote(response.data)
 
-    //     this.$toasted.success('Update Successfully!!!')
-    //   }.bind(this))
-    //   .catch(function (error: Response) {
-    //     if (error.response && error.response.data && error.response.data.message) {
-    //       this.errContent = error.response.data.message
-    //     } else {
-    //       this.$toasted.error('Error happened!!!')
-    //     }
+        this.$toasted.success('Update Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
 
-    //     this.loading = false
-    //   }.bind(this))
+        this.loading = false
+      }.bind(this))
   }
 
   @Watch('listNotes', { immediate: true, deep: true })

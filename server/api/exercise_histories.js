@@ -53,13 +53,13 @@ const deleteExerciseTrackLog = (req, res) => {
                 });
             }
 
-            res.json({ message: 'History Deleted.' });
+            res.json({ message: 'Track Log Deleted.' });
         });
     }
 };
 
 const deleteExerciseNote = (req, res) => {
-    if (req.params.history_id) {
+    if (req.params.history_id && req.body.status === 'Delete') {
         const query = req.params.history_id;
 
         Histories.findOne({
@@ -78,7 +78,25 @@ const deleteExerciseNote = (req, res) => {
                 });
             }
 
-            res.json({ message: 'History Deleted.' });
+            res.status(200).json({ message: 'Note Deleted.' });
+        });
+    }
+
+    if (req.params.history_id && req.body.status === 'Update' && req.body.note) {
+        const query = req.params.history_id;
+        const newNote = req.body.note;
+
+        Histories.findOne({
+            _id: query
+        }, (err, history) => {
+            if (err) return res.status(400).send(err);
+
+            if (history['note']) {
+                history.note = newNote;
+                history.save();
+            }
+
+            res.status(200).json(history);
         });
     }
 };

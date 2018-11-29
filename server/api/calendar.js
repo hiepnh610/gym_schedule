@@ -41,7 +41,7 @@ const getHistoriesByDate = (req, res) => {
                 newData['track_log'] = history.track_log;
             }
 
-            if (history.note.length) {
+            if (history.note) {
                 newData['note'] = history.note;
             }
 
