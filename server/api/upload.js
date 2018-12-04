@@ -44,7 +44,9 @@ const uploadImage = (req, res) => {
     upload(req, res, (error) => {
         if (error) return res.status(400).send(error);
 
-        User.findById(req.body.userId, (err, user) => {
+        const query = req.body.userId;
+
+        User.findById(query, (err, user) => {
             if(err) return res.status(400).send(err);
 
             user.set({

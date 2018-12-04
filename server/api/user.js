@@ -7,8 +7,9 @@ let user = {};
 
 const getInfo = (req, res) => {
     if (req.query.id) {
-        User.find({ '_id': req.query.id })
-        // .populate('_id')
+        const query = { '_id': req.query.id };
+
+        User.find(query)
         .exec((err, userInfo) => {
             if(err) return res.status(400).send(err);
 
@@ -56,7 +57,9 @@ const updateInfo = (req, res) => {
 
     if (req.body.gender !== 'Male' && req.body.gender !== 'Female') return res.status(400).json({ message: 'The gender field must be a valid gender.' });
 
-    User.findById(req.params.user_id, (err, user) => {
+    const query = req.params.user_id;
+
+    User.findById(query, (err, user) => {
         if(err) return res.status(400).send(err);
 
         user.set({
@@ -77,7 +80,9 @@ const updateInfo = (req, res) => {
 
 const modifyPassword = (req, res) => {
     if (req.params.user_id) {
-        User.findById(req.params.user_id, (err, user) => {
+        const query = req.params.user_id;
+
+        User.findById(query, (err, user) => {
             if(err) return res.status(400).send(err);
 
             const current_password = req.body.current_password;

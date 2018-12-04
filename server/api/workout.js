@@ -4,7 +4,9 @@ let workout = {};
 
 const listWorkout = (req, res) => {
     if (req.query.id) {
-        Workout.find({ '_id': req.query.id })
+        const query = { '_id': req.query.id };
+
+        Workout.find(query)
         .populate('_id')
         .exec((err, list) => {
             if(err) return res.status(400).send(err);
@@ -16,7 +18,9 @@ const listWorkout = (req, res) => {
 
 const getWorkout = (req, res) => {
     if (req.query.id) {
-        Workout.find({ 'plan_id': req.query.id })
+        const query = { 'plan_id': req.query.id };
+
+        Workout.find(query)
         .populate('plan_id')
         .exec((err, plans) => {
             if(err) return res.status(400).send(err);
@@ -67,9 +71,9 @@ const updateWorkout = (req, res) => {
 
 const deleteWorkout = (req, res) => {
     if (req.params.workout_id) {
-        Workout.deleteOne({
-            _id: req.params.workout_id
-        }, (err, workout_day) => {
+        const query = { '_id': req.params.workout_id };
+
+        Workout.deleteOne(query, (err, workout_day) => {
             if(err) return res.status(400).send(err);
 
             res.json({ message: 'Workout Day Deleted.' });
@@ -77,4 +81,10 @@ const deleteWorkout = (req, res) => {
     }
 };
 
-module.exports = { listWorkout, getWorkout, createWorkout, updateWorkout, deleteWorkout };
+module.exports = {
+    listWorkout,
+    getWorkout,
+    createWorkout,
+    updateWorkout,
+    deleteWorkout
+};

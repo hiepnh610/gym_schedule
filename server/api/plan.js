@@ -4,7 +4,9 @@ let plan = {};
 
 const listPlans = (req, res) => {
     if (req.query.id) {
-        Plan.find({ '_id': req.query.id })
+        const query = { '_id': req.query.id };
+
+        Plan.find(query)
         .populate('_id')
         .exec((err, list) => {
             if(err) return res.status(400).send(err);
@@ -16,7 +18,9 @@ const listPlans = (req, res) => {
 
 const getPlan = (req, res) => {
     if (req.query.id) {
-        Plan.find({ 'created_by': req.query.id })
+        const query = { 'created_by': req.query.id };
+
+        Plan.find(query)
         .populate('created_by')
         .exec(function (err, plans) {
             if(err) return res.status(400).send(err);
@@ -55,7 +59,9 @@ const updatePlan = (req, res) => {
 
     if (!req.body.frequency) return res.status(400).json({ 'message': 'The frequency cannot be blank.' });
 
-    Plan.findById(req.params.plan_id, (err, plan) => {
+    const query = req.params.plan_id;
+
+    Plan.findById(query, (err, plan) => {
         if(err) return res.status(400).send(err);
 
         plan.set({
@@ -74,9 +80,9 @@ const updatePlan = (req, res) => {
 
 const deletePlan = (req, res) => {
     if (req.params.plan_id) {
-        Plan.deleteOne({
-            _id: req.params.plan_id
-        }, (err, plan) => {
+        const query = { '_id': req.params.plan_id };
+
+        Plan.deleteOne(query, (err, plan) => {
             if(err) return res.status(400).send(err);
 
             res.json({ message: 'Plan deleted.' });

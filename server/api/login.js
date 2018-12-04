@@ -4,9 +4,7 @@ const User = require('../model/user');
 
 const login = (req, res) => {
     if(req.body.email && req.body.password) {
-        const query = {
-            'email': req.body.email
-        };
+        const query = { 'email': req.body.email };
 
         if (!validator.isEmail(req.body.email)) return res.status(400).json({ message: 'The email field must be a valid email.' });
 

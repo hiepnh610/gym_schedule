@@ -78,7 +78,7 @@ export default class Login extends Vue {
       axios
         .post(config.api.login, params)
         .then(function (response: Response) {
-          window.location.href = location.origin + '/dashboard'
+          window.location.href = location.origin + '/news-feed'
 
           this.$session.start()
           this.$session.set('name', response.data.name)

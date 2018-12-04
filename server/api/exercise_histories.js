@@ -21,9 +21,10 @@ const createExerciseHistory = (req, res) => {
 
 const getExerciseHistory = (req, res) => {
     if (req.query.id) {
-        const query = req.query.id;
+        const query = { 'exercise_id': req.query.id };
 
-        Histories.find({ 'exercise_id': query })
+        Histories
+        .find(query)
         .populate('exercise_id')
         .exec((err, history) => {
             if (err) return res.status(400).send(err);
@@ -35,11 +36,9 @@ const getExerciseHistory = (req, res) => {
 
 const deleteExerciseTrackLog = (req, res) => {
     if (req.params.history_id) {
-        const query = req.params.history_id;
+        const query = { '_id': req.params.history_id };
 
-        Histories.findOne({
-            _id: query
-        }, (err, history) => {
+        Histories.findOne(query, (err, history) => {
             if (err) return res.status(400).send(err);
 
             if (history['track_log'] && history['note']) {
@@ -61,11 +60,9 @@ const deleteExerciseTrackLog = (req, res) => {
 
 const deleteExerciseNote = (req, res) => {
     if (req.params.history_id && req.body.status === 'Delete') {
-        const query = req.params.history_id;
+        const query = { '_id': req.params.history_id };
 
-        Histories.findOne({
-            _id: query
-        }, (err, history) => {
+        Histories.findOne(query, (err, history) => {
             if (err) return res.status(400).send(err);
 
             if (history['track_log'].length && history['note']) {
@@ -73,9 +70,7 @@ const deleteExerciseNote = (req, res) => {
 
                 history.save();
             } else {
-                Histories.deleteOne({
-                    _id: query
-                }, (err, history) => {
+                Histories.deleteOne(query, (err, history) => {
                     if (err) return res.status(400).send(err);
                 });
             }
@@ -85,12 +80,10 @@ const deleteExerciseNote = (req, res) => {
     }
 
     if (req.params.history_id && req.body.status === 'Update' && req.body.note) {
-        const query = req.params.history_id;
+        const query = { '_id': req.params.history_id };
         const newNote = req.body.note;
 
-        Histories.findOne({
-            _id: query
-        }, (err, history) => {
+        Histories.findOne(query, (err, history) => {
             if (err) return res.status(400).send(err);
 
             if (history['note']) {

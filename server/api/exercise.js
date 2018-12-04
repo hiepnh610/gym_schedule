@@ -4,9 +4,9 @@ let exercise = {};
 
 const listExercise = (req, res) => {
     if (req.query.id) {
-        const query = req.query.id;
+        const query = { '_id': req.query.id };
 
-        Exercise.find({ '_id': query })
+        Exercise.find(query)
         .populate('_id')
         .exec((err, list) => {
             if(err) return res.status(400).send(err);
@@ -18,9 +18,9 @@ const listExercise = (req, res) => {
 
 const getExercise = (req, res) => {
     if (req.query.id) {
-        const query = req.query.id;
+        const query = { 'workout_id': req.query.id };
 
-        Exercise.find({ 'workout_id': query })
+        Exercise.find(query)
         .populate('workout_id')
         .exec((err, exer) => {
             if(err) return res.status(400).send(err);
@@ -50,11 +50,9 @@ const createExercise = (req, res) => {
 
 const deleteExercise = (req, res) => {
     if (req.params.exercise_id) {
-        const query = req.params.exercise_id;
+        const query = { '_id': req.params.exercise_id };
 
-        Exercise.deleteOne({
-            _id: query
-        }, (err, exercise) => {
+        Exercise.deleteOne(query, (err, exercise) => {
             if(err) return res.status(400).send(err);
 
             res.json({ message: 'Exercise Deleted.' });

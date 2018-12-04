@@ -20,12 +20,15 @@ const getHistoriesByDate = (req, res) => {
     const startDate = moment(dateSelected).startOf('day');
     const endDate = moment(dateSelected).endOf('day');
 
-    Histories.find({
+    const query = {
         'created_at': {
             $gt: startDate,
             $lt: endDate
         }
-    })
+    };
+
+    Histories
+    .find(query)
     .populate('exercise_id')
     .exec((err, histories) => {
         if (err) return res.status(400).send(err);
@@ -54,11 +57,9 @@ const getHistoriesByDate = (req, res) => {
 
 const deleteHistoryByDate = (req, res) => {
     if (req.params.history_id) {
-        const query = req.params.history_id;
+        const query = { '_id': req.params.history_id };
 
-        Histories.deleteOne({
-            _id: query
-        }, (err, history) => {
+        Histories.deleteOne(query, (err, history) => {
             if (err) return res.status(400).send(err);
 
             res.json({ message: 'Exercise Deleted.' });
@@ -68,11 +69,9 @@ const deleteHistoryByDate = (req, res) => {
 
 const updateHistory = (req, res) => {
     if (req.params.history_id) {
-        const query = req.params.history_id;
+        const query = { '_id': req.params.history_id };
 
-        Histories.findOne({
-            _id: query
-        }, (err, history) => {
+        Histories.findOne(query, (err, history) => {
             if (err) return res.status(400).send(err);
 
             if (req.body.track_log) {
