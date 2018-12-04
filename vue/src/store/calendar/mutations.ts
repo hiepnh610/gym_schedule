@@ -16,5 +16,14 @@ export const mutations: MutationTree<CalendarState> = {
         state.listExercises.splice(i, 1)
       }
     }
+  },
+
+  updateExercise (state: any, data: any): void {
+    for (var i = 0; i < state.listExercises.length; i++) {
+      if (state.listExercises[i]._id === data._id) {
+        state.listExercises[i]['track_log'] = data['track_log']
+        state.listExercises[i]['note'] = data['note']
+      }
+    }
   }
 }

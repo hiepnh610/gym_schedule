@@ -32,7 +32,7 @@
           </tbody>
         </table>
 
-        <exercise-update :data-exercise-origin="dataExerciseOrigin"></exercise-update>
+        <exercise-update :data-exercise-origin="dataExerciseOrigin" />
       </div>
     </div>
   </div>

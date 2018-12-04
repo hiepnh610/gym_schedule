@@ -752,9 +752,9 @@
     "@fortawesome/fontawesome-common-types" "^0.1.7"
 
 "@fortawesome/vue-fontawesome@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-0.1.1.tgz#f54cad4028213a011c6ecb10eaf2b99dbd4a8496"
-  integrity sha512-dvPpA9eI18bWr3E+c0JvCYD6xl/keEj0ICTMShUPbxsGkd6PdFU9xYjqA8qE8ahsY+xhbQzZt/k1FKlpMGaRXA==
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-0.1.2.tgz#f993d7788bd6f031a1a20ff8f608ed0f36c83185"
+  integrity sha512-K/3awMf8AZmTyiYfNVuTHAtjToro6tE/yNV8dsmFk/2v6CXj+6wGltMzX8VBF9vC9rz3iv1zTwMdwtYaQYrAmQ==
 
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"

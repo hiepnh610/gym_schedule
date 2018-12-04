@@ -13,5 +13,9 @@ export const actions: ActionTree<CalendarState, RootState> = {
 
   setDeleteExercise (context: any, data: string): string {
     return context.commit('deleteExercise', data)
+  },
+
+  setUpdateExercise (context: any, data: string): string {
+    return context.commit('updateExercise', data)
   }
 }

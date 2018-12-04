@@ -1,5 +1,6 @@
 .track-log {
-  .track-log-header {
+  .track-log-header,
+  .track-log-footer {
     padding: 7px 0;
 
     .form-group-has-icon {
@@ -41,7 +42,8 @@
 
 .red-color {
   .track-log {
-    .track-log-header {
+    .track-log-header,
+    .track-log-footer {
       a {
         color: $first-primary-color;
       }

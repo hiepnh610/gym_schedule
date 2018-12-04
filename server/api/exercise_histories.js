@@ -43,7 +43,8 @@ const deleteExerciseTrackLog = (req, res) => {
             if (err) return res.status(400).send(err);
 
             if (history['track_log'] && history['note']) {
-                history.track_log = undefined;
+                history['track_log'] = undefined;
+
                 history.save();
             } else {
                 Histories.deleteOne({
@@ -68,7 +69,8 @@ const deleteExerciseNote = (req, res) => {
             if (err) return res.status(400).send(err);
 
             if (history['track_log'].length && history['note']) {
-                history.note = undefined;
+                history['note'] = undefined;
+
                 history.save();
             } else {
                 Histories.deleteOne({
@@ -92,7 +94,7 @@ const deleteExerciseNote = (req, res) => {
             if (err) return res.status(400).send(err);
 
             if (history['note']) {
-                history.note = newNote;
+                history['note'] = newNote;
                 history.save();
             }
 

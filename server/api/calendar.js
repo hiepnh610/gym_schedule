@@ -7,7 +7,7 @@ const getAllHistories = (req, res) => {
     Histories.find({}, (err, histories) => {
         if (err) return res.status(400).send(err);
 
-        const dateFormat = item => moment(item.updatedAt).format('YYYY-MM-DD');
+        const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
         const groupDate = _.groupBy(histories, dateFormat);
 
         res.status(200).json(groupDate);
@@ -28,7 +28,7 @@ const getHistoriesByDate = (req, res) => {
     })
     .populate('exercise_id')
     .exec((err, histories) => {
-        if(err) return res.status(400).send(err);
+        if (err) return res.status(400).send(err);
 
         const newHistories = histories.map((history) => {
             let newData = {};
@@ -59,9 +59,35 @@ const deleteHistoryByDate = (req, res) => {
         Histories.deleteOne({
             _id: query
         }, (err, history) => {
-            if(err) return res.status(400).send(err);
+            if (err) return res.status(400).send(err);
 
             res.json({ message: 'Exercise Deleted.' });
+        });
+    }
+};
+
+const updateHistory = (req, res) => {
+    if (req.params.history_id) {
+        const query = req.params.history_id;
+
+        Histories.findOne({
+            _id: query
+        }, (err, history) => {
+            if (err) return res.status(400).send(err);
+
+            if (req.body.track_log) {
+                history['track_log'] = req.body.track_log;
+            }
+
+            if (req.body.note) {
+                history['note'] = req.body.note;
+            } else {
+                history['note'] = undefined;
+            }
+
+            history.save();
+
+            res.json(history);
         });
     }
 };
@@ -70,4 +96,5 @@ module.exports = {
     getAllHistories,
     getHistoriesByDate,
     deleteHistoryByDate,
+    updateHistory,
 };
