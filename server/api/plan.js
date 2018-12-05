@@ -90,4 +90,10 @@ const deletePlan = (req, res) => {
     }
 };
 
-module.exports = { listPlans, getPlan, createPlan, updatePlan, deletePlan }
+module.exports = {
+    listPlans,
+    getPlan,
+    createPlan,
+    updatePlan,
+    deletePlan
+};

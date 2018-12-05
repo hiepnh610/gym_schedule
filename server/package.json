@@ -12,6 +12,7 @@
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
     "mongoose": "^5.3.1",

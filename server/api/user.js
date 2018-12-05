@@ -107,4 +107,8 @@ const modifyPassword = (req, res) => {
     }
 }
 
-module.exports = { getInfo, updateInfo, modifyPassword };
+module.exports = {
+    getInfo,
+    updateInfo,
+    modifyPassword
+};

@@ -12,34 +12,107 @@ const calendar    = require('./calendar');
 const exercise    = require('./exercise');
 const exerciseHistories = require('./exercise_histories');
 
-router.route('/login').post(login);
-router.route('/sign_up').post(signUp);
+const auth = require('../auth/signToken');
+const verifyToken = auth.verifyToken;
 
-router.route('/list_plans').get(plan.listPlans);
-router.route('/plans').get(plan.getPlan).post(plan.createPlan);
-router.route('/plans/:plan_id').put(plan.updatePlan).delete(plan.deletePlan);
+// Login
+router
+    .route('/login')
+    .post(login);
 
-router.route('/list_workout').get(workout.listWorkout);
-router.route('/workout').get(workout.getWorkout).post(workout.createWorkout);
-router.route('/workout/:workout_id').put(workout.updateWorkout).delete(workout.deleteWorkout);
+// Sign Up
+router
+    .route('/sign_up')
+    .post(signUp);
 
-router.route('/list_exercise').get(exercise.listExercise);
-router.route('/exercise').get(exercise.getExercise).post(exercise.createExercise);
-router.route('/exercise/:exercise_id').delete(exercise.deleteExercise);
+// Plans
+router
+    .route('/list_plans')
+    .get(verifyToken, plan.listPlans);
 
-router.route('/exercise/calendar').get(calendar.getAllHistories);
-router.route('/exercise/calendar_detail').get(calendar.getHistoriesByDate);
-router.route('/exercise/calendar_detail/:history_id').put(calendar.updateHistory).delete(calendar.deleteHistoryByDate);
+router
+    .route('/plans')
+    .get(verifyToken, plan.getPlan)
+    .post(verifyToken, plan.createPlan);
 
-router.route('/exercise/history').get(exerciseHistories.getExerciseHistory).post(exerciseHistories.createExerciseHistory);
-router.route('/exercise/track_log/:history_id').put(exerciseHistories.deleteExerciseTrackLog);
-router.route('/exercise/note/:history_id').put(exerciseHistories.deleteExerciseNote);
+router
+    .route('/plans/:plan_id')
+    .put(verifyToken, plan.updatePlan)
+    .delete(verifyToken, plan.deletePlan);
 
-router.route('/user').get(user.getInfo);
-router.route('/user/:user_id').put(user.updateInfo);
+// Workout
+router
+    .route('/list_workout')
+    .get(verifyToken, workout.listWorkout);
 
-router.route('/modify_password/:user_id').put(user.modifyPassword);
+router
+    .route('/workout')
+    .get(verifyToken, workout.getWorkout)
+    .post(verifyToken, workout.createWorkout);
 
-router.route('/upload').post(uploadImage);
+router
+    .route('/workout/:workout_id')
+    .put(verifyToken, workout.updateWorkout)
+    .delete(verifyToken, workout.deleteWorkout);
+
+// Exercise
+router
+    .route('/list_exercise')
+    .get(verifyToken, exercise.listExercise);
+
+router
+    .route('/exercise')
+    .get(verifyToken, exercise.getExercise)
+    .post(verifyToken, exercise.createExercise);
+
+router
+    .route('/exercise/:exercise_id')
+    .delete(verifyToken, exercise.deleteExercise);
+
+// Calendar
+router
+    .route('/exercise/calendar')
+    .get(verifyToken, calendar.getAllHistories);
+
+router
+    .route('/exercise/calendar_detail')
+    .get(verifyToken, calendar.getHistoriesByDate);
+
+router
+    .route('/exercise/calendar_detail/:history_id')
+    .put(verifyToken, calendar.updateHistory)
+    .delete(verifyToken, calendar.deleteHistoryByDate);
+
+// History
+router
+    .route('/exercise/history')
+    .get(verifyToken, exerciseHistories.getExerciseHistory)
+    .post(verifyToken, exerciseHistories.createExerciseHistory);
+
+router
+    .route('/exercise/track_log/:history_id')
+    .put(verifyToken, exerciseHistories.deleteExerciseTrackLog);
+
+router
+    .route('/exercise/note/:history_id')
+    .put(verifyToken, exerciseHistories.deleteExerciseNote);
+
+// User
+router
+    .route('/user')
+    .get(verifyToken, user.getInfo);
+
+router
+    .route('/user/:user_id')
+    .put(verifyToken, user.updateInfo);
+
+router
+    .route('/modify_password/:user_id')
+    .put(verifyToken, user.modifyPassword);
+
+// Upload
+router
+    .route('/upload')
+    .post(verifyToken, uploadImage);
 
 module.exports = router;

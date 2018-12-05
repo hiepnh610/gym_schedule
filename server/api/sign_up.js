@@ -1,6 +1,9 @@
+const jwt = require('jsonwebtoken');
 const validator = require('validator');
 
 const User = require('../model/user');
+
+const auth = require('../auth/signToken');
 
 const initSignUp = (req, res) => {
     if (!req.body.email) return res.status(400).json({ message: 'The email cannot be blank.' });
@@ -39,7 +42,8 @@ const signUp = (req, res) => {
             id: user._id,
             email: user.email,
             name: user.full_name,
-            authenticate: true
+            auth: true,
+            token: auth.signToken(user._id)
         }
 
         return res.status(201).json(resData);

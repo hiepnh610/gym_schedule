@@ -32,8 +32,16 @@ export default class App extends Vue {
   @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
 
   created () {
+    const _this: any = this
+
     this.setAuthenticate()
     this.getInfoUser()
+
+    if (_this.$session.exists()) {
+      const token: string = _this.$session.get('token')
+
+      axios.defaults.headers.common['x-access-token'] = token
+    }
   }
 
   setAuthenticate (): void {
