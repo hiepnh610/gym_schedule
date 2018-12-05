@@ -3,12 +3,13 @@ import { Workouts, WorkoutState } from './types'
 
 export const mutations: MutationTree<WorkoutState> = {
   listWorkouts (state: any, data: any): void {
-    state.listWorkouts = data.map((x: any): any => {
+    state.listWorkouts = data.map((workout: any): any => {
       return {
-        name: x.name,
-        planId: x.plan_id,
-        weekDay: x.week_day,
-        _id: x._id
+        name: workout.name,
+        planId: workout.plan_id,
+        weekDay: workout.week_day,
+        _id: workout._id,
+        exercises: workout.exercises
       }
     })
   },

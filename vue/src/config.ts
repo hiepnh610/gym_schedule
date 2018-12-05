@@ -18,26 +18,24 @@ interface apiTypes {
   calendarDetail: string;
 }
 
-const domainAddress: any = process.env.VUE_APP_DOMAIN
-
 const api: apiTypes = {
-  avatar: `${domainAddress}/api/avatar/`,
-  listPlans: `${domainAddress}/api/list_plans`,
-  listWorkout: `${domainAddress}/api/list_workout`,
-  listExercise: `${domainAddress}/api/list_exercise`,
-  login: `${domainAddress}/api/login`,
-  modifyPassword: `${domainAddress}/api/modify_password/`,
-  plans: `${domainAddress}/api/plans/`,
-  signUp: `${domainAddress}/api/sign_up`,
-  upload: `${domainAddress}/api/upload`,
-  user: `${domainAddress}/api/user/`,
-  workout: `${domainAddress}/api/workout/`,
-  exercise: `${domainAddress}/api/exercise/`,
-  history: `${domainAddress}/api/exercise/history/`,
-  trackLog: `${domainAddress}/api/exercise/track_log/`,
-  note: `${domainAddress}/api/exercise/note/`,
-  calendar: `${domainAddress}/api/exercise/calendar/`,
-  calendarDetail: `${domainAddress}/api/exercise/calendar_detail/`
+  avatar: '/api/avatar/',
+  listPlans: '/api/list_plans',
+  listWorkout: '/api/list_workout',
+  listExercise: '/api/list_exercise',
+  login: '/api/login',
+  modifyPassword: '/api/modify_password/',
+  plans: '/api/plans/',
+  signUp: '/api/sign_up',
+  upload: '/api/upload',
+  user: '/api/user/',
+  workout: '/api/workout/',
+  exercise: '/api/exercise/',
+  history: '/api/exercise/history/',
+  trackLog: '/api/exercise/track_log/',
+  note: '/api/exercise/note/',
+  calendar: '/api/exercise/calendar/',
+  calendarDetail: '/api/exercise/calendar_detail/'
 }
 
 export default { api }

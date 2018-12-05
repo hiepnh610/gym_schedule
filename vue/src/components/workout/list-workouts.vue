@@ -17,7 +17,9 @@
             <tr v-for="(workout, index) in listWorkouts" :key="index">
               <td>
                 <div class="image">
-                  <font-awesome-icon icon="image" />
+                  <font-awesome-icon icon="image" v-if="workout.exercises.length <= 0" />
+
+                  <img :src="workout.exercises[0].image" alt="" v-else />
                 </div>
               </td>
 
@@ -27,7 +29,11 @@
 
               <td>{{ workout.weekDay }}</td>
 
-              <td>{{ quantity }}</td>
+              <td>
+                <span v-if="workout.exercises.length > 0">{{ workout.exercises.length }}</span>
+
+                <span v-else>0</span>
+              </td>
 
               <td>
                 <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updateWorkout(workout)">Edit</a>

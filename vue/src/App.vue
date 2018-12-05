@@ -34,14 +34,16 @@ export default class App extends Vue {
   created () {
     const _this: any = this
 
-    this.setAuthenticate()
-    this.getInfoUser()
-
     if (_this.$session.exists()) {
       const token: string = _this.$session.get('token')
 
       axios.defaults.headers.common['x-access-token'] = token
     }
+
+    axios.defaults.baseURL = process.env.VUE_APP_DOMAIN
+
+    this.setAuthenticate()
+    this.getInfoUser()
   }
 
   setAuthenticate (): void {

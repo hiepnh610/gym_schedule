@@ -46,7 +46,7 @@ router
 
 router
     .route('/workout')
-    .get(verifyToken, workout.getWorkout)
+    .get(verifyToken, workout.mergeExerciseIntoWorkout)
     .post(verifyToken, workout.createWorkout);
 
 router
