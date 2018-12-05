@@ -12,8 +12,7 @@ const calendar    = require('./calendar');
 const exercise    = require('./exercise');
 const exerciseHistories = require('./exercise_histories');
 
-const auth = require('../auth/signToken');
-const verifyToken = auth.verifyToken;
+const verifyToken = require('../auth/verifyToken');
 
 // Login
 router
