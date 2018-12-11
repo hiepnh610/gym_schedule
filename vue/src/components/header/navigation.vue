@@ -23,6 +23,10 @@
         </div>
 
         <div class="d-flex align-items-center" v-else>
+          <router-link to="/messages" class="text-capitalize text-white mr-2 d-flex">
+            <font-awesome-icon icon="comments" class="text-white mr-3" />
+          </router-link>
+
           <router-link to="/plans" class="text-capitalize text-white mr-2 d-flex">
             <font-awesome-icon icon="file-alt" class="text-white mr-3" />
           </router-link>

@@ -2,7 +2,7 @@ const validator = require('validator');
 
 const User = require('../model/user');
 
-const auth = require('../auth/signToken');
+const signToken = require('../auth/signToken');
 
 const login = (req, res) => {
     if(req.body.email && req.body.password) {
@@ -24,7 +24,7 @@ const login = (req, res) => {
                 email: user.email,
                 name: user.full_name,
                 auth: true,
-                token: auth.signToken(user._id)
+                token: signToken(user._id)
             }
 
             return res.status(200).json(response);

@@ -88,6 +88,17 @@ export default new Router({
           component: () => import('./components/settings/account.vue')
         }
       ]
+    },
+
+    {
+      path: '/messages',
+      name: 'Messages',
+      component: () => import('./views/messages.vue')
+    },
+
+    {
+      path: '*',
+      component: () => import('./views/not-found.vue')
     }
   ]
 })
