@@ -5,5 +5,8 @@ module.exports = {
         '@': __dirname + '/src'
       }
     },
+  },
+  css: {
+    sourceMap: true
   }
 }

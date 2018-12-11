@@ -1,3 +1,11 @@
 #profile {
-  padding-top: 100px;
+  padding-top: 50px;
+
+  header {
+    .avatar {
+      border: 1px solid $profile-border-color;
+      max-width: 170px;
+      padding: $profile-padding / 4;
+    }
+  }
 }
