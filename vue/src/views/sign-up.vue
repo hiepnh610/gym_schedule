@@ -13,6 +13,12 @@
                 </div>
 
                 <div class="form-group input-group-lg">
+                  <input type="text" class="form-control" name="username" placeholder="Username" v-model="userName" v-validate="'required|min:8'" data-vv-delay="1000" />
+
+                  <p v-show="errors.has('username')" class="text-white mt-2">{{ errors.first('username') }}</p>
+                </div>
+
+                <div class="form-group input-group-lg">
                   <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
                 </div>
 
@@ -63,6 +69,7 @@ interface ParamsSignUp {
   'full_name': string;
   password: string;
   'confirm_password': string;
+  username: string;
 }
 
 @Component({
@@ -75,6 +82,7 @@ export default class SignUp extends Vue {
   disabledBtn: boolean = false
   email: string = ''
   fullName: string = ''
+  userName: string = ''
   message: string = ''
   password: string = ''
   confirmPassword: string = ''
@@ -86,7 +94,8 @@ export default class SignUp extends Vue {
         email: this.email,
         full_name: this.fullName,
         password: this.password,
-        confirm_password: this.confirmPassword
+        confirm_password: this.confirmPassword,
+        username: this.userName
       }
 
       this.disabledBtn = true
@@ -94,11 +103,11 @@ export default class SignUp extends Vue {
       axios
         .post(config.api.signUp, params)
         .then(function (response: Response) {
-          window.location.href = location.origin + '/dashboard'
+          window.location.href = location.origin + '/news-feed'
 
           this.$session.start()
           this.$session.set('name', response.data.name)
-          this.$session.set('email', response.data.email)
+          this.$session.set('username', response.data.username)
           this.$session.set('id', response.data.id)
           this.$session.set('auth', response.data.auth)
           this.$session.set('token', response.data.token)

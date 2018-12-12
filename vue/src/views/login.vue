@@ -7,9 +7,9 @@
             <div class="animated fadeInUp">
               <form @submit.prevent="login">
                 <div class="form-group input-group-lg">
-                  <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
+                  <input type="text" class="form-control" name="username" placeholder="Username" v-model="username" v-validate="'required|min:8'" data-vv-delay="1000" />
 
-                  <p v-show="errors.has('email')" class="text-white mt-2">{{ errors.first('email') }}</p>
+                  <p v-show="errors.has('username')" class="text-white mt-2">{{ errors.first('username') }}</p>
                 </div>
 
                 <div class="form-group input-group-lg">
@@ -49,7 +49,7 @@ import { Response, setLoading } from '@/util'
 import Loading from '@/components/loading/loading.vue'
 
 interface ParamsLogin {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -61,15 +61,15 @@ interface ParamsLogin {
   })
 export default class Login extends Vue {
   disabledBtn: boolean = false
-  email: string = ''
+  username: string = ''
   message: string = ''
   password: string = ''
   isLoading: boolean = true
 
   login () {
-    if (this.email && this.password) {
+    if (this.username && this.password) {
       const params: ParamsLogin = {
-        email: this.email,
+        username: this.username,
         password: this.password
       }
 
@@ -82,7 +82,7 @@ export default class Login extends Vue {
 
           this.$session.start()
           this.$session.set('name', response.data.name)
-          this.$session.set('email', response.data.email)
+          this.$session.set('username', response.data.username)
           this.$session.set('id', response.data.id)
           this.$session.set('auth', response.data.auth)
           this.$session.set('token', response.data.token)

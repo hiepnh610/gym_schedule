@@ -5,10 +5,14 @@ const User = require('../model/user');
 const signToken = require('../auth/signToken');
 
 const login = (req, res) => {
-    if(req.body.email && req.body.password) {
-        const query = { 'email': req.body.email };
+    if (!req.body.username) {
+        return res.status(400).json({ message: 'The username field cannot be blank.' })
+    } else if (!req.body.password) {
+        return res.status(400).json({ message: 'Email or password cannot be blank.' });
+    } else {
+        const query = { 'username': req.body.username };
 
-        if (!validator.isEmail(req.body.email)) return res.status(400).json({ message: 'The email field must be a valid email.' });
+        if (req.body.username.length < 8) return res.status(400).json({ message: 'The username field must be at least 8 characters.' });
 
         if (req.body.password.length < 8) return res.status(400).json({ message: 'The password field must be at least 8 characters.' });
 
@@ -21,16 +25,14 @@ const login = (req, res) => {
 
             const response = {
                 id: user._id,
-                email: user.email,
                 name: user.full_name,
                 auth: true,
+                username: user.username,
                 token: signToken(user._id)
             }
 
             return res.status(200).json(response);
         });
-    } else {
-        return res.status(400).json({ message: 'Email or password cannot be blank.' });
     }
 };
 
