@@ -1,7 +1,23 @@
 <template>
-  <header>
+  <header class="profile-header">
+    <div class="cover-photo"></div>
+
+    <nav class="nav">
+      <a class="nav-link active" href="#">Timeline</a>
+
+      <a class="nav-link" href="#">Photos</a>
+
+      <a class="nav-link" href="#">Calendar</a>
+
+      <a class="nav-link" href="#">Plans</a>
+    </nav>
+
     <div class="avatar">
-      <img :src="avatar" alt="">
+      <router-link to="/settings/profile">
+        <img :src="avatar" alt="" v-if="avatar" />
+
+        <img src="@/assets/images/avatar-default.png" alt="" v-else />
+      </router-link>
     </div>
   </header>
 </template>

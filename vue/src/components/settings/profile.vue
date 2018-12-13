@@ -54,6 +54,23 @@
             <input id="profile-weight" type="text" class="form-control" v-model.number="user.weight" />
           </div>
 
+          <div class="form-group input-group-lg">
+            <label for="profile-address">Address</label>
+
+            <input id="profile-address" type="text" class="form-control" v-model.number="user.address" />
+          </div>
+
+          <div class="form-group input-group-lg">
+            <label for="profile-bio">Bio</label>
+
+            <textarea-autosize
+              id="profile-bio"
+              class="form-control"
+              :min-height="100"
+              :max-height="300"
+              v-model="user.bio" />
+          </div>
+
           <div class="form-group">
             <button class="btn btn-lg btn-primary" @click.prevent="userUpdate(user._id)">
               Update profile
@@ -121,6 +138,8 @@ const namespaceAvatar: string = 'avatar'
 
 interface User {
   _id: string;
+  address: string;
+  bio: string;
   dob: string;
   email: string;
   fullName: string;
@@ -150,6 +169,8 @@ export default class Profile extends Vue {
   updateInfoIsLoading: boolean = false
   user: User = {
     _id: '',
+    address: '',
+    bio: '',
     dob: '',
     email: '',
     fullName: '',
@@ -175,6 +196,8 @@ export default class Profile extends Vue {
         this.user.gender = response.data.gender || ''
         this.user.height = response.data.height || ''
         this.user.weight = response.data.weight || ''
+        this.user.bio = response.data.bio || ''
+        this.user.address = response.data.address || ''
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
@@ -193,7 +216,9 @@ export default class Profile extends Vue {
       full_name: this.user.fullName,
       gender: this.user.gender || '',
       height: this.user.height || '',
-      weight: this.user.weight || ''
+      weight: this.user.weight || '',
+      address: this.user.address || '',
+      bio: this.user.bio || ''
     }
 
     if (this.user.dob) {

@@ -7,7 +7,7 @@
         </div>
       </div>
 
-      <list-workouts v-if="listWorkouts.length > 0"></list-workouts>
+      <list-workouts v-if="listWorkouts && listWorkouts.length > 0"></list-workouts>
 
       <p class="align-center mt-5 mb-5" v-if="listWorkouts.length === 0">Please create a workout day from the under button.</p>
 

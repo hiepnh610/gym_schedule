@@ -14,9 +14,11 @@ import store from './store'
 
 import './registerServiceWorker'
 
-import fontawesome from '@fortawesome/fontawesome'
-import brands from '@fortawesome/fontawesome-free-brands'
-import { faSpinner } from '@fortawesome/fontawesome-free-solid'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -45,9 +47,12 @@ Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, fontawesomeOptions)
 Vue.use(BootstrapVue)
 Vue.use(VueTextareaAutosize)
-Vue.config.productionTip = false
 
-fontawesome.library.add(brands, faSpinner)
+library.add(fas, far, fab)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+Vue.config.productionTip = false
 
 new Vue({
   router,

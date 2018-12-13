@@ -41,7 +41,7 @@
             <font-awesome-icon icon="user" v-else />
           </div>
 
-          <router-link to="/profile" class="text-capitalize text-white mr-2 d-flex">
+          <router-link :to="profileLink" class="text-capitalize text-white mr-2 d-flex">
             <span v-text="nameDisplay"></span>
           </router-link>
 
@@ -84,13 +84,17 @@ export default class Navigation extends Vue {
   isLogin: boolean = false
   nameDisplay!: string
   isDropDown: boolean = false
+  profileLink: string = ''
 
   mounted () {
     const _this: any = this
 
     if (_this.$session.exists()) {
+      const username = _this.$session.get('username')
+
       this.isLogin = true
       this.nameDisplay = _this.$session.get('name')
+      this.profileLink = `/profile/${username}`
     }
   }
 

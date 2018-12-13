@@ -22,7 +22,7 @@ export default new Router({
     },
 
     {
-      path: '/profile',
+      path: '/profile/:user',
       name: 'Profile',
       component: () => import('./views/profile.vue')
     },
@@ -79,7 +79,7 @@ export default new Router({
       children: [
         {
           path: 'profile',
-          name: 'profile',
+          name: 'SettingProfile',
           component: () => import('./components/settings/profile.vue')
         },
         {

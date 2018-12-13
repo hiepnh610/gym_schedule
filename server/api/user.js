@@ -63,6 +63,8 @@ const updateInfo = (req, res) => {
         if(err) return res.status(400).send(err);
 
         user.set({
+            address: req.body.address,
+            bio: req.body.bio,
             dob: req.body.dob,
             full_name: req.body.full_name,
             gender: req.body.gender,

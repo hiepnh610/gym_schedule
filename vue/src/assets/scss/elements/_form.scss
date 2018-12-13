@@ -41,7 +41,9 @@ select.form-control {
   }
 
   input,
-  input.form-control {
+  input.form-control,
+  textarea,
+  textarea.form-control {
     padding-left: 20px;
     color: $gray-color;
     font-family: 'Lato', sans-serif;

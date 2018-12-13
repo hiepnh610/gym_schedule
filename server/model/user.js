@@ -25,7 +25,9 @@ const UserSchema = new Schema({
         max: 30
     },
     plan_id: Number,
-    weight: Number
+    weight: Number,
+    address: String,
+    bio: String
 }, { timestamps: { createdAt: 'created_at' }});
 
 UserSchema.methods.generateHash = function(password) {

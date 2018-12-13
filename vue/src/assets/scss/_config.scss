@@ -43,3 +43,7 @@ small,
 .small {
   font-size: $small-size-base;
 }
+
+hr {
+  border-top-color: $profile-border-color;
+}

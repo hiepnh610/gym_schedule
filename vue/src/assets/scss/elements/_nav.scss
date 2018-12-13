@@ -1,0 +1,25 @@
+.nav {
+  border-bottom: 1px solid $profile-border-color;
+  border-top: 1px solid $profile-border-color;
+
+  .nav-link {
+    border-right: 1px solid $profile-border-color;
+    color: $gray-color;
+    padding: $size-base $size-base * 1.25;
+
+    &:first-child {
+      border-left: 1px solid $profile-border-color;
+    }
+  }
+}
+
+.red-color {
+  .nav {
+    .nav-link {
+      &.active,
+      &:hover {
+        color: $first-primary-color;
+      }
+    }
+  }
+}

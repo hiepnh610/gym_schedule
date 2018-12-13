@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Profile Content</h1>
+    <activities />
   </section>
 </template>
 
@@ -8,6 +8,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 
-@Component
+import Activities from './activities.vue'
+
+@Component({
+  components: {
+  Activities
+  }
+  })
 export default class ProfileContent extends Vue {}
 </script>
