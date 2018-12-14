@@ -3,12 +3,12 @@ const router  = express.Router();
 
 const plan        = require('./plan');
 const user        = require('./user');
+const profile     = require('./profile');
 const login       = require('./login');
 const signUp      = require('./sign_up');
 const workout     = require('./workout');
 const uploadImage = require('./upload');
 const calendar    = require('./calendar');
-
 const exercise    = require('./exercise');
 const exerciseHistories = require('./exercise_histories');
 
@@ -113,5 +113,10 @@ router
 router
     .route('/upload')
     .post(verifyToken, uploadImage);
+
+// Profile
+router
+    .route('/profile')
+    .get(verifyToken, profile);
 
 module.exports = router;

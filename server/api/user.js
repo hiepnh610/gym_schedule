@@ -11,7 +11,7 @@ const getInfo = (req, res) => {
 
         User.find(query)
         .exec((err, userInfo) => {
-            if(err) return res.status(400).send(err);
+            if (err) return res.status(400).send(err);
 
             if (userInfo.length > 0) {
                 const newUserInfo = {
@@ -20,24 +20,32 @@ const getInfo = (req, res) => {
                     full_name: userInfo[0].full_name
                 };
 
-                if(userInfo[0].dob ) {
+                if (userInfo[0].dob ) {
                     newUserInfo.dob = userInfo[0].dob
                 }
 
-                if(userInfo[0].gender ) {
+                if (userInfo[0].gender ) {
                     newUserInfo.gender = userInfo[0].gender
                 }
 
-                if(userInfo[0].height ) {
+                if (userInfo[0].height ) {
                     newUserInfo.height = userInfo[0].height
                 }
 
-                if(userInfo[0].weight ) {
+                if (userInfo[0].weight ) {
                     newUserInfo.weight = userInfo[0].weight
                 }
 
-                if(userInfo[0].avatar ) {
+                if (userInfo[0].avatar ) {
                     newUserInfo.avatar = userInfo[0].avatar
+                }
+
+                if (userInfo[0].bio ) {
+                    newUserInfo.bio = userInfo[0].bio
+                }
+
+                if (userInfo[0].address ) {
+                    newUserInfo.address = userInfo[0].address
                 }
 
                 res.status(200).json(newUserInfo);
@@ -60,7 +68,7 @@ const updateInfo = (req, res) => {
     const query = req.params.user_id;
 
     User.findById(query, (err, user) => {
-        if(err) return res.status(400).send(err);
+        if (err) return res.status(400).send(err);
 
         user.set({
             address: req.body.address,
@@ -73,7 +81,7 @@ const updateInfo = (req, res) => {
         });
 
         user.save((err, user) => {
-            if(err) return res.status(400).send(err);
+            if (err) return res.status(400).send(err);
 
             res.status(200).json({ message: 'Update Successfully!' });
         });
@@ -85,12 +93,12 @@ const modifyPassword = (req, res) => {
         const query = req.params.user_id;
 
         User.findById(query, (err, user) => {
-            if(err) return res.status(400).send(err);
+            if (err) return res.status(400).send(err);
 
             const current_password = req.body.current_password;
             const compare_password = comparePassword(current_password, user.password);
 
-            if(compare_password) {
+            if (compare_password) {
                 const new_password = generateHash(req.body.new_password);
 
                 user.set({
@@ -98,7 +106,7 @@ const modifyPassword = (req, res) => {
                 });
 
                 user.save((err, user) => {
-                    if(err) return res.send(err);
+                    if (err) return res.send(err);
 
                     res.status(200).json({ message: 'Update Successfully!' });
                 });

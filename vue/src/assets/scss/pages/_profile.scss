@@ -18,6 +18,13 @@
       @include border-radius($border-radius-size, '');
     }
 
+    .profile-full-name {
+      bottom: 70px;
+      left: 202px;
+      margin: 0;
+      position: absolute;
+    }
+
     nav {
       padding-left: 202px;
     }

@@ -2,6 +2,8 @@
   <header class="profile-header">
     <div class="cover-photo"></div>
 
+    <h2 class="profile-full-name">{{ userProfile.full_name }}</h2>
+
     <nav class="nav">
       <a class="nav-link active" href="#">Timeline</a>
 
@@ -13,11 +15,9 @@
     </nav>
 
     <div class="avatar">
-      <router-link to="/settings/profile">
-        <img :src="avatar" alt="" v-if="avatar" />
+      <img :src="userProfile.avatar" alt="" v-if="userProfile && userProfile.avatar" />
 
-        <img src="@/assets/images/avatar-default.png" alt="" v-else />
-      </router-link>
+      <img src="@/assets/images/avatar-default.png" alt="" v-else />
     </div>
   </header>
 </template>
@@ -26,10 +26,16 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 
-const namespaceAvatar: string = 'avatar'
+interface TypeUser {
+  address?: string;
+  avatar?: string;
+  bio?: string;
+  dob?: string;
+  'full_name'?: string;
+}
 
 @Component
 export default class ProfileHeader extends Vue {
-  @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
+  @Prop() userProfile!: TypeUser
 }
 </script>

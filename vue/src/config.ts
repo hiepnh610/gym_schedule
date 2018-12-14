@@ -16,6 +16,7 @@ interface apiTypes {
   note: string;
   calendar: string;
   calendarDetail: string;
+  profile: string;
 }
 
 const api: apiTypes = {
@@ -35,7 +36,8 @@ const api: apiTypes = {
   trackLog: '/api/exercise/track_log/',
   note: '/api/exercise/note/',
   calendar: '/api/exercise/calendar/',
-  calendarDetail: '/api/exercise/calendar_detail/'
+  calendarDetail: '/api/exercise/calendar_detail/',
+  profile: '/api/profile/'
 }
 
 export default { api }

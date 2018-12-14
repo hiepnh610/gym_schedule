@@ -41,9 +41,9 @@
             <font-awesome-icon icon="user" v-else />
           </div>
 
-          <router-link :to="profileLink" class="text-capitalize text-white mr-2 d-flex">
+          <a :href="profileLink" class="text-capitalize text-white mr-2 d-flex">
             <span v-text="nameDisplay"></span>
-          </router-link>
+          </a>
 
           <div class="dropdown">
             <a href="#" class="text-white dropdown-toggle" @click.prevent="openDropDown" v-click-outside="closeDropDown">
@@ -94,7 +94,7 @@ export default class Navigation extends Vue {
 
       this.isLogin = true
       this.nameDisplay = _this.$session.get('name')
-      this.profileLink = `/profile/${username}`
+      this.profileLink = window.location.origin + `/profile/${username}`
     }
   }
 
