@@ -1,13 +1,13 @@
 @mixin border-radius($input, $type) {
   @if $type == 'auto' {
-    -webkit-border-radius: $input / 2;
-       -moz-border-radius: $input / 2;
-        -ms-border-radius: $input / 2;
-            border-radius: $input / 2;
+    -webkit-border-radius: $input / 2 !important;
+       -moz-border-radius: $input / 2 !important;
+        -ms-border-radius: $input / 2 !important;
+            border-radius: $input / 2 !important;
   } @else {
-    -webkit-border-radius: $input;
-       -moz-border-radius: $input;
-        -ms-border-radius: $input;
-            border-radius: $input;
+    -webkit-border-radius: $input !important;
+       -moz-border-radius: $input !important;
+        -ms-border-radius: $input !important;
+            border-radius: $input !important;
   }
 }

@@ -1,5 +1,6 @@
 .comp-full-calendar {
-    padding: 30px 20px;
+    background: transparent !important;
+    padding: 30px 20px !important;
 }
 
 .full-calendar-header {
@@ -13,10 +14,10 @@
 
     .weeks {
         background: $calendar-bg;
-        border-color: $border-color;
+        border-color: $border-color !important;
 
         .week {
-            border-color: $border-color;
+            border-color: $border-color !important;
             color: $navy-blue-color;
             padding: $calendar-padding;
         }

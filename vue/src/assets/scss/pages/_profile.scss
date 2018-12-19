@@ -26,22 +26,41 @@
     }
 
     nav {
+      background: $white-color;
       padding-left: 202px;
+    }
+
+    .btn-group {
+      bottom: 70px;
+      position: absolute;
+      right: 0;
     }
   }
 
   .sidebar {
+    background: $white-color;
     border: 1px solid $profile-border-color;
     @include border-radius($border-radius-size, '');
   }
 
   .cover-photo {
     height: 310px;
+    position: relative;
+
+    .upload-cover-photo {
+      border: 1px solid $border-color;
+      cursor: pointer;
+      left: $size-base;
+      position: absolute;
+      top: $size-base;
+      @include border-radius($border-radius-size, 'auto');
+    }
   }
 }
 
 .activities-list {
   .activity {
+    background: $white-color;
     border: 1px solid $profile-border-color;
     margin-bottom: 30px;
     position: relative;
@@ -58,7 +77,12 @@
     .more-options {
       position: absolute;
       top: $size-base / 2;
-      right: $size-base;
+      right: 12px;
+    }
+
+    .profile-like,
+    .profile-comment {
+      cursor: pointer;
     }
   }
 }

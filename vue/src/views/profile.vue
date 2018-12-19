@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <profile-header :userProfile="user" />
+          <profile-header :userProfile="user" :isOwner="isOwner" />
         </div>
 
         <div class="col-12 col-md-4">
@@ -56,12 +56,19 @@ interface TypeUser {
 export default class Profile extends Vue {
   isLoading: boolean = true
   user: TypeUser = {}
+  isOwner: boolean = false
 
   created () {
-    const username: string = window.location.pathname.replace('/profile/', '').replace('/', '')
+    const _this: any = this
+    const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
+    const usernameFromLocal: string = _this.$session.get('username')
+
+    if (usernameFromLocal === usernameFromUrl) {
+      this.isOwner = true
+    }
 
     const params: TypeParams = {
-      username: username
+      username: usernameFromUrl
     }
 
     axios

@@ -10,7 +10,7 @@ $black-color:               #000 !default;
 $dark-gray-color:           #333 !default;
 $gray-color:                #666 !default;
 $light-gray-color:          #999 !default;
-$lighter-gray-color:        #f8f8f8 !default;
+$lighter-gray-color:        #fefefe !default;
 $white-color:               #fff !default;
 
 $border-color:              #eee;
@@ -27,7 +27,7 @@ $size-h4:                    1.25rem;
 $size-h5:                    1.125rem;
 $size-h6:                    $size-base;
 
-$body-bg-color:              $white-color !default;
+$body-bg-color:              $lighter-gray-color !default;
 $border-radius-size:         $size-base / 4;
 
 $modal-header-bg:            $border-color;
