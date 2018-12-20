@@ -1,6 +1,5 @@
 .table {
   &.table-striped {
-    margin-top: -60px;
     overflow: hidden;
     @include border-radius($border-radius-size, '');
     @include box-shadow(0, 0, 0, 1px, $table-border);

@@ -1,22 +1,22 @@
 <template>
   <div id="exercises-page" v-if="!isLoading">
-    <div class="text-center">
-      <div class="page-title">
-        <div class="container">
-          <h2 class="text-center mb-5">{{ exerciseName }}</h2>
-        </div>
+    <div class="page-title mb-5">
+      <div class="container">
+        <h2 class="text-center mb-5">{{ exerciseName }}</h2>
       </div>
+    </div>
 
-      <list-exercises v-if="listExercises.length > 0"></list-exercises>
-
-      <p class="align-center mt-5 mb-5" v-if="listExercises.length === 0">Please add some exercies from the under button.</p>
-
-      <a href="" class="btn btn-lg btn-primary" @click.prevent="createExercise">
+    <div class="container text-center">
+      <a href="#" class="btn btn-md btn-light mb-5" @click.prevent="createExercise">
         Create Exercise
       </a>
 
-      <exercise-create></exercise-create>
+      <p class="align-center" v-if="listExercises.length === 0">Please add some exercies from the under button.</p>
     </div>
+
+    <list-exercises v-if="listExercises.length > 0" />
+
+    <exercise-create />
   </div>
 
   <loading v-else />

@@ -1,51 +1,37 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-striped text-center mb-5">
-          <thead>
-            <tr>
-              <th>image</th>
-              <th>name</th>
-              <th>week day</th>
-              <th>quantity</th>
-              <th></th>
-            </tr>
-          </thead>
+    <div class="row list-cards text-left">
+      <div class="col-3" v-for="(workout, index) in listWorkouts" :key="index">
+        <div class="card border">
+          <div class="image text-center bg-light">
+            <img :src="workout.exercises[0].image" alt="" v-if="workout.exercises && workout.exercises.length > 0" />
 
-          <tbody>
-            <tr v-for="(workout, index) in listWorkouts" :key="index">
-              <td>
-                <div class="image">
-                  <img :src="workout.exercises[0].image" alt="" v-if="workout.exercises && workout.exercises.length > 0" />
+            <font-awesome-icon icon="image" class="fa-3x text-muted" v-else />
+          </div>
 
-                  <font-awesome-icon icon="image" v-else />
-                </div>
-              </td>
+          <div class="px-3 pt-3 bg-white">
+            <h4>
+              <router-link :to="'../exercises/' + workout._id" class="text-capitalize text-secondary">{{ workout.name }}</router-link>
+            </h4>
 
-              <td>
-                <router-link :to="'../exercises/' + workout._id" class="text-capitalize">{{ workout.name }}</router-link>
-              </td>
+            <p class="text-muted">Week Day: {{ workout.weekDay }}</p>
 
-              <td>{{ workout.weekDay }}</td>
+            <p v-if="workout.exercises && workout.exercises.length == 1" class="text-muted">Quantity: {{ workout.exercises.length }} exercise</p>
 
-              <td>
-                <span v-if="workout.exercises && workout.exercises.length > 0">{{ workout.exercises.length }}</span>
+            <p v-else-if="workout.exercises && workout.exercises.length > 1" class="text-muted">Quantity: {{ workout.exercises.length }} exercises</p>
 
-                <span v-else>0</span>
-              </td>
+            <p v-else class="text-muted">Quantity: 0 exercise</p>
+          </div>
 
-              <td>
-                <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updateWorkout(workout)">Edit</a>
+          <footer class="p-3 bg-light">
+            <a href="#" class="btn btn-sm btn-secondary mr-1" @click.prevent="updateWorkout(workout)">Edit</a>
 
-                <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteWorkout(workout._id)">Remove</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <workout-update :data-workout-origin="dataWorkoutOrigin"></workout-update>
+            <a href="#" class="btn btn-sm btn-danger" @click.prevent="deleteWorkout(workout._id)">Remove</a>
+          </footer>
+        </div>
       </div>
+
+      <workout-update :data-workout-origin="dataWorkoutOrigin" />
     </div>
   </div>
 </template>

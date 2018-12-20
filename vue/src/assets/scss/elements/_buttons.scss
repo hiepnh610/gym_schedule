@@ -56,6 +56,8 @@
       height: 40px;
       margin: 0 5px;
       min-width: 100px;
+      padding-left: $size-base;
+      padding-right: $size-base;
       @include border-radius(40px, 'auto');
     }
 

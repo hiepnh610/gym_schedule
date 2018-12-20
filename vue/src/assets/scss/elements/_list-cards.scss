@@ -1,0 +1,47 @@
+.list-cards {
+  .card {
+    margin-bottom: 30px;
+    overflow: hidden;
+    @include border-radius($border-radius-size, '');
+    @include box-shadow(0, 4px, 6px, 0, $list-group-shadow-color);
+
+    .image {
+      min-height: 253px;
+      position: relative;
+
+      svg {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        @include translate(-50%, -50%);
+      }
+    }
+  }
+
+  &-horizontal {
+    .card {
+      display: block;
+      min-height: $card-image-size;
+      padding-left: $size-base * 9;
+      position: relative;
+
+      .image {
+        left: 0;
+        max-width: $card-image-size;
+        min-height: $card-image-size;
+        position: absolute;
+        top: 0;
+      }
+
+      .card-title {
+        margin-top: $size-base;
+      }
+
+      .btn {
+        bottom: $size-base;
+        left: $size-base * 9;
+        position: absolute;
+      }
+    }
+  }
+}

@@ -1,41 +1,38 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-striped text-center mb-5">
-          <thead>
-            <tr>
-              <th>name</th>
-              <th>type</th>
-              <th>frequency</th>
-              <th></th>
-            </tr>
-          </thead>
+    <div class="row list-cards text-left">
+      <div class="col-3" v-for="plan in listPlans" :key="plan._id">
+        <div class="card border">
+          <div class="image bg-light">
+            <img src="@/assets/images/bulking.jpg" alt="" v-if="plan.type === 'Bulking'" />
 
-          <tbody>
-            <tr v-for="plan in listPlans" :key="plan._id">
-              <td>
-                <router-link :to="'workouts/' + plan._id" class="text-capitalize">{{ plan.name }}</router-link>
-              </td>
+            <img src="@/assets/images/cutting.jpg" alt="" v-if="plan.type === 'Cutting'" />
 
-              <td>{{ plan.type }}</td>
+            <img src="@/assets/images/general.jpg" alt="" v-if="plan.type === 'General'" />
+          </div>
 
-              <td v-if="plan.frequency > 1">{{ plan.frequency }} days/week</td>
+          <div class="px-3 pt-3 bg-white">
+            <h4>
+              <router-link :to="'workouts/' + plan._id" class="text-capitalize text-secondary">{{ plan.name }}</router-link>
+            </h4>
 
-              <td v-if="plan.frequency <= 1">{{ plan.frequency }} day/week</td>
+            <p class="text-muted">Type: {{ plan.type }}</p>
 
-              <td>
-                <a href="" class="btn btn-sm btn-warning mr-1" @click.prevent="updatePlan(plan)">Edit</a>
+            <p v-if="plan.frequency > 1" class="text-muted">Frequency: {{ plan.frequency }} days/week</p>
 
-                <a href="" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Remove</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            <p v-if="plan.frequency <= 1" class="text-muted">Frequency: {{ plan.frequency }} day/week</p>
+          </div>
 
-        <plan-update :data-plan-origin="dataPlanOrigin"></plan-update>
+          <footer class="p-3 bg-light">
+            <a href="#" class="btn btn-sm btn-secondary mr-1" @click.prevent="updatePlan(plan)">Edit</a>
+
+            <a href="#" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Remove</a>
+          </footer>
+        </div>
       </div>
     </div>
+
+    <plan-update :data-plan-origin="dataPlanOrigin" />
   </div>
 </template>
 

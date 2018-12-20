@@ -1,22 +1,22 @@
 <template>
   <div id="workouts-page" v-if="!isLoading">
-    <div class="text-center">
-      <div class="page-title">
-        <div class="container">
-          <h2 class="text-center mb-5">{{ planName }}</h2>
-        </div>
+    <div class="page-title mb-5">
+      <div class="container">
+        <h2 class="text-center mb-5">{{ planName }}</h2>
       </div>
+    </div>
 
-      <list-workouts v-if="listWorkouts && listWorkouts.length > 0"></list-workouts>
-
-      <p class="align-center mt-5 mb-5" v-if="listWorkouts.length === 0">Please create a workout day from the under button.</p>
-
-      <a href="" class="btn btn-lg btn-primary" @click.prevent="createWorkout" v-if="displayBtn">
-        Create Workout Day
+    <div class="container text-center">
+      <a href="" class="btn btn-md btn-light mb-5" @click.prevent="createWorkout" v-if="displayBtn">
+        Create Workout
       </a>
 
-      <workout-create></workout-create>
+      <p v-if="listWorkouts.length === 0">Please create a workout day from the under button.</p>
     </div>
+
+    <list-workouts v-if="listWorkouts && listWorkouts.length > 0" />
+
+    <workout-create />
   </div>
 
   <loading v-else />
