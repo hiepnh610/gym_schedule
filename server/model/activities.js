@@ -2,24 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ActivitiySchema = new Schema({
-    avatar: {
-        required: true,
-        type: String
-    },
-    name: {
-        required: true,
-        type: String
-    },
-    exercises_name: {
-        required: true,
-        type: Array
-    },
-    workout_name: {
-        required: true,
-        type: String
-    },
+    caption: String,
+    comments: Array,
     likes: Array,
-    comments: Array
+    track_log: Array,
+    user: {
+        type: Object,
+        required: true,
+    }
 }, { timestamps: { createdAt: 'created_at' } });
 
 const Activitiy = mongoose.model('Activitiy', ActivitiySchema);
