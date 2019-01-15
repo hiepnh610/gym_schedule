@@ -2,16 +2,16 @@ import { Module } from 'vuex'
 import { getters } from './getters'
 import { actions } from './actions'
 import { mutations } from './mutations'
-import { NoteState } from './types'
+import { ActivityState } from './types'
 import { RootState } from '@/types'
 
-export const state: NoteState = {
-  listNotes: []
+export const state: ActivityState = {
+  listActivities: []
 }
 
 const namespaced: boolean = true
 
-export const notes: Module<NoteState, RootState> = {
+export const activities: Module<ActivityState, RootState> = {
   namespaced,
   state,
   getters,

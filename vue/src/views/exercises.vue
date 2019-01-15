@@ -2,7 +2,7 @@
   <div id="exercises-page" v-if="!isLoading">
     <div class="page-title mb-5">
       <div class="container">
-        <h2 class="text-center mb-5">{{ exerciseName }}</h2>
+        <h2 class="text-center mb-5">{{ workoutName }}</h2>
       </div>
     </div>
 
@@ -14,7 +14,7 @@
       <p class="align-center" v-if="listExercises.length === 0">Please add some exercies from the under button.</p>
     </div>
 
-    <list-exercises v-if="listExercises.length > 0" />
+    <list-exercises v-if="listExercises.length > 0" :workout-name="workoutName" />
 
     <exercise-create />
   </div>
@@ -53,7 +53,7 @@ export default class Exercises extends Vue {
   @Action('setListExercises', { namespace: namespaceExercises }) setListExercises: any
   @Getter('listExercises', { namespace: namespaceExercises }) listExercises: any
 
-  exerciseName: string = ''
+  workoutName: string = ''
   message: string = ''
   isLoading: boolean = true
 
@@ -89,7 +89,7 @@ export default class Exercises extends Vue {
         }
       })
       .then(function (response: Response) {
-        this.exerciseName = response.data[0].name
+        this.workoutName = response.data[0].name
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

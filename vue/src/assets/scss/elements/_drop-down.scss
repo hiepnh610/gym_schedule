@@ -32,10 +32,30 @@
   }
 }
 
-.red-color .dropdown .dropdown-menu .dropdown-item {
-  &:hover,
-  &:active,
-  &:focus {
-    color: $first-primary-color;
+.b-dropdown {
+  .dropdown-item {
+    cursor: pointer;
+  }
+
+  .btn {
+    border: none;
+    color: $dark-gray-color;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.red-color {
+  .dropdown .dropdown-menu .dropdown-item {
+    &:hover,
+    &:active,
+    &:focus {
+      color: $first-primary-color;
+    }
   }
 }

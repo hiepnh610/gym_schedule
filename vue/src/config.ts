@@ -11,12 +11,9 @@ interface apiTypes {
   user: string;
   workout: string;
   exercise: string;
-  history: string;
-  trackLog: string;
-  note: string;
-  calendar: string;
-  calendarDetail: string;
   profile: string;
+  activities: string;
+  activityDetail: string;
 }
 
 const api: apiTypes = {
@@ -32,12 +29,9 @@ const api: apiTypes = {
   user: '/api/user/',
   workout: '/api/workout/',
   exercise: '/api/exercise/',
-  history: '/api/exercise/history/',
-  trackLog: '/api/exercise/track_log/',
-  note: '/api/exercise/note/',
-  calendar: '/api/exercise/calendar/',
-  calendarDetail: '/api/exercise/calendar_detail/',
-  profile: '/api/profile/'
+  profile: '/api/profile/',
+  activities: '/api/activities/',
+  activityDetail: '/api/activity_detail'
 }
 
 export default { api }

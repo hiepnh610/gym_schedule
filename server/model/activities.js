@@ -1,17 +1,39 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ActivitiySchema = new Schema({
-    caption: String,
-    comments: Array,
-    likes: Array,
-    track_log: Array,
-    user: {
-        type: Object,
-        required: true,
+const ExerciseLogType = new Schema({
+    reps: {
+        type: Number
+    },
+    weight: {
+        type: Number
     }
+});
+
+const ExercisesType = new Schema({
+    exercise_id: {
+        type: String
+    },
+    exercise_name: {
+        type: String
+    },
+    exercise_image: {
+        type: String
+    },
+    exercise_note: {
+        type: String
+    },
+    exercise_log: [ExerciseLogType]
+});
+
+const ActivitySchema = new Schema({
+    likes: {
+        type: Array
+    },
+    exercises: [ExercisesType],
+    workout_name: String
 }, { timestamps: { createdAt: 'created_at' } });
 
-const Activitiy = mongoose.model('Activitiy', ActivitiySchema);
+const Activity = mongoose.model('Activity', ActivitySchema);
 
-module.exports = Activitiy;
+module.exports = Activity;

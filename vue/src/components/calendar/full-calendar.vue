@@ -41,7 +41,7 @@ export default class AllCalendar extends Vue {
     this.setCalendarTitle('')
 
     axios
-      .get(config.api.calendar)
+      .get(config.api.activities)
       .then(function (response: Response) {
         this.activitiesData = this.createNewData(response.data)
         setLoading(this, false)

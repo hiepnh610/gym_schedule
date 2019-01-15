@@ -7,20 +7,16 @@
         </div>
 
         <div class="modal-body">
-          <div class="exercise-name text-center text-primary">{{ dataExerciseOrigin.name }}</div>
+          <div class="exercise-name text-center text-primary">{{ listExercisesToRender.name }}</div>
 
           <div class="exercise-image align-items-center">
-            <img :src="dataExerciseOrigin.image" alt="">
+            <img :src="listExercisesToRender.image" alt="">
           </div>
 
           <b-card no-body>
             <b-tabs card>
               <b-tab title="Track Log" active>
                 <track-log ref="trackLog" />
-              </b-tab>
-
-              <b-tab title="History">
-                <history ref="history" :exercise-name="dataExerciseOrigin.name" />
               </b-tab>
 
               <b-tab title="Note">
@@ -30,8 +26,12 @@
           </b-card>
 
           <div class="form-group form-button text-center mb-0">
-            <button class="btn btn-sm btn-primary" @click.prevent="updateExercise(dataExerciseOrigin._id)">
-              Update
+            <button class="btn btn-sm btn-primary" @click.prevent="exerciseFinish" v-if="!isFinishLog">
+              Save
+            </button>
+
+            <button class="btn btn-sm btn-primary" @click.prevent="logFinish" v-if="isFinishLog">
+              Finish
               <font-awesome-icon icon="spinner" spin v-if="loading" />
             </button>
 
@@ -53,18 +53,32 @@ import config from '@/config'
 import { Response } from '@/util'
 
 import trackLog from './components/track-log.vue'
-import history from './components/history.vue'
 import note from './components/note.vue'
 
 interface SetType {
-  weight?: number;
   reps?: number;
+  weight?: number;
 }
 
-interface ParamsExerciseHistory {
-  'track_log'?: Array<SetType>;
-  note?: string;
-  'exercise_id': string;
+interface Exercise {
+  'exercise_id'?: string;
+  'exercise_log'?: Array<SetType>;
+  'exercise_image'?: string;
+  'exercise_name'?: string;
+  'exercise_note'?: string;
+}
+
+interface dataActivity {
+  'workout_name'?: string;
+  exercises: Array<Exercise>;
+  likes?: string[];
+}
+
+interface ListExercisesToRender {
+  image: string;
+  name: string;
+  _id: string;
+  note: string;
 }
 
 const namespaceModal: string = 'modal'
@@ -74,12 +88,12 @@ const namespaceExercise: string = 'exercises'
   components: {
   FontAwesomeIcon,
   trackLog,
-  history,
   note
   },
   })
 export default class ExerciseUpdate extends Vue {
-  @Prop() dataExerciseOrigin!: any
+  @Prop() listExercises!: any
+  @Prop() workoutName!: string
 
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
@@ -94,25 +108,62 @@ export default class ExerciseUpdate extends Vue {
   }
 
   loading: boolean = false
+  listExercisesToRender: ListExercisesToRender = this.listExercises[0]
+  isFinishLog: boolean = false
+  dataActivity: dataActivity = {
+    exercises: [],
+    'workout_name': this.workoutName
+  }
 
-  updateExercise (id: string) {
+  exerciseFinish () {
+    const indexItem: number = this.listExercises.indexOf(this.listExercisesToRender)
     const setNumber: Array<SetType> = this.$refs.trackLog.setNumber
     const noteContent: string = this.$refs.note.noteContent
 
-    let Historyparams: ParamsExerciseHistory = {
-      'track_log': setNumber,
-      'exercise_id': id
+    let exerciseLog: Exercise = {
+      'exercise_id': this.listExercisesToRender['_id'],
+      'exercise_log': setNumber,
+      'exercise_image': this.listExercisesToRender['image'],
+      'exercise_name': this.listExercisesToRender['name']
     }
 
-    if (this.$refs.note.noteContent) {
-      Historyparams.note = noteContent
+    if (noteContent) {
+      exerciseLog['exercise_note'] = noteContent
     }
+
+    this.dataActivity.exercises.push(exerciseLog)
+
+    if (indexItem < this.listExercises.length - 1) {
+      let nextIndexItem: number = indexItem + 1
+
+      this.listExercisesToRender = this.listExercises[nextIndexItem]
+
+      this.$refs.note.noteContent = ''
+      this.$refs.trackLog.setNumber = [
+        {
+          weight: 0,
+          reps: 0
+        },
+        {
+          weight: 0,
+          reps: 0
+        }
+      ]
+    } else {
+      this.isFinishLog = true
+    }
+  }
+
+  logFinish () {
+    const params: dataActivity = this.dataActivity
 
     axios
-      .post(config.api.history, Historyparams)
+      .post(config.api.activities, params)
       .then(function (response: Response) {
-        this.loading = false
+        this.setShowModalBackdrop(false)
+        this.setShowUpdateModal(false)
 
+        this.isFinishLog = false
         this.$refs.note.noteContent = ''
         this.$refs.trackLog.setNumber = [
           {
@@ -125,23 +176,21 @@ export default class ExerciseUpdate extends Vue {
           }
         ]
 
-        this.setShowModalBackdrop(false)
-        this.setShowUpdateModal(false)
-
-        this.$toasted.success('Update Successfully!!!')
+        this.$toasted.success(response.data.message)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
           this.$toasted.error('Error happened!!!')
         }
-
-        this.loading = false
       }.bind(this))
   }
 
   closeModal () {
+    this.listExercisesToRender = this.listExercises[0]
+    this.isFinishLog = false
+
     this.setShowModalBackdrop(false)
     this.setShowUpdateModal(false)
   }

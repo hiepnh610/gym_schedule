@@ -2,8 +2,13 @@
   .card {
     margin-bottom: 30px;
     overflow: hidden;
+    position: relative;
     @include border-radius($border-radius-size, '');
     @include box-shadow(0, 4px, 6px, 0, $list-group-shadow-color);
+
+    .b-dropdown {
+      width: 100%;
+    }
 
     .image {
       min-height: 253px;
@@ -18,14 +23,23 @@
     }
   }
 
+  &-small {
+    .image {
+      min-height: auto !important;
+    }
+  }
+
   &-horizontal {
     .card {
       display: block;
       min-height: $card-image-size;
-      padding-left: $size-base * 9;
+      padding-bottom: $size-base / 2;
+      padding-left: $size-base * 8;
+      padding-right: $size-base / 2;
       position: relative;
 
       .image {
+        height: 100%;
         left: 0;
         max-width: $card-image-size;
         min-height: $card-image-size;
@@ -37,9 +51,9 @@
         margin-top: $size-base;
       }
 
-      .btn {
-        bottom: $size-base;
-        left: $size-base * 9;
+      .card-remove {
+        bottom: $size-base / 2;
+        left: $size-base * 8;
         position: absolute;
       }
     }

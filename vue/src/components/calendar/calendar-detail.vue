@@ -1,38 +1,43 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-12">
-      <div class="list-group style-custom" v-if="listExercises.length > 0">
-        <div class="list-group-item" v-for="(exercise, index) in listExercises" :key="index">
-          <img :src="exercise.image" alt="">
+      <div v-if="listActivities.length > 0">
+        <div v-for="(activity, index) in listActivities" :key="index">
+          <b-dropdown :id="'drop-down-component' + index" variant="link" class="mb-3">
+            <template slot="button-content">
+              {{ activity['workout_name'] }}
+              <font-awesome-icon icon="caret-down" class="ml-1" />
+            </template>
 
-          <h5 class="mb-2">{{ exercise.name }}</h5>
-
-          <p><small class="text-muted" v-if="exercise.note"><strong>Note:</strong> {{ exercise.note }}</small></p>
+            <b-dropdown-item-button @click.prevent="removeActivity(activity['_id'])">Remove</b-dropdown-item-button>
+          </b-dropdown>
 
           <div class="row">
-            <div class="col-3 mb-2 text-muted" v-for="(log, index) in exercise.track_log" :key="index">
-              <small>
-                <strong>Set {{ index + 1 }}: </strong>
+            <div v-for="(exercise, index) in activity.exercises" :key="index" class="col-12 col-md-4">
+              <div class="list-cards list-cards-horizontal text-left">
+                <div class="card border">
+                  <div class="image bg-light p-2">
+                    <img :src="exercise.exercise_image" alt="">
+                  </div>
 
-                <span>{{ log.weight }} kg</span>
+                  <h6 class="card-title mb-0">{{ exercise.exercise_name }}</h6>
 
-                <span> - </span>
+                  <p class="text-muted mb-0" v-for="(log, index) in exercise.exercise_log" :key="index">
+                    <small>Set {{ index + 1 }}: {{ log.weight }} kg - {{ log.reps }} reps</small>
+                  </p>
 
-                <span>{{ log.reps }} reps</span>
-              </small>
+                  <p class="mb-0" v-if="exercise.exercise_note">
+                    <small>Note: {{ exercise.exercise_note }}</small>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-
-          <a href="#" class="btn btn-sm btn-warning mr-1 ml-0" @click.prevent="updateHistory(exercise)">Update</a>
-
-          <a href="#" class="btn btn-sm btn-danger" @click.prevent="deleteHistory(exercise._id)">Remove</a>
         </div>
       </div>
 
       <p class="text-center" v-else>You haven't add any logs.</p>
     </div>
-
-    <calendar-update :data-history-origin="dataHistoryOrigin" />
   </div>
 </template>
 
@@ -47,32 +52,17 @@ import axios from 'axios'
 import config from '@/config'
 import { Response, ID, setLoading } from '@/util'
 
-import calendarUpdate from './calendar-update.vue'
-
 const namespaceCalendar: string = 'calendar'
 const namespaceModal: string = 'modal'
+const namespaceActivities: string = 'activities'
 
 interface DateParam {
   date: string;
 }
 
-interface TrackLog {
-  reps: number;
-  weight: number;
-}
-
-interface DataHistoryOrigin {
-  _id?: string;
-  image?: string;
-  name?: string;
-  note?: string;
-  'track_log'?: Array<TrackLog>;
-}
-
 @Component({
   components: {
   FontAwesomeIcon,
-  calendarUpdate,
   },
   })
 export default class CalendarDetail extends Vue {
@@ -80,15 +70,9 @@ export default class CalendarDetail extends Vue {
 
   @Action('setCalendarTitle', { namespace: namespaceCalendar }) setCalendarTitle: any
 
-  @Action('setListExercises', { namespace: namespaceCalendar }) setListExercises: any
-  @Action('setDeleteExercise', { namespace: namespaceCalendar }) setDeleteExercise: any
-  @Getter('listExercises', { namespace: namespaceCalendar }) listExercises: any
-
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
-  @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
-
-  dataHistoryOrigin: DataHistoryOrigin = {}
+  @Action('setListActivities', { namespace: namespaceActivities }) setListActivities: any
+  @Action('setDeleteActivity', { namespace: namespaceActivities }) setDeleteActivity: any
+  @Getter('listActivities', { namespace: namespaceActivities }) listActivities: any
 
   created () {
     const convertDate: any = moment(new Date(this.date)).format('MM-DD-YYYY')
@@ -99,9 +83,9 @@ export default class CalendarDetail extends Vue {
     this.setCalendarTitle(this.date)
 
     axios
-      .get(config.api.calendarDetail, { params })
+      .get(config.api.activityDetail, { params })
       .then(function (response: Response) {
-        this.setListExercises(response.data)
+        this.setListActivities(response.data)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
@@ -112,11 +96,12 @@ export default class CalendarDetail extends Vue {
       }.bind(this))
   }
 
-  deleteHistory (id: String) {
+  removeActivity (id: string) {
     axios
-      .delete(config.api.calendarDetail + id)
+      .delete(config.api.activities + id)
       .then(function () {
-        this.setDeleteExercise(id)
+        this.setDeleteActivity(id)
+
         this.$toasted.success('Delete Successfully!!!')
       }.bind(this))
       .catch(function (error: Response) {
@@ -128,13 +113,6 @@ export default class CalendarDetail extends Vue {
 
         this.$toasted.error('Error happened!!!')
       }.bind(this))
-  }
-
-  updateHistory (history: any) {
-    this.dataHistoryOrigin = history
-
-    this.setShowModalBackdrop(true)
-    this.setShowUpdateModal(true)
   }
 }
 </script>

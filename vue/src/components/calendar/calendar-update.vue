@@ -147,27 +147,27 @@ export default class CalendarUpdate extends Vue {
 
     this.loading = true
 
-    axios
-      .put(config.api.calendarDetail + id, params)
-      .then(function (response: Response) {
-        this.loading = false
+    // axios
+    //   .put(config.api.calendarDetail + id, params)
+    //   .then(function (response: Response) {
+    //     this.loading = false
 
-        this.setShowModalBackdrop(false)
-        this.setShowUpdateModal(false)
+    //     this.setShowModalBackdrop(false)
+    //     this.setShowUpdateModal(false)
 
-        this.setUpdateExercise(response.data)
+    //     this.setUpdateExercise(response.data)
 
-        this.$toasted.success('Delete Successfully!!!')
-      }.bind(this))
-      .catch(function (error: Response) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.message = 'Error happened.'
-        }
+    //     this.$toasted.success('Delete Successfully!!!')
+    //   }.bind(this))
+    //   .catch(function (error: Response) {
+    //     if (error.response && error.response.data && error.response.data.message) {
+    //       this.message = error.response.data.message
+    //     } else {
+    //       this.message = 'Error happened.'
+    //     }
 
-        this.$toasted.error('Error happened!!!')
-      }.bind(this))
+    //     this.$toasted.error('Error happened!!!')
+    //   }.bind(this))
   }
 
   @Watch('dataHistoryOrigin', { immediate: true, deep: true })

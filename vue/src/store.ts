@@ -6,10 +6,9 @@ import { modal } from './store/modal/index'
 import { plans } from './store/plans/index'
 import { workouts } from './store/workouts/index'
 import { exercises } from './store/exercises/index'
-import { trackLog } from './store/track-log/index'
-import { notes } from './store/note/index'
 import { avatar } from './store/avatar/index'
 import { calendar } from './store/calendar/index'
+import { activities } from './store/activities/index'
 
 Vue.use(Vuex)
 
@@ -23,10 +22,9 @@ const store: StoreOptions<RootState> = {
     plans,
     workouts,
     exercises,
-    trackLog,
-    notes,
     avatar,
-    calendar
+    calendar,
+    activities
   },
 
   strict: process.env.NODE_ENV !== 'production'

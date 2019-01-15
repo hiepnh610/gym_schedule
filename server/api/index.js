@@ -8,9 +8,8 @@ const login       = require('./login');
 const signUp      = require('./sign_up');
 const workout     = require('./workout');
 const uploadImage = require('./upload');
-const calendar    = require('./calendar');
 const exercise    = require('./exercise');
-const exerciseHistories = require('./exercise_histories');
+const activities    = require('./activities');
 
 const verifyToken = require('../auth/verifyToken');
 
@@ -68,34 +67,6 @@ router
     .route('/exercise/:exercise_id')
     .delete(verifyToken, exercise.deleteExercise);
 
-// Calendar
-router
-    .route('/exercise/calendar')
-    .get(verifyToken, calendar.getAllHistories);
-
-router
-    .route('/exercise/calendar_detail')
-    .get(verifyToken, calendar.getHistoriesByDate);
-
-router
-    .route('/exercise/calendar_detail/:history_id')
-    .put(verifyToken, calendar.updateHistory)
-    .delete(verifyToken, calendar.deleteHistoryByDate);
-
-// History
-router
-    .route('/exercise/history')
-    .get(verifyToken, exerciseHistories.getExerciseHistory)
-    .post(verifyToken, exerciseHistories.createExerciseHistory);
-
-router
-    .route('/exercise/track_log/:history_id')
-    .put(verifyToken, exerciseHistories.deleteExerciseTrackLog);
-
-router
-    .route('/exercise/note/:history_id')
-    .put(verifyToken, exerciseHistories.deleteExerciseNote);
-
 // User
 router
     .route('/user')
@@ -118,5 +89,19 @@ router
 router
     .route('/profile')
     .get(verifyToken, profile);
+
+// Activities
+router
+    .route('/activities')
+    .get(verifyToken, activities.getAllActivities)
+    .post(verifyToken, activities.createActivity);
+
+router
+    .route('/activities/:activity_id')
+    .delete(verifyToken, activities.deleteActivity);
+
+router
+    .route('/activity_detail')
+    .get(verifyToken, activities.getActivitiesByDate);
 
 module.exports = router;
