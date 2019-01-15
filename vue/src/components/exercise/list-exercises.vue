@@ -1,23 +1,17 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-2" v-for="(exercise, index) in listExercises" :key="index">
-        <div class="list-cards list-cards-small text-left">
+      <div class="col-3" v-for="(exercise, index) in listExercises" :key="index">
+        <div class="list-cards text-left">
           <div class="card border">
-            <b-dropdown :id="'drop-down-component' + index" variant="link">
-              <template slot="button-content">
-                <font-awesome-icon icon="caret-down" />
-              </template>
-
-              <b-dropdown-item-button @click.prevent="deleteExercise(exercise._id)">Remove</b-dropdown-item-button>
-            </b-dropdown>
-
-            <div class="image bg-light p-2">
+            <div class="image bg-light p-4">
               <img :src="exercise.image" alt="">
             </div>
 
-            <div class="body px-3 py-2">
-              <h6 class="card-title mb-0">{{ exercise.name }}</h6>
+            <div class="px-3 py-3 bg-white">
+              <h6 class="card-title">{{ exercise.name }}</h6>
+
+              <a href="#" class="btn btn-sm btn-danger ml-0" @click.prevent="deleteExercise(exercise._id)">Remove</a>
             </div>
           </div>
         </div>

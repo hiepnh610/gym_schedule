@@ -42,7 +42,7 @@
           </div>
 
           <a :href="profileLink" class="text-capitalize text-white mr-2 d-flex">
-            <span v-text="nameDisplay"></span>
+            <span v-text="fullName"></span>
           </a>
 
           <div class="dropdown">
@@ -82,7 +82,7 @@ export default class Navigation extends Vue {
   @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
 
   isLogin: boolean = false
-  nameDisplay!: string
+  fullName!: string
   isDropDown: boolean = false
   profileLink: string = ''
 
@@ -93,7 +93,7 @@ export default class Navigation extends Vue {
       const username = _this.$session.get('username')
 
       this.isLogin = true
-      this.nameDisplay = _this.$session.get('name')
+      this.fullName = _this.$session.get('name')
       this.profileLink = window.location.origin + `/profile/${username}`
     }
   }

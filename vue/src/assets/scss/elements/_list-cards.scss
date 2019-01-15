@@ -6,10 +6,6 @@
     @include border-radius($border-radius-size, '');
     @include box-shadow(0, 4px, 6px, 0, $list-group-shadow-color);
 
-    .b-dropdown {
-      width: 100%;
-    }
-
     .image {
       min-height: 253px;
       position: relative;
@@ -21,11 +17,9 @@
         @include translate(-50%, -50%);
       }
     }
-  }
 
-  &-small {
-    .image {
-      min-height: auto !important;
+    .body {
+      padding: 0.625rem 0.75rem;
     }
   }
 

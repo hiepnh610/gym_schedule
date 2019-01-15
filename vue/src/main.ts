@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import moment from 'moment'
 import Toasted from 'vue-toasted'
 import VueAxios from 'vue-axios'
 import VueCookie from 'vue-cookie'
@@ -47,6 +48,8 @@ Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, fontawesomeOptions)
 Vue.use(BootstrapVue)
 Vue.use(VueTextareaAutosize)
+
+Vue.prototype.moment = moment
 
 library.add(fas, far, fab)
 

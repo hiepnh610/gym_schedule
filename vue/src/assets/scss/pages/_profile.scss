@@ -60,29 +60,36 @@
 
 .activities-list {
   .activity {
-    background: $white-color;
-    border: 1px solid $profile-border-color;
     margin-bottom: 30px;
-    position: relative;
-    @include border-radius($border-radius-size, '');
 
-    .avatar {
-      background-color: $white-color;
+    .activity-body {
+      background: $white-color;
       border: 1px solid $profile-border-color;
-      max-width: 40px;
-      min-height: 40px;
-      min-width: 40px;
-    }
+      position: relative;
+      @include border-radius($border-radius-size, '');
 
-    .more-options {
-      position: absolute;
-      top: $size-base / 2;
-      right: 12px;
-    }
+      + .activity-body {
+        margin-top: 15px;
+      }
 
-    .profile-like,
-    .profile-comment {
-      cursor: pointer;
+      .avatar {
+        background-color: $white-color;
+        border: 1px solid $profile-border-color;
+        max-width: 40px;
+        min-height: 40px;
+        min-width: 40px;
+      }
+
+      .more-options {
+        position: absolute;
+        top: $size-base / 2;
+        right: 12px;
+      }
+
+      .profile-like,
+      .profile-comment {
+        cursor: pointer;
+      }
     }
   }
 }

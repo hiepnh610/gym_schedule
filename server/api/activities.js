@@ -6,6 +6,7 @@ const Activitiy = require('../model/activities');
 const createActivity = (req, res) => {
     if (req.body.exercises) {
         let activity = new Activitiy({
+            created_by: req.body.created_by,
             exercises: req.body.exercises,
             workout_name: req.body.workout_name
         });
