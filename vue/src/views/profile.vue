@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-12 col-md-8">
-          <profile-content :full-name="fullName" />
+          <profile-content :full-name="fullName" :avatar="avatar" />
         </div>
       </div>
     </div>
@@ -58,6 +58,7 @@ export default class Profile extends Vue {
   user: TypeUser = {}
   isOwner: boolean = false
   fullName: string = ''
+  avatar: string = ''
 
   created () {
     const _this: any = this
@@ -77,6 +78,7 @@ export default class Profile extends Vue {
       .then(function (response: Response) {
         this.user = response.data
         this.fullName = response.data.full_name
+        this.avatar = response.data.avatar
 
         setLoading(this, false)
       }.bind(this))

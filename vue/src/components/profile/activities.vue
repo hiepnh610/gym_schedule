@@ -32,7 +32,13 @@
           <strong>{{ activity.workout_name }}</strong>
 
           <p class="mb-0">
-            <small class="text-muted">Exercises: {{ activity.exercises.length }}</small>
+            <small class="text-muted" v-if="activity.exercises.length === 1">Quantity: {{ activity.exercises.length }} exercise</small>
+
+            <small class="text-muted" v-else-if="activity.exercises.length > 1">Quantity: {{ activity.exercises.length }} exercises</small>
+
+            <small class="mr-3" v-if="weightTotal(activity.exercises) > 0"></small>
+
+            <small class="text-muted" v-if="weightTotal(activity.exercises) > 0">Weight: {{ weightTotal(activity.exercises) }} kg</small>
           </p>
         </section>
 
@@ -61,7 +67,19 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
-const namespaceAvatar: string = 'avatar'
+interface SetType {
+  reps?: number;
+  weight?: number;
+}
+
+interface Exercise {
+  'exercise_id'?: string;
+  'exercise_log'?: Array<SetType>;
+  'exercise_image'?: string;
+  'exercise_name'?: string;
+  'exercise_note'?: string;
+}
+
 const namespaceActivities: string = 'activities'
 
 @Component({
@@ -71,8 +89,7 @@ const namespaceActivities: string = 'activities'
   })
 export default class ProfileActivities extends Vue {
   @Prop() fullName!: string
-
-  @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
+  @Prop() avatar!: string
 
   @Action('setListActivities', { namespace: namespaceActivities }) setListActivities: any
   @Action('setDeleteActivity', { namespace: namespaceActivities }) setDeleteActivity: any
@@ -116,6 +133,22 @@ export default class ProfileActivities extends Vue {
 
         this.$toasted.error('Error happened!!!')
       }.bind(this))
+  }
+
+  weightTotal (exercises: Array<Exercise>) {
+    let total: number = 0
+
+    for (let key in exercises) {
+      let exerciseLog: Array<SetType> = exercises[key]['exercise_log'] || []
+
+      for (let key2 in exerciseLog) {
+        let weight: number = exerciseLog[key2].weight || 0
+
+        total += weight
+      }
+    }
+
+    return total
   }
 }
 </script>
