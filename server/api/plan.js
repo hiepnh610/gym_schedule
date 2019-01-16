@@ -21,7 +21,10 @@ const getPlan = (req, res) => {
         const query = { 'created_by': req.query.id };
 
         Plan.find(query)
-        .populate('created_by')
+        .populate({
+            path: 'created_by',
+            select: '_id'
+        })
         .exec(function (err, plans) {
             if(err) return res.status(400).send(err);
 

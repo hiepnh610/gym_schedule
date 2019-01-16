@@ -1,6 +1,6 @@
 <template>
   <section>
-    <activities />
+    <activities :full-name="fullName" />
   </section>
 </template>
 
@@ -15,5 +15,7 @@ import Activities from './activities.vue'
   Activities
   }
   })
-export default class ProfileContent extends Vue {}
+export default class ProfileContent extends Vue {
+  @Prop() fullName!: string
+}
 </script>

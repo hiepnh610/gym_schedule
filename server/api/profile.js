@@ -1,4 +1,8 @@
+const moment = require('moment');
+const _ = require('lodash');
+
 const User = require('../model/user');
+const Activity = require('../model/activities');
 
 const getInfo = (req, res) => {
     if (req.query.username) {
@@ -38,4 +42,23 @@ const getInfo = (req, res) => {
     }
 };
 
-module.exports = getInfo;
+const getActivities = (req, res) => {
+    if (req.query.username) {
+        const query = { 'created_by': req.query.username };
+
+        Activity.find(query)
+        .exec(function (err, activities) {
+            if(err) return res.status(400).send(err);
+
+            const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
+            const groupDate = _.groupBy(activities, dateFormat);
+
+            res.status(200).json(groupDate);
+        });
+    }
+}
+
+module.exports = {
+    getInfo,
+    getActivities
+};

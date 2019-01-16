@@ -1,7 +1,7 @@
 <template>
   <div class="activities-list">
     <div class="activity" v-for="(activities, key) in listActivities" :key="key">
-      <h6 class="activity-date">{{moment(key).format('MMMM D, YYYY')}}</h6>
+      <h6 class="activity-date" v-if="activities.length > 0">{{moment(key).format('MMMM D, YYYY')}}</h6>
 
       <div class="activity-body" v-for="(activity, key) in activities" :key="key">
         <header class="px-3 pt-3 pb-2">
@@ -17,7 +17,13 @@
             <small class="text-muted">{{moment(activity.created_at).format('MMMM D, YYYY [at] h:m A')}}</small>
           </p>
 
-          <font-awesome-icon icon="ellipsis-h" class="text-muted more-options" />
+          <b-dropdown :id="'drop-down-component' + key" variant="link" class="mb-3 more-options">
+            <template slot="button-content">
+              <font-awesome-icon icon="ellipsis-h" class="text-muted" />
+            </template>
+
+            <b-dropdown-item-button @click.prevent="removeActivity(activity['_id'])">Remove</b-dropdown-item-button>
+          </b-dropdown>
         </header>
 
         <hr class="m-0" />
@@ -64,25 +70,23 @@ const namespaceActivities: string = 'activities'
   }
   })
 export default class ProfileActivities extends Vue {
+  @Prop() fullName!: string
+
   @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
 
   @Action('setListActivities', { namespace: namespaceActivities }) setListActivities: any
   @Action('setDeleteActivity', { namespace: namespaceActivities }) setDeleteActivity: any
   @Getter('listActivities', { namespace: namespaceActivities }) listActivities: any
 
-  fullName!: string
-
   created () {
     const _this: any = this
-
-    if (_this.$session.exists()) {
-      const username = _this.$session.get('username')
-
-      this.fullName = _this.$session.get('name')
+    const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
+    const params = {
+      username: usernameFromUrl
     }
 
     axios
-      .get(config.api.activities)
+      .get(config.api.profileActivities, { params })
       .then(function (response: Response) {
         this.setListActivities(response.data)
       }.bind(this))
@@ -92,6 +96,25 @@ export default class ProfileActivities extends Vue {
         } else {
           this.message = 'Error happened.'
         }
+      }.bind(this))
+  }
+
+  removeActivity (id: string) {
+    axios
+      .delete(config.api.activities + id)
+      .then(function () {
+        this.setDeleteActivity(id)
+
+        this.$toasted.success('Delete Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+
+        this.$toasted.error('Error happened!!!')
       }.bind(this))
   }
 }

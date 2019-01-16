@@ -12,6 +12,7 @@ interface apiTypes {
   workout: string;
   exercise: string;
   profile: string;
+  profileActivities: string;
   activities: string;
   activityDetail: string;
 }
@@ -30,6 +31,7 @@ const api: apiTypes = {
   workout: '/api/workout/',
   exercise: '/api/exercise/',
   profile: '/api/profile/',
+  profileActivities: '/api/profile_activities/',
   activities: '/api/activities/',
   activityDetail: '/api/activity_detail'
 }

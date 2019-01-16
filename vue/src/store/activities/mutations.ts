@@ -7,9 +7,17 @@ export const mutations: MutationTree<ActivityState> = {
   },
 
   deleteActivity (state: any, id: string): void {
-    for (var i = 0; i < state.listActivities.length; i++) {
-      if (state.listActivities[i]._id === id) {
-        state.listActivities.splice(i, 1)
+    for (var key in state.listActivities) {
+      if (state.listActivities[key]._id === id) {
+        state.listActivities.splice(key, 1)
+      }
+
+      // This loop for find id of activity
+      // Because the data of profile activities has different structure
+      for (var key2 in state.listActivities[key]) {
+        if (state.listActivities[key][key2]._id === id) {
+          state.listActivities[key].splice(key2, 1)
+        }
       }
     }
   }

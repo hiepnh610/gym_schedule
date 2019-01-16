@@ -121,6 +121,7 @@ export default class ExerciseUpdate extends Vue {
     const setNumber: Array<SetType> = this.$refs.trackLog.setNumber
     const noteContent: string = this.$refs.note.noteContent
     const _this: any = this
+    const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
 
     let exerciseLog: Exercise = {
       'exercise_id': this.listExercisesToRender['_id'],
@@ -134,7 +135,7 @@ export default class ExerciseUpdate extends Vue {
     }
 
     this.dataActivity.exercises.push(exerciseLog)
-    this.dataActivity.created_by = _this.$session.get('id')
+    this.dataActivity.created_by = _this.$session.get('username')
 
     if (indexItem < this.listExercises.length - 1) {
       let nextIndexItem: number = indexItem + 1

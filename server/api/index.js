@@ -88,7 +88,11 @@ router
 // Profile
 router
     .route('/profile')
-    .get(verifyToken, profile);
+    .get(verifyToken, profile.getInfo);
+
+router
+    .route('/profile_activities')
+    .get(verifyToken, profile.getActivities);
 
 // Activities
 router

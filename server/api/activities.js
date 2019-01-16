@@ -1,11 +1,11 @@
 const moment = require('moment');
 const _ = require('lodash');
 
-const Activitiy = require('../model/activities');
+const Activity = require('../model/activities');
 
 const createActivity = (req, res) => {
     if (req.body.exercises) {
-        let activity = new Activitiy({
+        let activity = new Activity({
             created_by: req.body.created_by,
             exercises: req.body.exercises,
             workout_name: req.body.workout_name
@@ -20,7 +20,7 @@ const createActivity = (req, res) => {
 };
 
 const getAllActivities = (req, res) => {
-    Activitiy.find({}, (err, activities) => {
+    Activity.find({}, (err, activities) => {
         if (err) return res.status(400).send(err);
 
         const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
@@ -34,10 +34,10 @@ const deleteActivity = (req, res) => {
     if (req.params.activity_id) {
         const query = { '_id': req.params.activity_id };
 
-        Activitiy.deleteOne(query, (err, activity) => {
+        Activity.deleteOne(query, (err, activity) => {
             if(err) return res.status(400).send(err);
 
-            res.json({ message: 'Activitiy deleted.' });
+            res.json({ message: 'Activity deleted.' });
         });
     }
 };
@@ -55,7 +55,7 @@ const getActivitiesByDate = (req, res) => {
         }
     };
 
-    Activitiy
+    Activity
     .find(query)
     .exec((err, activities) => {
         if (err) return res.status(400).send(err);
