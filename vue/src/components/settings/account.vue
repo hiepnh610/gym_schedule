@@ -26,7 +26,7 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-lg btn-primary" @click.prevent="userUpdate(userInfo.id)">
+            <button class="btn btn-md btn-primary" @click.prevent="userUpdate(userInfo.id)">
               Update password
             </button>
           </div>

@@ -7,15 +7,11 @@
             <div class="animated fadeInUp">
               <form @submit.prevent="login">
                 <div class="form-group input-group-lg">
-                  <input type="text" class="form-control" name="username" placeholder="Username" v-model="username" v-validate="'required|min:8'" data-vv-delay="1000" />
-
-                  <p v-show="errors.has('username')" class="text-white mt-2">{{ errors.first('username') }}</p>
+                  <input type="text" class="form-control" name="username" placeholder="Username" v-model="username" />
                 </div>
 
                 <div class="form-group input-group-lg">
-                  <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" v-validate="'required|min:8'" data-vv-delay="1000" />
-
-                  <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
+                  <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" />
                 </div>
 
                 <p v-show="message" class="text-white mt-2">{{ message }}</p>

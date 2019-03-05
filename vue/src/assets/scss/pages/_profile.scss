@@ -15,7 +15,7 @@
       min-width: 170px;
       padding: $profile-padding / 4;
       position: absolute;
-      @include border-radius($border-radius-size, '');
+      @include border-radius($border-radius-size);
     }
 
     .profile-full-name {
@@ -40,7 +40,7 @@
   .sidebar {
     background: $white-color;
     border: 1px solid $profile-border-color;
-    @include border-radius($border-radius-size, '');
+    @include border-radius($border-radius-size);
   }
 
   .cover-photo {
@@ -53,7 +53,7 @@
       left: $size-base;
       position: absolute;
       top: $size-base;
-      @include border-radius($border-radius-size, 'auto');
+      @include border-radius($border-radius-size);
     }
   }
 }
@@ -66,7 +66,7 @@
       background: $white-color;
       border: 1px solid $profile-border-color;
       position: relative;
-      @include border-radius($border-radius-size, '');
+      @include border-radius($border-radius-size);
 
       + .activity-body {
         margin-top: 15px;

@@ -1,3 +1,39 @@
+.btn {
+  margin: 0 5px;
+  @include border-radius($border-radius-size);
+
+  &:focus {
+    outline: none;
+    @include box-shadow(0, 0, 0, 0, transparent);
+  }
+
+  &.btn-lg {
+    font-size: $large-size-base;
+    height: 50px;
+    min-width: 180px;
+  }
+
+  &.btn-md {
+    font-size: $size-base;
+    height: 45px;
+    min-width: 150px;
+  }
+
+  &.btn-sm {
+    font-size: $small-size-base;
+    height: 35px;
+    min-width: 110px;
+    padding-left: $size-base;
+    padding-right: $size-base;
+  }
+
+  &.btn-xs {
+    font-size: $smallest-size-base;
+    height: 30px;
+    min-width: 80px;
+  }
+}
+
 @mixin btn($primary-color, $success-color, $warning-color, $danger-color) {
   $agrs: $primary-color $success-color $warning-color $danger-color;
   $btns: primary success warning danger;
@@ -24,11 +60,6 @@
   }
 
   .btn {
-    &:focus {
-      outline: none;
-      @include box-shadow(0, 0, 0, 0, transparent);
-    }
-
     &.btn-secondary {
       background: $navy-blue-color;
       border-color: $navy-blue-color;
@@ -40,35 +71,25 @@
     }
 
     &.btn-light {
+      background: $white-color;
       border-color: $border-color;
+      color: $gray-color;
+
+      &:hover {
+        background: $first-primary-color;
+        border-color: $first-primary-color;
+        color: $white-color;
+      }
     }
 
-    &.btn-lg {
-      height: 50px;
-      min-width: 180px;
-      padding-bottom: .7rem;
-      padding-left: 2rem;
-      padding-right: 2rem;
-      @include border-radius(50px, 'auto');
-    }
+    &.btn-transparent {
+      background: transparent;
+      border-color: transparent;
+      color: $gray-color;
 
-    &.btn-md {
-      height: 40px;
-      margin: 0 5px;
-      min-width: 100px;
-      padding-left: $size-base;
-      padding-right: $size-base;
-      @include border-radius(40px, 'auto');
-    }
-
-    &.btn-sm {
-      font-size: $small-size-base;
-      height: 30px;
-      line-height: 28px;
-      margin: 0 5px;
-      min-width: 80px;
-      padding: 0 $size-base;
-      @include border-radius(40px, 'auto');
+      &:hover {
+        color: $first-primary-color;
+      }
     }
   }
 }

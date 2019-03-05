@@ -3,39 +3,31 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="text-secondary text-uppercase">Exercise Information</h2>
+          <h2 class="modal-title text-primary text-uppercase">Exercise Information</h2>
         </div>
 
         <div class="modal-body">
-          <div class="exercise-name text-center text-primary">{{ listExercisesToRender.name }}</div>
+          <div class="exercise-name text-center text-secondary">{{ listExercisesToRender.name }}</div>
 
           <div class="exercise-image align-items-center">
             <img :src="listExercisesToRender.image" alt="">
           </div>
 
-          <b-card no-body>
-            <b-tabs card>
-              <b-tab title="Track Log" active>
-                <track-log ref="trackLog" />
-              </b-tab>
+          <track-log ref="trackLog" />
 
-              <b-tab title="Note">
-                <note ref="note" />
-              </b-tab>
-            </b-tabs>
-          </b-card>
+          <note ref="note" />
 
-          <div class="form-group form-button text-center mb-0">
-            <button class="btn btn-sm btn-primary" @click.prevent="exerciseFinish" v-if="!isFinishLog">
+          <div class="form-group form-button text-right mb-0">
+            <button class="btn btn-xs btn-transparent m-0" @click.prevent="closeModal">Cancel</button>
+
+            <button class="btn btn-xs btn-secondary m-0" @click.prevent="exerciseFinish" v-if="!isFinishLog">
               Save
             </button>
 
-            <button class="btn btn-sm btn-primary" @click.prevent="logFinish" v-if="isFinishLog">
+            <button class="btn btn-xs btn-secondary m-0" @click.prevent="logFinish" v-if="isFinishLog">
               Finish
               <font-awesome-icon icon="spinner" spin v-if="loading" />
             </button>
-
-            <button class="btn btn-sm btn-secondary" @click.prevent="closeModal">Cancel</button>
           </div>
         </div>
       </div>

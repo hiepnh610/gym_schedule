@@ -3,17 +3,16 @@
     <div class="col-12">
       <div v-if="listActivities.length > 0">
         <div v-for="(activity, index) in listActivities" :key="index">
-          <b-dropdown :id="'drop-down-component' + index" variant="link" class="mb-3">
-            <template slot="button-content">
-              {{ activity['workout_name'] }}
-              <font-awesome-icon icon="caret-down" class="ml-1" />
-            </template>
+          <div class="bg-light px-4 py-3 mb-4 clearfix">
+            <strong>{{ activity['workout_name'] }}</strong>
 
-            <b-dropdown-item-button @click.prevent="removeActivity(activity['_id'])">Remove</b-dropdown-item-button>
-          </b-dropdown>
+            <a href="#" class="text-primary float-right" @click.prevent="removeActivity(activity['_id'])">
+              <small>Remove</small>
+            </a>
+          </div>
 
           <div class="row">
-            <div v-for="(exercise, index) in activity.exercises" :key="index" class="col-12 col-md-4">
+            <div v-for="(exercise, index) in activity.exercises" :key="index" class="col-12 col-md-6">
               <div class="list-cards list-cards-horizontal text-left">
                 <div class="card border">
                   <div class="image bg-light p-2">

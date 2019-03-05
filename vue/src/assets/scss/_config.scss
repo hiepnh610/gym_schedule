@@ -1,16 +1,16 @@
 * {
   &::-webkit-scrollbar {
-    border-radius: 4px;
-    width: 8px;
+    border-radius: 3px;
+    width: 6px;
   }
 
   &::-webkit-scrollbar-thumb {
     background: $first-primary-color;
-    border-radius: 4px;
+    border-radius: 3px;
   }
 
   &::-webkit-scrollbar-track {
-    border-radius: 4px;
+    border-radius: 3px;
   }
 }
 

@@ -3,7 +3,7 @@
 }
 
 .text-muted {
-  color: $gray-color;
+  color: $gray-color !important;
 }
 
 .text-light-gray {
@@ -26,5 +26,11 @@
 
   .text-success {
     color: $first-success-color !important;
+  }
+
+  a.text-primary {
+    &:hover {
+      color: $navy-blue-color !important;
+    }
   }
 }

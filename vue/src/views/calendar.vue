@@ -2,7 +2,7 @@
   <div id="calendar-page" v-if="!isLoading">
     <div class="page-title mb-5">
       <div class="container">
-        <h2 class="text-center mb-5" v-if="calendarTitle">{{ convertDate }}</h2>
+        <h2 class="text-center mb-5" v-if="calendarTitle">{{ convertDate | date_with_comma }}</h2>
 
         <h2 class="text-center mb-5" v-else>Calendar</h2>
       </div>
@@ -19,7 +19,6 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
-import moment from 'moment'
 
 import { setLoading } from '@/util'
 
@@ -35,7 +34,7 @@ const namespaceCalendar: string = 'calendar'
 export default class Calendar extends Vue {
   @Getter('calendarTitle', { namespace: namespaceCalendar }) calendarTitle: any
 
-  convertDate: string = ''
+  convertDate!: Date
   isLoading: boolean = true
 
   created () {
@@ -50,7 +49,7 @@ export default class Calendar extends Vue {
     }
 
     if (this.calendarTitle) {
-      this.convertDate = moment(new Date(this.calendarTitle)).format('DD, MMM, YYYY')
+      this.convertDate = new Date(this.calendarTitle)
     }
   }
 
@@ -60,7 +59,7 @@ export default class Calendar extends Vue {
 
   @Watch('calendarTitle', { immediate: true, deep: true })
   dataCalendar (val: any, oldVal: any) {
-    this.convertDate = moment(new Date(val)).format('DD, MMM, YYYY')
+    this.convertDate = new Date(val)
   }
 }
 </script>

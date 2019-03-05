@@ -3,7 +3,7 @@
     <div class="track-log-header">
       <div class="row justify-content-between align-items-center">
         <div class="col-12 col-md-4">
-          <a href="#" @click.prevent="addMoreSet">
+          <a href="#" @click.prevent="addMoreSet" class="align-middle">
             Add more set
 
             <font-awesome-icon icon="plus-circle" class="ml-2" />
@@ -13,7 +13,7 @@
     </div>
 
     <div class="track-log-content">
-      <table class="table">
+      <table class="table mb-0">
         <thead class="thead-light">
           <tr>
             <th class="text-nowrap">{{ setNumber.length }} sets</th>
@@ -74,10 +74,12 @@ export default class TrackLog extends Vue {
   ]
 
   addMoreSet () {
-    this.setNumber.push({
-      weight: 0,
-      reps: 0
-    })
+    if (this.setNumber.length < 5) {
+      this.setNumber.push({
+        weight: 0,
+        reps: 0
+      })
+    }
   }
 
   removeSet (index: number) {

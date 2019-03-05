@@ -1,7 +1,7 @@
 .table {
   &.table-striped {
     overflow: hidden;
-    @include border-radius($border-radius-size, '');
+    @include border-radius($border-radius-size);
     @include box-shadow(0, 0, 0, 1px, $table-border);
 
     thead {
@@ -15,11 +15,11 @@
           text-transform: uppercase;
 
           &:first-child {
-            @include border-radius($border-radius-size 0 0 0, '');
+            @include border-radius($border-radius-size 0 0 0);
           }
 
           &:last-child {
-            @include border-radius(0 $border-radius-size 0 0, '');
+            @include border-radius(0 $border-radius-size 0 0);
           }
         }
       }
@@ -38,11 +38,11 @@
         &:last-child {
           td {
             &:first-child {
-              @include border-radius(0 0 0 $border-radius-size, '');
+              @include border-radius(0 0 0 $border-radius-size);
             }
 
             &:last-child {
-              @include border-radius(0 0 $border-radius-size 0, '');
+              @include border-radius(0 0 $border-radius-size 0);
             }
           }
         }
@@ -63,7 +63,7 @@
             height: 70px;
             position: relative;
             width: 70px;
-            @include border-radius($border-radius-size, '');
+            @include border-radius($border-radius-size);
 
             svg {
               left: 50%;

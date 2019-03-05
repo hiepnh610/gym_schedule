@@ -72,7 +72,7 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-lg btn-primary" @click.prevent="userUpdate(user._id)">
+            <button class="btn btn-md btn-primary" @click.prevent="userUpdate(user._id)">
               Update profile
               <font-awesome-icon icon="spinner" spin v-if="updateInfoIsLoading" />
             </button>
@@ -109,12 +109,13 @@
             <img :src="avatarPathFake" alt="" />
           </div>
 
-          <div class="modal-footer justify-content-center">
-            <a href="#" class="btn btn-md btn-primary" @click.prevent="uploadAvatar">
+          <div class="modal-footer text-right">
+            <button href="#" class="btn btn-sm btn-transparent m-0" @click.prevent="closeModal">Close</button>
+
+            <button href="#" class="btn btn-sm btn-secondary m-0" @click.prevent="uploadAvatar">
               Save
               <font-awesome-icon icon="spinner" spin v-if="updateAvatarIsLoading" />
-            </a>
-            <a href="#" class="btn btn-md btn-secondary" @click.prevent="closeModal">Close</a>
+            </button>
           </div>
         </div>
       </div>

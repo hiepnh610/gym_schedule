@@ -7,7 +7,7 @@
       padding-left: $list-group-size-image * 10;
       position: relative;
       @include box-shadow(0, 4px, 6px, 0, $list-group-shadow-color);
-      @include border-radius($list-group-border-radius / 8, '');
+      @include border-radius($border-radius-size);
 
       img {
         left: $list-group-size-image / 2;

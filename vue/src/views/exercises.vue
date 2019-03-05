@@ -7,9 +7,9 @@
     </div>
 
     <div class="container text-center">
-      <a href="#" class="btn btn-md btn-light mb-5" @click.prevent="createExercise">
-        Create Exercise
-      </a>
+      <button class="btn btn-sm btn-primary mb-5" @click.prevent="addExercise">
+        Add Exercise
+      </button>
 
       <p class="align-center" v-if="listExercises.length === 0">Please add some exercies from the under button.</p>
     </div>
@@ -57,7 +57,7 @@ export default class Exercises extends Vue {
   message: string = ''
   isLoading: boolean = true
 
-  createExercise () {
+  addExercise () {
     this.setShowModalBackdrop(true)
     this.setShowCreateModal(true)
   }

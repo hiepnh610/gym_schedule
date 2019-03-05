@@ -7,15 +7,11 @@
             <div class="animated fadeInUp">
               <form @submit.prevent="signUp">
                 <div class="form-group input-group-lg">
-                  <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" v-validate="'required|email'" data-vv-delay="1000" />
-
-                  <p v-show="errors.has('email')" class="text-white mt-2">{{ errors.first('email') }}</p>
+                  <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" />
                 </div>
 
                 <div class="form-group input-group-lg">
-                  <input type="text" class="form-control" name="username" placeholder="Username" v-model="userName" v-validate="'required|min:8'" data-vv-delay="1000" />
-
-                  <p v-show="errors.has('username')" class="text-white mt-2">{{ errors.first('username') }}</p>
+                  <input type="text" class="form-control" name="username" placeholder="Username" v-model="userName" />
                 </div>
 
                 <div class="form-group input-group-lg">
@@ -23,15 +19,11 @@
                 </div>
 
                 <div class="form-group input-group-lg">
-                  <input type="password" class="form-control" name="password" placeholder="Password" v-validate="'required|min:8'" data-vv-delay="1000" ref="passwordRef" v-model="password" />
-
-                  <p v-show="errors.has('password')" class="text-white mt-2">{{ errors.first('password') }}</p>
+                  <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" />
                 </div>
 
                 <div class="form-group input-group-lg">
-                  <input type="password" class="form-control" name="re-password" placeholder="Confirm Password" v-validate="'required|confirmed:passwordRef'" data-vv-delay="1000" v-model="confirmPassword" />
-
-                  <p v-show="errors.has('re-password')" class="text-white mt-2">{{ errors.first('re-password') }}</p>
+                  <input type="password" class="form-control" name="re-password" placeholder="Confirm Password" v-model="confirmPassword" />
                 </div>
 
                 <p v-show="message" class="text-white mt-2">{{ message }}</p>

@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="text-secondary text-uppercase">Workout Information</h2>
+          <h2 class="modal-title text-primary text-uppercase">Workout Information</h2>
         </div>
 
         <div class="modal-body">
@@ -36,13 +36,13 @@
               <p v-show="message" class="text-danger">{{ message }}</p>
             </div>
 
-            <div class="form-group form-button text-center mb-0">
-              <button class="btn btn-sm btn-primary" @click.prevent="workoutCreate">
+            <div class="form-group form-button text-right mb-0">
+              <button class="btn btn-xs btn-transparent m-0" @click.prevent="closeModal">Cancel</button>
+
+              <button class="btn btn-xs btn-secondary m-0" @click.prevent="workoutCreate">
                 Submit
                 <font-awesome-icon icon="spinner" spin v-if="loading" />
               </button>
-
-              <button class="btn btn-sm btn-secondary" @click.prevent="closeModal">Cancel</button>
             </div>
           </form>
         </div>

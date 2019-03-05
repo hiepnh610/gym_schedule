@@ -17,24 +17,22 @@ $padding-nav-link: $size-base / 8;
 
   .avatar {
     color: $white-color;
-    font-size: 20px;
-    max-width: 2rem;
+    font-size: $size-h4;
+    max-width: $size-base * 2;
 
     img {
-      @include border-radius($size-base / 8, '');
+      @include border-radius($border-radius-size);
     }
   }
 
   .dropdown-menu {
-    left: auto;
-    right: 0;
     top: 40px;
   }
 }
 
 #main-logo {
   h1 {
-    font-size: 1.25rem;
+    font-size: $size-h4;
     font-weight: 700;
     margin: 0;
   }

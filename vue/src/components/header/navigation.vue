@@ -46,11 +46,11 @@
           </a>
 
           <div class="dropdown">
-            <a href="#" class="text-white dropdown-toggle" @click.prevent="openDropDown" v-click-outside="closeDropDown">
+            <div class="text-white dropdown-toggle">
               <font-awesome-icon icon="caret-down" />
-            </a>
+            </div>
 
-            <div class="dropdown-menu" :class="{ show: isDropDown }">
+            <div class="dropdown-menu">
               <router-link to="/settings/profile" class="dropdown-item">Settings</router-link>
 
               <a class="dropdown-item" href="#" @click.prevent="logout">Sign Out</a>
@@ -66,24 +66,19 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import ClickOutside from 'vue-click-outside'
 
 const namespaceAvatar: string = 'avatar'
 
 @Component({
   components: {
   FontAwesomeIcon,
-  },
-  directives: {
-  ClickOutside
-  },
+  }
   })
 export default class Navigation extends Vue {
   @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
 
   isLogin: boolean = false
   fullName!: string
-  isDropDown: boolean = false
   profileLink: string = ''
 
   mounted () {
@@ -104,18 +99,6 @@ export default class Navigation extends Vue {
     _this.$session.destroy()
     window.location.href = location.origin
     this.isLogin = false
-  }
-
-  openDropDown () {
-    if (this.isDropDown) {
-      this.isDropDown = false
-    } else {
-      this.isDropDown = true
-    }
-  }
-
-  closeDropDown () {
-    this.isDropDown = false
   }
 }
 </script>

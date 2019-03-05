@@ -9,17 +9,21 @@
             </div>
 
             <div class="px-3 py-3 bg-white">
-              <h6 class="card-title">{{ exercise.name }}</h6>
-
-              <a href="#" class="btn btn-sm btn-danger ml-0" @click.prevent="deleteExercise(exercise._id)">Remove</a>
+              <h6 class="card-title mb-0">{{ exercise.name }}</h6>
             </div>
+
+            <footer class="px-3 py-2 bg-light text-right">
+              <a href="#" class="text-muted" @click.prevent="deleteExercise(exercise._id)">
+                <small>Remove</small>
+              </a>
+            </footer>
           </div>
         </div>
       </div>
     </div>
 
     <div class="text-center">
-      <a href="#" class="btn btn-lg btn-primary" @click.prevent="startLog">Start Workout</a>
+      <button class="btn btn-md btn-primary" @click.prevent="startLog">Start Workout</button>
     </div>
 
     <exercise-log :list-exercises="listExercises" :workout-name="workoutName" />
@@ -29,7 +33,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
@@ -42,8 +45,7 @@ const namespaceExercises: string = 'exercises'
 
 @Component({
   components: {
-  exerciseLog,
-  FontAwesomeIcon
+  exerciseLog
   },
   })
 export default class ListExercises extends Vue {

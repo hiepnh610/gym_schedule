@@ -1,6 +1,8 @@
 <template>
   <div class="note text-left">
     <div class="note-box p-3">
+      <small class="text-muted mb-1 d-block">Note:</small>
+
       <textarea-autosize
       class="form-control"
       :min-height="60"
@@ -14,7 +16,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import moment from 'moment'
 import axios from 'axios'
 
 import config from '@/config'

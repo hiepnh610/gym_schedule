@@ -23,10 +23,10 @@
             <p v-if="plan.frequency <= 1" class="text-muted">Frequency: {{ plan.frequency }} day/week</p>
           </div>
 
-          <footer class="p-3 bg-light">
-            <a href="#" class="btn btn-sm btn-secondary mr-1" @click.prevent="updatePlan(plan)">Edit</a>
+          <footer class="p-3 bg-light text-right">
+            <button class="btn btn-xs btn-transparent m-0" @click.prevent="deletePlan(plan._id)">Remove</button>
 
-            <a href="#" class="btn btn-sm btn-danger" @click.prevent="deletePlan(plan._id)">Remove</a>
+            <button class="btn btn-xs btn-light m-0" @click.prevent="updatePlan(plan)">Edit</button>
           </footer>
         </div>
       </div>

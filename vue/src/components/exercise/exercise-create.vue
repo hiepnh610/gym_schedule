@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="text-secondary text-uppercase">Exercises</h2>
+          <h2 class="modal-title text-primary text-uppercase">Exercises</h2>
         </div>
 
         <div class="modal-body">
@@ -17,8 +17,8 @@
             </li>
           </ul>
 
-          <div class="form-group form-button text-center mb-0">
-            <button class="btn btn-sm btn-secondary" @click.prevent="closeModal">Close</button>
+          <div class="form-group form-button text-right mb-0">
+            <button class="btn btn-xs btn-secondary" @click.prevent="closeModal">Close</button>
           </div>
         </div>
       </div>
@@ -29,7 +29,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
@@ -55,11 +54,7 @@ interface dataItem {
   name: string;
 }
 
-@Component({
-  components: {
-  FontAwesomeIcon
-  },
-  })
+@Component
 export default class ExerciseCreate extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
   @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any

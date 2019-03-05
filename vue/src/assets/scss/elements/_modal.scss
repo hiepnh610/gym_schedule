@@ -5,7 +5,7 @@
 
   .modal-content {
     border: none;
-    @include border-radius($border-radius-size, '');
+    @include border-radius($border-radius-size);
   }
 
   .modal-header {
@@ -13,7 +13,11 @@
     border: none;
     justify-content: center;
     padding: 1.875rem 0;
-    @include border-radius($border-radius-size $border-radius-size 0 0, '');
+    @include border-radius($border-radius-size $border-radius-size 0 0);
+
+    .modal-title {
+      font-weight: 400;
+    }
 
     * {
       margin: 0;
@@ -25,7 +29,7 @@
     padding: 0;
 
     > img {
-      @include border-radius($border-radius-size $border-radius-size 0 0, '');
+      @include border-radius($border-radius-size $border-radius-size 0 0);
     }
 
     .form-group-header {
@@ -46,8 +50,8 @@
 
     .form-button {
       background: $modal-footer-bg;
-      padding: 1.875rem 0;
-      @include border-radius(0 0 $border-radius-size $border-radius-size, '');
+      padding: 1.875rem;
+      @include border-radius(0 0 $border-radius-size $border-radius-size);
     }
 
     .list-group-flush {
@@ -71,7 +75,7 @@
         height: 70px;
         margin-right: 15px;
         width: 70px;
-        @include border-radius($border-radius-size, '');
+        @include border-radius($border-radius-size);
       }
     }
   }

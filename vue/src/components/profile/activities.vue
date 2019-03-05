@@ -1,7 +1,7 @@
 <template>
   <div class="activities-list">
     <div class="activity" v-for="(activities, key) in listActivities" :key="key">
-      <h6 class="activity-date" v-if="activities.length > 0">{{moment(key).format('MMMM D, YYYY')}}</h6>
+      <h6 class="activity-date" v-if="activities.length > 0">{{ key | revert_date }}</h6>
 
       <div class="activity-body" v-for="(activity, key) in activities" :key="key">
         <header class="px-3 pt-3 pb-2">
@@ -14,16 +14,18 @@
           <p class="d-inline-block mb-0">
             <strong class="d-block text-primary">{{ fullName }}</strong>
 
-            <small class="text-muted">{{moment(activity.created_at).format('MMMM D, YYYY [at] h:m A')}}</small>
+            <small class="text-muted">{{ activity.created_at | revert_date_with_time }}</small>
           </p>
 
-          <b-dropdown :id="'drop-down-component' + key" variant="link" class="mb-3 more-options">
-            <template slot="button-content">
-              <font-awesome-icon icon="ellipsis-h" class="text-muted" />
-            </template>
+          <div class="dropdown float-right">
+            <div class="dropdown-toggle" ref="dropdown-toggle">
+              <font-awesome-icon icon="caret-down" />
+            </div>
 
-            <b-dropdown-item-button @click.prevent="removeActivity(activity['_id'])">Remove</b-dropdown-item-button>
-          </b-dropdown>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item" @click.prevent="removeActivity(activity['_id'])">Remove</a>
+            </div>
+          </div>
         </header>
 
         <hr class="m-0" />

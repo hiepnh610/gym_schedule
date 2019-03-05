@@ -7,9 +7,9 @@
     </div>
 
     <div class="container text-center">
-      <a href="#" class="btn btn-md btn-light mb-5" @click.prevent="createPlan">
+      <button class="btn btn-sm btn-primary mb-5" @click.prevent="createPlan">
         Create Plan
-      </a>
+      </button>
 
       <p v-if="listPlans.length === 0">Please create a plan from the under button.</p>
     </div>

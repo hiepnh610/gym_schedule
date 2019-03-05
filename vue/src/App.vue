@@ -44,6 +44,7 @@ export default class App extends Vue {
 
     this.setAuthenticate()
     this.getInfoUser()
+    this.toggleDropdown()
   }
 
   setAuthenticate (): void {
@@ -80,6 +81,22 @@ export default class App extends Vue {
           }
         })
     }
+  }
+
+  toggleDropdown (): void {
+    const getDropDownToggle: any = document.getElementsByClassName('dropdown-toggle')
+
+    window.addEventListener('click', function (e) {
+      const target: any = e.target
+
+      for (let dropdown of getDropDownToggle) {
+        if (dropdown.contains(e.target)) {
+          target.closest('.dropdown-toggle').classList.toggle('show')
+        } else {
+          dropdown.classList.remove('show')
+        }
+      }
+    })
   }
 }
 </script>

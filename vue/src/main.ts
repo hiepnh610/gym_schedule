@@ -3,10 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 import Toasted from 'vue-toasted'
 import VueAxios from 'vue-axios'
-import VueCookie from 'vue-cookie'
 import VueSession from 'vue-session'
-import VeeValidate from 'vee-validate'
-import BootstrapVue from 'bootstrap-vue'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 
 import App from './App.vue'
@@ -16,13 +13,12 @@ import store from './store'
 import './registerServiceWorker'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
+import iconFont from '@/fontawesome'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import '@/filter'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'animate.css/animate.min.css'
 
 import './assets/scss/style.scss'
@@ -42,16 +38,13 @@ const fontawesomeOptions: Options = {
 }
 
 Vue.use(VueAxios, axios)
-Vue.use(VeeValidate)
-Vue.use(VueCookie)
 Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, fontawesomeOptions)
-Vue.use(BootstrapVue)
 Vue.use(VueTextareaAutosize)
 
 Vue.prototype.moment = moment
 
-library.add(fas, far, fab)
+library.add(iconFont.fas, iconFont.far)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

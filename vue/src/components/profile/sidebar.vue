@@ -20,10 +20,10 @@
           <small>Lives in <span class="text-primary">{{ userProfile.address }}</span></small>
         </li>
 
-        <li v-if="convertDOB">
+        <li v-if="userProfile.dob">
           <font-awesome-icon icon="calendar-alt" class="mr-2 small text-muted fa-fw" />
 
-          <small>{{ convertDOB }}</small>
+          <small>{{ userProfile.dob | date_with_slash }}</small>
         </li>
 
         <li>
@@ -40,7 +40,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import moment from 'moment'
 
 interface TypeUser {
   address?: string;
@@ -57,13 +56,5 @@ interface TypeUser {
   })
 export default class ProfileSidebar extends Vue {
   @Prop() userProfile!: TypeUser
-
-  convertDOB: string = ''
-
-  created () {
-    if (this.userProfile && this.userProfile.dob) {
-      this.convertDOB = moment(this.userProfile.dob).format('DD/MM/YYYY')
-    }
-  }
 }
 </script>

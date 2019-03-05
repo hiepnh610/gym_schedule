@@ -10,7 +10,7 @@
       position: absolute;
       top: 50%;
       width: $bullet-size;
-      @include border-radius(50%, '');
+      @include border-radius(50%);
       @include translate(0, -50%);
     }
   }

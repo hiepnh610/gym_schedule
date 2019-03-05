@@ -3,7 +3,7 @@
     margin-bottom: 30px;
     overflow: hidden;
     position: relative;
-    @include border-radius($border-radius-size, '');
+    @include border-radius($border-radius-size);
     @include box-shadow(0, 4px, 6px, 0, $list-group-shadow-color);
 
     .image {

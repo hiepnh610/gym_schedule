@@ -7,9 +7,9 @@
     </div>
 
     <div class="container text-center">
-      <a href="" class="btn btn-md btn-light mb-5" @click.prevent="createWorkout" v-if="displayBtn">
+      <button class="btn btn-sm btn-primary mb-5" @click.prevent="createWorkout" v-if="displayBtn">
         Create Workout
-      </a>
+      </button>
 
       <p v-if="listWorkouts.length === 0">Please create a workout day from the under button.</p>
     </div>

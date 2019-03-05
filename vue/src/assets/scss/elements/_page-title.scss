@@ -1,6 +1,5 @@
 .page-title {
-  background-attachment: fixed;
-  background-position: 50% 95%;
+  background-position: 0 0;
   background-repeat: no-repeat;
   background-size: cover;
   height: 350px;
@@ -38,20 +37,20 @@
 
 #workouts-page {
   .page-title {
-    background-image: url('../images/login-bg.jpg');
+    background-image: url('../images/workout-title.jpg');
   }
 }
 
 #exercises-page {
   .page-title {
-    background-image: url('../images/exercises-bg.jpg');
+    background-image: url('../images/exercises-title.jpg');
     background-position: 50% 50%;
   }
 }
 
 #calendar-page {
   .page-title {
-    background-image: url('../images/calendar-bg.jpg');
+    background-image: url('../images/calendar-title.jpg');
     background-position: 0% 0%;
   }
 }

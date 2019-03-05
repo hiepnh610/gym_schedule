@@ -23,10 +23,10 @@
             <p v-else class="text-muted">Quantity: 0 exercise</p>
           </div>
 
-          <footer class="p-3 bg-light">
-            <a href="#" class="btn btn-sm btn-secondary mr-1" @click.prevent="updateWorkout(workout)">Edit</a>
+          <footer class="p-3 bg-light text-right">
+            <button class="btn btn-xs btn-transparent m-0" @click.prevent="deleteWorkout(workout._id)">Remove</button>
 
-            <a href="#" class="btn btn-sm btn-danger" @click.prevent="deleteWorkout(workout._id)">Remove</a>
+            <button class="btn btn-xs btn-light m-0" @click.prevent="updateWorkout(workout)">Edit</button>
           </footer>
         </div>
       </div>
