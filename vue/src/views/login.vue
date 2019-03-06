@@ -45,24 +45,24 @@ import { Response, setLoading } from '@/util'
 import Loading from '@/components/loading/loading.vue'
 
 interface ParamsLogin {
-  username: string;
-  password: string;
+  username: string
+  password: string
 }
 
 @Component({
   components: {
   FontAwesomeIcon,
-  Loading,
-  },
+  Loading
+  }
   })
 export default class Login extends Vue {
-  disabledBtn: boolean = false
-  username: string = ''
-  message: string = ''
-  password: string = ''
-  isLoading: boolean = true
+  private disabledBtn: boolean = false
+  private username: string = ''
+  private message: string = ''
+  private password: string = ''
+  private isLoading: boolean = true
 
-  login () {
+  private login () {
     if (this.username && this.password) {
       const params: ParamsLogin = {
         username: this.username,
@@ -95,7 +95,7 @@ export default class Login extends Vue {
     }
   }
 
-  mounted () {
+  private mounted () {
     setLoading(this, false)
   }
 }

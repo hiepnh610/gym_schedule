@@ -12,7 +12,8 @@ import {
   faMapMarkerAlt,
   faRss,
   faHeart as fasHeart,
-  faUserPlus
+  faUserPlus,
+  faImage
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -34,7 +35,8 @@ const fas = {
   faMapMarkerAlt,
   faRss,
   fasHeart,
-  faUserPlus
+  faUserPlus,
+  faImage
 }
 
 const far = {

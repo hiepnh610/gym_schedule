@@ -43,29 +43,29 @@ const namespaceWorkouts: string = 'workouts'
   workoutCreate,
   listWorkouts,
   FontAwesomeIcon,
-  Loading,
-  },
+  Loading
+  }
   })
 export default class Workouts extends Vue {
-  @Prop() id!: string
+  @Prop() private id!: string
 
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) private setShowCreateModal: any
 
-  @Action('setListWorkouts', { namespace: namespaceWorkouts }) setListWorkouts: any
-  @Getter('listWorkouts', { namespace: namespaceWorkouts }) listWorkouts: any
+  @Action('setListWorkouts', { namespace: namespaceWorkouts }) private setListWorkouts: any
+  @Getter('listWorkouts', { namespace: namespaceWorkouts }) private listWorkouts: any
 
-  planName: string = ''
-  planFrequency: string = ''
-  message: string = ''
-  isLoading: boolean = true
+  private planName: string = ''
+  private planFrequency: string = ''
+  private message: string = ''
+  private isLoading: boolean = true
 
-  createWorkout () {
+  private createWorkout () {
     this.setShowModalBackdrop(true)
     this.setShowCreateModal(true)
   }
 
-  created () {
+  private created () {
     const params: ID = {
       id: this.id
     }

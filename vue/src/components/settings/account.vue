@@ -44,35 +44,35 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
-interface userInfo {
-  confirmNewPassword: string;
-  currentPassword: string;
-  id: string;
-  newPassword: string;
+interface UserInfo {
+  confirmNewPassword: string
+  currentPassword: string
+  id: string
+  newPassword: string
 }
 
 @Component({
   components: {
   FontAwesomeIcon
-  },
+  }
   })
 export default class Account extends Vue {
-  userInfo: userInfo = {
+  private userInfo: UserInfo = {
     confirmNewPassword: '',
     currentPassword: '',
     id: '',
     newPassword: ''
   }
 
-  errContent: string = ''
+  private errContent: string = ''
 
-  created () {
-    const _this: any = this
-    this.userInfo.id = _this.$session.get('id')
+  private created () {
+    const self: any = this
+    this.userInfo.id = self.$session.get('id')
   }
 
-  userUpdate (id: string) {
-    const _this: any = this
+  private userUpdate (id: string) {
+    const self: any = this
 
     if (this.userInfo.newPassword === this.userInfo.confirmNewPassword) {
       const params = {
@@ -95,7 +95,7 @@ export default class Account extends Vue {
           this.$toasted.error('Error happened!!!')
         }.bind(this))
     } else {
-      _this.$toasted.error('The password does not match.')
+      self.$toasted.error('The password does not match.')
     }
   }
 }

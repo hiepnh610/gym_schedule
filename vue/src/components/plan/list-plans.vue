@@ -53,26 +53,26 @@ const namespacePlan: string = 'plans'
 @Component({
   components: {
   planUpdate
-  },
+  }
   })
 export default class ListPlans extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) private setShowUpdateModal: any
 
-  @Action('setDeletePlan', { namespace: namespacePlan }) setDeletePlan: any
-  @Getter('listPlans', { namespace: namespacePlan }) listPlans: any
+  @Action('setDeletePlan', { namespace: namespacePlan }) private setDeletePlan: any
+  @Getter('listPlans', { namespace: namespacePlan }) private listPlans: any
 
-  message: string = ''
-  dataPlanOrigin: any = ''
+  private message: string = ''
+  private dataPlanOrigin: any = ''
 
-  updatePlan (plan: any) {
+  private updatePlan (plan: any) {
     this.setShowModalBackdrop(true)
     this.setShowUpdateModal(true)
 
     this.dataPlanOrigin = plan
   }
 
-  deletePlan (id: string) {
+  private deletePlan (id: string) {
     axios
       .delete(config.api.plans + id)
       .then(function () {

@@ -61,8 +61,8 @@ import config from '@/config'
 import { Response } from '@/util'
 
 interface ParamsWorkoutUpdate {
-  name: string;
-  'week_day': string;
+  name: string
+  'week_day': string
 }
 
 const namespaceModal: string = 'modal'
@@ -71,28 +71,28 @@ const namespaceWorkouts: string = 'workouts'
 @Component({
   components: {
   FontAwesomeIcon
-  },
+  }
   })
 export default class WorkoutUpdate extends Vue {
-  @Prop() dataWorkoutOrigin!: any
+  @Prop() private dataWorkoutOrigin!: any
 
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
-  @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) private setShowUpdateModal: any
+  @Getter('showUpdateModal', { namespace: namespaceModal }) private showUpdateModal: any
 
-  @Action('setUpdateWorkout', { namespace: namespaceWorkouts }) setUpdateWorkout: any
+  @Action('setUpdateWorkout', { namespace: namespaceWorkouts }) private setUpdateWorkout: any
 
-  loading: boolean = false
-  message: string = ''
-  workoutDay: string = ''
-  workoutName: string = ''
+  private loading: boolean = false
+  private message: string = ''
+  private workoutDay: string = ''
+  private workoutName: string = ''
 
-  closeModal () {
+  private closeModal () {
     this.setShowModalBackdrop(false)
     this.setShowUpdateModal(false)
   }
 
-  workoutUpdate (id: string) {
+  private workoutUpdate (id: string) {
     if (!this.workoutName) {
       this.message = 'The workout name cannot be blank.'
 
@@ -135,7 +135,7 @@ export default class WorkoutUpdate extends Vue {
   }
 
   @Watch('dataWorkoutOrigin', { immediate: true, deep: true })
-  dataWorkout (val: any, oldVal: any) {
+  private dataWorkout (val: any, oldVal: any) {
     this.workoutDay = val.weekDay
     this.workoutName = val.name
   }

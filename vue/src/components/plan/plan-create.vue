@@ -78,32 +78,32 @@ const namespaceModal: string = 'modal'
 const namespacePlan: string = 'plans'
 
 interface ParamsPlanCreate {
-  'created_by': string;
-  frequency: string;
-  name: string;
-  type: string;
+  'created_by': string
+  frequency: string
+  name: string
+  type: string
 }
 
 @Component({
   components: {
   FontAwesomeIcon
-  },
+  }
   })
 export default class PlanCreate extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
-  @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
-  @Getter('showCreateModal', { namespace: namespaceModal }) showCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) private setShowCreateModal: any
+  @Getter('showModalBackdrop', { namespace: namespaceModal }) private showModalBackdrop: any
+  @Getter('showCreateModal', { namespace: namespaceModal }) private showCreateModal: any
 
-  @Action('setCreatePlan', { namespace: namespacePlan }) setCreatePlan: any
+  @Action('setCreatePlan', { namespace: namespacePlan }) private setCreatePlan: any
 
-  frequencyPlan: string = ''
-  loading: boolean = false
-  message: string = ''
-  namePlan: string = ''
-  typePlan: string = ''
+  private frequencyPlan: string = ''
+  private loading: boolean = false
+  private message: string = ''
+  private namePlan: string = ''
+  private typePlan: string = ''
 
-  closeModal () {
+  private closeModal () {
     this.frequencyPlan = ''
     this.namePlan = ''
     this.typePlan = ''
@@ -112,7 +112,7 @@ export default class PlanCreate extends Vue {
     this.setShowCreateModal(false)
   }
 
-  planCreate () {
+  private planCreate () {
     if (!this.namePlan) {
       this.message = 'The routine name cannot be blank.'
 
@@ -131,10 +131,10 @@ export default class PlanCreate extends Vue {
       return
     }
 
-    const _this: any = this
+    const self: any = this
 
     const params: ParamsPlanCreate = {
-      created_by: _this.$session.get('id'),
+      created_by: self.$session.get('id'),
       frequency: this.frequencyPlan,
       name: this.namePlan,
       type: this.typePlan

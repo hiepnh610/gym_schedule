@@ -7,10 +7,14 @@ export const mutations: MutationTree<PlanState> = {
   },
 
   deletePlan (state: any, id: string): void {
-    for (var i = 0; i < state.listPlans.length; i++) {
-      if (state.listPlans[i]._id === id) {
-        state.listPlans.splice(i, 1)
+    let index: number = 0
+
+    for (const plan of state.listPlans) {
+      if (plan._id === id) {
+        state.listPlans.splice(index, 1)
       }
+
+      index++
     }
   },
 
@@ -19,11 +23,11 @@ export const mutations: MutationTree<PlanState> = {
   },
 
   updatePlan (state: any, data: Plans): any {
-    for (var i = 0; i < state.listPlans.length; i++) {
-      if (state.listPlans[i]._id === data._id) {
-        state.listPlans[i].name = data.name
-        state.listPlans[i].type = data.type
-        state.listPlans[i].frequency = data.frequency
+    for (const plan of state.listPlans) {
+      if (plan._id === data._id) {
+        plan.name = data.name
+        plan.type = data.type
+        plan.frequency = data.frequency
       }
     }
   }

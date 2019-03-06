@@ -1,18 +1,18 @@
 interface SetsType {
-  _id: String;
-  weight: Number;
-  reps: Number;
+  _id: string
+  weight: number
+  reps: number
 }
 
 export interface ListExercisesType {
-  text: String;
-  name: String;
-  image: String;
-  _id: String;
-  sets: Array<SetsType>;
+  text: string
+  name: string
+  image: string
+  _id: string
+  sets: SetsType[]
 }
 
 export interface CalendarState {
-  calendarTitle: String;
-  listExercises: Array<ListExercisesType>;
+  calendarTitle: string
+  listExercises: ListExercisesType[]
 }

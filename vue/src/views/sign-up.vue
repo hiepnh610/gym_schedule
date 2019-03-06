@@ -57,30 +57,30 @@ import { Response, setLoading } from '@/util'
 import Loading from '@/components/loading/loading.vue'
 
 interface ParamsSignUp {
-  email: string;
-  'full_name': string;
-  password: string;
-  'confirm_password': string;
-  username: string;
+  email: string
+  'full_name': string
+  password: string
+  'confirm_password': string
+  username: string
 }
 
 @Component({
   components: {
   FontAwesomeIcon,
-  Loading,
-  },
+  Loading
+  }
   })
 export default class SignUp extends Vue {
-  disabledBtn: boolean = false
-  email: string = ''
-  fullName: string = ''
-  userName: string = ''
-  message: string = ''
-  password: string = ''
-  confirmPassword: string = ''
-  isLoading: boolean = true
+  private disabledBtn: boolean = false
+  private email: string = ''
+  private fullName: string = ''
+  private userName: string = ''
+  private message: string = ''
+  private password: string = ''
+  private confirmPassword: string = ''
+  private isLoading: boolean = true
 
-  signUp () {
+  private signUp () {
     if (this.email && this.fullName && this.password) {
       const params: ParamsSignUp = {
         email: this.email,
@@ -116,7 +116,7 @@ export default class SignUp extends Vue {
     }
   }
 
-  mounted () {
+  private mounted () {
     setLoading(this, false)
   }
 }

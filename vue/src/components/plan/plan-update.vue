@@ -80,29 +80,29 @@ const namespacePlan: string = 'plans'
 @Component({
   components: {
   FontAwesomeIcon
-  },
+  }
   })
 export default class PlanUpdate extends Vue {
-  @Prop() dataPlanOrigin!: any
+  @Prop() private dataPlanOrigin!: any
 
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
-  @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) private setShowUpdateModal: any
+  @Getter('showUpdateModal', { namespace: namespaceModal }) private showUpdateModal: any
 
-  @Action('setUpdatePlan', { namespace: namespacePlan }) setUpdatePlan: any
+  @Action('setUpdatePlan', { namespace: namespacePlan }) private setUpdatePlan: any
 
-  frequencyPlan: string = ''
-  loading: boolean = false
-  message: string = ''
-  namePlan: string = ''
-  typePlan: string = ''
+  private frequencyPlan: string = ''
+  private loading: boolean = false
+  private message: string = ''
+  private namePlan: string = ''
+  private typePlan: string = ''
 
-  closeModal () {
+  private closeModal () {
     this.setShowModalBackdrop(false)
     this.setShowUpdateModal(false)
   }
 
-  planUpdate (id: string) {
+  private planUpdate (id: string) {
     if (!this.namePlan) {
       this.message = 'The routine name cannot be blank.'
 
@@ -158,7 +158,7 @@ export default class PlanUpdate extends Vue {
   }
 
   @Watch('dataPlanOrigin', { immediate: true, deep: true })
-  dataPlan (val: any, oldVal: any) {
+  private dataPlan (val: any, oldVal: any) {
     this.frequencyPlan = val.frequency
     this.namePlan = val.name
     this.typePlan = val.type

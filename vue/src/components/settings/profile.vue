@@ -138,37 +138,37 @@ const namespaceModal: string = 'modal'
 const namespaceAvatar: string = 'avatar'
 
 interface User {
-  _id: string;
-  address: string;
-  bio: string;
-  dob: string;
-  email: string;
-  fullName: string;
-  gender: string;
-  height: string;
-  weight: string;
+  _id: string
+  address: string
+  bio: string
+  dob: string
+  email: string
+  fullName: string
+  gender: string
+  height: string
+  weight: string
 }
 
 @Component({
   components: {
   FontAwesomeIcon,
   Datepicker
-  },
+  }
   })
 export default class Profile extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
 
-  @Action('setAvatar', { namespace: namespaceAvatar }) setAvatar: any
-  @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
+  @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
+  @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
-  avatarPathFake: string = ''
-  avatarValue: any = null
-  errorAvatar: string = ''
-  message: string = ''
-  showAvatarModal: boolean = false
-  updateAvatarIsLoading: boolean = false
-  updateInfoIsLoading: boolean = false
-  user: User = {
+  private avatarPathFake: string = ''
+  private avatarValue: any = null
+  private errorAvatar: string = ''
+  private message: string = ''
+  private showAvatarModal: boolean = false
+  private updateAvatarIsLoading: boolean = false
+  private updateInfoIsLoading: boolean = false
+  private user: User = {
     _id: '',
     address: '',
     bio: '',
@@ -180,13 +180,13 @@ export default class Profile extends Vue {
     weight: ''
   }
 
-  created () {
-    const _this: any = this
+  private created () {
+    const self: any = this
 
     axios
       .get(config.api.user, {
         params: {
-          id: _this.$session.get('id')
+          id: self.$session.get('id')
         }
       })
       .then(function (response: Response) {
@@ -209,7 +209,7 @@ export default class Profile extends Vue {
       }.bind(this))
   }
 
-  userUpdate (id: string) {
+  private userUpdate (id: string) {
     const formatTimeToUTC = moment.utc(this.user.dob).format()
     const params = {
       dob: this.user.dob || '',
@@ -244,19 +244,19 @@ export default class Profile extends Vue {
       }.bind(this))
   }
 
-  customFormatter (date: string) {
+  private customFormatter (date: string) {
     return moment(date).format('DD/MM/YYYY')
   }
 
-  selectImage (e: any) {
-    const _this: any = this
+  private selectImage (e: any) {
+    const self: any = this
 
     this.avatarValue = e.target.files[0]
 
     const limitSize: number = 1024000
     const imageType: string = this.avatarValue.type.replace('image/', '')
 
-    _this.$refs.inputFile.value = ''
+    self.$refs.inputFile.value = ''
     this.errorAvatar = ''
 
     if (this.avatarValue.size > limitSize) {
@@ -275,22 +275,22 @@ export default class Profile extends Vue {
     this.showAvatarModal = true
   }
 
-  closeModal () {
+  private closeModal () {
     this.setShowModalBackdrop(false)
     this.showAvatarModal = false
   }
 
-  uploadAvatar () {
-    const _this: any = this
+  private uploadAvatar () {
+    const self: any = this
 
     const configHeader = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
 
-    let formData: any = new FormData()
+    const formData: any = new FormData()
 
     formData.append('avatar', this.avatarValue)
-    formData.append('userId', _this.$session.getAll().id)
+    formData.append('userId', self.$session.getAll().id)
 
     this.updateAvatarIsLoading = true
 

@@ -43,29 +43,29 @@ const namespaceModal: string = 'modal'
   planCreate,
   listPlans,
   FontAwesomeIcon,
-  Loading,
-  },
+  Loading
+  }
   })
 export default class Plans extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) private setShowCreateModal: any
 
-  @Action('setListPlans', { namespace: namespacePlan }) setListPlans: any
-  @Getter('listPlans', { namespace: namespacePlan }) listPlans: any
+  @Action('setListPlans', { namespace: namespacePlan }) private setListPlans: any
+  @Getter('listPlans', { namespace: namespacePlan }) private listPlans: any
 
-  message: string = ''
-  isLoading: boolean = true
+  private message: string = ''
+  private isLoading: boolean = true
 
-  createPlan () {
+  private createPlan () {
     this.setShowModalBackdrop(true)
     this.setShowCreateModal(true)
   }
 
-  created () {
-    const _this: any = this
+  private created () {
+    const self: any = this
 
     const params: ID = {
-      id: _this.$session.get('id')
+      id: self.$session.get('id')
     }
 
     axios

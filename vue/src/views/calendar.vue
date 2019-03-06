@@ -28,19 +28,21 @@ const namespaceCalendar: string = 'calendar'
 
 @Component({
   components: {
-  Loading,
+  Loading
   }
   })
 export default class Calendar extends Vue {
-  @Getter('calendarTitle', { namespace: namespaceCalendar }) calendarTitle: any
+  @Getter('calendarTitle', { namespace: namespaceCalendar }) private calendarTitle: any
 
-  convertDate!: Date
-  isLoading: boolean = true
+  private convertDate!: Date
+  private isLoading: boolean = true
 
-  created () {
-    const _this: any = this
-    const isAuthenticated: boolean = _this.$session.exists()
-    const isCalendarPage = window.location.href === (window.location.origin + '/calendar') || window.location.href === (window.location.origin + '/calendar/')
+  private created () {
+    const self: any = this
+    const isAuthenticated: boolean = self.$session.exists()
+    const isCalendarPage = window.location.href === (window.location.origin + '/calendar')
+                          ||
+                          window.location.href === (window.location.origin + '/calendar/')
 
     if (isAuthenticated) {
       if (isCalendarPage) {
@@ -53,12 +55,12 @@ export default class Calendar extends Vue {
     }
   }
 
-  mounted () {
+  private mounted () {
     setLoading(this, false)
   }
 
   @Watch('calendarTitle', { immediate: true, deep: true })
-  dataCalendar (val: any, oldVal: any) {
+  private dataCalendar (val: any, oldVal: any) {
     this.convertDate = new Date(val)
   }
 }

@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 @Component({
   components: {
-  FontAwesomeIcon,
-  },
+  FontAwesomeIcon
+  }
   })
 export default class Loading extends Vue {
 }

@@ -15,10 +15,14 @@ export const mutations: MutationTree<WorkoutState> = {
   },
 
   deleteWorkout (state: any, id: string): void {
-    for (var i = 0; i < state.listWorkouts.length; i++) {
-      if (state.listWorkouts[i]._id === id) {
-        state.listWorkouts.splice(i, 1)
+    let index: number = 0
+
+    for (const workout of state.listWorkouts) {
+      if (workout._id === id) {
+        state.listWorkouts.splice(index, 1)
       }
+
+      index++
     }
   },
 
@@ -27,10 +31,10 @@ export const mutations: MutationTree<WorkoutState> = {
   },
 
   updateWorkout (state: any, data: any): any {
-    for (var i = 0; i < state.listWorkouts.length; i++) {
-      if (state.listWorkouts[i]._id === data._id) {
-        state.listWorkouts[i].name = data.name
-        state.listWorkouts[i].weekDay = data.weekDay
+    for (const workout of state.listWorkouts) {
+      if (workout._id === data._id) {
+        workout.name = data.name
+        workout.weekDay = data.weekDay
       }
     }
   }

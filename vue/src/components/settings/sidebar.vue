@@ -17,6 +17,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Sidebar extends Vue {
-  settingsName: string[] = ['profile', 'account']
+  private settingsName: string[] = ['profile', 'account']
 }
 </script>

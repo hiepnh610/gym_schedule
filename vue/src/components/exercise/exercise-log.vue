@@ -48,30 +48,30 @@ import trackLog from './components/track-log.vue'
 import note from './components/note.vue'
 
 interface SetType {
-  reps?: number;
-  weight?: number;
+  reps?: number
+  weight?: number
 }
 
 interface Exercise {
-  'exercise_id'?: string;
-  'exercise_log'?: Array<SetType>;
-  'exercise_image'?: string;
-  'exercise_name'?: string;
-  'exercise_note'?: string;
+  'exercise_id'?: string
+  'exercise_log'?: SetType[]
+  'exercise_image'?: string
+  'exercise_name'?: string
+  'exercise_note'?: string
 }
 
 interface dataActivity {
-  'created_by'?: string;
-  'workout_name'?: string;
-  exercises: Array<Exercise>;
-  likes?: string[];
+  'created_by'?: string
+  'workout_name'?: string
+  exercises: Exercise[]
+  likes?: string[]
 }
 
 interface ListExercisesToRender {
-  image: string;
-  name: string;
-  _id: string;
-  note: string;
+  image: string
+  name: string
+  _id: string
+  note: string
 }
 
 const namespaceModal: string = 'modal'
@@ -82,17 +82,25 @@ const namespaceExercise: string = 'exercises'
   FontAwesomeIcon,
   trackLog,
   note
-  },
+  }
   })
 export default class ExerciseUpdate extends Vue {
-  @Prop() listExercises!: any
-  @Prop() workoutName!: string
+  @Prop() private listExercises!: any
+  @Prop() private workoutName!: string
 
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
-  @Getter('showUpdateModal', { namespace: namespaceModal }) showUpdateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) private setShowUpdateModal: any
+  @Getter('showUpdateModal', { namespace: namespaceModal }) private showUpdateModal: any
 
-  @Action('setUpdateExercise', { namespace: namespaceExercise }) setUpdateExercise: any
+  @Action('setUpdateExercise', { namespace: namespaceExercise }) private setUpdateExercise: any
+
+  private loading: boolean = false
+  private listExercisesToRender: ListExercisesToRender = this.listExercises[0]
+  private isFinishLog: boolean = false
+  private dataActivity: dataActivity = {
+    exercises: [],
+    workout_name: this.workoutName
+  }
 
   $refs!: {
     trackLog: HTMLFormElement,
@@ -100,37 +108,29 @@ export default class ExerciseUpdate extends Vue {
     note: HTMLFormElement
   }
 
-  loading: boolean = false
-  listExercisesToRender: ListExercisesToRender = this.listExercises[0]
-  isFinishLog: boolean = false
-  dataActivity: dataActivity = {
-    exercises: [],
-    'workout_name': this.workoutName
-  }
-
-  exerciseFinish () {
+  private exerciseFinish () {
     const indexItem: number = this.listExercises.indexOf(this.listExercisesToRender)
-    const setNumber: Array<SetType> = this.$refs.trackLog.setNumber
+    const setNumber: SetType[] = this.$refs.trackLog.setNumber
     const noteContent: string = this.$refs.note.noteContent
-    const _this: any = this
+    const self: any = this
     const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
 
-    let exerciseLog: Exercise = {
-      'exercise_id': this.listExercisesToRender['_id'],
-      'exercise_log': setNumber,
-      'exercise_image': this.listExercisesToRender['image'],
-      'exercise_name': this.listExercisesToRender['name']
+    const exerciseLog: Exercise = {
+      exercise_id: this.listExercisesToRender._id,
+      exercise_log: setNumber,
+      exercise_image: this.listExercisesToRender.image,
+      exercise_name: this.listExercisesToRender.name
     }
 
     if (noteContent) {
-      exerciseLog['exercise_note'] = noteContent
+      exerciseLog.exercise_note = noteContent
     }
 
     this.dataActivity.exercises.push(exerciseLog)
-    this.dataActivity.created_by = _this.$session.get('username')
+    this.dataActivity.created_by = self.$session.get('username')
 
     if (indexItem < this.listExercises.length - 1) {
-      let nextIndexItem: number = indexItem + 1
+      const nextIndexItem: number = indexItem + 1
 
       this.listExercisesToRender = this.listExercises[nextIndexItem]
 
@@ -150,7 +150,7 @@ export default class ExerciseUpdate extends Vue {
     }
   }
 
-  logFinish () {
+  private logFinish () {
     const params: dataActivity = this.dataActivity
 
     axios
@@ -183,7 +183,7 @@ export default class ExerciseUpdate extends Vue {
       }.bind(this))
   }
 
-  closeModal () {
+  private closeModal () {
     this.listExercisesToRender = this.listExercises[0]
     this.isFinishLog = false
 

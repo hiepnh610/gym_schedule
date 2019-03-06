@@ -1,10 +1,10 @@
 export interface Plans {
-  _id: string;
-  frequency: string;
-  name: string;
-  type: string;
+  _id: string
+  frequency: string
+  name: string
+  type: string
 }
 
 export interface PlanState {
-  listPlans: Array<Plans>;
+  listPlans: Plans[]
 }

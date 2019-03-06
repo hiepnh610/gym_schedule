@@ -42,19 +42,19 @@ import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 interface TypeUser {
-  address?: string;
-  avatar?: string;
-  bio?: string;
-  dob?: string;
-  'full_name'?: string;
+  address?: string
+  avatar?: string
+  bio?: string
+  dob?: string
+  'full_name'?: string
 }
 
 @Component({
   components: {
-  FontAwesomeIcon,
+  FontAwesomeIcon
   }
   })
 export default class ProfileSidebar extends Vue {
-  @Prop() userProfile!: TypeUser
+  @Prop() private userProfile!: TypeUser
 }
 </script>
