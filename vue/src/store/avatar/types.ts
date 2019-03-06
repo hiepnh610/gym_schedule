@@ -1,3 +1,3 @@
 export interface AvatarState {
-  avatar: string;
+  avatar: string
 }

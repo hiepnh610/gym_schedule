@@ -61,16 +61,16 @@ import config from '@/config'
 import { Response } from '@/util'
 
 interface ParamsWorkoutCreate {
-  name: string;
-  'plan_id': string;
-  'week_day': string;
+  name: string
+  'plan_id': string
+  'week_day': string
 }
 
-interface dataItem {
-  createdBy: string;
-  name: string;
-  weekDay: string;
-  _id: string;
+interface DataItem {
+  createdBy: string
+  name: string
+  weekDay: string
+  _id: string
 }
 
 const namespaceModal: string = 'modal'
@@ -79,22 +79,22 @@ const namespaceWorkouts: string = 'workouts'
 @Component({
   components: {
   FontAwesomeIcon
-  },
+  }
   })
 export default class WorkoutCreate extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
-  @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
-  @Getter('showCreateModal', { namespace: namespaceModal }) showCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) private setShowCreateModal: any
+  @Getter('showModalBackdrop', { namespace: namespaceModal }) private showModalBackdrop: any
+  @Getter('showCreateModal', { namespace: namespaceModal }) private showCreateModal: any
 
-  @Action('setCreateWorkout', { namespace: namespaceWorkouts }) setCreateWorkout: any
+  @Action('setCreateWorkout', { namespace: namespaceWorkouts }) private setCreateWorkout: any
 
-  loading: boolean = false
-  message: string = ''
-  workoutDay: string = ''
-  workoutName: string = ''
+  private loading: boolean = false
+  private message: string = ''
+  private workoutDay: string = ''
+  private workoutName: string = ''
 
-  closeModal () {
+  private closeModal () {
     this.workoutName = ''
     this.workoutDay = ''
 
@@ -102,7 +102,7 @@ export default class WorkoutCreate extends Vue {
     this.setShowCreateModal(false)
   }
 
-  workoutCreate () {
+  private workoutCreate () {
     if (!this.workoutName) {
       this.message = 'The workout name cannot be blank.'
 
@@ -126,7 +126,7 @@ export default class WorkoutCreate extends Vue {
     axios
       .post(config.api.workout, params)
       .then(function (response: Response) {
-        const dataItem: dataItem = {
+        const dataItem: DataItem = {
           createdBy: response.data.created_by,
           name: response.data.name,
           weekDay: response.data.week_day,

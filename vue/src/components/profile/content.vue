@@ -16,7 +16,7 @@ import Activities from './activities.vue'
   }
   })
 export default class ProfileContent extends Vue {
-  @Prop() fullName!: string
-  @Prop() avatar!: string
+  @Prop() private fullName!: string
+  @Prop() private avatar!: string
 }
 </script>

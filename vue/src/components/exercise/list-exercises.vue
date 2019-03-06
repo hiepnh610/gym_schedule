@@ -46,24 +46,24 @@ const namespaceExercises: string = 'exercises'
 @Component({
   components: {
   exerciseLog
-  },
+  }
   })
 export default class ListExercises extends Vue {
-  @Prop() workoutName!: string
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
+  @Prop() private workoutName!: string
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) private setShowUpdateModal: any
 
-  @Action('setDeleteExercise', { namespace: namespaceExercises }) setDeleteExercise: any
-  @Getter('listExercises', { namespace: namespaceExercises }) listExercises: any
+  @Action('setDeleteExercise', { namespace: namespaceExercises }) private setDeleteExercise: any
+  @Getter('listExercises', { namespace: namespaceExercises }) private listExercises: any
 
-  message: string = ''
+  private message: string = ''
 
-  startLog () {
+  private startLog () {
     this.setShowModalBackdrop(true)
     this.setShowUpdateModal(true)
   }
 
-  deleteExercise (id: string) {
+  private deleteExercise (id: string) {
     this.setDeleteExercise(id)
 
     axios

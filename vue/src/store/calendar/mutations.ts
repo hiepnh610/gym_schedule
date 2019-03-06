@@ -11,18 +11,22 @@ export const mutations: MutationTree<CalendarState> = {
   },
 
   deleteExercise (state: any, id: string): void {
-    for (var i = 0; i < state.listExercises.length; i++) {
-      if (state.listExercises[i]._id === id) {
-        state.listExercises.splice(i, 1)
+    let index: number = 0
+
+    for (const exercise of state.listExercises) {
+      if (exercise._id === id) {
+        state.listExercises.splice(index, 1)
       }
+
+      index++
     }
   },
 
   updateExercise (state: any, data: any): void {
-    for (var i = 0; i < state.listExercises.length; i++) {
-      if (state.listExercises[i]._id === data._id) {
-        state.listExercises[i]['track_log'] = data['track_log']
-        state.listExercises[i]['note'] = data['note']
+    for (const exercise of state.listExercises) {
+      if (exercise._id === data._id) {
+        exercise.track_log = data.track_log
+        exercise.note = data.note
       }
     }
   }

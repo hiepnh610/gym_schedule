@@ -1,23 +1,23 @@
-interface apiTypes {
-  avatar: string;
-  listPlans: string;
-  listWorkout: string;
-  listExercise: string;
-  login: string;
-  modifyPassword: string;
-  plans: string;
-  signUp: string;
-  upload: string;
-  user: string;
-  workout: string;
-  exercise: string;
-  profile: string;
-  profileActivities: string;
-  activities: string;
-  activityDetail: string;
+interface ApiTypes {
+  avatar: string
+  listPlans: string
+  listWorkout: string
+  listExercise: string
+  login: string
+  modifyPassword: string
+  plans: string
+  signUp: string
+  upload: string
+  user: string
+  workout: string
+  exercise: string
+  profile: string
+  profileActivities: string
+  activities: string
+  activityDetail: string
 }
 
-const api: apiTypes = {
+const api: ApiTypes = {
   avatar: '/api/avatar/',
   listPlans: '/api/list_plans',
   listWorkout: '/api/list_workout',

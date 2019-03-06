@@ -71,32 +71,32 @@ const namespaceAvatar: string = 'avatar'
 
 @Component({
   components: {
-  FontAwesomeIcon,
+  FontAwesomeIcon
   }
   })
 export default class Navigation extends Vue {
-  @Getter('avatar', { namespace: namespaceAvatar }) avatar: any
+  @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
-  isLogin: boolean = false
-  fullName!: string
-  profileLink: string = ''
+private isLogin: boolean = false
+private fullName!: string
+private profileLink: string = ''
 
-  mounted () {
-    const _this: any = this
+private mounted () {
+    const self: any = this
 
-    if (_this.$session.exists()) {
-      const username = _this.$session.get('username')
+    if (self.$session.exists()) {
+      const username = self.$session.get('username')
 
       this.isLogin = true
-      this.fullName = _this.$session.get('name')
+      this.fullName = self.$session.get('name')
       this.profileLink = window.location.origin + `/profile/${username}`
     }
   }
 
-  logout () {
-    const _this: any = this
+  private logout () {
+    const self: any = this
 
-    _this.$session.destroy()
+    self.$session.destroy()
     window.location.href = location.origin
     this.isLogin = false
   }

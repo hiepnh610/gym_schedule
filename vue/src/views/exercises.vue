@@ -41,28 +41,28 @@ const namespaceExercises: string = 'exercises'
   components: {
   exerciseCreate,
   listExercises,
-  Loading,
-  },
+  Loading
+  }
   })
 export default class Exercises extends Vue {
-  @Prop() id!: string
+  @Prop() private id!: string
 
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) private setShowCreateModal: any
 
-  @Action('setListExercises', { namespace: namespaceExercises }) setListExercises: any
-  @Getter('listExercises', { namespace: namespaceExercises }) listExercises: any
+  @Action('setListExercises', { namespace: namespaceExercises }) private setListExercises: any
+  @Getter('listExercises', { namespace: namespaceExercises }) private listExercises: any
 
-  workoutName: string = ''
-  message: string = ''
-  isLoading: boolean = true
+  private workoutName: string = ''
+  private message: string = ''
+  private isLoading: boolean = true
 
-  addExercise () {
+  private addExercise () {
     this.setShowModalBackdrop(true)
     this.setShowCreateModal(true)
   }
 
-  created () {
+  private created () {
     const params: ID = {
       id: this.id
     }

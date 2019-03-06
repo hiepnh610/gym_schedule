@@ -54,27 +54,27 @@ const namespaceWorkouts: string = 'workouts'
   components: {
   workoutUpdate,
   FontAwesomeIcon
-  },
+  }
   })
 export default class ListWorkouts extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) setShowUpdateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) private setShowUpdateModal: any
 
-  @Action('setDeleteWorkout', { namespace: namespaceWorkouts }) setDeleteWorkout: any
-  @Getter('listWorkouts', { namespace: namespaceWorkouts }) listWorkouts: any
+  @Action('setDeleteWorkout', { namespace: namespaceWorkouts }) private setDeleteWorkout: any
+  @Getter('listWorkouts', { namespace: namespaceWorkouts }) private listWorkouts: any
 
-  message: string = ''
-  dataWorkoutOrigin: any = ''
-  quantity: number = 0
+  private message: string = ''
+  private dataWorkoutOrigin: any = ''
+  private quantity: number = 0
 
-  updateWorkout (workout: any) {
+  private updateWorkout (workout: any) {
     this.dataWorkoutOrigin = workout
 
     this.setShowModalBackdrop(true)
     this.setShowUpdateModal(true)
   }
 
-  deleteWorkout (id: string) {
+  private deleteWorkout (id: string) {
     this.setDeleteWorkout(id)
 
     axios

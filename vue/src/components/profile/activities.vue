@@ -70,16 +70,16 @@ import config from '@/config'
 import { Response } from '@/util'
 
 interface SetType {
-  reps?: number;
-  weight?: number;
+  reps?: number
+  weight?: number
 }
 
 interface Exercise {
-  'exercise_id'?: string;
-  'exercise_log'?: Array<SetType>;
-  'exercise_image'?: string;
-  'exercise_name'?: string;
-  'exercise_note'?: string;
+  'exercise_id'?: string
+  'exercise_log'?: SetType[]
+  'exercise_image'?: string
+  'exercise_name'?: string
+  'exercise_note'?: string
 }
 
 const namespaceActivities: string = 'activities'
@@ -90,15 +90,14 @@ const namespaceActivities: string = 'activities'
   }
   })
 export default class ProfileActivities extends Vue {
-  @Prop() fullName!: string
-  @Prop() avatar!: string
+  @Prop() private fullName!: string
+  @Prop() private avatar!: string
 
-  @Action('setListActivities', { namespace: namespaceActivities }) setListActivities: any
-  @Action('setDeleteActivity', { namespace: namespaceActivities }) setDeleteActivity: any
-  @Getter('listActivities', { namespace: namespaceActivities }) listActivities: any
+  @Action('setListActivities', { namespace: namespaceActivities }) private setListActivities: any
+  @Action('setDeleteActivity', { namespace: namespaceActivities }) private setDeleteActivity: any
+  @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
 
-  created () {
-    const _this: any = this
+  private created () {
     const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
     const params = {
       username: usernameFromUrl
@@ -118,7 +117,7 @@ export default class ProfileActivities extends Vue {
       }.bind(this))
   }
 
-  removeActivity (id: string) {
+  private removeActivity (id: string) {
     axios
       .delete(config.api.activities + id)
       .then(function () {
@@ -137,14 +136,14 @@ export default class ProfileActivities extends Vue {
       }.bind(this))
   }
 
-  weightTotal (exercises: Array<Exercise>) {
+  private weightTotal (exercises: Exercise[]) {
     let total: number = 0
 
-    for (let key in exercises) {
-      let exerciseLog: Array<SetType> = exercises[key]['exercise_log'] || []
+    for (const exercise of exercises) {
+      const exerciseLog: SetType[] = exercise.exercise_log || []
 
-      for (let key2 in exerciseLog) {
-        let weight: number = exerciseLog[key2].weight || 0
+      for (const exercise2 of exerciseLog) {
+        const weight: number = exercise2.weight || 0
 
         total += weight
       }

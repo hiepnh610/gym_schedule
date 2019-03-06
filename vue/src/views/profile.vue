@@ -34,15 +34,15 @@ import profileContent from '@/components/profile/content.vue'
 import Loading from '@/components/loading/loading.vue'
 
 interface TypeParams {
-  username: string;
+  username: string
 }
 
 interface TypeUser {
-  address?: string;
-  avatar?: string;
-  bio?: string;
-  dob?: string;
-  'full_name'?: string;
+  address?: string
+  avatar?: string
+  bio?: string
+  dob?: string
+  'full_name'?: string
 }
 
 @Component({
@@ -50,20 +50,20 @@ interface TypeUser {
   profileHeader,
   profileSidebar,
   profileContent,
-  Loading,
+  Loading
   }
   })
 export default class Profile extends Vue {
-  isLoading: boolean = true
-  user: TypeUser = {}
-  isOwner: boolean = false
-  fullName: string = ''
-  avatar: string = ''
+  private isLoading: boolean = true
+  private user: TypeUser = {}
+  private isOwner: boolean = false
+  private fullName: string = ''
+  private avatar: string = ''
 
-  created () {
-    const _this: any = this
+  private created () {
+    const self: any = this
     const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
-    const usernameFromLocal: string = _this.$session.get('username')
+    const usernameFromLocal: string = self.$session.get('username')
 
     if (usernameFromLocal === usernameFromUrl) {
       this.isOwner = true

@@ -20,12 +20,12 @@ import sidebar from '@/components/settings/sidebar.vue'
 @Component({
   components: {
   sidebar
-  },
+  }
   })
 export default class Settings extends Vue {
-  created () {
-    const _this: any = this
-    const isAuthenticated: boolean = _this.$session.exists()
+  private created () {
+    const self: any = this
+    const isAuthenticated: boolean = self.$session.exists()
     const routePath: string = this.$route.path
 
     if (isAuthenticated) {

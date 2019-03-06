@@ -7,10 +7,14 @@ export const mutations: MutationTree<ExerciseState> = {
   },
 
   deleteExercise (state: any, id: string): void {
-    for (var i = 0; i < state.listExercises.length; i++) {
-      if (state.listExercises[i]._id === id) {
-        state.listExercises.splice(i, 1)
+    let index: number = 0
+
+    for (const exercise of state.listExercises) {
+      if (exercise._id === id) {
+        state.listExercises.splice(index, 1)
       }
+
+      index++
     }
   },
 
@@ -19,11 +23,11 @@ export const mutations: MutationTree<ExerciseState> = {
   },
 
   updateExercise (state: any, data: Exercises): any {
-    for (var i = 0; i < state.listExercises.length; i++) {
-      if (state.listExercises[i]._id === data._id) {
-        state.listExercises[i].image = data.image
-        state.listExercises[i].name = data.name
-        state.listExercises[i].workout_id = data.workout_id
+    for (const exercise of state.listExercises) {
+      if (exercise._id === data._id) {
+        exercise.image = data.image
+        exercise.name = data.name
+        exercise.workout_id = data.workout_id
       }
     }
   }
