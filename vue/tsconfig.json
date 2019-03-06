@@ -14,9 +14,7 @@
     "baseUrl": ".",
     "noImplicitThis": false,
     "types": [
-      "node",
-      "mocha",
-      "chai"
+      "webpack-env"
     ],
     "paths": {
       "@/*": [
@@ -28,10 +26,7 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ],
-    "typeRoots": [
-      "node_modules/@types", "./src/shared/types"
-    ],
+    ]
   },
   "include": [
     "src/**/*.ts",
