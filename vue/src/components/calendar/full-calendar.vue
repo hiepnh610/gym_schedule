@@ -18,8 +18,8 @@ import { Response, ID, setLoading } from '@/util'
 
 import Loading from '@/components/loading/loading.vue'
 
-interface activitiesDataType {
-  start: String;
+interface ActivitiesDataType {
+  start: string
 }
 
 const namespaceCalendar: string = 'calendar'
@@ -28,16 +28,16 @@ const namespaceCalendar: string = 'calendar'
   components: {
   FontAwesomeIcon,
   Loading,
-  FullCalendar,
-  },
+  FullCalendar
+  }
   })
 export default class AllCalendar extends Vue {
-  @Action('setCalendarTitle', { namespace: namespaceCalendar }) setCalendarTitle: any
+  @Action('setCalendarTitle', { namespace: namespaceCalendar }) private setCalendarTitle: any
 
-  isLoading: boolean = true
-  activitiesData: Array<activitiesDataType> = []
+  private isLoading: boolean = true
+  private activitiesData: ActivitiesDataType[] = []
 
-  created () {
+  private created () {
     this.setCalendarTitle('')
 
     axios
@@ -55,17 +55,17 @@ export default class AllCalendar extends Vue {
       }.bind(this))
   }
 
-  createNewData (data: any) {
-    let newActivities: Array<activitiesDataType> = []
+  private createNewData (data: any) {
+    const newActivities: ActivitiesDataType[] = []
 
-    for (let item in data) {
+    for (const item of data) {
       newActivities.push({ start: item })
     }
 
     return newActivities
   }
 
-  dayClick (date: any, jsEvent: any) {
+  private dayClick (date: any, jsEvent: any) {
     const dateSelected: string = moment(date).format('MM-DD-YYYY')
 
     this.$router.push({

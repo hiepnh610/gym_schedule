@@ -56,24 +56,24 @@ const namespaceModal: string = 'modal'
 const namespaceActivities: string = 'activities'
 
 interface DateParam {
-  date: string;
+  date: string
 }
 
 @Component({
   components: {
-  FontAwesomeIcon,
-  },
+  FontAwesomeIcon
+  }
   })
 export default class CalendarDetail extends Vue {
-  @Prop() date!: string
+  @Prop() private date!: string
 
-  @Action('setCalendarTitle', { namespace: namespaceCalendar }) setCalendarTitle: any
+  @Action('setCalendarTitle', { namespace: namespaceCalendar }) private setCalendarTitle: any
 
-  @Action('setListActivities', { namespace: namespaceActivities }) setListActivities: any
-  @Action('setDeleteActivity', { namespace: namespaceActivities }) setDeleteActivity: any
-  @Getter('listActivities', { namespace: namespaceActivities }) listActivities: any
+  @Action('setListActivities', { namespace: namespaceActivities }) private setListActivities: any
+  @Action('setDeleteActivity', { namespace: namespaceActivities }) private setDeleteActivity: any
+  @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
 
-  created () {
+  private created () {
     const convertDate: any = moment(new Date(this.date)).format('MM-DD-YYYY')
     const params: DateParam = {
       date: convertDate
@@ -95,7 +95,7 @@ export default class CalendarDetail extends Vue {
       }.bind(this))
   }
 
-  removeActivity (id: string) {
+  private removeActivity (id: string) {
     axios
       .delete(config.api.activities + id)
       .then(function () {

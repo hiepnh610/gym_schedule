@@ -24,9 +24,9 @@ import { Response, ID } from '@/util'
 @Component({
   components: {
   FontAwesomeIcon
-  },
+  }
   })
 export default class Note extends Vue {
-  noteContent: string = ''
+  private noteContent: string = ''
 }
 </script>
