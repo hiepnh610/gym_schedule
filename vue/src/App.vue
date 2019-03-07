@@ -23,19 +23,19 @@ const namespaceModal: string = 'modal'
 
 @Component({
   components: {
-  Navigation,
-  },
+  Navigation
+  }
   })
 export default class App extends Vue {
-  @Action('setAvatar', { namespace: namespaceAvatar }) setAvatar: any
+  @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
 
-  @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
+  @Getter('showModalBackdrop', { namespace: namespaceModal }) private showModalBackdrop: any
 
-  created () {
-    const _this: any = this
+  private created () {
+    const $this: any = this
 
-    if (_this.$session.exists()) {
-      const token: string = _this.$session.get('token')
+    if ($this.$session.exists()) {
+      const token: string = $this.$session.get('token')
 
       axios.defaults.headers.common['x-access-token'] = token
     }
@@ -47,49 +47,49 @@ export default class App extends Vue {
     this.toggleDropdown()
   }
 
-  setAuthenticate (): void {
-    const _this: any = this
-    const isAuthenticated: boolean = _this.$session.exists()
+  private setAuthenticate (): void {
+    const $this: any = this
+    const isAuthenticated: boolean = $this.$session.exists()
     const isOriginPage = window.location.href === (window.location.origin + '/')
     const isSignUpPage = window.location.href === (window.location.origin + '/sign-up')
 
     if (isAuthenticated) {
-      if (isOriginPage || isSignUpPage) this.$router.push('/plans')
+      if (isOriginPage || isSignUpPage) { this.$router.push('/plans') }
     } else {
-      if (!isOriginPage) this.$router.push('/sign-up')
+      if (!isOriginPage) { this.$router.push('/sign-up') }
     }
   }
 
-  getInfoUser (): void {
-    const _this: any = this
+  private getInfoUser (): void {
+    const $this: any = this
 
-    if (_this.$session.exists()) {
+    if ($this.$session.exists()) {
       axios
         .get(config.api.user, {
           params: {
-            id: _this.$session.get('id')
+            id: $this.$session.get('id')
           }
         })
-        .then(function (response: Response) {
-          if (response.data.avatar) this.setAvatar(response.data.avatar.location)
-        }.bind(this))
-        .catch(function (error: Response) {
+        .then((response: Response): void => {
+          if (response.data.avatar) { $this.setAvatar(response.data.avatar.location) }
+        })
+        .catch((error: Response): void => {
           if (error.response && error.response.data && error.response.data.message) {
-            _this.errContent = error.response.data.message
+            $this.errContent = error.response.data.message
           } else {
-            _this.errContent = 'Error happened.'
+            $this.errContent = 'Error happened.'
           }
         })
     }
   }
 
-  toggleDropdown (): void {
+  private toggleDropdown (): void {
     const getDropDownToggle: any = document.getElementsByClassName('dropdown-toggle')
 
-    window.addEventListener('click', function (e) {
+    window.addEventListener('click', (e) => {
       const target: any = e.target
 
-      for (let dropdown of getDropDownToggle) {
+      for (const dropdown of getDropDownToggle) {
         if (dropdown.contains(e.target)) {
           target.closest('.dropdown-toggle').classList.toggle('show')
         } else {

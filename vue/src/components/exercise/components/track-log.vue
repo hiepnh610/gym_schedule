@@ -52,28 +52,29 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 interface Set {
-  weight: number;
-  reps: number;
+  weight: number
+  reps: number
 }
 
 @Component({
   components: {
   FontAwesomeIcon
-  },
+  }
   })
 export default class TrackLog extends Vue {
-  setNumber: Array<Set> = [
+  private setNumber: Set[] = [
     {
       weight: 0,
       reps: 0
     },
+
     {
       weight: 0,
       reps: 0
     }
   ]
 
-  addMoreSet () {
+  private addMoreSet () {
     if (this.setNumber.length < 5) {
       this.setNumber.push({
         weight: 0,
@@ -82,7 +83,7 @@ export default class TrackLog extends Vue {
     }
   }
 
-  removeSet (index: number) {
+  private removeSet (index: number) {
     this.setNumber.splice(index, 1)
   }
 }

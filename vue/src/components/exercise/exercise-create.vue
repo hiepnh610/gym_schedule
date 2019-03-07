@@ -43,36 +43,36 @@ interface ExerciseType {
 }
 
 interface ParamsExerciseCreate {
-  'workout_id': string;
-  image: string;
-  name: string;
+  'workout_id': string
+  image: string
+  name: string
 }
 
-interface dataItem {
-  _id: string;
-  image: string;
-  name: string;
+interface DataItem {
+  _id: string
+  image: string
+  name: string
 }
 
 @Component
 export default class ExerciseCreate extends Vue {
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) setShowModalBackdrop: any
-  @Action('setShowCreateModal', { namespace: namespaceModal }) setShowCreateModal: any
-  @Getter('showModalBackdrop', { namespace: namespaceModal }) showModalBackdrop: any
-  @Getter('showCreateModal', { namespace: namespaceModal }) showCreateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+  @Action('setShowCreateModal', { namespace: namespaceModal }) private setShowCreateModal: any
+  @Getter('showModalBackdrop', { namespace: namespaceModal }) private showModalBackdrop: any
+  @Getter('showCreateModal', { namespace: namespaceModal }) private showCreateModal: any
 
-  @Action('setCreateExercise', { namespace: namespaceExercise }) setCreateExercise: any
-  @Action('setListExercises', { namespace: namespaceExercise }) setListExercises: any
+  @Action('setCreateExercise', { namespace: namespaceExercise }) private setCreateExercise: any
+  @Action('setListExercises', { namespace: namespaceExercise }) private setListExercises: any
 
-  exercises: ExerciseType = ListExercises
-  message: string = ''
+  private exercises: ExerciseType = ListExercises
+  private message: string = ''
 
-  closeModal () {
+  private closeModal () {
     this.setShowModalBackdrop(false)
     this.setShowCreateModal(false)
   }
 
-  exerciseCreated (exercise: any) {
+  private exerciseCreated (exercise: any) {
     if (!exercise.name) {
       this.message = 'The exercise name cannot be blank.'
 
@@ -94,7 +94,7 @@ export default class ExerciseCreate extends Vue {
     axios
       .post(config.api.exercise, params)
       .then(function (response: Response) {
-        const dataItem: dataItem = {
+        const dataItem: DataItem = {
           _id: response.data._id,
           image: response.data.image,
           name: response.data.name

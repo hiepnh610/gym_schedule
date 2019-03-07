@@ -60,7 +60,7 @@ interface Exercise {
   'exercise_note'?: string
 }
 
-interface dataActivity {
+interface DataActivity {
   'created_by'?: string
   'workout_name'?: string
   exercises: Exercise[]
@@ -85,24 +85,24 @@ const namespaceExercise: string = 'exercises'
   }
   })
 export default class ExerciseUpdate extends Vue {
-  @Prop() private listExercises!: any
-  @Prop() private workoutName!: string
+  @Prop() public listExercises!: any
+  @Prop() public workoutName!: string
 
-  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
-  @Action('setShowUpdateModal', { namespace: namespaceModal }) private setShowUpdateModal: any
-  @Getter('showUpdateModal', { namespace: namespaceModal }) private showUpdateModal: any
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) public setShowModalBackdrop: any
+  @Action('setShowUpdateModal', { namespace: namespaceModal }) public setShowUpdateModal: any
+  @Getter('showUpdateModal', { namespace: namespaceModal }) public showUpdateModal: any
 
-  @Action('setUpdateExercise', { namespace: namespaceExercise }) private setUpdateExercise: any
+  @Action('setUpdateExercise', { namespace: namespaceExercise }) public setUpdateExercise: any
 
-  private loading: boolean = false
-  private listExercisesToRender: ListExercisesToRender = this.listExercises[0]
-  private isFinishLog: boolean = false
-  private dataActivity: dataActivity = {
+  public loading: boolean = false
+  public listExercisesToRender: ListExercisesToRender = this.listExercises[0]
+  public isFinishLog: boolean = false
+  public dataActivity: DataActivity = {
     exercises: [],
     workout_name: this.workoutName
   }
 
-  $refs!: {
+  public $refs!: {
     trackLog: HTMLFormElement,
     history: HTMLFormElement,
     note: HTMLFormElement
@@ -151,7 +151,7 @@ export default class ExerciseUpdate extends Vue {
   }
 
   private logFinish () {
-    const params: dataActivity = this.dataActivity
+    const params: DataActivity = this.dataActivity
 
     axios
       .post(config.api.activities, params)
