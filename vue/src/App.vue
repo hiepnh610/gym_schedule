@@ -20,6 +20,7 @@ import Navigation from '@/components/header/navigation.vue'
 
 const namespaceAvatar: string = 'avatar'
 const namespaceModal: string = 'modal'
+const namespaceUser: string = 'user'
 
 @Component({
   components: {
@@ -31,16 +32,28 @@ export default class App extends Vue {
 
   @Getter('showModalBackdrop', { namespace: namespaceModal }) private showModalBackdrop: any
 
+  @Action('setUser', { namespace: namespaceUser }) private setUser: any
+
   private created () {
     const $this: any = this
 
-    if ($this.$session.exists()) {
-      const token: string = $this.$session.get('token')
-
-      axios.defaults.headers.common['x-access-token'] = token
-    }
-
     axios.defaults.baseURL = process.env.VUE_APP_DOMAIN
+
+    axios.interceptors.request.use((conf) => {
+      if ($this.$session.exists()) {
+        conf.headers.common['x-access-token'] = $this.$session.get('token')
+      }
+
+      return conf
+    }, (error) => {
+      return Promise.reject(error)
+    })
+
+    axios.interceptors.response.use((response) => {
+      return response
+    }, (error) => {
+      return Promise.reject(error)
+    })
 
     this.setAuthenticate()
     this.getInfoUser()
@@ -67,7 +80,7 @@ export default class App extends Vue {
       axios
         .get(config.api.user, {
           params: {
-            id: $this.$session.get('id')
+            id: $this.$session.get('_id')
           }
         })
         .then((response: Response): void => {

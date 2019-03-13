@@ -17,7 +17,8 @@ const getInfo = (req, res) => {
                 const newUserInfo = {
                     _id: userInfo[0]._id,
                     email: userInfo[0].email,
-                    full_name: userInfo[0].full_name
+                    full_name: userInfo[0].full_name,
+                    username: userInfo[0].username
                 };
 
                 if (userInfo[0].dob ) {

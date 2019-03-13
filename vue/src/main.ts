@@ -34,7 +34,7 @@ const fontawesomeOptions: Options = {
   duration: 5000,
   iconPack: 'fontawesome',
   position: 'top-right',
-  theme: 'primary'
+  theme: 'toasted-primary'
 }
 
 Vue.use(VueAxios, axios)
@@ -55,3 +55,4 @@ new Vue({
   store,
   render: (h) => h(App)
 }).$mount('#app')
+

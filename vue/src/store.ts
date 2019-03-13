@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex, { StoreOptions } from 'vuex'
 
 import { RootState } from './types'
+import { loginStatus } from './store/login/index'
+import { user } from './store/user/index'
 import { modal } from './store/modal/index'
 import { plans } from './store/plans/index'
 import { workouts } from './store/workouts/index'
@@ -18,6 +20,8 @@ const store: StoreOptions<RootState> = {
   },
 
   modules: {
+    loginStatus,
+    user,
     modal,
     plans,
     workouts,
@@ -31,3 +35,4 @@ const store: StoreOptions<RootState> = {
 }
 
 export default new Vuex.Store(store)
+

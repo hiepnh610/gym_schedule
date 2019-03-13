@@ -6,7 +6,7 @@
           <h1>Gym Schedule</h1>
         </router-link>
 
-        <div id="main-nav" class="collapse navbar-collapse" v-if="!isLogin">
+        <div id="main-nav" class="collapse navbar-collapse" v-if="!loginStatus">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="/sign-up">Sign Up</a>
@@ -41,8 +41,8 @@
             <font-awesome-icon icon="user" v-else />
           </div>
 
-          <a :href="profileLink" class="text-capitalize text-white mr-2 d-flex">
-            <span v-text="fullName"></span>
+          <a :href="'profile/' + user.username" class="text-capitalize text-white mr-2 d-flex">
+            <span v-text="user.full_name"></span>
           </a>
 
           <div class="dropdown">
@@ -63,11 +63,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import router from '@/router'
+
 const namespaceAvatar: string = 'avatar'
+const namespaceUser: string = 'user'
+const namespaceloginStatus: string = 'loginStatus'
 
 @Component({
   components: {
@@ -75,30 +79,25 @@ const namespaceAvatar: string = 'avatar'
   }
   })
 export default class Navigation extends Vue {
+  @Getter('loginStatus', { namespace: namespaceloginStatus }) private loginStatus: any
+  @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
+
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
-private isLogin: boolean = false
-private fullName!: string
-private profileLink: string = ''
+  @Getter('user', { namespace: namespaceUser }) private user: any
 
-private mounted () {
-    const self: any = this
+  private created () {
+    const $this: any = this
 
-    if (self.$session.exists()) {
-      const username = self.$session.get('username')
-
-      this.isLogin = true
-      this.fullName = self.$session.get('name')
-      this.profileLink = window.location.origin + `/profile/${username}`
-    }
+    if ($this.$session.get('token')) { this.setLoginStatus(true) }
   }
 
   private logout () {
-    const self: any = this
+    const $this: any = this
 
-    self.$session.destroy()
-    window.location.href = location.origin
-    this.isLogin = false
+    $this.$session.destroy()
+    router.push('/')
+    this.setLoginStatus(false)
   }
 }
 </script>

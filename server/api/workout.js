@@ -38,19 +38,21 @@ const createWorkout = (req, res) => {
 };
 
 const updateWorkout = (req, res) => {
+    if (!req.params.workout_id) return res.status(400).json({ 'message': 'Cannot find the workout.' });
+
     if (!req.body.name) return res.status(400).json({ 'message': 'The workout name cannot be blank.' });
 
     if (!req.body.week_day) return res.status(400).json({ 'message': 'The workout day cannot be blank.' });
 
-    Workout.findById(req.params.workout_day_id, (err, workout_day) => {
+    Workout.findById(req.params.workout_id, (err, workoutDay) => {
         if(err) return res.status(400).send(err);
 
-        workout_day.set({
+        workoutDay.set({
             name: req.body.name,
             week_day: req.body.week_day,
         });
 
-        workout_day.save((err, workout) => {
+        workoutDay.save((err, workout) => {
             if(err) return res.send(err);
 
             res.json(workout);
