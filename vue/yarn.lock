@@ -7725,7 +7725,7 @@ vue-textarea-autosize@^1.0.4:
   resolved "https://registry.yarnpkg.com/vue-textarea-autosize/-/vue-textarea-autosize-1.0.4.tgz#671e4f9b69d278be9b94ea304a3032bcabb54135"
   integrity sha512-24ivBeHvivkJdtUMSi7Pv8OBqzTnIRr/eTlDlbg0W3umpERY8Fq67FlAK3CrhCNHAlXOxgUOQtVKlslYN1/MTg==
 
-vue-toasted@^1.1.24:
+vue-toasted@^1.1.26:
   version "1.1.26"
   resolved "https://registry.yarnpkg.com/vue-toasted/-/vue-toasted-1.1.26.tgz#1333d1a42157ab78389c3810023a49ba94e69c7b"
   integrity sha512-Z4/gfPcqdzsRvif7UITrZOkh3C6jm0yQKJyr9kX31IGWXor5dNipE1Sc5SnlL5RLmY7vlLa+SqIjc9Gbpy7V0g==

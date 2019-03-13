@@ -24,11 +24,39 @@ const login = (req, res) => {
             if(!user.validPassword(req.body.password)) return res.status(400).json({ message: 'Oops! Wrong password.' });
 
             const response = {
-                id: user._id,
-                name: user.full_name,
-                auth: true,
-                username: user.username,
-                token: signToken(user._id)
+                _id: user._id,
+                email: user.email,
+                full_name: user.full_name,
+                token: signToken(user._id),
+                username: user.username
+            }
+
+            if (user.dob ) {
+                response.dob = user.dob
+            }
+
+            if (user.gender ) {
+                response.gender = user.gender
+            }
+
+            if (user.height ) {
+                response.height = user.height
+            }
+
+            if (user.weight ) {
+                response.weight = user.weight
+            }
+
+            if (user.avatar ) {
+                response.avatar = user.avatar
+            }
+
+            if (user.bio ) {
+                response.bio = user.bio
+            }
+
+            if (user.address ) {
+                response.address = user.address
             }
 
             return res.status(200).json(response);

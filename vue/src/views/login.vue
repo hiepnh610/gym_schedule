@@ -39,6 +39,7 @@ import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
+import router from '@/router'
 import config from '@/config'
 import { Response, setLoading } from '@/util'
 
@@ -49,6 +50,9 @@ interface ParamsLogin {
   password: string
 }
 
+const namespaceUser: string = 'user'
+const namespaceloginStatus: string = 'loginStatus'
+
 @Component({
   components: {
   FontAwesomeIcon,
@@ -56,6 +60,10 @@ interface ParamsLogin {
   }
   })
 export default class Login extends Vue {
+  @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
+
+  @Action('setUser', { namespace: namespaceUser }) private setUser: any
+
   private disabledBtn: boolean = false
   private username: string = ''
   private message: string = ''
@@ -74,14 +82,13 @@ export default class Login extends Vue {
       axios
         .post(config.api.login, params)
         .then(function (response: Response) {
-          window.location.href = location.origin + '/news-feed'
+          router.push('news-feed')
 
           this.$session.start()
-          this.$session.set('name', response.data.name)
-          this.$session.set('username', response.data.username)
-          this.$session.set('id', response.data.id)
-          this.$session.set('auth', response.data.auth)
           this.$session.set('token', response.data.token)
+
+          this.setUser(response.data)
+          this.setLoginStatus(true)
         }.bind(this))
         .catch(function (error: Response) {
           this.disabledBtn = false

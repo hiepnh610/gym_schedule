@@ -37,6 +37,7 @@ import Loading from '@/components/loading/loading.vue'
 
 const namespacePlan: string = 'plans'
 const namespaceModal: string = 'modal'
+const namespaceUser: string = 'user'
 
 @Component({
   components: {
@@ -53,6 +54,8 @@ export default class Plans extends Vue {
   @Action('setListPlans', { namespace: namespacePlan }) private setListPlans: any
   @Getter('listPlans', { namespace: namespacePlan }) private listPlans: any
 
+  @Getter('user', { namespace: namespaceUser }) private user: any
+
   private message: string = ''
   private isLoading: boolean = true
 
@@ -65,7 +68,7 @@ export default class Plans extends Vue {
     const self: any = this
 
     const params: ID = {
-      id: self.$session.get('id')
+      id: this.user._id
     }
 
     axios
