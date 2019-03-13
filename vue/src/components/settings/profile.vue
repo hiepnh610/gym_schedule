@@ -16,7 +16,7 @@
           <div class="form-group input-group-lg">
             <label for="profile-name">Full Name</label>
 
-            <input id="profile-name" type="text" class="form-control" v-model="user.fullName" />
+            <input id="profile-name" type="text" class="form-control" v-model="user.full_name" />
           </div>
 
           <div class="form-group input-group-lg">
@@ -110,9 +110,9 @@
           </div>
 
           <div class="modal-footer text-right">
-            <button href="#" class="btn btn-sm btn-transparent m-0" @click.prevent="closeModal">Close</button>
+            <button class="btn btn-sm btn-transparent m-0" @click.prevent="closeModal">Close</button>
 
-            <button href="#" class="btn btn-sm btn-secondary m-0" @click.prevent="uploadAvatar">
+            <button class="btn btn-sm btn-secondary m-0" @click.prevent="uploadAvatar">
               Save
               <font-awesome-icon icon="spinner" spin v-if="updateAvatarIsLoading" />
             </button>
@@ -136,18 +136,7 @@ import { Response } from '@/util'
 
 const namespaceModal: string = 'modal'
 const namespaceAvatar: string = 'avatar'
-
-interface User {
-  _id: string
-  address: string
-  bio: string
-  dob: string
-  email: string
-  fullName: string
-  gender: string
-  height: string
-  weight: string
-}
+const namespaceUser: string = 'user'
 
 @Component({
   components: {
@@ -161,6 +150,8 @@ export default class Profile extends Vue {
   @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
+  @Getter('user', { namespace: namespaceUser }) private user: any
+
   private avatarPathFake: string = ''
   private avatarValue: any = null
   private errorAvatar: string = ''
@@ -168,59 +159,10 @@ export default class Profile extends Vue {
   private showAvatarModal: boolean = false
   private updateAvatarIsLoading: boolean = false
   private updateInfoIsLoading: boolean = false
-  private user: User = {
-    _id: '',
-    address: '',
-    bio: '',
-    dob: '',
-    email: '',
-    fullName: '',
-    gender: '',
-    height: '',
-    weight: ''
-  }
-
-  private created () {
-    const self: any = this
-
-    axios
-      .get(config.api.user, {
-        params: {
-          id: self.$session.get('id')
-        }
-      })
-      .then(function (response: Response) {
-        this.user._id = response.data._id || ''
-        this.user.dob = response.data.dob || ''
-        this.user.email = response.data.email
-        this.user.fullName = response.data.full_name
-        this.user.gender = response.data.gender || ''
-        this.user.height = response.data.height || ''
-        this.user.weight = response.data.weight || ''
-        this.user.bio = response.data.bio || ''
-        this.user.address = response.data.address || ''
-      }.bind(this))
-      .catch(function (error: Response) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.message = 'Error happened.'
-        }
-      }.bind(this))
-  }
 
   private userUpdate (id: string) {
     const formatTimeToUTC = moment.utc(this.user.dob).format()
-    const params = {
-      dob: this.user.dob || '',
-      email: this.user.email,
-      full_name: this.user.fullName,
-      gender: this.user.gender || '',
-      height: this.user.height || '',
-      weight: this.user.weight || '',
-      address: this.user.address || '',
-      bio: this.user.bio || ''
-    }
+    const params = this.user
 
     if (this.user.dob) {
       params.dob = formatTimeToUTC

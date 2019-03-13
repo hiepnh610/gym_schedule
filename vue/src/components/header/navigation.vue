@@ -2,14 +2,14 @@
   <header id="main-header" class="fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
-        <router-link to="/news-feed" class="navbar-brand text-uppercase" id="main-logo">
+        <router-link :to="{ name: 'NewsFeed' }" class="navbar-brand text-uppercase" id="main-logo">
           <h1>Gym Schedule</h1>
         </router-link>
 
         <div id="main-nav" class="collapse navbar-collapse" v-if="!loginStatus">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/sign-up">Sign Up</a>
+              <router-link :to="{ name: 'SignUp' }" class="nav-link">Sign Up</router-link>
             </li>
 
             <li class="nav-item">
@@ -17,21 +17,21 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/">Login</a>
+              <router-link :to="{ name: 'Login' }" class="nav-link">Login</router-link>
             </li>
           </ul>
         </div>
 
         <div class="d-flex align-items-center" v-else>
-          <router-link to="/messages" class="text-capitalize text-white mr-2 d-flex">
+          <router-link :to="{ name: 'Messages' }" class="text-capitalize text-white mr-2 d-flex">
             <font-awesome-icon icon="comments" class="text-white mr-3" />
           </router-link>
 
-          <router-link to="/plans" class="text-capitalize text-white mr-2 d-flex">
+          <router-link :to="{ name: 'Plans' }" class="text-capitalize text-white mr-2 d-flex">
             <font-awesome-icon icon="file-alt" class="text-white mr-3" />
           </router-link>
 
-          <router-link to="/calendar/full" class="text-capitalize text-white mr-2 d-flex">
+          <router-link :to="{ name: 'AllCalendar' }" class="text-capitalize text-white mr-2 d-flex">
             <font-awesome-icon icon="calendar-alt" class="text-white mr-4" />
           </router-link>
 
@@ -41,9 +41,9 @@
             <font-awesome-icon icon="user" v-else />
           </div>
 
-          <a :href="'profile/' + user.username" class="text-capitalize text-white mr-2 d-flex">
+          <router-link :to="{ name: 'Profile', params: { user: user.username } }" v-if="user.username" class="text-capitalize text-white mr-2 d-flex">
             <span v-text="user.full_name"></span>
-          </a>
+          </router-link>
 
           <div class="dropdown">
             <div class="text-white dropdown-toggle">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="dropdown-menu">
-              <router-link to="/settings/profile" class="dropdown-item">Settings</router-link>
+              <router-link :to="{ name: 'SettingProfile' }" class="dropdown-item">Settings</router-link>
 
               <a class="dropdown-item" href="#" @click.prevent="logout">Sign Out</a>
             </div>

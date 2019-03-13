@@ -63,6 +63,7 @@ export default new Router({
           name: 'AllCalendar',
           component: () => import('./components/calendar/full-calendar.vue')
         },
+
         {
           path: 'detail/:date',
           name: 'CalendarDetail',
@@ -82,6 +83,7 @@ export default new Router({
           name: 'SettingProfile',
           component: () => import('./components/settings/profile.vue')
         },
+
         {
           path: 'account',
           name: 'account',

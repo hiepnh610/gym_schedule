@@ -58,7 +58,7 @@ const getInfo = (req, res) => {
 };
 
 const updateInfo = (req, res) => {
-    if (!req.body.full_name) return res.status(400).json({ message: 'The email cannot be blank.' });
+    if (!req.body.full_name) return res.status(400).json({ message: 'Your name cannot be blank.' });
 
     if (isNaN(req.body.height)) return res.status(400).json({ message: 'The height field must be a valid height.' });
 

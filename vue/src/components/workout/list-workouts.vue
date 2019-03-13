@@ -11,7 +11,7 @@
 
           <div class="px-3 pt-3 bg-white">
             <h4>
-              <router-link :to="'../exercises/' + workout._id" class="text-capitalize text-secondary">{{ workout.name }}</router-link>
+              <router-link :to="{ name: 'Exercises', params: { id: workout._id } }" v-if="workout._id" class="text-capitalize text-secondary">{{ workout.name }}</router-link>
             </h4>
 
             <p class="text-muted">Week Day: {{ workout.weekDay }}</p>

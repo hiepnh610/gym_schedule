@@ -26,7 +26,7 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-md btn-primary" @click.prevent="userUpdate(userInfo.id)">
+            <button class="btn btn-md btn-primary" @click.prevent="userUpdate(user._id)">
               Update password
             </button>
           </div>
@@ -38,17 +38,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
 import { Response } from '@/util'
 
+const namespaceUser: string = 'user'
+
 interface UserInfo {
-  confirmNewPassword: string
-  currentPassword: string
-  id: string
-  newPassword: string
+  confirmNewPassword?: string
+  currentPassword?: string
+  newPassword?: string
 }
 
 @Component({
@@ -57,22 +59,14 @@ interface UserInfo {
   }
   })
 export default class Account extends Vue {
-  private userInfo: UserInfo = {
-    confirmNewPassword: '',
-    currentPassword: '',
-    id: '',
-    newPassword: ''
-  }
+  @Getter('user', { namespace: namespaceUser }) private user: any
+
+  private userInfo: UserInfo = {}
 
   private errContent: string = ''
 
-  private created () {
-    const self: any = this
-    this.userInfo.id = self.$session.get('id')
-  }
-
   private userUpdate (id: string) {
-    const self: any = this
+    const $this: any = this
 
     if (this.userInfo.newPassword === this.userInfo.confirmNewPassword) {
       const params = {
@@ -83,6 +77,7 @@ export default class Account extends Vue {
       axios
         .put(config.api.modifyPassword + id, params)
         .then(function () {
+          this.userInfo = {}
           this.$toasted.success('Update Successfully!!!')
         }.bind(this))
         .catch(function (error: Response) {
@@ -95,7 +90,7 @@ export default class Account extends Vue {
           this.$toasted.error('Error happened!!!')
         }.bind(this))
     } else {
-      self.$toasted.error('The password does not match.')
+      $this.$toasted.error('The password does not match.')
     }
   }
 }

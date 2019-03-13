@@ -13,7 +13,7 @@
 
           <div class="px-3 pt-3 bg-white">
             <h4>
-              <router-link :to="'workouts/' + plan._id" class="text-capitalize text-secondary">{{ plan.name }}</router-link>
+              <router-link :to="{ name: 'Workouts', params: { id: plan._id } }" v-if="plan._id" class="text-capitalize text-secondary">{{ plan.name }}</router-link>
             </h4>
 
             <p class="text-muted">Type: {{ plan.type }}</p>

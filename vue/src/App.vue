@@ -13,6 +13,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
+import router from '@/router'
 import config from '@/config'
 import { Response } from '@/util'
 
@@ -21,6 +22,7 @@ import Navigation from '@/components/header/navigation.vue'
 const namespaceAvatar: string = 'avatar'
 const namespaceModal: string = 'modal'
 const namespaceUser: string = 'user'
+const namespaceloginStatus: string = 'loginStatus'
 
 @Component({
   components: {
@@ -33,6 +35,8 @@ export default class App extends Vue {
   @Getter('showModalBackdrop', { namespace: namespaceModal }) private showModalBackdrop: any
 
   @Action('setUser', { namespace: namespaceUser }) private setUser: any
+
+  @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
 
   private created () {
     const $this: any = this
@@ -52,6 +56,12 @@ export default class App extends Vue {
     axios.interceptors.response.use((response) => {
       return response
     }, (error) => {
+      if (error.response.status === 401) {
+        $this.$session.destroy()
+        router.push('/')
+        this.setLoginStatus(false)
+      }
+
       return Promise.reject(error)
     })
 
@@ -67,9 +77,9 @@ export default class App extends Vue {
     const isSignUpPage = window.location.href === (window.location.origin + '/sign-up')
 
     if (isAuthenticated) {
-      if (isOriginPage || isSignUpPage) { this.$router.push('/plans') }
+      if (isOriginPage || isSignUpPage) { router.push('/plans') }
     } else {
-      if (!isOriginPage) { this.$router.push('/sign-up') }
+      if (!isOriginPage) { router.push('/sign-up') }
     }
   }
 
@@ -84,6 +94,8 @@ export default class App extends Vue {
           }
         })
         .then((response: Response): void => {
+          this.setUser(response.data)
+
           if (response.data.avatar) { $this.setAvatar(response.data.avatar.location) }
         })
         .catch((error: Response): void => {
