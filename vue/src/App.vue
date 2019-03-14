@@ -35,6 +35,7 @@ export default class App extends Vue {
   @Getter('showModalBackdrop', { namespace: namespaceModal }) private showModalBackdrop: any
 
   @Action('setUser', { namespace: namespaceUser }) private setUser: any
+  @Getter('user', { namespace: namespaceUser }) private user: any
 
   @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
 
@@ -71,10 +72,9 @@ export default class App extends Vue {
   }
 
   private setAuthenticate (): void {
-    const $this: any = this
-    const isAuthenticated: boolean = $this.$session.exists()
-    const isOriginPage = window.location.href === (window.location.origin + '/')
-    const isSignUpPage = window.location.href === (window.location.origin + '/sign-up')
+    const isAuthenticated: boolean = this.user.token
+    const isOriginPage = this.$route.path === '/'
+    const isSignUpPage = this.$route.path === '/sign-up'
 
     if (isAuthenticated) {
       if (isOriginPage || isSignUpPage) { router.push('/plans') }
@@ -86,26 +86,20 @@ export default class App extends Vue {
   private getInfoUser (): void {
     const $this: any = this
 
-    if ($this.$session.exists()) {
-      axios
-        .get(config.api.user, {
-          params: {
-            id: $this.$session.get('_id')
-          }
-        })
-        .then((response: Response): void => {
-          this.setUser(response.data)
+    axios
+      .get(config.api.user)
+      .then((response: Response): void => {
+        this.setUser(response.data)
 
-          if (response.data.avatar) { $this.setAvatar(response.data.avatar.location) }
-        })
-        .catch((error: Response): void => {
-          if (error.response && error.response.data && error.response.data.message) {
-            $this.errContent = error.response.data.message
-          } else {
-            $this.errContent = 'Error happened.'
-          }
-        })
-    }
+        if (response.data.avatar) { $this.setAvatar(response.data.avatar.location) }
+      })
+      .catch((error: Response): void => {
+        if (error.response && error.response.data && error.response.data.message) {
+          $this.errContent = error.response.data.message
+        } else {
+          $this.errContent = 'Error happened.'
+        }
+      })
   }
 
   private toggleDropdown (): void {

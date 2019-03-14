@@ -6,8 +6,8 @@ const generateHash = User.schema.methods.generateHash;
 let user = {};
 
 const getInfo = (req, res) => {
-    if (req.query.id) {
-        const query = { '_id': req.query.id };
+    if (req.user) {
+        const query = { '_id': req.user };
 
         User.find(query)
         .exec((err, userInfo) => {
