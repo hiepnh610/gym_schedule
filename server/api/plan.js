@@ -17,8 +17,8 @@ const listPlans = (req, res) => {
 };
 
 const getPlan = (req, res) => {
-    if (req.query.id) {
-        const query = { 'created_by': req.query.id };
+    if (req.user) {
+        const query = { 'created_by': req.user._id };
 
         Plan.find(query)
         .populate({

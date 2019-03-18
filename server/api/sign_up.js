@@ -83,7 +83,7 @@ const saveUser = (res, user) => {
             name: user.full_name,
             username: user.username,
             auth: true,
-            token: signToken(user._id)
+            token: signToken(user._id, user.username)
         }
 
         return res.status(201).json(resData);

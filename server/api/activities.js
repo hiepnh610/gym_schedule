@@ -20,14 +20,22 @@ const createActivity = (req, res) => {
 };
 
 const getAllActivities = (req, res) => {
-    Activity.find({}, (err, activities) => {
-        if (err) return res.status(400).send(err);
+    if (req.user) {
+        const query = { 'created_by': req.user.username };
 
-        const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
-        const groupDate = _.groupBy(activities, dateFormat);
+        Activity.find(query, (err, activities) => {
+            if (err) return res.status(400).send(err);
 
-        res.status(200).json(groupDate);
-    });
+            const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
+            const groupDate = _.groupBy(activities, dateFormat);
+
+            const getIndex = Object.keys(groupDate).map((index) => {
+                return index;
+            });
+
+            res.status(200).json(getIndex);
+        });
+    }
 };
 
 const deleteActivity = (req, res) => {

@@ -72,14 +72,14 @@ export default class App extends Vue {
   }
 
   private setAuthenticate (): void {
-    const isAuthenticated: boolean = this.user.token
-    const isOriginPage = this.$route.path === '/'
-    const isSignUpPage = this.$route.path === '/sign-up'
-
+    const $this: any = this
+    const isAuthenticated: boolean = $this.$session.exists()
+    const isOriginPage = window.location.href === (window.location.origin + '/')
+    const isSignUpPage = window.location.href === (window.location.origin + '/sign-up')
     if (isAuthenticated) {
-      if (isOriginPage || isSignUpPage) { router.push('/plans') }
+      if (isOriginPage || isSignUpPage) { this.$router.push('/plans') }
     } else {
-      if (!isOriginPage) { router.push('/sign-up') }
+      if (!isOriginPage) { this.$router.push('/sign-up') }
     }
   }
 

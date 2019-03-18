@@ -29,7 +29,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
 import config from '@/config'
-import { Response, ID, setLoading } from '@/util'
+import { Response, setLoading } from '@/util'
 
 import planCreate from '@/components/plan/plan-create.vue'
 import listPlans from '@/components/plan/list-plans.vue'
@@ -67,12 +67,8 @@ export default class Plans extends Vue {
   private created () {
     const self: any = this
 
-    const params: ID = {
-      id: this.user._id
-    }
-
     axios
-      .get(config.api.plans, { params })
+      .get(config.api.plans)
       .then(function (response: Response) {
         this.setListPlans(response.data)
 

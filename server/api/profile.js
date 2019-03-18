@@ -47,7 +47,7 @@ const getActivities = (req, res) => {
         const query = { 'created_by': req.query.username };
 
         Activity.find(query)
-        .exec(function (err, activities) {
+        .exec((err, activities) => {
             if(err) return res.status(400).send(err);
 
             const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');

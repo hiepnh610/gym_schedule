@@ -87,7 +87,7 @@
 
         <div class="profile-avatar">
           <div>
-            <img :src="avatar" alt="" class="rounded border" v-if="avatar" />
+            <img :src="avatar" alt="" v-if="avatar" />
 
             <img src="@/assets/images/avatar-default.png" alt="" v-else />
           </div>
