@@ -38,8 +38,8 @@ export default class Calendar extends Vue {
   private isLoading: boolean = true
 
   private created () {
-    const self: any = this
-    const isAuthenticated: boolean = self.$session.exists()
+    const $this: any = this
+    const isAuthenticated: boolean = $this.$session.exists()
     const isCalendarPage = window.location.href === (window.location.origin + '/calendar')
                           ||
                           window.location.href === (window.location.origin + '/calendar/')

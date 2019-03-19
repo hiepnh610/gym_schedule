@@ -76,6 +76,7 @@ interface ListExercisesToRender {
 
 const namespaceModal: string = 'modal'
 const namespaceExercise: string = 'exercises'
+const namespaceUser: string = 'user'
 
 @Component({
   components: {
@@ -93,6 +94,8 @@ export default class ExerciseUpdate extends Vue {
   @Getter('showUpdateModal', { namespace: namespaceModal }) public showUpdateModal: any
 
   @Action('setUpdateExercise', { namespace: namespaceExercise }) public setUpdateExercise: any
+
+  @Getter('user', { namespace: namespaceUser }) public user: any
 
   public loading: boolean = false
   public listExercisesToRender: ListExercisesToRender = this.listExercises[0]
@@ -112,8 +115,6 @@ export default class ExerciseUpdate extends Vue {
     const indexItem: number = this.listExercises.indexOf(this.listExercisesToRender)
     const setNumber: SetType[] = this.$refs.trackLog.setNumber
     const noteContent: string = this.$refs.note.noteContent
-    const self: any = this
-    const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
 
     const exerciseLog: Exercise = {
       exercise_id: this.listExercisesToRender._id,
@@ -127,7 +128,7 @@ export default class ExerciseUpdate extends Vue {
     }
 
     this.dataActivity.exercises.push(exerciseLog)
-    this.dataActivity.created_by = self.$session.get('username')
+    this.dataActivity.created_by = this.user.username
 
     if (indexItem < this.listExercises.length - 1) {
       const nextIndexItem: number = indexItem + 1

@@ -3,11 +3,11 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <profile-header :userProfile="user" :isOwner="isOwner" />
+          <profile-header :userProfile="userProfile" :isOwner="isOwner" />
         </div>
 
         <div class="col-12 col-md-4">
-          <profile-sidebar :userProfile="user" />
+          <profile-sidebar :userProfile="userProfile" />
         </div>
 
         <div class="col-12 col-md-8">
@@ -33,6 +33,8 @@ import profileSidebar from '@/components/profile/sidebar.vue'
 import profileContent from '@/components/profile/content.vue'
 import Loading from '@/components/loading/loading.vue'
 
+const namespaceUser: string = 'user'
+
 interface TypeParams {
   username: string
 }
@@ -54,16 +56,17 @@ interface TypeUser {
   }
   })
 export default class Profile extends Vue {
+  @Getter('user', { namespace: namespaceUser }) private user: any
+
   private isLoading: boolean = true
-  private user: TypeUser = {}
+  private userProfile: TypeUser = {}
   private isOwner: boolean = false
   private fullName: string = ''
   private avatar: string = ''
 
   private created () {
-    const self: any = this
     const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
-    const usernameFromLocal: string = self.$session.get('username')
+    const usernameFromLocal: string = this.user.username
 
     if (usernameFromLocal === usernameFromUrl) {
       this.isOwner = true
@@ -76,7 +79,7 @@ export default class Profile extends Vue {
     axios
       .get(config.api.profile, { params })
       .then(function (response: Response) {
-        this.user = response.data
+        this.userProfile = response.data
         this.fullName = response.data.full_name
         this.avatar = response.data.avatar
 

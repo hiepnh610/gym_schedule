@@ -76,6 +76,7 @@ import { Response } from '@/util'
 
 const namespaceModal: string = 'modal'
 const namespacePlan: string = 'plans'
+const namespaceUser: string = 'user'
 
 interface ParamsPlanCreate {
   'created_by': string
@@ -96,6 +97,8 @@ export default class PlanCreate extends Vue {
   @Getter('showCreateModal', { namespace: namespaceModal }) private showCreateModal: any
 
   @Action('setCreatePlan', { namespace: namespacePlan }) private setCreatePlan: any
+
+  @Getter('user', { namespace: namespaceUser }) private user: any
 
   private frequencyPlan: string = ''
   private loading: boolean = false
@@ -131,10 +134,8 @@ export default class PlanCreate extends Vue {
       return
     }
 
-    const self: any = this
-
     const params: ParamsPlanCreate = {
-      created_by: self.$session.get('id'),
+      created_by: this.user._id,
       frequency: this.frequencyPlan,
       name: this.namePlan,
       type: this.typePlan

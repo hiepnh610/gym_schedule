@@ -24,12 +24,12 @@ import sidebar from '@/components/settings/sidebar.vue'
   })
 export default class Settings extends Vue {
   private created () {
-    const self: any = this
-    const isAuthenticated: boolean = self.$session.exists()
+    const $this: any = this
+    const isAuthenticated: boolean = $this.$session.exists()
     const routePath: string = this.$route.path
 
     if (isAuthenticated) {
-      if (routePath === '/settings') {
+      if (routePath === '/settings' || routePath === '/settings/') {
         this.$router.push('/settings/profile')
       }
     }

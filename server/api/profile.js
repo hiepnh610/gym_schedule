@@ -53,7 +53,13 @@ const getActivities = (req, res) => {
             const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
             const groupDate = _.groupBy(activities, dateFormat);
 
-            res.status(200).json(groupDate);
+            let sortDataByDate = {};
+
+            Object.keys(groupDate)
+            .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate())
+            .forEach(key => sortDataByDate[key] = groupDate[key]);
+
+            res.status(200).json(sortDataByDate);
         });
     }
 }

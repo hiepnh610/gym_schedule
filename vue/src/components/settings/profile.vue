@@ -191,14 +191,14 @@ export default class Profile extends Vue {
   }
 
   private selectImage (e: any) {
-    const self: any = this
+    const $this: any = this
 
     this.avatarValue = e.target.files[0]
 
     const limitSize: number = 1024000
     const imageType: string = this.avatarValue.type.replace('image/', '')
 
-    self.$refs.inputFile.value = ''
+    $this.$refs.inputFile.value = ''
     this.errorAvatar = ''
 
     if (this.avatarValue.size > limitSize) {
@@ -223,8 +223,6 @@ export default class Profile extends Vue {
   }
 
   private uploadAvatar () {
-    const self: any = this
-
     const configHeader = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
@@ -232,7 +230,7 @@ export default class Profile extends Vue {
     const formData: any = new FormData()
 
     formData.append('avatar', this.avatarValue)
-    formData.append('userId', self.$session.getAll().id)
+    formData.append('userId', this.user._id)
 
     this.updateAvatarIsLoading = true
 

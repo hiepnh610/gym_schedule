@@ -65,8 +65,6 @@ export default class Plans extends Vue {
   }
 
   private created () {
-    const self: any = this
-
     axios
       .get(config.api.plans)
       .then(function (response: Response) {

@@ -66,8 +66,6 @@ export default class Account extends Vue {
   private errContent: string = ''
 
   private userUpdate (id: string) {
-    const $this: any = this
-
     if (this.userInfo.newPassword === this.userInfo.confirmNewPassword) {
       const params = {
         current_password: this.userInfo.currentPassword,
@@ -90,7 +88,7 @@ export default class Account extends Vue {
           this.$toasted.error('Error happened!!!')
         }.bind(this))
     } else {
-      $this.$toasted.error('The password does not match.')
+      this.$toasted.error('The password does not match.')
     }
   }
 }
