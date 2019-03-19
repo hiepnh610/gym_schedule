@@ -82,6 +82,7 @@ export default class Navigation extends Vue {
   @Getter('loginStatus', { namespace: namespaceloginStatus }) private loginStatus: any
   @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
 
+  @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
   @Getter('user', { namespace: namespaceUser }) private user: any
@@ -97,6 +98,7 @@ export default class Navigation extends Vue {
 
     $this.$session.destroy()
     router.push('/')
+    $this.setAvatar('')
     this.setLoginStatus(false)
   }
 }

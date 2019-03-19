@@ -60,6 +60,7 @@ export default class App extends Vue {
       if (error.response.status === 401) {
         $this.$session.destroy()
         router.push('/')
+        $this.setAvatar('')
         this.setLoginStatus(false)
       }
 
