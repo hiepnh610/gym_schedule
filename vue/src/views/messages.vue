@@ -1,12 +1,20 @@
 <template>
-  <div class="fixed-bottom">
-    <div class="col-12">
-      <div class="form-group">
-        <textarea class="form-control"></textarea>
-      </div>
+  <div>
+    <div class="container">
+      <ul>
+        <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, eligendi?</li>
+      </ul>
+    </div>
 
-      <div class="form-group">
-        <button class="btn btn-md btn-primary">Send</button>
+    <div class="fixed-bottom">
+      <div class="container">
+        <div class="form-group">
+          <textarea class="form-control resize-none"></textarea>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-sm btn-primary m-0">Send</button>
+        </div>
       </div>
     </div>
   </div>

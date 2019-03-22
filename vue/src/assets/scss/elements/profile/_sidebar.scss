@@ -1,0 +1,5 @@
+.sidebar {
+  background: $white-color;
+  border: 1px solid $profile-border-color;
+  @include border-radius($border-radius-size);
+}

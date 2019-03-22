@@ -1,0 +1,35 @@
+.activities-list {
+  .activity {
+    margin-bottom: 30px;
+
+    .activity-body {
+      background: $white-color;
+      border: 1px solid $profile-border-color;
+      position: relative;
+      @include border-radius($border-radius-size);
+
+      + .activity-body {
+        margin-top: 15px;
+      }
+
+      .avatar {
+        background-color: $white-color;
+        border: 1px solid $profile-border-color;
+        max-width: 40px;
+        min-height: 40px;
+        min-width: 40px;
+      }
+
+      .more-options {
+        position: absolute;
+        top: $size-base / 2;
+        right: 12px;
+      }
+
+      .profile-like,
+      .profile-comment {
+        cursor: pointer;
+      }
+    }
+  }
+}

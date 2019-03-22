@@ -101,3 +101,7 @@ export default class Exercises extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_exercise.scss";
+</style>

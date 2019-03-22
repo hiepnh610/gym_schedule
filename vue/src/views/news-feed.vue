@@ -11,3 +11,7 @@ import { State, Action, Getter } from 'vuex-class'
 @Component
 export default class NewsFeed extends Vue {}
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_news-feed.scss";
+</style>

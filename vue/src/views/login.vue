@@ -112,3 +112,7 @@ export default class Login extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_login.scss";
+</style>

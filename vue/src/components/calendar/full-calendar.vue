@@ -74,3 +74,7 @@ export default class AllCalendar extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+@import "@/assets/scss/elements/calendar/_calendar.scss";
+</style>

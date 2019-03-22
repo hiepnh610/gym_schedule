@@ -9,9 +9,9 @@ const signUp      = require('./sign_up');
 const workout     = require('./workout');
 const uploadImage = require('./upload');
 const exercise    = require('./exercise');
-const activities    = require('./activities');
-
-const verifyToken = require('../auth/verifyToken');
+const activities  = require('./activities');
+const likeActivity = require('./like');
+const verifyToken  = require('../auth/verifyToken');
 
 // Login
 router
@@ -107,5 +107,10 @@ router
 router
     .route('/activity_detail')
     .get(verifyToken, activities.getActivitiesByDate);
+
+// Like activity
+router
+    .route('/like')
+    .post(verifyToken, likeActivity);
 
 module.exports = router;

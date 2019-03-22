@@ -65,3 +65,7 @@ export default class Calendar extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_calendar.scss";
+</style>

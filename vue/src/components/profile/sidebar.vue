@@ -58,3 +58,7 @@ export default class ProfileSidebar extends Vue {
   @Prop() private userProfile!: TypeUser
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/elements/profile/_sidebar.scss";
+</style>

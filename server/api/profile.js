@@ -62,7 +62,7 @@ const getActivities = (req, res) => {
             res.status(200).json(sortDataByDate);
         });
     }
-}
+};
 
 module.exports = {
     getInfo,

@@ -121,3 +121,7 @@ export default class SignUp extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_sign-up.scss";
+</style>

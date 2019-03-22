@@ -1,0 +1,82 @@
+.profile-header {
+  margin-bottom: 30px;
+  position: relative;
+
+  .avatar {
+    background-color: $white-color;
+    border: 1px solid $profile-border-color;
+    bottom: $size-base;
+    left: $size-base;
+    max-width: 170px;
+    min-height: 170px;
+    min-width: 170px;
+    padding: $profile-padding / 4;
+    position: absolute;
+    @include border-radius($border-radius-size);
+
+    .avatar-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    &:hover {
+      label {
+        opacity: 1;
+      }
+    }
+
+    label {
+      background: rgba($dark-gray-color, .8);
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      margin: 0;
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      @extend %transition;
+
+      input {
+        cursor: pointer;
+        height: 100%;
+        left: -100px;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 1000px;
+      }
+    }
+  }
+
+  .profile-full-name {
+    bottom: 70px;
+    left: 202px;
+    margin: 0;
+    position: absolute;
+  }
+
+  nav {
+    background: $white-color;
+    padding-left: 202px;
+  }
+
+  .btn-group {
+    bottom: 70px;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.cover-photo {
+  height: 310px;
+  position: relative;
+
+  .upload-cover-photo {
+    border: 1px solid $border-color;
+    cursor: pointer;
+    left: $size-base;
+    position: absolute;
+    top: $size-base;
+    @include border-radius($border-radius-size);
+  }
+}

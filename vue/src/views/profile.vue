@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-12 col-md-8">
-          <profile-content :full-name="fullName" :avatar="avatar" />
+          <profile-content :full-name="fullName" :avatar="avatar" :isOwner="isOwner" />
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
@@ -64,7 +64,7 @@ export default class Profile extends Vue {
   private fullName: string = ''
   private avatar: string = ''
 
-  private created () {
+  private getUserProfile (): void {
     const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
     const usernameFromLocal: string = this.user.username
 
@@ -93,5 +93,14 @@ export default class Profile extends Vue {
         }
       }.bind(this))
   }
+
+  @Watch('$route', { immediate: true, deep: true })
+  private urlChanged () {
+    this.getUserProfile()
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_profile.scss";
+</style>

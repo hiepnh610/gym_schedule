@@ -1,9 +1,9 @@
 #exercises-page {
-  .exercise-name {
+  & /deep/ .exercise-name {
     padding: 12px 0;
   }
 
-  .exercise-image {
+  & /deep/ .exercise-image {
     background: $exercise-image-bg;
 
     img {

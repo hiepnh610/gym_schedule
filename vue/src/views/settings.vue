@@ -36,3 +36,7 @@ export default class Settings extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_settings.scss";
+</style>

@@ -33,9 +33,38 @@
     </nav>
 
     <div class="avatar">
-      <img :src="userProfile.avatar" alt="" v-if="userProfile && userProfile.avatar" />
+      <div class="avatar-container">
+        <img :src="avatar" alt="" v-if="avatar && isOwner" />
 
-      <img src="@/assets/images/avatar-default.png" alt="" v-else />
+        <img :src="userProfile.avatar" alt="" v-else-if="userProfile && userProfile.avatar && !isOwner" />
+
+        <img src="@/assets/images/avatar-default.png" alt="" v-else />
+
+        <label for="upload-avatar" class="text-white text-center py-2">
+          <small>Upload new picture</small>
+
+          <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" accept=".jpg, .jpeg, .png" />
+        </label>
+      </div>
+    </div>
+
+    <div class="modal fade" v-show="showAvatarModal" :class="{ 'show animated bounceIn': showAvatarModal }" :style="{ display: 'block' }">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <img :src="avatarPathFake" alt="" />
+          </div>
+
+          <div class="modal-footer text-right">
+            <button class="btn btn-sm btn-transparent m-0" @click.prevent="closeModal">Close</button>
+
+            <button class="btn btn-sm btn-secondary m-0" @click.prevent="uploadAvatar">
+              Save
+              <font-awesome-icon icon="spinner" spin v-if="updateAvatarIsLoading" />
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 </template>
@@ -44,6 +73,10 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
+
+import config from '@/config'
+import { Response } from '@/util'
 
 interface TypeUser {
   address?: string
@@ -53,6 +86,10 @@ interface TypeUser {
   'full_name'?: string
 }
 
+const namespaceAvatar: string = 'avatar'
+const namespaceUser: string = 'user'
+const namespaceModal: string = 'modal'
+
 @Component({
   components: {
   FontAwesomeIcon
@@ -61,5 +98,90 @@ interface TypeUser {
 export default class ProfileHeader extends Vue {
   @Prop() private userProfile!: TypeUser
   @Prop() private isOwner!: boolean
+
+  @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
+  @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
+
+  @Getter('user', { namespace: namespaceUser }) private user: any
+
+  @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+
+  private avatarPathFake: string = ''
+  private avatarValue: any = null
+  private errorAvatar: string = ''
+  private showAvatarModal: boolean = false
+  private updateAvatarIsLoading: boolean = false
+
+  private selectImage (e: any) {
+    const $this: any = this
+
+    this.avatarValue = e.target.files[0]
+
+    const limitSize: number = 1024000
+    const imageType: string = this.avatarValue.type.replace('image/', '')
+
+    $this.$refs.inputFile.value = ''
+    this.errorAvatar = ''
+
+    if (this.avatarValue.size > limitSize) {
+      this.errorAvatar = 'Please upload a picture smaller than 1 MB.'
+      return
+    }
+
+    if (imageType !== 'jpg' && imageType !== 'jpeg' && imageType !== 'png') {
+      this.errorAvatar = 'We only support PNG or JPG pictures.'
+      return
+    }
+
+    this.avatarPathFake = URL.createObjectURL(this.avatarValue)
+
+    this.setShowModalBackdrop(true)
+    this.showAvatarModal = true
+  }
+
+  private closeModal () {
+    this.setShowModalBackdrop(false)
+    this.showAvatarModal = false
+  }
+
+  private uploadAvatar () {
+    const configHeader = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+
+    const formData: any = new FormData()
+
+    formData.append('avatar', this.avatarValue)
+    formData.append('userId', this.user._id)
+
+    this.updateAvatarIsLoading = true
+
+    axios
+      .post(config.api.upload, formData, configHeader)
+      .then(function (response: Response) {
+        this.setAvatar(response.data.avatar.location)
+        this.setShowModalBackdrop(false)
+
+        this.updateAvatarIsLoading = false
+        this.showAvatarModal = false
+
+        this.$toasted.success('Upload Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = 'Error happened.'
+        }
+
+        this.updateAvatarIsLoading = false
+        this.showAvatarModal = false
+
+        this.setShowModalBackdrop(false)
+        this.$toasted.error('Error happened!!!')
+      }.bind(this))
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/elements/profile/_header.scss";
+</style>

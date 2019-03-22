@@ -1,5 +1,5 @@
 <template>
-  <div class="activities-list">
+  <div class="activities-list" v-if="listActivities">
     <div class="activity" v-for="(activities, key) in listActivities" :key="key">
       <h6 class="activity-date" v-if="activities.length > 0">{{ key | revert_date }}</h6>
 
@@ -34,20 +34,24 @@
           <strong>{{ activity.workout_name }}</strong>
 
           <p class="mb-0">
-            <small class="text-muted" v-if="activity.exercises.length === 1">Quantity: {{ activity.exercises.length }} exercise</small>
+            <small class="text-muted" v-if="activity.exercises && activity.exercises.length === 1">Quantity: {{ activity.exercises.length }} exercise</small>
 
-            <small class="text-muted" v-else-if="activity.exercises.length > 1">Quantity: {{ activity.exercises.length }} exercises</small>
+            <small class="text-muted" v-else-if="activity.exercises && activity.exercises.length > 1">Quantity: {{ activity.exercises.length }} exercises</small>
 
-            <small class="mr-3" v-if="weightTotal(activity.exercises) > 0"></small>
+            <small class="mr-3" v-if="activity.exercises && weightTotal(activity.exercises) > 0"></small>
 
-            <small class="text-muted" v-if="weightTotal(activity.exercises) > 0">Weight: {{ weightTotal(activity.exercises) }} kg</small>
+            <small class="text-muted" v-if="activity.exercises && weightTotal(activity.exercises) > 0">Weight: {{ weightTotal(activity.exercises) }} kg</small>
           </p>
         </section>
 
         <hr class="m-0" />
 
         <footer>
-          <div class="profile-like d-inline-block py-2 px-3 border-right">
+          <div class="profile-like d-inline-block py-2 px-3 border-right" v-if="isOwner">
+            <font-awesome-icon :icon="['fas', 'heart']" class="text-primary" />
+          </div>
+
+          <div class="profile-like d-inline-block py-2 px-3 border-right" v-else @click.prevent="likeActivity(activity._id)">
             <font-awesome-icon :icon="['far', 'heart']" class="text-muted" />
           </div>
 
@@ -61,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
@@ -92,12 +96,13 @@ const namespaceActivities: string = 'activities'
 export default class ProfileActivities extends Vue {
   @Prop() private fullName!: string
   @Prop() private avatar!: string
+  @Prop() private isOwner!: boolean
 
   @Action('setListActivities', { namespace: namespaceActivities }) private setListActivities: any
   @Action('setDeleteActivity', { namespace: namespaceActivities }) private setDeleteActivity: any
   @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
 
-  private created () {
+  private getUserActivities (): void {
     const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
     const params = {
       username: usernameFromUrl
@@ -151,5 +156,32 @@ export default class ProfileActivities extends Vue {
 
     return total
   }
+
+  private likeActivity (id: string): void {
+    const params = {
+      activityId: id
+    }
+    axios
+      .post(config.api.likeActivity, params)
+      .then(function (response: Response) {
+        this.$toasted.success('Create Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      }.bind(this))
+  }
+
+  @Watch('$route', { immediate: true, deep: true })
+  private urlChanged () {
+    this.getUserActivities()
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/elements/profile/_activities.scss";
+</style>
