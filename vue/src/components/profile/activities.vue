@@ -51,8 +51,12 @@
             <font-awesome-icon :icon="['fas', 'heart']" class="text-primary" />
           </div>
 
-          <div class="profile-like d-inline-block py-2 px-3 border-right" v-else @click.prevent="likeActivity(activity._id)">
+          <div class="profile-like d-inline-block py-2 px-3 border-right" v-else-if="!isOwner && !activity.like" @click.prevent="likeActivity(activity._id)">
             <font-awesome-icon :icon="['far', 'heart']" class="text-muted" />
+          </div>
+
+          <div class="profile-like d-inline-block py-2 px-3 border-right" v-else @click.prevent="unLikeActivity(activity._id)">
+            <font-awesome-icon :icon="['fas', 'heart']" class="text-muted" />
           </div>
 
           <div class="profile-comment d-inline-block py-2 px-3 border-right">
@@ -100,6 +104,8 @@ export default class ProfileActivities extends Vue {
 
   @Action('setListActivities', { namespace: namespaceActivities }) private setListActivities: any
   @Action('setDeleteActivity', { namespace: namespaceActivities }) private setDeleteActivity: any
+  @Action('setLikeActivity', { namespace: namespaceActivities }) private setLikeActivity: any
+  @Action('setUnlikeActivity', { namespace: namespaceActivities }) private setUnlikeActivity: any
   @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
 
   private getUserActivities (): void {
@@ -158,13 +164,26 @@ export default class ProfileActivities extends Vue {
   }
 
   private likeActivity (id: string): void {
+    this.likeAndUnlikeActivity('like', id)
+  }
+
+  private unLikeActivity (id: string): void {
+    this.likeAndUnlikeActivity('unlike', id)
+  }
+
+  private likeAndUnlikeActivity (status: string, id: string): void {
     const params = {
       activityId: id
     }
+
     axios
       .post(config.api.likeActivity, params)
       .then(function (response: Response) {
-        this.$toasted.success('Create Successfully!!!')
+        if (status === 'like') {
+          this.setLikeActivity(id)
+        } else {
+          this.setUnlikeActivity(id)
+        }
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {

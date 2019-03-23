@@ -20,5 +20,29 @@ export const mutations: MutationTree<ActivityState> = {
         }
       }
     }
+  },
+
+  likeActivity (state: any, id: string): void {
+    for (const key in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(key)) {
+        for (const key2 of state.listActivities[key]) {
+          if (key2._id === id) {
+            key2.like = true
+          }
+        }
+      }
+    }
+  },
+
+  unlikeActivity (state: any, id: string): void {
+    for (const key in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(key)) {
+        for (const key2 of state.listActivities[key]) {
+          if (key2._id === id) {
+            key2.like = false
+          }
+        }
+      }
+    }
   }
 }

@@ -1,8 +1,8 @@
 const Activity = require('../model/activities');
 
 const likeActivity = (req, res) => {
-    if (req.user._id && req.query.activityId) {
-        const query = { _id: req.query.activityId };
+    if (req.user._id && req.body.activityId) {
+        const query = { _id: req.body.activityId };
 
         Activity.findOne(query, (err, activity) => {
             if (err) return res.status(400).send(err);

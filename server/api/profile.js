@@ -57,7 +57,32 @@ const getActivities = (req, res) => {
 
             Object.keys(groupDate)
             .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate())
-            .forEach(key => sortDataByDate[key] = groupDate[key]);
+            .forEach((key) => {
+                sortDataByDate[key] = groupDate[key].map((item) => {
+                    const newData = {};
+
+                    newData._id = item._id;
+                    newData.created_at = item.created_at;
+                    newData.created_by = item.created_by;
+                    newData.exercises = item.exercises;
+                    newData.updatedAt = item.updatedAt;
+                    newData.workout_name = item.workout_name;
+
+                    if (item.likes.length) {
+                        for (like of item.likes) {
+                            if (like === req.user._id) {
+                                newData.like = true
+                            } else {
+                                newData.like = false
+                            }
+                        }
+                    } else {
+                        newData.like = false
+                    }
+
+                    return newData;
+                });
+            });
 
             res.status(200).json(sortDataByDate);
         });

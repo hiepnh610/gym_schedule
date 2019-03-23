@@ -13,8 +13,12 @@ interface Exercise {
 
 export interface Activity {
   'workout_name': string
-  exercises: Exercise[]
   _id: string
+  created_at: string
+  created_by: string
+  exercises: Exercise[]
+  like: boolean
+  updatedAt: string
 }
 
 export interface ActivityState {

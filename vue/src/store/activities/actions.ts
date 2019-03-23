@@ -9,5 +9,13 @@ export const actions: ActionTree<ActivityState, RootState> = {
 
   setDeleteActivity (context: any, data: string): string {
     return context.commit('deleteActivity', data)
+  },
+
+  setLikeActivity (context: any, data: string): string {
+    return context.commit('likeActivity', data)
+  },
+
+  setUnlikeActivity (context: any, data: string): string {
+    return context.commit('unlikeActivity', data)
   }
 }
