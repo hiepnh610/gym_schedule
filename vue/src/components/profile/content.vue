@@ -1,6 +1,6 @@
 <template>
   <section>
-    <activities :full-name="fullName" :avatar="avatar" :isOwner="isOwner" />
+    <activities :full-name="fullName" :avatarOfThread="avatarOfThread" :isOwner="isOwner" />
   </section>
 </template>
 
@@ -17,7 +17,7 @@ import Activities from './activities.vue'
   })
 export default class ProfileContent extends Vue {
   @Prop() private fullName!: string
-  @Prop() private avatar!: string
+  @Prop() private avatarOfThread!: string
   @Prop() private isOwner!: boolean
 }
 </script>

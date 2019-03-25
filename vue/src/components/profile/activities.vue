@@ -6,7 +6,7 @@
       <div class="activity-body" v-for="(activity, key) in activities" :key="key">
         <header class="px-3 pt-3 pb-2">
           <div class="avatar d-inline-block mr-3 align-top">
-            <img :src="avatar" alt="" v-if="avatar" />
+            <img :src="avatarOfThread" alt="" v-if="avatarOfThread" />
 
             <img src="@/assets/images/avatar-default.png" alt="" v-else />
           </div>
@@ -17,7 +17,7 @@
             <small class="text-muted">{{ activity.created_at | revert_date_with_time }}</small>
           </p>
 
-          <div class="dropdown float-right">
+          <div class="dropdown float-right" v-if="isOwner">
             <div class="dropdown-toggle" ref="dropdown-toggle">
               <font-awesome-icon icon="caret-down" />
             </div>
@@ -46,23 +46,7 @@
 
         <hr class="m-0" />
 
-        <footer>
-          <div class="profile-like d-inline-block py-2 px-3 border-right" v-if="isOwner">
-            <font-awesome-icon :icon="['fas', 'heart']" class="text-primary" />
-          </div>
-
-          <div class="profile-like d-inline-block py-2 px-3 border-right" v-else-if="!isOwner && !activity.like" @click.prevent="likeActivity(activity._id)">
-            <font-awesome-icon :icon="['far', 'heart']" class="text-muted" />
-          </div>
-
-          <div class="profile-like d-inline-block py-2 px-3 border-right" v-else @click.prevent="unLikeActivity(activity._id)">
-            <font-awesome-icon :icon="['fas', 'heart']" class="text-muted" />
-          </div>
-
-          <div class="profile-comment d-inline-block py-2 px-3 border-right">
-            <font-awesome-icon :icon="['far', 'comment-alt']" class="text-muted" />
-          </div>
-        </footer>
+        <ActivitiesFooter :isOwner="isOwner" :activity="activity" />
       </div>
     </div>
   </div>
@@ -76,6 +60,8 @@ import axios from 'axios'
 
 import config from '@/config'
 import { Response } from '@/util'
+
+import ActivitiesFooter from './activities/activities-footer.vue'
 
 interface SetType {
   reps?: number
@@ -94,18 +80,17 @@ const namespaceActivities: string = 'activities'
 
 @Component({
   components: {
-  FontAwesomeIcon
+  FontAwesomeIcon,
+  ActivitiesFooter
   }
   })
 export default class ProfileActivities extends Vue {
   @Prop() private fullName!: string
-  @Prop() private avatar!: string
+  @Prop() private avatarOfThread!: string
   @Prop() private isOwner!: boolean
 
   @Action('setListActivities', { namespace: namespaceActivities }) private setListActivities: any
   @Action('setDeleteActivity', { namespace: namespaceActivities }) private setDeleteActivity: any
-  @Action('setLikeActivity', { namespace: namespaceActivities }) private setLikeActivity: any
-  @Action('setUnlikeActivity', { namespace: namespaceActivities }) private setUnlikeActivity: any
   @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
 
   private getUserActivities (): void {
@@ -161,37 +146,6 @@ export default class ProfileActivities extends Vue {
     }
 
     return total
-  }
-
-  private likeActivity (id: string): void {
-    this.likeAndUnlikeActivity('like', id)
-  }
-
-  private unLikeActivity (id: string): void {
-    this.likeAndUnlikeActivity('unlike', id)
-  }
-
-  private likeAndUnlikeActivity (status: string, id: string): void {
-    const params = {
-      activityId: id
-    }
-
-    axios
-      .post(config.api.likeActivity, params)
-      .then(function (response: Response) {
-        if (status === 'like') {
-          this.setLikeActivity(id)
-        } else {
-          this.setUnlikeActivity(id)
-        }
-      }.bind(this))
-      .catch(function (error: Response) {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.$toasted.error('Error happened!!!')
-        }
-      }.bind(this))
   }
 
   @Watch('$route', { immediate: true, deep: true })

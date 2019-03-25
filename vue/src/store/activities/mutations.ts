@@ -31,7 +31,7 @@ export const mutations: MutationTree<ActivityState> = {
       if (state.listActivities.hasOwnProperty(key)) {
         for (const key2 of state.listActivities[key]) {
           if (key2._id === id) {
-            key2.like = true
+            key2.like.status = true
           }
         }
       }
@@ -43,7 +43,7 @@ export const mutations: MutationTree<ActivityState> = {
       if (state.listActivities.hasOwnProperty(key)) {
         for (const key2 of state.listActivities[key]) {
           if (key2._id === id) {
-            key2.like = false
+            key2.like.status = false
           }
         }
       }

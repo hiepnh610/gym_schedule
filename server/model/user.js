@@ -3,8 +3,12 @@ const bcrypt   = require('bcrypt-nodejs');
 const Schema   = mongoose.Schema;
 
 const UserSchema = new Schema({
-    avatar: Object,
-    dob: Date,
+    avatar: {
+        type: Object
+    },
+    dob: {
+        type: Date
+    },
     email: {
         type: String,
         required: true,
@@ -15,19 +19,39 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    full_name: String,
-    gender: String,
-    height: Number,
+    full_name: {
+        type: String
+    },
+    gender: {
+        type: String
+    },
+    height: {
+        type: Number
+    },
     password: {
         type: String,
         required: true,
         min: 8,
         max: 30
     },
-    plan_id: Number,
-    weight: Number,
-    address: String,
-    bio: String
+    plan_id: {
+        type: Number
+    },
+    weight: {
+        type: Number
+    },
+    address: {
+        type: String
+    },
+    bio: {
+        type: String
+    },
+    following: {
+        type: Array
+    },
+    follower: {
+        type: Array
+    }
 }, { timestamps: { createdAt: 'created_at' }});
 
 UserSchema.methods.generateHash = function(password) {

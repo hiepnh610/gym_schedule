@@ -2,16 +2,20 @@
   <div id="profile" v-if="!isLoading">
     <div class="container">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12" v-if="!message">
           <profile-header :userProfile="userProfile" :isOwner="isOwner" />
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4" v-if="!message">
           <profile-sidebar :userProfile="userProfile" />
         </div>
 
-        <div class="col-12 col-md-8">
-          <profile-content :full-name="fullName" :avatar="avatar" :isOwner="isOwner" />
+        <div class="col-12 col-md-8" v-if="!message">
+          <profile-content :full-name="fullName" :avatarOfThread="avatarOfThread" :isOwner="isOwner" />
+        </div>
+
+        <div class="col-12" v-else>
+          <h2 class="mt-5">{{ message }}</h2>
         </div>
       </div>
     </div>
@@ -41,7 +45,7 @@ interface TypeParams {
 
 interface TypeUser {
   address?: string
-  avatar?: string
+  avatarOfThread?: string
   bio?: string
   dob?: string
   'full_name'?: string
@@ -62,14 +66,18 @@ export default class Profile extends Vue {
   private userProfile: TypeUser = {}
   private isOwner: boolean = false
   private fullName: string = ''
-  private avatar: string = ''
+  private avatarOfThread: string = ''
+  private message: string = ''
 
   private getUserProfile (): void {
-    const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
+    const $this: any = this
+    const usernameFromUrl: string = $this.$route.params.user
     const usernameFromLocal: string = this.user.username
 
     if (usernameFromLocal === usernameFromUrl) {
       this.isOwner = true
+    } else {
+      this.isOwner = false
     }
 
     const params: TypeParams = {
@@ -81,7 +89,7 @@ export default class Profile extends Vue {
       .then(function (response: Response) {
         this.userProfile = response.data
         this.fullName = response.data.full_name
-        this.avatar = response.data.avatar
+        this.avatarOfThread = response.data.avatar
 
         setLoading(this, false)
       }.bind(this))
@@ -91,6 +99,8 @@ export default class Profile extends Vue {
         } else {
           this.message = 'Error happened.'
         }
+
+        setLoading(this, false)
       }.bind(this))
   }
 

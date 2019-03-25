@@ -36,7 +36,7 @@ const getInfo = (req, res) => {
 
                 res.status(200).json(newUser);
             } else {
-                res.status(400).json({ message: 'Error Happened.' });
+                res.status(400).json({ message: 'No user found.' });
             }
         });
     }
@@ -71,13 +71,19 @@ const getActivities = (req, res) => {
                     if (item.likes.length) {
                         for (like of item.likes) {
                             if (like === req.user._id) {
-                                newData.like = true
+                                newData.like = {
+                                    status: true
+                                }
                             } else {
-                                newData.like = false
+                                newData.like = {
+                                    status: false
+                                }
                             }
                         }
                     } else {
-                        newData.like = false
+                        newData.like = {
+                            status: false
+                        }
                     }
 
                     return newData;

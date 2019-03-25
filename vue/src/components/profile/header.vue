@@ -40,7 +40,7 @@
 
         <img src="@/assets/images/avatar-default.png" alt="" v-else />
 
-        <label for="upload-avatar" class="text-white text-center py-2">
+        <label for="upload-avatar" class="text-white text-center py-2" v-if="isOwner">
           <small>Upload new picture</small>
 
           <input id="upload-avatar" type="file" @change="selectImage" ref="inputFile" accept=".jpg, .jpeg, .png" />
@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
