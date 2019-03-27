@@ -2,7 +2,7 @@
   <div v-show="isOpenCommentBox">
     <hr class="m-0" />
 
-    <div class="comments p-3 d-flex" ref="test">
+    <div class="comments p-3 d-flex">
       <div class="avatar mr-3">
         <img :src="avatar" alt="" v-if="avatar" />
 
@@ -30,14 +30,5 @@ export default class ActivitiesComments extends Vue {
   @Prop() private isOpenCommentBox!: boolean
 
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
-
-  @Watch('isOpenCommentBox', { immediate: true, deep: true })
-  private focusToCommentBox () {
-    if (this.$refs.comment) {
-      const comment: any = this.$refs.comment
-
-      this.$nextTick(() => comment.$el.focus())
-    }
-  }
 }
 </script>

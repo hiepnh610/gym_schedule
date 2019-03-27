@@ -92,7 +92,7 @@ router
 
 router
     .route('/profile_activities')
-    .get(verifyToken, profile.getActivities);
+    .get(verifyToken, profile.profileActivities);
 
 // Activities
 router

@@ -31,9 +31,6 @@ const ActivitySchema = new Schema({
         type: String,
         required: true
     },
-    likes: {
-        type: Array
-    },
     exercises: [ExercisesType],
     workout_name: {
         type: String

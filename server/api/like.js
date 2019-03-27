@@ -1,29 +1,42 @@
-const Activity = require('../model/activities');
+const Like = require('../model/like');
 
 const likeActivity = (req, res) => {
-    if (req.user._id && req.body.activityId) {
-        const query = { _id: req.body.activityId };
+    like = new Like({
+        created_by: req.user._id,
+        activity_id: req.body.activityId
+    });
 
-        Activity.findOne(query, (err, activity) => {
+    like.save((err, like) => {
+        if (err) return res.status(400).send(err);
+
+        res.status(201).json({ 'message': 'Liked' });
+    });
+};
+
+const unlikeActivity = (req, res) => {
+    const query = { 'activity_id': req.body.activityId };
+
+    Like.deleteOne(query, (err) => {
+        if(err) return res.status(400).send(err);
+
+        res.status(200).json({ message: 'Unlike.' });
+    });
+};
+
+const checkLikeInActivity = (req, res) => {
+    if (req.user._id && req.body.activityId) {
+        const query = { 'activity_id': req.body.activityId };
+
+        Like.findOne(query, (err, like) => {
             if (err) return res.status(400).send(err);
 
-            if (!activity) return res.status(400).json({ message: 'No activity found.' });
-
-            const indexOfId = activity.likes.indexOf(req.user._id);
-
-            if (indexOfId > -1) {
-                activity.likes.splice(indexOfId, 1);
+            if (like) {
+                unlikeActivity(req, res);
             } else {
-                activity.likes.push(req.user._id);
+                likeActivity(req, res);
             }
-
-            activity.save((err) => {
-                if (err) return res.status(400).send(err);
-            });
-
-            return res.status(200).json({ message: 'Successfully' });
         });
     }
 };
 
-module.exports = likeActivity;
+module.exports = checkLikeInActivity;

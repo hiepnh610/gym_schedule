@@ -88,7 +88,7 @@ const deletePlan = (req, res) => {
         Plan.deleteOne(query, (err, plan) => {
             if(err) return res.status(400).send(err);
 
-            res.json({ message: 'Plan deleted.' });
+            res.status(200).json({ message: 'Plan deleted.' });
         });
     }
 };

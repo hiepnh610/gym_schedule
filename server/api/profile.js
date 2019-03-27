@@ -3,6 +3,7 @@ const _ = require('lodash');
 
 const User = require('../model/user');
 const Activity = require('../model/activities');
+const Like = require('../model/like');
 
 const getInfo = (req, res) => {
     if (req.query.username) {
@@ -42,60 +43,66 @@ const getInfo = (req, res) => {
     }
 };
 
-const getActivities = (req, res) => {
+const getActivities = (req) => {
     if (req.query.username) {
         const query = { 'created_by': req.query.username };
 
-        Activity.find(query)
-        .exec((err, activities) => {
-            if(err) return res.status(400).send(err);
+        return Activity.find(query).exec();
+    }
+};
 
-            const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
-            const groupDate = _.groupBy(activities, dateFormat);
+const getLikes = (arr) => {
+    if (arr.length) {
+        return Like.find({ 'activity_id': { $in: arr } }).exec();
+    }
+};
 
-            let sortDataByDate = {};
+const profileActivities = async (req, res) => {
+    try {
+        const activities = await (getActivities(req));
+        const activityId = activities.map((item) => item._id);
+        const likeActivity = await (getLikes(activityId));
 
-            Object.keys(groupDate)
-            .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate())
-            .forEach((key) => {
-                sortDataByDate[key] = groupDate[key].map((item) => {
-                    const newData = {};
+        const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
+        const groupDate = _.groupBy(activities, dateFormat);
 
-                    newData._id = item._id;
-                    newData.created_at = item.created_at;
-                    newData.created_by = item.created_by;
-                    newData.exercises = item.exercises;
-                    newData.updatedAt = item.updatedAt;
-                    newData.workout_name = item.workout_name;
+        let sortDataByDate = {};
 
-                    if (item.likes.length) {
-                        for (like of item.likes) {
-                            if (like === req.user._id) {
-                                newData.like = {
-                                    status: true
-                                }
-                            } else {
-                                newData.like = {
-                                    status: false
-                                }
-                            }
-                        }
-                    } else {
+        Object.keys(groupDate)
+        .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate())
+        .forEach((key) => {
+            sortDataByDate[key] = groupDate[key].map((item) => {
+                const newData = {};
+
+                newData._id = item._id;
+                newData.created_at = item.created_at;
+                newData.created_by = item.created_by;
+                newData.exercises = item.exercises;
+                newData.updatedAt = item.updatedAt;
+                newData.workout_name = item.workout_name;
+                newData.like = {
+                    status: false
+                }
+
+                for (like of likeActivity) {
+                    if (like.activity_id === (item._id).toString()) {
                         newData.like = {
-                            status: false
+                            status: true
                         }
                     }
+                }
 
-                    return newData;
-                });
+                return newData;
             });
-
-            res.status(200).json(sortDataByDate);
         });
+
+        return res.status(200).send(sortDataByDate);
+    } catch (err) {
+        return res.status(400).send(err);
     }
 };
 
 module.exports = {
     getInfo,
-    getActivities
+    profileActivities
 };

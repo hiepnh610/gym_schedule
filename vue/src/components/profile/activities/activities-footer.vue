@@ -79,7 +79,11 @@ export default class ProfileActivitiesComments extends Vue {
   }
 
   private openCommentBox (): void {
+    const $children: any = this.$children[0]
+
     this.isOpenCommentBox = true
+
+    this.$nextTick(() => $children.$refs.comment.$el.focus())
   }
 }
 </script>
