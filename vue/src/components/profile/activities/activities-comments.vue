@@ -1,10 +1,8 @@
 <template>
   <div class="comments">
-    <hr class="m-0" />
-
     <ActivitiesListComments :activity="activity" />
 
-    <ActivitiesCommentBox :activity="activity" ref="activitiesCommentBox" v-show="isOpenCommentBox" />
+    <ActivitiesCommentBox :activity="activity" ref="activitiesCommentBox" :isOpenCommentBox="isOpenCommentBox" />
   </div>
 </template>
 

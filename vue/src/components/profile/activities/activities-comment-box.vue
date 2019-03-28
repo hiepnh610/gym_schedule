@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-box p-2 d-flex align-items-start">
+  <div class="comment-box p-2 d-none align-items-start" :class="{ 'd-flex': isOpenCommentBox || activity.comments.length }">
     <div class="avatar mr-2">
       <img :src="avatar" alt="" v-if="avatar" />
 
@@ -32,6 +32,7 @@ const namespaceActivities: string = 'activities'
 
 @Component({})
 export default class ActivitiesCommentBox extends Vue {
+  @Prop() private isOpenCommentBox!: boolean
   @Prop() private activity!: object
 
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any

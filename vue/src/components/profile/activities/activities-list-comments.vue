@@ -1,8 +1,10 @@
 <template>
-  <div class="comments-list" v-if="activity.comments">
-    <div class="view-more-comment text-primary smaller px-2 pt-2" v-if="activity.comments.length > 1">View 0 more comments</div>
+  <div class="comments-list" v-if="activity.comments.length">
+    <hr class="m-0" />
 
-    <div class="comment d-flex align-items-start p-2" v-for="(comment, key) in activity.comments" :key="key">
+    <div class="view-more-comment text-primary smaller px-2 pt-2" v-if="!showAllCommentStatus && activity.comments.length > 2" @click="showAllComment">View {{ activity.comments.length - 2 }} more comments</div>
+
+    <div class="comment d-none align-items-start p-2" v-for="(comment, key) in activity.comments" :key="key" :class="{ 'd-flex': key > (activity.comments.length - 3) || showAllCommentStatus }">
       <div class="avatar mr-2">
         <img :src="comment.avatar" alt="" v-if="comment.avatar" />
 
@@ -39,5 +41,11 @@ import { ActivityType } from '@/util'
 @Component({})
 export default class ActivitiesListComments extends Vue {
   @Prop() private activity!: ActivityType[]
+
+  private showAllCommentStatus: boolean = false
+
+  private showAllComment (): void {
+    this.showAllCommentStatus = true
+  }
 }
 </script>
