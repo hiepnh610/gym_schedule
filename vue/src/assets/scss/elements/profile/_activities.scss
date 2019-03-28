@@ -36,6 +36,26 @@
           @extend %transition;
         }
       }
+
+      textarea,
+      textarea.form-control {
+        min-height: 40px;
+      }
+
+      .comments {
+        .comments-list {
+          .avatar {
+            max-width: 30px;
+            min-height: 30px;
+            min-width: 30px;
+          }
+        }
+
+        .comment-body {
+          background: $comment-bg;
+          min-height: 30px;
+        }
+      }
     }
   }
 }

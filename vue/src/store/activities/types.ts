@@ -11,6 +11,13 @@ interface Exercise {
   'exercise_note': string
 }
 
+interface CommentType {
+  'full_name': string
+  avatar?: string
+  body: string
+  username: string
+}
+
 export interface Activity {
   'workout_name': string
   _id: string
@@ -19,6 +26,7 @@ export interface Activity {
   exercises: Exercise[]
   like: boolean
   updatedAt: string
+  comment: CommentType[]
 }
 
 export interface ActivityState {

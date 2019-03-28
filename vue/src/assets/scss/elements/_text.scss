@@ -1,5 +1,11 @@
+.smaller {
+  font-size: $small-size-base;
+  line-height: 1.1;
+}
+
 .smallest {
   font-size: $smallest-size-base;
+  line-height: 1;
 }
 
 .text-muted {

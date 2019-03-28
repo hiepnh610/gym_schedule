@@ -45,12 +45,6 @@ const UserSchema = new Schema({
     },
     bio: {
         type: String
-    },
-    following: {
-        type: Array
-    },
-    follower: {
-        type: Array
     }
 }, { timestamps: { createdAt: 'created_at' }});
 

@@ -7,6 +7,7 @@ const profile     = require('./profile');
 const login       = require('./login');
 const signUp      = require('./sign_up');
 const workout     = require('./workout');
+const comment     = require('./comments');
 const uploadImage = require('./upload');
 const exercise    = require('./exercise');
 const activities  = require('./activities');
@@ -112,5 +113,10 @@ router
 router
     .route('/like')
     .post(verifyToken, likeActivity);
+
+// Comment activity
+router
+    .route('/comment')
+    .post(verifyToken, comment.createComment);
 
 module.exports = router;

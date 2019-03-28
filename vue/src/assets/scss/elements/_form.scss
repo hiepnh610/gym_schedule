@@ -31,7 +31,7 @@ select.form-control {
   @extend %appearance;
 }
 
-textarea.resize-none {
+textarea {
   resize: none;
 }
 

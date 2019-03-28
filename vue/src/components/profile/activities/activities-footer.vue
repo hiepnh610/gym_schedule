@@ -16,7 +16,7 @@
       <font-awesome-icon :icon="['far', 'comment-alt']" class="text-muted" />
     </div>
 
-    <ActivitiesComments :isOpenCommentBox="isOpenCommentBox" />
+    <ActivitiesComments :isOpenCommentBox="isOpenCommentBox" :activity="activity" ref="activitiesComments" />
   </footer>
 </template>
 
@@ -79,11 +79,12 @@ export default class ProfileActivitiesComments extends Vue {
   }
 
   private openCommentBox (): void {
-    const $children: any = this.$children[0]
+    const $activitiesComments: any = this.$refs.activitiesComments
+    const $textarea: any = $activitiesComments.$refs.activitiesCommentBox.$refs.comment.$el
 
     this.isOpenCommentBox = true
 
-    this.$nextTick(() => $children.$refs.comment.$el.focus())
+    this.$nextTick(() => $textarea.focus())
   }
 }
 </script>

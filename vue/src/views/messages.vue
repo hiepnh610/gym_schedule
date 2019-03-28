@@ -9,7 +9,7 @@
     <div class="fixed-bottom">
       <div class="container">
         <div class="form-group">
-          <textarea class="form-control resize-none"></textarea>
+          <textarea class="form-control"></textarea>
         </div>
 
         <div class="form-group">

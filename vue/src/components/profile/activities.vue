@@ -4,17 +4,17 @@
       <h6 class="activity-date" v-if="activities.length > 0">{{ key | revert_date }}</h6>
 
       <div class="activity-body" v-for="(activity, key) in activities" :key="key">
-        <header class="px-3 pt-3 pb-2">
-          <div class="avatar d-inline-block mr-3 align-top">
+        <header class="p-2">
+          <div class="avatar d-inline-block mr-2 align-top">
             <img :src="avatarOfThread" alt="" v-if="avatarOfThread" />
 
             <img src="@/assets/images/avatar-default.png" alt="" v-else />
           </div>
 
           <p class="d-inline-block mb-0">
-            <strong class="d-block text-primary">{{ fullName }}</strong>
+            <strong class="d-block text-primary smaller">{{ fullName }}</strong>
 
-            <small class="text-muted">{{ activity.created_at | revert_date_with_time }}</small>
+            <small class="text-muted smallest">{{ activity.created_at | revert_date_with_time }}</small>
           </p>
 
           <div class="dropdown float-right" v-if="isOwner">
@@ -30,7 +30,7 @@
 
         <hr class="m-0" />
 
-        <section class="px-3 py-2">
+        <section class="px-2 py-1">
           <strong>{{ activity.workout_name }}</strong>
 
           <p class="mb-0">

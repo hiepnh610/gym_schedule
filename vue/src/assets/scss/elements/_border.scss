@@ -17,3 +17,7 @@
 .border-right {
   border-right: 1px solid $border-color !important;
 }
+
+.border-radius {
+  @include border-radius($border-radius-size);
+}

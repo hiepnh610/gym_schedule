@@ -1,21 +1,10 @@
 <template>
-  <div v-show="isOpenCommentBox">
+  <div class="comments">
     <hr class="m-0" />
 
-    <div class="comments p-3 d-flex">
-      <div class="avatar mr-3">
-        <img :src="avatar" alt="" v-if="avatar" />
+    <ActivitiesListComments :activity="activity" />
 
-        <img src="@/assets/images/avatar-default.png" alt="" v-else />
-      </div>
-
-      <textarea-autosize
-      class="form-control"
-      rows="1"
-      :min-height="40"
-      :max-height="300"
-      ref="comment" />
-    </div>
+    <ActivitiesCommentBox :activity="activity" ref="activitiesCommentBox" v-show="isOpenCommentBox" />
   </div>
 </template>
 
@@ -23,12 +12,17 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 
-const namespaceAvatar: string = 'avatar'
+import ActivitiesCommentBox from './activities-comment-box.vue'
+import ActivitiesListComments from './activities-list-comments.vue'
 
-@Component({})
+@Component({
+  components: {
+  ActivitiesCommentBox,
+  ActivitiesListComments
+  }
+  })
 export default class ActivitiesComments extends Vue {
   @Prop() private isOpenCommentBox!: boolean
-
-  @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
+  @Prop() private activity!: object
 }
 </script>

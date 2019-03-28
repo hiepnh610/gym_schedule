@@ -24,3 +24,9 @@ Vue.filter('date_with_comma', (val: any) => {
 
   return moment(val).format('DD, MMM, YYYY')
 })
+
+Vue.filter('time_ago', (val: any) => {
+  if (!val) { val = new Date() }
+
+  return moment(val).fromNow()
+})

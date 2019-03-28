@@ -4,6 +4,7 @@ const _ = require('lodash');
 const User = require('../model/user');
 const Activity = require('../model/activities');
 const Like = require('../model/like');
+const Comment = require('../model/comment');
 
 const getInfo = (req, res) => {
     if (req.query.username) {
@@ -52,16 +53,27 @@ const getActivities = (req) => {
 };
 
 const getLikes = (arr) => {
-    if (arr.length) {
-        return Like.find({ 'activity_id': { $in: arr } }).exec();
-    }
+    return Like.find({ 'activity_id': { $in: arr } }).exec();
+};
+
+const getComments = (arr) => {
+    return Comment.find({ 'activity_id': { $in: arr } }).exec();
+};
+
+const getUserInfoOfComment = (commentActivity) => {
+    const userId = commentActivity.map((item) => item.created_by);
+
+    return User.find({ '_id': { $in: userId } }).exec();
 };
 
 const profileActivities = async (req, res) => {
     try {
         const activities = await (getActivities(req));
         const activityId = activities.map((item) => item._id);
+
         const likeActivity = await (getLikes(activityId));
+        const commentActivity = await (getComments(activityId));
+        const userInfo = await (getUserInfoOfComment(commentActivity));
 
         const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
         const groupDate = _.groupBy(activities, dateFormat);
@@ -80,14 +92,41 @@ const profileActivities = async (req, res) => {
                 newData.exercises = item.exercises;
                 newData.updatedAt = item.updatedAt;
                 newData.workout_name = item.workout_name;
-                newData.like = {
-                    status: false
+                newData.like = { status: false };
+                newData.comments = [];
+
+                if (likeActivity.length) {
+                    for (like of likeActivity) {
+                        if ((like.activity_id).toString() === (item._id).toString()) {
+                            newData.like = { status: true }
+                        }
+                    }
                 }
 
-                for (like of likeActivity) {
-                    if (like.activity_id === (item._id).toString()) {
-                        newData.like = {
-                            status: true
+                if (commentActivity.length) {
+                    for (comment of commentActivity) {
+                        const commentData = {};
+
+                        if ((comment.activity_id).toString() === (item._id).toString()) {
+                            commentData.body = comment.body;
+
+                            if (userInfo.length) {
+                                for (user of userInfo) {
+                                    if ((user._id).toString() === (comment.created_by).toString()) {
+                                        commentData.username = user.username;
+                                        commentData.full_name = user.full_name;
+                                        commentData.updatedAt = comment.updatedAt;
+
+                                        if (user.avatar && user.avatar.location) {
+                                            commentData.avatar = user.avatar.location
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!_.isEmpty(commentData)) {
+                            newData.comments.push(commentData);
                         }
                     }
                 }

@@ -48,5 +48,17 @@ export const mutations: MutationTree<ActivityState> = {
         }
       }
     }
+  },
+
+  addComment (state: any, data: any): void {
+    for (const key in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(key)) {
+        for (const key2 of state.listActivities[key]) {
+          if (key2._id === data.activity_id) {
+            key2.comments.push(data)
+          }
+        }
+      }
+    }
   }
 }
