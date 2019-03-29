@@ -119,4 +119,9 @@ router
     .route('/comment')
     .post(verifyToken, comment.createComment);
 
+router
+    .route('/comment/:comment_id')
+    .put(verifyToken, comment.updateComment)
+    .delete(verifyToken, comment.deleteComment);
+
 module.exports = router;

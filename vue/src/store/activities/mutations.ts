@@ -60,5 +60,21 @@ export const mutations: MutationTree<ActivityState> = {
         }
       }
     }
+  },
+
+  deleteComment (state: any, id: string): void {
+    for (const activityKey in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(activityKey)) {
+        for (const activity of state.listActivities[activityKey]) {
+          if (activity.comments.length) {
+            for (const keyComment in activity.comments) {
+              if (activity.comments[keyComment]._id === id) {
+                activity.comments.splice(keyComment, 1)
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

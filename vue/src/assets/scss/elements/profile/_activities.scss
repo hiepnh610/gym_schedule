@@ -39,10 +39,19 @@
 
       textarea,
       textarea.form-control {
+        background: $comment-bg;
         min-height: 40px;
       }
 
       .comments {
+        .comment {
+          &:hover {
+            .dropdown-toggle {
+              opacity: 1;
+            }
+          }
+        }
+
         .comments-list {
           .avatar {
             max-width: 30px;
@@ -54,6 +63,20 @@
         .comment-body {
           background: $comment-bg;
           min-height: 30px;
+        }
+
+        .dropdown-toggle {
+          color: $light-gray-color;
+          opacity: 0;
+          @extend %transition;
+
+          &.show {
+            opacity: 1;
+          }
+
+          &:hover {
+            color: $gray-color;
+          }
         }
       }
     }

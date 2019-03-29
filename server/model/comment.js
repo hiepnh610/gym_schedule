@@ -15,6 +15,10 @@ const CommentSchema = new Schema({
     body: {
         type: String,
         required: true
+    },
+
+    edited: {
+        type: Boolean
     }
 }, { timestamps: { createdAt: 'created_at' } });
 

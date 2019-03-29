@@ -1,21 +1,36 @@
 <template>
-  <div class="comment-box p-2 d-none align-items-start" :class="{ 'd-flex': isOpenCommentBox || activity.comments.length }">
-    <div class="avatar mr-2">
-      <img :src="avatar" alt="" v-if="avatar" />
+  <div>
+    <div class="comment-box p-2 d-none align-items-start" :class="{ 'd-flex': (isOpenCommentBox || activity.comments.length) && !editComment }">
+      <div class="avatar mr-2">
+        <img :src="avatar" alt="" v-if="avatar" />
 
-      <img src="@/assets/images/avatar-default.png" alt="" v-else />
+        <img src="@/assets/images/avatar-default.png" alt="" v-else />
+      </div>
+
+      <textarea-autosize
+      class="form-control"
+      rows="1"
+      :min-height="40"
+      :max-height="300"
+      ref="comment"
+      v-model="bodyComment"
+      @keydown.enter.native.exact.prevent
+      @keyup.enter.native.exact="addComment(activity._id)"
+      />
     </div>
 
-    <textarea-autosize
-    class="form-control"
-    rows="1"
-    :min-height="40"
-    :max-height="300"
-    ref="comment"
-    v-model="bodyComment"
-    @keydown.enter.native.exact.prevent
-    @keyup.enter.native.exact="addComment(activity._id)"
-    />
+    <div class="comment-box d-none" :class="{ 'd-block': editComment && openEditCommentBox }">
+      <textarea-autosize
+      class="form-control"
+      rows="1"
+      :min-height="40"
+      :max-height="300"
+      ref="editBodyComment"
+      v-model="editBodyComment"
+      @keydown.enter.native.exact.prevent
+      @keyup.enter.native.exact="updateComment(activity._id)"
+      />
+    </div>
   </div>
 </template>
 
@@ -34,6 +49,9 @@ const namespaceActivities: string = 'activities'
 export default class ActivitiesCommentBox extends Vue {
   @Prop() private isOpenCommentBox!: boolean
   @Prop() private activity!: object
+  @Prop() private editComment!: boolean
+  @Prop() private originBodyComment!: string
+  @Prop() private openEditCommentBox!: string
 
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
@@ -41,6 +59,7 @@ export default class ActivitiesCommentBox extends Vue {
 
   private message: string = ''
   private bodyComment: string = ''
+  private editBodyComment: string = this.originBodyComment ? this.originBodyComment : ''
 
   private addComment (id: string): void {
     const params = {
@@ -62,5 +81,7 @@ export default class ActivitiesCommentBox extends Vue {
         }
       }.bind(this))
   }
+
+  // private updateComment (id: string): void {}
 }
 </script>

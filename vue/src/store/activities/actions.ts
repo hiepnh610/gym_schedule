@@ -21,5 +21,9 @@ export const actions: ActionTree<ActivityState, RootState> = {
 
   setAddComment (context: any, data: string): string {
     return context.commit('addComment', data)
+  },
+
+  setDeleteComment (context: any, data: string): string {
+    return context.commit('deleteComment', data)
   }
 }

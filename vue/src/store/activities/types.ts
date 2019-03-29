@@ -13,6 +13,7 @@ interface Exercise {
 
 interface CommentType {
   'full_name': string
+  _id: string
   avatar?: string
   body: string
   username: string

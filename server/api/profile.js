@@ -80,6 +80,8 @@ const profileActivities = async (req, res) => {
 
         let sortDataByDate = {};
 
+        const sortData = Object.keys(groupDate).sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate());
+
         Object.keys(groupDate)
         .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate())
         .forEach((key) => {
@@ -108,6 +110,7 @@ const profileActivities = async (req, res) => {
                         const commentData = {};
 
                         if ((comment.activity_id).toString() === (item._id).toString()) {
+                            commentData._id = comment._id;
                             commentData.body = comment.body;
 
                             if (userInfo.length) {

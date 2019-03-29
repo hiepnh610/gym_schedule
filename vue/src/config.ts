@@ -23,7 +23,7 @@ const api: ApiTypes = {
   activities: '/api/activities/',
   activityDetail: '/api/activity_detail',
   avatar: '/api/avatar/',
-  comment: '/api/comment',
+  comment: '/api/comment/',
   exercise: '/api/exercise/',
   likeActivity: '/api/like/',
   listExercise: '/api/list_exercise',

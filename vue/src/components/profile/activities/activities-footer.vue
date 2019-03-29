@@ -16,7 +16,13 @@
       <font-awesome-icon :icon="['far', 'comment-alt']" class="text-muted" />
     </div>
 
-    <ActivitiesComments :isOpenCommentBox="isOpenCommentBox" :activity="activity" ref="activitiesComments" />
+    <div class="comments">
+      <hr class="m-0" v-if="activity.comments.length || isOpenCommentBox" />
+
+      <ActivitiesCommentsList :activity="activity" :isOwner="isOwner" />
+
+      <ActivitiesCommentBox :editComment="false" :activity="activity" ref="activitiesCommentBox" :isOpenCommentBox="isOpenCommentBox" />
+    </div>
   </footer>
 </template>
 
@@ -28,13 +34,15 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
-import ActivitiesComments from './activities-comments.vue'
+import ActivitiesCommentBox from './activities-comment-box.vue'
+import ActivitiesCommentsList from './activities-comments-list.vue'
 
 const namespaceActivities: string = 'activities'
 
 @Component({
   components: {
-  ActivitiesComments
+  ActivitiesCommentBox,
+  ActivitiesCommentsList
   }
   })
 export default class ProfileActivitiesComments extends Vue {
@@ -79,8 +87,8 @@ export default class ProfileActivitiesComments extends Vue {
   }
 
   private openCommentBox (): void {
-    const $activitiesComments: any = this.$refs.activitiesComments
-    const $textarea: any = $activitiesComments.$refs.activitiesCommentBox.$refs.comment.$el
+    const $activitiesComments: any = this.$refs.activitiesCommentBox
+    const $textarea: any = $activitiesComments.$refs.comment.$el
 
     this.isOpenCommentBox = true
 

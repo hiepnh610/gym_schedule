@@ -1,6 +1,14 @@
 const Comment = require('../model/comment');
 const User = require('../model/user');
 
+let comment = {};
+
+const getUserInfo = (userId) => {
+    const query = { _id: userId };
+
+    return User.findOne(query).exec();
+};
+
 const createComment = async (req, res) => {
     if (req.body.activityId && req.body.body) {
         const userInfo = await (getUserInfo(req.user._id));
@@ -31,12 +39,43 @@ const createComment = async (req, res) => {
     }
 };
 
-const getUserInfo = (userId) => {
-    const query = { _id: userId };
+const deleteComment = (req, res) => {
+    if (req.params.comment_id) {
+        const query = { '_id': req.params.comment_id };
 
-    return User.findOne(query).exec();
+        Comment.deleteOne(query, (err) => {
+            if(err) return res.status(400).send(err);
+
+            res.status(200).json({ message: 'Comment deleted.' });
+        });
+    }
+};
+
+const updateComment = (req, res) => {
+    if (req.params.comment_id) {
+        if (req.body.body) {
+            const query = req.params.comment_id;
+
+            Comment.findById(query, (err, comment) => {
+                if(err) return res.status(400).send(err);
+
+                comment.set({
+                    body: req.body.body,
+                    edited: true
+                });
+
+                comment.save((err, comment) => {
+                    if(err) return res.status(400).send(err);
+
+                    res.status(200).json(comment);
+                });
+            });
+        }
+    }
 };
 
 module.exports = {
-    createComment
+    createComment,
+    deleteComment,
+    updateComment
 };
