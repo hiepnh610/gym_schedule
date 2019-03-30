@@ -9,13 +9,13 @@
     <div class="comment-wrap-body flex-grow-1">
       <div class="d-flex align-items-center">
         <div class="comment-body p-2 border-radius bg-muted d-inline-block" :class="{ 'w-100': openEditCommentBox }">
-          <p class="smaller mb-0" v-if="!openEditCommentBox">
+          <p class="smaller mb-0" v-show="!openEditCommentBox">
             <strong class="text-primary mb-2">{{ comment.full_name }}</strong>
 
             {{ comment.body }}
           </p>
 
-          <ActivitiesCommentBox :editComment="true" :activity="activity" :originBodyComment="comment.body" :openEditCommentBox="openEditCommentBox" ref="editCommentBox" />
+          <ActivitiesCommentBox :editComment="true" :activity="activity" :openEditCommentBox="openEditCommentBox" :comment="comment" ref="editCommentBox" @changeEditCommentBox="showCommentBody" />
         </div>
 
         <div class="pl-2" v-if="user.username === comment.username || isOwner">
@@ -37,6 +37,8 @@
         <a href="#" class="d-inline-block text-primary smallest">Like</a>
 
         <div class="d-inline-block text-muted smallest ml-3">{{ comment.updatedAt | time_ago }}</div>
+
+        <div class="d-inline-block text-muted smallest ml-3" v-if="comment.edited">Edited</div>
       </div>
 
       <div class="d-block" v-else>
@@ -103,6 +105,11 @@ export default class ActivitiesCommentItem extends Vue  {
 
   private closeUpdateComment (): void {
     this.openEditCommentBox = false
+  }
+
+  private showCommentBody (val: boolean) {
+    console.log(val)
+    this.openEditCommentBox = val
   }
 }
 </script>

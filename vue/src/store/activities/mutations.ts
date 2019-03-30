@@ -76,5 +76,21 @@ export const mutations: MutationTree<ActivityState> = {
         }
       }
     }
+  },
+
+  updateComment (state: any, data: any): void {
+    for (const dateActivities in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(dateActivities)) {
+        for (const activity of state.listActivities[dateActivities]) {
+          for (const comment of activity.comments) {
+            if (comment._id === data._id) {
+              comment.body = data.body
+              comment.edited = data.edited
+              comment.updatedAt = data.updatedAt
+            }
+          }
+        }
+      }
+    }
   }
 }

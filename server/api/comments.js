@@ -59,6 +59,8 @@ const updateComment = (req, res) => {
             Comment.findById(query, (err, comment) => {
                 if(err) return res.status(400).send(err);
 
+                if(!comment) return res.status(400).send({ message: 'Comment not found.' });
+
                 comment.set({
                     body: req.body.body,
                     edited: true
@@ -70,6 +72,8 @@ const updateComment = (req, res) => {
                     res.status(200).json(comment);
                 });
             });
+        } else {
+            deleteComment(req, res);
         }
     }
 };

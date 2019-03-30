@@ -19,7 +19,7 @@
       />
     </div>
 
-    <div class="comment-box d-none" :class="{ 'd-block': editComment && openEditCommentBox }">
+    <div class="comment-box d-none" :class="{ 'd-block': editComment && openEditCommentBox && editCommentIsOpen }">
       <textarea-autosize
       class="form-control"
       rows="1"
@@ -28,19 +28,23 @@
       ref="editBodyComment"
       v-model="editBodyComment"
       @keydown.enter.native.exact.prevent
-      @keyup.enter.native.exact="updateComment(activity._id)"
+      @keyup.enter.native.exact="updateComment(comment._id)"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import config from '@/config'
 import { Response } from '@/util'
+
+interface Params {
+  body: string
+}
 
 const namespaceAvatar: string = 'avatar'
 const namespaceActivities: string = 'activities'
@@ -49,17 +53,20 @@ const namespaceActivities: string = 'activities'
 export default class ActivitiesCommentBox extends Vue {
   @Prop() private isOpenCommentBox!: boolean
   @Prop() private activity!: object
+  @Prop() private comment!: object
   @Prop() private editComment!: boolean
-  @Prop() private originBodyComment!: string
-  @Prop() private openEditCommentBox!: string
+  @Prop() private openEditCommentBox!: boolean
 
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
   @Action('setAddComment', { namespace: namespaceActivities }) private setAddComment: any
+  @Action('setUpdateComment', { namespace: namespaceActivities }) private setUpdateComment: any
 
   private message: string = ''
   private bodyComment: string = ''
-  private editBodyComment: string = this.originBodyComment ? this.originBodyComment : ''
+  private editBodyComment: string = ''
+  private editCommentIsOpen: boolean = true
+  private showEditComment: boolean = false
 
   private addComment (id: string): void {
     const params = {
@@ -82,6 +89,37 @@ export default class ActivitiesCommentBox extends Vue {
       }.bind(this))
   }
 
-  // private updateComment (id: string): void {}
+  private updateComment (id: string): void {
+    const params: Params = {
+      body: this.editBodyComment
+    }
+
+    axios
+      .put(config.api.comment + id, params)
+      .then(function (response: Response) {
+        this.setUpdateComment(response.data)
+        this.editCommentIsOpen = false
+        this.changeEditCommentBox(false)
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+
+        this.loading = false
+      }.bind(this))
+  }
+
+  @Watch('comment', { immediate: true, deep: true })
+  private commentUpdated (val: any) {
+    if (val) { this.editBodyComment = val.body }
+  }
+
+  @Emit('changeEditCommentBox')
+  private changeEditCommentBox (val: boolean): void {
+    this.showEditComment = val
+  }
 }
 </script>

@@ -28,6 +28,7 @@ export interface Activity {
   like: boolean
   updatedAt: string
   comment: CommentType[]
+  edited: boolean
 }
 
 export interface ActivityState {

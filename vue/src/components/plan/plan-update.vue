@@ -74,6 +74,12 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
+interface Params {
+  frequency: string,
+  name: string,
+  type: string
+}
+
 const namespaceModal: string = 'modal'
 const namespacePlan: string = 'plans'
 
@@ -119,12 +125,6 @@ export default class PlanUpdate extends Vue {
       this.message = 'The frequency cannot be blank.'
 
       return
-    }
-
-    interface Params {
-      frequency: string,
-      name: string,
-      type: string
     }
 
     const params: Params = {

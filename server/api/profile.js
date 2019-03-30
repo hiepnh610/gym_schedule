@@ -80,11 +80,10 @@ const profileActivities = async (req, res) => {
 
         let sortDataByDate = {};
 
-        const sortData = Object.keys(groupDate).sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate());
+        const sortData = Object.keys(groupDate)
+        .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate());
 
-        Object.keys(groupDate)
-        .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate())
-        .forEach((key) => {
+        sortData.forEach((key) => {
             sortDataByDate[key] = groupDate[key].map((item) => {
                 const newData = {};
 
@@ -112,6 +111,7 @@ const profileActivities = async (req, res) => {
                         if ((comment.activity_id).toString() === (item._id).toString()) {
                             commentData._id = comment._id;
                             commentData.body = comment.body;
+                            commentData.edited = comment.edited ? comment.edited : false;
 
                             if (userInfo.length) {
                                 for (user of userInfo) {
