@@ -7,19 +7,19 @@
     @include box-shadow(0, 0, 0, 0, transparent);
   }
 
-  &.btn-lg {
+  &-lg {
     font-size: $large-size-base;
     height: 50px;
     min-width: 180px;
   }
 
-  &.btn-md {
+  &-md {
     font-size: $size-base;
     height: 45px;
     min-width: 150px;
   }
 
-  &.btn-sm {
+  &-sm {
     font-size: $small-size-base;
     height: 35px;
     min-width: 110px;
@@ -27,7 +27,7 @@
     padding-right: $size-base;
   }
 
-  &.btn-xs {
+  &-xs {
     font-size: $smallest-size-base;
     height: 30px;
     min-width: 80px;
@@ -42,7 +42,7 @@
     $index: index($btns, $btn);
 
     .btn {
-      &.btn-#{$btn} {
+      &-#{$btn} {
         background: nth($agrs, $index);
         border-color: nth($agrs, $index);
         color: $white-color;
@@ -60,7 +60,7 @@
   }
 
   .btn {
-    &.btn-secondary {
+    &-secondary {
       background: $navy-blue-color;
       border-color: $navy-blue-color;
       color: $white-color;
@@ -70,7 +70,7 @@
       }
     }
 
-    &.btn-light {
+    &-light {
       background: $white-color;
       border-color: $border-color;
       color: $gray-color;
@@ -82,7 +82,7 @@
       }
     }
 
-    &.btn-transparent {
+    &-transparent {
       background: transparent;
       border-color: transparent;
       color: $gray-color;

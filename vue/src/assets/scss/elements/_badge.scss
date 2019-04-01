@@ -1,0 +1,21 @@
+.badge {
+  &-shadow {
+    @include border-radius($border-radius-size);
+    @include box-shadow(0, 1px, 3px, 0, rgba($black-color, .2));
+  }
+
+  &-light {
+    background: $white-color;
+  }
+}
+
+.float-badge {
+  position: relative;
+
+  .badge {
+    bottom: 0;
+    position: absolute;
+    right: $size-base / 2;
+    @include translate(0, 50%);
+  }
+}

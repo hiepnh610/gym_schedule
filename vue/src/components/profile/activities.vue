@@ -44,9 +44,17 @@
           </p>
 
           <p class="mb-0" v-if="activity.like.quantity">
-            <small class="text-muted smallest" v-if="activity.like.quantity > 1">{{ activity.like.quantity }} Likes</small>
+            <small class="text-muted smallest" v-if="activity.like.quantity > 1">
+              <font-awesome-icon :icon="['far', 'heart']" class="mr-1" />
 
-            <small class="text-muted smallest" v-else-if="activity.like.quantity === 1">{{ activity.like.quantity }} Like</small>
+              {{ activity.like.quantity }} Likes
+            </small>
+
+            <small class="text-muted smallest" v-else-if="activity.like.quantity === 1">
+              <font-awesome-icon :icon="['far', 'heart']" class="mr-1" />
+
+              {{ activity.like.quantity }} Like
+            </small>
           </p>
         </section>
 

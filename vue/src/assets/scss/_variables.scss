@@ -15,10 +15,12 @@ $white-color:               #fff !default;
 
 $bg-body:                   #e9ebee !default;
 
-$border-color:              #dddfe2;
-$exercise-image-bg:         #d9d9d9;
+$border-color:              #dddfe2 !default;
+$exercise-image-bg:         #d9d9d9 !default;
 
-$bg-modal:                  #f5f6f7;
+$bg-modal:                  #f5f6f7 !default;
+
+$comment-bg:                #f2f3f5 !default;
 
 $large-size-base:            1.125rem;
 $size-base:                  1rem;
@@ -67,5 +69,3 @@ $profile-padding:            $size-base;
 $card-image-size:            $size-base * 7;
 
 $profile-icon-hover-color:   $border-color;
-
-$comment-bg:               #f2f3f5;
