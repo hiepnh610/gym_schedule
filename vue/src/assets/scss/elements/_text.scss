@@ -20,6 +20,11 @@
   .text-primary,
   .text-danger {
     color: $first-primary-color !important;
+
+    &:focus,
+    &:hover {
+      color: $first-primary-color !important;
+    }
   }
 
   .text-warning {

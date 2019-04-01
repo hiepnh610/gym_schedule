@@ -29,5 +29,13 @@ export const actions: ActionTree<ActivityState, RootState> = {
 
   setUpdateComment (context: any, data: string): string {
     return context.commit('updateComment', data)
+  },
+
+  setLikeComment (context: any, data: string): string {
+    return context.commit('likeComment', data)
+  },
+
+  setUnlikeComment (context: any, data: string): string {
+    return context.commit('unlikeComment', data)
   }
 }

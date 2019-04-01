@@ -16,6 +16,7 @@ interface CommentType {
   _id: string
   avatar?: string
   body: string
+  like: object
   username: string
 }
 
@@ -25,7 +26,7 @@ export interface Activity {
   created_at: string
   created_by: string
   exercises: Exercise[]
-  like: boolean
+  like: object
   updatedAt: string
   comment: CommentType[]
   edited: boolean

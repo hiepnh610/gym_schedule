@@ -92,5 +92,37 @@ export const mutations: MutationTree<ActivityState> = {
         }
       }
     }
+  },
+
+  likeComment (state: any, id: string): void {
+    for (const keyActivity in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(keyActivity)) {
+        for (const activity of state.listActivities[keyActivity]) {
+          if (activity.comments) {
+            for (const comment of activity.comments) {
+              if (comment._id === id) {
+                comment.like.status = true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  unlikeComment (state: any, id: string): void {
+    for (const keyActivity in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(keyActivity)) {
+        for (const activity of state.listActivities[keyActivity]) {
+          if (activity.comments) {
+            for (const comment of activity.comments) {
+              if (comment._id === id) {
+                comment.like.status = false
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

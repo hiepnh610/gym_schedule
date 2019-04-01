@@ -25,6 +25,7 @@ export interface CommentType {
   avatar: string
   body: string
   username: string
+  _id: string
 }
 
 export interface ActivityType {

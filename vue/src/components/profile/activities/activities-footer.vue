@@ -39,6 +39,11 @@ import ActivitiesCommentsList from './activities-comments-list.vue'
 
 const namespaceActivities: string = 'activities'
 
+interface Params {
+  'object_id': string
+  'object_type': string
+}
+
 @Component({
   components: {
   ActivitiesCommentBox,
@@ -64,8 +69,9 @@ export default class ProfileActivitiesComments extends Vue {
   }
 
   private likeAndUnlikeActivity (status: string, id: string): void {
-    const params = {
-      activityId: id
+    const params: Params = {
+      object_id: id,
+      object_type: 'activity'
     }
 
     axios

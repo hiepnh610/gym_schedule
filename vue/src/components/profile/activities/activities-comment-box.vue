@@ -29,6 +29,7 @@
       v-model="editBodyComment"
       @keydown.enter.native.exact.prevent
       @keyup.enter.native.exact="updateComment(comment._id)"
+      @keyup.esc.native.exact="closeEditCommentBox"
       />
     </div>
   </div>
@@ -110,6 +111,10 @@ export default class ActivitiesCommentBox extends Vue {
 
         this.loading = false
       }.bind(this))
+  }
+
+  private closeEditCommentBox (): void {
+    this.changeEditCommentBox(false)
   }
 
   @Watch('comment', { immediate: true, deep: true })

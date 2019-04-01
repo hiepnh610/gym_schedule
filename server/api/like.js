@@ -3,10 +3,11 @@ const Like = require('../model/like');
 const likeActivity = (req, res) => {
     like = new Like({
         created_by: req.user._id,
-        activity_id: req.body.activityId
+        object_id: req.body.object_id,
+        object_type: req.body.object_type
     });
 
-    like.save((err, like) => {
+    like.save((err) => {
         if (err) return res.status(400).send(err);
 
         res.status(201).json({ 'message': 'Liked' });
@@ -14,7 +15,7 @@ const likeActivity = (req, res) => {
 };
 
 const unlikeActivity = (req, res) => {
-    const query = { 'activity_id': req.body.activityId };
+    const query = { 'object_id': req.body.object_id };
 
     Like.deleteOne(query, (err) => {
         if(err) return res.status(400).send(err);
@@ -24,8 +25,8 @@ const unlikeActivity = (req, res) => {
 };
 
 const checkLikeInActivity = (req, res) => {
-    if (req.user._id && req.body.activityId) {
-        const query = { 'activity_id': req.body.activityId };
+    if (req.user._id && req.body.object_id) {
+        const query = { 'object_id': req.body.object_id };
 
         Like.findOne(query, (err, like) => {
             if (err) return res.status(400).send(err);

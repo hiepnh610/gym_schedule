@@ -53,7 +53,7 @@ const getActivities = (req) => {
 };
 
 const getLikes = (arr) => {
-    return Like.find({ 'activity_id': { $in: arr } }).exec();
+    return Like.find({ 'object_id': { $in: arr } }).exec();
 };
 
 const getComments = (arr) => {
@@ -74,6 +74,9 @@ const profileActivities = async (req, res) => {
         const likeActivity = await (getLikes(activityId));
         const commentActivity = await (getComments(activityId));
         const userInfo = await (getUserInfoOfComment(commentActivity));
+
+        const commentId = commentActivity.map((item) => item._id);
+        const likeComment = await (getLikes(commentId));
 
         const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
         const groupDate = _.groupBy(activities, dateFormat);
@@ -98,7 +101,7 @@ const profileActivities = async (req, res) => {
 
                 if (likeActivity.length) {
                     for (like of likeActivity) {
-                        if ((like.activity_id).toString() === (item._id).toString()) {
+                        if ((like.object_id).toString() === (item._id).toString()) {
                             newData.like = { status: true }
                         }
                     }
@@ -112,6 +115,7 @@ const profileActivities = async (req, res) => {
                             commentData._id = comment._id;
                             commentData.body = comment.body;
                             commentData.edited = comment.edited ? comment.edited : false;
+                            commentData.like = { status: false };
 
                             if (userInfo.length) {
                                 for (user of userInfo) {
@@ -123,6 +127,14 @@ const profileActivities = async (req, res) => {
                                         if (user.avatar && user.avatar.location) {
                                             commentData.avatar = user.avatar.location
                                         }
+                                    }
+                                }
+                            }
+
+                            if (likeComment.length) {
+                                for (like of likeComment) {
+                                    if ((like.object_id).toString() === (comment._id).toString()) {
+                                        commentData.like = { status: true }
                                     }
                                 }
                             }

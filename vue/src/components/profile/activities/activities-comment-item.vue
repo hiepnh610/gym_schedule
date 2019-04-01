@@ -34,7 +34,9 @@
       </div>
 
       <div class="d-block" v-if="!openEditCommentBox">
-        <a href="#" class="d-inline-block text-primary smallest">Like</a>
+        <a href="#" class="d-inline-block text-primary smallest" @click.prevent="likeComment(comment._id)" v-if="!comment.like.status">Like</a>
+
+        <a href="#" class="d-inline-block text-primary smallest" @click.prevent="unLikeComment(comment._id)" v-if="comment.like.status"><strong>Like</strong></a>
 
         <div class="d-inline-block text-muted smallest ml-3">{{ comment.updatedAt | time_ago }}</div>
 
@@ -61,6 +63,11 @@ import ActivitiesCommentBox from './activities-comment-box.vue'
 const namespaceUser: string = 'user'
 const namespaceActivities: string = 'activities'
 
+interface Params {
+  'object_id': string
+  'object_type': string
+}
+
 @Component({
   components: {
   ActivitiesCommentBox
@@ -75,7 +82,11 @@ export default class ActivitiesCommentItem extends Vue  {
 
   @Action('setDeleteComment', { namespace: namespaceActivities }) private setDeleteComment: any
 
+  @Action('setLikeComment', { namespace: namespaceActivities }) private setLikeComment: any
+  @Action('setUnlikeComment', { namespace: namespaceActivities }) private setUnlikeComment: any
+
   private openEditCommentBox: boolean = false
+  private message: string = ''
 
   private deleteComment (id: string): void {
     axios
@@ -108,8 +119,39 @@ export default class ActivitiesCommentItem extends Vue  {
   }
 
   private showCommentBody (val: boolean) {
-    console.log(val)
     this.openEditCommentBox = val
+  }
+
+  private likeComment (id: string): void {
+    this.likeAndUnlikeComment('like', id)
+  }
+
+  private unLikeComment (id: string): void {
+    this.likeAndUnlikeComment('unlike', id)
+  }
+
+  private likeAndUnlikeComment (status: string, id: string): void {
+    const params: Params = {
+      object_id: id,
+      object_type: 'comment'
+    }
+
+    axios
+      .post(config.api.likeActivity, params)
+      .then(function (response: Response) {
+        if (status === 'like') {
+          this.setLikeComment(id)
+        } else {
+          this.setUnlikeComment(id)
+        }
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      }.bind(this))
   }
 }
 </script>

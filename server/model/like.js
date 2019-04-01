@@ -7,7 +7,12 @@ const LikeSchema = new Schema({
         required: true
     },
 
-    activity_id: {
+    object_id: {
+        type: String,
+        required: true
+    },
+
+    object_type: {
         type: String,
         required: true
     }
