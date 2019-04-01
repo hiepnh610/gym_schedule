@@ -26,7 +26,10 @@ const unlikeActivity = (req, res) => {
 
 const checkLikeInActivity = (req, res) => {
     if (req.user._id && req.body.object_id) {
-        const query = { 'object_id': req.body.object_id };
+        const query = {
+            'object_id': req.body.object_id,
+            'created_by': req.user._id
+        };
 
         Like.findOne(query, (err, like) => {
             if (err) return res.status(400).send(err);

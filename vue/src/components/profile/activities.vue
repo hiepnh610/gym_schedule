@@ -42,6 +42,12 @@
 
             <small class="text-muted" v-if="activity.exercises && weightTotal(activity.exercises) > 0">Weight: {{ weightTotal(activity.exercises) }} kg</small>
           </p>
+
+          <p class="mb-0" v-if="activity.like.quantity">
+            <small class="text-muted smallest" v-if="activity.like.quantity > 1">{{ activity.like.quantity }} Likes</small>
+
+            <small class="text-muted smallest" v-else-if="activity.like.quantity === 1">{{ activity.like.quantity }} Like</small>
+          </p>
         </section>
 
         <hr class="m-0" />

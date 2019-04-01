@@ -7,18 +7,18 @@ export const mutations: MutationTree<ActivityState> = {
   },
 
   deleteActivity (state: any, id: string): void {
-    for (const key in state.listActivities) {
-      if (state.listActivities.hasOwnProperty(key)) {
-        if (state.listActivities[key]._id === id) {
-          state.listActivities.splice(key, 1)
+    for (const keyActivity in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(keyActivity)) {
+        if (state.listActivities[keyActivity]._id === id) {
+          state.listActivities.splice(keyActivity, 1)
         }
 
         // This loop for find id of activity
         // Because the data of profile activities has different structure
-        for (const key2 in state.listActivities[key]) {
-          if (state.listActivities.hasOwnProperty(key)) {
-            if (state.listActivities[key][key2]._id === id) {
-              state.listActivities[key].splice(key2, 1)
+        for (const activity in state.listActivities[keyActivity]) {
+          if (state.listActivities.hasOwnProperty(keyActivity)) {
+            if (state.listActivities[keyActivity][activity]._id === id) {
+              state.listActivities[keyActivity].splice(activity, 1)
             }
           }
         }
@@ -27,11 +27,12 @@ export const mutations: MutationTree<ActivityState> = {
   },
 
   likeActivity (state: any, id: string): void {
-    for (const key in state.listActivities) {
-      if (state.listActivities.hasOwnProperty(key)) {
-        for (const key2 of state.listActivities[key]) {
-          if (key2._id === id) {
-            key2.like.status = true
+    for (const keyActivity in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(keyActivity)) {
+        for (const activity of state.listActivities[keyActivity]) {
+          if (activity._id === id) {
+            activity.like.status = true
+            activity.like.quantity = activity.like.quantity + 1
           }
         }
       }
@@ -39,11 +40,15 @@ export const mutations: MutationTree<ActivityState> = {
   },
 
   unlikeActivity (state: any, id: string): void {
-    for (const key in state.listActivities) {
-      if (state.listActivities.hasOwnProperty(key)) {
-        for (const key2 of state.listActivities[key]) {
-          if (key2._id === id) {
-            key2.like.status = false
+    for (const keyActivity in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(keyActivity)) {
+        for (const activity of state.listActivities[keyActivity]) {
+          if (activity._id === id) {
+            activity.like.status = false
+
+            if (activity.like.quantity > 0) {
+              activity.like.quantity = activity.like.quantity - 1
+            }
           }
         }
       }
@@ -51,11 +56,11 @@ export const mutations: MutationTree<ActivityState> = {
   },
 
   addComment (state: any, data: any): void {
-    for (const key in state.listActivities) {
-      if (state.listActivities.hasOwnProperty(key)) {
-        for (const key2 of state.listActivities[key]) {
-          if (key2._id === data.activity_id) {
-            key2.comments.push(data)
+    for (const keyActivity in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(keyActivity)) {
+        for (const activity of state.listActivities[keyActivity]) {
+          if (activity._id === data.activity_id) {
+            activity.comments.push(data)
           }
         }
       }
@@ -79,9 +84,9 @@ export const mutations: MutationTree<ActivityState> = {
   },
 
   updateComment (state: any, data: any): void {
-    for (const dateActivities in state.listActivities) {
-      if (state.listActivities.hasOwnProperty(dateActivities)) {
-        for (const activity of state.listActivities[dateActivities]) {
+    for (const keyActivity in state.listActivities) {
+      if (state.listActivities.hasOwnProperty(keyActivity)) {
+        for (const activity of state.listActivities[keyActivity]) {
           for (const comment of activity.comments) {
             if (comment._id === data._id) {
               comment.body = data.body

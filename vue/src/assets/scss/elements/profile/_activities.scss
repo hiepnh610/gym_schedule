@@ -29,7 +29,9 @@
 
       .profile-like,
       .profile-comment {
-        cursor: pointer;
+        &:not(.not-cursor) {
+          cursor: pointer;
+        }
 
         &:hover {
           background: $profile-icon-hover-color;

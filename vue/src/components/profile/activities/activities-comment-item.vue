@@ -41,6 +41,12 @@
         <div class="d-inline-block text-muted smallest ml-3">{{ comment.updatedAt | time_ago }}</div>
 
         <div class="d-inline-block text-muted smallest ml-3" v-if="comment.edited">Edited</div>
+
+        <div class="d-inline-block text-muted smallest ml-3" v-if="comment.like.quantity">
+          <span v-if="comment.like.quantity > 1">{{ comment.like.quantity }} Likes</span>
+
+          <span v-else-if="comment.like.quantity === 1">{{ comment.like.quantity }} Like</span>
+        </div>
       </div>
 
       <div class="d-block" v-else>

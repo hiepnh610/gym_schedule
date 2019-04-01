@@ -82,6 +82,8 @@ const profileActivities = async (req, res) => {
         const groupDate = _.groupBy(activities, dateFormat);
 
         let sortDataByDate = {};
+        let userLikedActivity = [];
+        let userLikedComment = [];
 
         const sortData = Object.keys(groupDate)
         .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate());
@@ -101,8 +103,13 @@ const profileActivities = async (req, res) => {
 
                 if (likeActivity.length) {
                     for (like of likeActivity) {
-                        if ((like.object_id).toString() === (item._id).toString()) {
+                        if ((like.object_id).toString() === (item._id).toString() && like.created_by === req.user._id) {
                             newData.like = { status: true }
+                        }
+
+                        if ((like.object_id).toString() === (item._id).toString()) {
+                            userLikedActivity.push(like.created_by);
+                            newData.like.quantity = userLikedActivity.length;
                         }
                     }
                 }
@@ -133,8 +140,13 @@ const profileActivities = async (req, res) => {
 
                             if (likeComment.length) {
                                 for (like of likeComment) {
-                                    if ((like.object_id).toString() === (comment._id).toString()) {
+                                    if ((like.object_id).toString() === (comment._id).toString() && like.created_by === req.user._id) {
                                         commentData.like = { status: true }
+                                    }
+
+                                    if ((like.object_id).toString() === (comment._id).toString()) {
+                                        userLikedComment.push(like.created_by);
+                                        commentData.like.quantity = userLikedComment.length;
                                     }
                                 }
                             }

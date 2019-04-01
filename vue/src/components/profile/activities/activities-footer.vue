@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="profile-like d-inline-block py-2 px-3 border-right" v-if="isOwner">
+    <div class="profile-like d-inline-block py-2 px-3 border-right not-cursor" v-if="isOwner">
       <font-awesome-icon :icon="['fas', 'heart']" class="text-muted" />
     </div>
 
