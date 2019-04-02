@@ -1,0 +1,12 @@
+{
+  "name": "gym_schedule",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "repository": "git@github.com:hiepnh610/gym_schedule.git",
+  "author": "Hiep.Nguyen <hiepnh610@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "build": "cd client && npm run build"
+  }
+}

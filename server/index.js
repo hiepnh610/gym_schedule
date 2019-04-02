@@ -1,13 +1,17 @@
-const express    = require('express');
-const cors       = require('cors');
-const app        = express();
-const bodyParser = require('body-parser');
-const mongoose   = require('mongoose');
-const morgan     = require('morgan');
-const path       = require('path');
+const fs          = require("fs");
+const express     = require('express');
+const cors        = require('cors');
+const app         = express();
+const bodyParser  = require('body-parser');
+const mongoose    = require('mongoose');
+const morgan      = require('morgan');
+const path        = require('path');
+const serveStatic = require('serve-static');
 
 const config = require('./config');
 const router = require('./api');
+
+const clientFolder = path.join(__dirname, '../client/dist');
 
 mongoose.connect(config.mongoUri, {
     keepAlive: true,
@@ -26,6 +30,7 @@ app.use(bodyParser.json());
 app.use('/api', router);
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(serveStatic(clientFolder));
 
 app.listen(config.PORT, () => {
     console.log(`This app listen on port ${config.PORT}`);
