@@ -66,7 +66,7 @@ const updateInfo = (req, res) => {
 
     if (req.body.gender !== 'Male' && req.body.gender !== 'Female') return res.status(400).json({ message: 'The gender field must be a valid gender.' });
 
-    const query = req.params.user_id;
+    const query = req.user._id;
 
     User.findById(query, (err, user) => {
         if (err) return res.status(400).send(err);
@@ -90,8 +90,8 @@ const updateInfo = (req, res) => {
 };
 
 const modifyPassword = (req, res) => {
-    if (req.params.user_id) {
-        const query = req.params.user_id;
+    if (req.user._id) {
+        const query = req.user._id;
 
         User.findById(query, (err, user) => {
             if (err) return res.status(400).send(err);

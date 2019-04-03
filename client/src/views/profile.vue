@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-12 col-md-8" v-if="!message">
-          <profile-content :full-name="fullName" :avatarOfThread="avatarOfThread" :isOwner="isOwner" />
+          <router-view :full-name="fullName" :avatarOfThread="avatarOfThread" :isOwner="isOwner"></router-view>
         </div>
 
         <div class="col-12" v-else>
@@ -29,12 +29,13 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
+import router from '@/router'
 import config from '@/config'
 import { Response, ID, setLoading } from '@/util'
 
 import profileHeader from '@/components/profile/header.vue'
 import profileSidebar from '@/components/profile/sidebar.vue'
-import profileContent from '@/components/profile/content.vue'
+import profileActivities from '@/components/profile/activities.vue'
 import Loading from '@/components/loading/loading.vue'
 
 const namespaceUser: string = 'user'
@@ -55,7 +56,7 @@ interface TypeUser {
   components: {
   profileHeader,
   profileSidebar,
-  profileContent,
+  profileActivities,
   Loading
   }
   })
@@ -70,8 +71,7 @@ export default class Profile extends Vue {
   private message: string = ''
 
   private getUserProfile (): void {
-    const $this: any = this
-    const usernameFromUrl: string = $this.$route.params.user
+    const usernameFromUrl: string = this.$route.params.user
     const usernameFromLocal: string = this.user.username
 
     if (usernameFromLocal === usernameFromUrl) {
@@ -107,6 +107,16 @@ export default class Profile extends Vue {
   @Watch('$route', { immediate: true, deep: true })
   private urlChanged () {
     this.getUserProfile()
+
+    const originUrl: string = `${window.location.origin}/profile/${this.$route.params.user}`
+    const currentUrl: string = window.location.href
+    const originUrlWithSlash: string = `${originUrl}/`
+
+    if (originUrl === currentUrl || originUrlWithSlash === currentUrl) {
+      const newPath: string = `${this.$route.path}/timeline`
+
+      router.push(newPath)
+    }
   }
 }
 </script>

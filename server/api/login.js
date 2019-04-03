@@ -24,7 +24,6 @@ const login = (req, res) => {
             if(!user.validPassword(req.body.password)) return res.status(400).json({ message: 'Oops! Wrong password.' });
 
             const response = {
-                _id: user._id,
                 email: user.email,
                 full_name: user.full_name,
                 token: signToken(user._id, user.username),

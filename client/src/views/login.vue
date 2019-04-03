@@ -89,7 +89,6 @@ export default class Login extends Vue {
 
           this.$session.start()
           this.$session.set('token', response.data.token)
-          this.$session.set('_id', response.data._id)
 
           this.setUser(response.data)
           if (response.data.avatar) { this.setAvatar(response.data.avatar.location) }

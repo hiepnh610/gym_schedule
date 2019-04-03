@@ -108,7 +108,7 @@ export default class ProfileActivities extends Vue {
   @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
 
   private getUserActivities (): void {
-    const usernameFromUrl: string = window.location.pathname.replace('/profile/', '').replace('/', '')
+    const usernameFromUrl: string = this.$route.params.user
     const params = {
       username: usernameFromUrl
     }

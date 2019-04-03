@@ -24,7 +24,32 @@ export default new Router({
     {
       path: '/profile/:user',
       name: 'Profile',
-      component: () => import('./views/profile.vue')
+      component: () => import('./views/profile.vue'),
+      children: [
+        {
+          path: 'timeline',
+          name: 'TimelineProfile',
+          component: () => import('./components/profile/activities.vue')
+        },
+
+        {
+          path: 'photos',
+          name: 'PhotoProfile',
+          component: () => import('./components/profile/photos.vue')
+        },
+
+        {
+          path: 'calendar',
+          name: 'CalendarProfile',
+          component: () => import('./components/profile/calendar.vue')
+        },
+
+        {
+          path: 'plans',
+          name: 'PlansProfile',
+          component: () => import('./components/profile/plans.vue')
+        }
+      ]
     },
 
     {

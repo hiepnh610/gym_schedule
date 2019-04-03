@@ -67,8 +67,11 @@ export default class App extends Vue {
       return Promise.reject(error)
     })
 
-    this.setAuthenticate()
-    this.getInfoUser()
+    if ($this.$session.exists()) {
+      this.setAuthenticate()
+      this.getInfoUser()
+    }
+
     this.toggleDropdown()
   }
 

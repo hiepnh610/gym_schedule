@@ -3,8 +3,8 @@ const Plan = require('../model/plan');
 let plan = {};
 
 const listPlans = (req, res) => {
-    if (req.query.id) {
-        const query = { '_id': req.query.id };
+    if (req.user) {
+        const query = { '_id': req.user._id };
 
         Plan.find(query)
         .populate('_id')
@@ -34,7 +34,6 @@ const getPlan = (req, res) => {
 };
 
 const createPlan = (req, res) => {
-
     if (!req.body.name) return res.status(400).json({ 'message': 'The routine name cannot be blank.' });
 
     if (!req.body.type) return res.status(400).json({ 'message': 'The type cannot be blank.' });

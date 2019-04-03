@@ -23,13 +23,13 @@
     </div>
 
     <nav class="nav">
-      <a class="nav-link active" href="#">Timeline</a>
+      <router-link to="timeline" class="nav-link active">Timeline</router-link>
 
-      <a class="nav-link" href="#">Photos</a>
+      <router-link to="photos" class="nav-link">Photos</router-link>
 
-      <a class="nav-link" href="#">Calendar</a>
+      <router-link to="calendar" class="nav-link">Calendar</router-link>
 
-      <a class="nav-link" href="#">Plans</a>
+      <router-link to="plans" class="nav-link">Plans</router-link>
     </nav>
 
     <div class="avatar">
