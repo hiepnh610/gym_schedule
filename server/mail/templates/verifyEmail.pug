@@ -1,0 +1,23 @@
+div(style={'background': '#fafafa', 'padding': '60px 0'})
+    div(style={'background': '#fff', 'border': '1px solid #eee', 'margin': 'auto', 'max-width': '600px', 'padding': '30px'})
+        p(style={'margin': '0 0 10px'}) Almost done,&nbsp;
+            strong #{name}!&nbsp;
+            | To complete your GymSchedule sign up, we just need to verify your email address:
+            br
+            a(href=`mailto:${mail}`) #{mail}
+
+        a(href=`${link}` style={'background': '#bf0b2c', 'border-radius': '2px', 'color': '#fff', 'padding': '7px 15px', 'text-decoration': 'none', 'display': 'inline-block', 'margin': '0 0 10px'}) Verify email address
+
+        p(style={'margin': '0 0 10px'}) Once verified, you can start using all of GymSchedule's features to explore, log, and share plans.
+
+        p(style={'margin': '0 0 10px'})
+            small Button not working? Paste the following link into your browser:&nbsp;
+                a(href=`${link}`) #{link}
+
+        p(style={'margin': '0 0 10px'})
+            small You’re receiving this email because you recently created a new GymSchedule account or added a new email address. If this wasn’t you, please ignore this email.
+
+        hr(style={'border': 'none', 'border-top': '1px solid #eee', 'margin': '10px 0'})
+
+        p(style={'margin': '0', 'text-align': 'center'})
+            a(href=`${homePage}` style={'color': '#959da5', 'text-decoration': 'none'}) Sign into Gym Schedule

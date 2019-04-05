@@ -4,6 +4,7 @@ const validator = require('validator');
 const User = require('../model/user');
 
 const signToken = require('../auth/signToken');
+const email = require('../mail/mailer');
 
 const initSignUp = (req, res) => {
     if (!req.body.email) return res.status(400).json({ message: 'The email field cannot be blank.' });
@@ -38,7 +39,8 @@ const signUp = (req, res) => {
                 email: req.body.email,
                 full_name: req.body.full_name,
                 password: req.body.password,
-                username: req.body.username
+                username: req.body.username,
+                verified: false
             });
 
             // Hash pass
@@ -76,15 +78,22 @@ const findUnique = (email, username, cb) => {
 
 const saveUser = (res, user) => {
     user.save((err, user) => {
-        if (err) return res.status(400).json({ message: 'Error happened.' });
+        if (err) {
+            console.log(err);
 
+            return res.status(400).json({ message: 'Error happened.' });
+        }
+
+        const token = signToken(user._id, user.username);
         const resData = {
             id: user._id,
             name: user.full_name,
             username: user.username,
             auth: true,
-            token: signToken(user._id, user.username)
+            token: token
         }
+
+        email.verifyEmail(user.email, user.full_name, token);
 
         return res.status(201).json(resData);
     });

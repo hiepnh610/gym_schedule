@@ -45,6 +45,10 @@ const UserSchema = new Schema({
     },
     bio: {
         type: String
+    },
+    verified: {
+        type: Boolean,
+        required: true
     }
 }, { timestamps: { createdAt: 'created_at' }});
 
