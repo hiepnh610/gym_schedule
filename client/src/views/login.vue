@@ -51,8 +51,8 @@ interface ParamsLogin {
 }
 
 const namespaceUser: string = 'user'
-const namespaceloginStatus: string = 'loginStatus'
 const namespaceAvatar: string = 'avatar'
+const namespaceAuth: string = 'auth'
 
 @Component({
   components: {
@@ -61,11 +61,11 @@ const namespaceAvatar: string = 'avatar'
   }
   })
 export default class Login extends Vue {
-  @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
-
   @Action('setUser', { namespace: namespaceUser }) private setUser: any
 
   @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
+
+  @Action('setToken', { namespace: namespaceAuth }) private setToken: any
 
   private disabledBtn: boolean = false
   private username: string = ''
@@ -91,8 +91,8 @@ export default class Login extends Vue {
           this.$session.set('token', response.data.token)
 
           this.setUser(response.data)
+          this.setToken(response.data.token)
           if (response.data.avatar) { this.setAvatar(response.data.avatar.location) }
-          this.setLoginStatus(true)
         }.bind(this))
         .catch(function (error: Response) {
           this.disabledBtn = false

@@ -64,6 +64,9 @@ interface ParamsSignUp {
   username: string
 }
 
+const namespaceUser: string = 'user'
+const namespaceAuth: string = 'auth'
+
 @Component({
   components: {
   FontAwesomeIcon,
@@ -71,6 +74,10 @@ interface ParamsSignUp {
   }
   })
 export default class SignUp extends Vue {
+  @Action('setUser', { namespace: namespaceUser }) private setUser: any
+
+  @Action('setToken', { namespace: namespaceAuth }) private setToken: any
+
   private disabledBtn: boolean = false
   private email: string = ''
   private fullName: string = ''
@@ -98,11 +105,10 @@ export default class SignUp extends Vue {
           window.location.href = location.origin + '/news-feed'
 
           this.$session.start()
-          this.$session.set('name', response.data.name)
-          this.$session.set('username', response.data.username)
-          this.$session.set('id', response.data.id)
-          this.$session.set('auth', response.data.auth)
           this.$session.set('token', response.data.token)
+
+          this.setUser(response.data)
+          this.setToken(response.data.token)
         }.bind(this))
         .catch(function (error: Response) {
           this.disabledBtn = false

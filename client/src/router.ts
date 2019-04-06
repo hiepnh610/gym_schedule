@@ -101,7 +101,7 @@ export default new Router({
     },
 
     {
-      name: 'settings',
+      name: 'Settings',
       path: '/settings',
       redirect: { name: 'SettingProfile' },
       component: () => import('./views/settings.vue'),
@@ -124,6 +124,12 @@ export default new Router({
       path: '/messages',
       name: 'Messages',
       component: () => import('./views/messages.vue')
+    },
+
+    {
+      path: '/email/confirm_verification',
+      name: 'ConfirmVerification',
+      component: () => import('./views/confirmVerification.vue')
     },
 
     {

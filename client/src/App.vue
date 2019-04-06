@@ -22,7 +22,7 @@ import Navigation from '@/components/header/navigation.vue'
 const namespaceAvatar: string = 'avatar'
 const namespaceModal: string = 'modal'
 const namespaceUser: string = 'user'
-const namespaceloginStatus: string = 'loginStatus'
+const namespaceAuth: string = 'auth'
 
 @Component({
   components: {
@@ -37,7 +37,7 @@ export default class App extends Vue {
   @Action('setUser', { namespace: namespaceUser }) private setUser: any
   @Getter('user', { namespace: namespaceUser }) private user: any
 
-  @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
+  @Action('setToken', { namespace: namespaceAuth }) private setToken: any
 
   private created () {
     const $this: any = this
@@ -61,7 +61,6 @@ export default class App extends Vue {
         $this.$session.destroy()
         router.push('/')
         $this.setAvatar('')
-        this.setLoginStatus(false)
       }
 
       return Promise.reject(error)
@@ -77,14 +76,7 @@ export default class App extends Vue {
 
   private setAuthenticate (): void {
     const $this: any = this
-    const isAuthenticated: boolean = $this.$session.exists()
-    const isOriginPage = window.location.href === (window.location.origin + '/')
-    const isSignUpPage = window.location.href === (window.location.origin + '/sign-up')
-    if (isAuthenticated) {
-      if (isOriginPage || isSignUpPage) { this.$router.push('/plans') }
-    } else {
-      if (!isOriginPage) { this.$router.push('/sign-up') }
-    }
+    this.setToken($this.$session.get('token'))
   }
 
   private getInfoUser (): void {

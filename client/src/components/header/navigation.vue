@@ -6,7 +6,7 @@
           <h1>Gym Schedule</h1>
         </router-link>
 
-        <div id="main-nav" class="collapse navbar-collapse" v-if="!loginStatus">
+        <div id="main-nav" class="collapse navbar-collapse" v-if="!token">
           <ul class="navbar-nav">
             <li class="nav-item">
               <router-link :to="{ name: 'SignUp' }" class="nav-link">Sign Up</router-link>
@@ -71,7 +71,7 @@ import router from '@/router'
 
 const namespaceAvatar: string = 'avatar'
 const namespaceUser: string = 'user'
-const namespaceloginStatus: string = 'loginStatus'
+const namespaceAuth: string = 'auth'
 
 @Component({
   components: {
@@ -79,19 +79,13 @@ const namespaceloginStatus: string = 'loginStatus'
   }
   })
 export default class Navigation extends Vue {
-  @Getter('loginStatus', { namespace: namespaceloginStatus }) private loginStatus: any
-  @Action('setLoginStatus', { namespace: namespaceloginStatus }) private setLoginStatus: any
+  @Getter('token', { namespace: namespaceAuth }) private token: any
+  @Action('setToken', { namespace: namespaceAuth }) private setToken: any
 
   @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
   @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
   @Getter('user', { namespace: namespaceUser }) private user: any
-
-  private created () {
-    const $this: any = this
-
-    if ($this.$session.get('token')) { this.setLoginStatus(true) }
-  }
 
   private logout () {
     const $this: any = this
@@ -99,7 +93,7 @@ export default class Navigation extends Vue {
     $this.$session.destroy()
     router.push('/')
     $this.setAvatar('')
-    this.setLoginStatus(false)
+    this.setToken('')
   }
 }
 </script>

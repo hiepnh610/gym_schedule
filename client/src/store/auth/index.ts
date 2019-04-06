@@ -2,16 +2,16 @@ import { Module } from 'vuex'
 import { getters } from './getters'
 import { actions } from './actions'
 import { mutations } from './mutations'
-import { LoginState } from './types'
+import { AuthState } from './types'
 import { RootState } from '@/types'
 
-export const state: LoginState = {
-  isLogin: false
+export const state: AuthState = {
+  token: ''
 }
 
 const namespaced: boolean = true
 
-export const loginStatus: Module<LoginState, RootState> = {
+export const auth: Module<AuthState, RootState> = {
   namespaced,
   state,
   getters,

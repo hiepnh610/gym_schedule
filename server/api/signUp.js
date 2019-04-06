@@ -78,19 +78,14 @@ const findUnique = (email, username, cb) => {
 
 const saveUser = (res, user) => {
     user.save((err, user) => {
-        if (err) {
-            console.log(err);
-
-            return res.status(400).json({ message: 'Error happened.' });
-        }
+        if (err) return res.status(400).json({ message: 'Error happened.' });
 
         const token = signToken(user._id, user.username);
         const resData = {
-            id: user._id,
+            email: user.email,
             name: user.full_name,
-            username: user.username,
-            auth: true,
-            token: token
+            token: token,
+            username: user.username
         }
 
         email.verifyEmail(user.email, user.full_name, token);
