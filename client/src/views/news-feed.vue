@@ -1,6 +1,8 @@
 <template>
   <div id="news-feed">
-    <h1>News Feed</h1>
+    <div class="container">
+      <h1>News Feed</h1>
+    </div>
   </div>
 </template>
 

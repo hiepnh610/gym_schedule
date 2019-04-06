@@ -1,38 +1,34 @@
 <template>
-  <div class="account">
-    <div class="row">
-      <div class="col-12 col-md-8">
-        <h4>Change password</h4>
+  <div class="account px-4 pt-4 bg-white border border-radius">
+    <h4>Change password</h4>
 
-        <hr />
+    <hr />
 
-        <form>
-          <div class="form-group input-group-lg">
-            <label for="profile-old-password">Old password</label>
+    <form>
+      <div class="form-group input-group-lg">
+        <label for="profile-old-password">Old password</label>
 
-            <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.currentPassword" />
-          </div>
-
-          <div class="form-group input-group-lg">
-            <label for="profile-new-password">New password</label>
-
-            <input id="profile-new-password" type="password" class="form-control" v-model="userInfo.newPassword" />
-          </div>
-
-          <div class="form-group input-group-lg">
-            <label for="profile-confirm-new-password">Confirm new password</label>
-
-            <input id="profile-confirm-new-password" type="password" class="form-control" v-model="userInfo.confirmNewPassword" />
-          </div>
-
-          <div class="form-group">
-            <button class="btn btn-md btn-primary" @click.prevent="userUpdate(user._id)">
-              Update password
-            </button>
-          </div>
-        </form>
+        <input id="profile-old-password" type="password" class="form-control" v-model="userInfo.currentPassword" />
       </div>
-    </div>
+
+      <div class="form-group input-group-lg">
+        <label for="profile-new-password">New password</label>
+
+        <input id="profile-new-password" type="password" class="form-control" v-model="userInfo.newPassword" />
+      </div>
+
+      <div class="form-group input-group-lg">
+        <label for="profile-confirm-new-password">Confirm new password</label>
+
+        <input id="profile-confirm-new-password" type="password" class="form-control" v-model="userInfo.confirmNewPassword" />
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-md btn-primary" @click.prevent="userUpdate(user._id)">
+          Update password
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 

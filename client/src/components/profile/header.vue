@@ -23,13 +23,13 @@
     </div>
 
     <nav class="nav">
-      <router-link to="timeline" class="nav-link active">Timeline</router-link>
+      <router-link :to="{ name: 'TimelineProfile' }" class="nav-link">Timeline</router-link>
 
-      <router-link to="photos" class="nav-link">Photos</router-link>
+      <router-link :to="{ name: 'PhotoProfile' }" class="nav-link">Photos</router-link>
 
-      <router-link to="calendar" class="nav-link">Calendar</router-link>
+      <router-link :to="{ name: 'CalendarProfile' }" class="nav-link">Calendar</router-link>
 
-      <router-link to="plans" class="nav-link">Plans</router-link>
+      <router-link :to="{ name: 'PlansProfile' }" class="nav-link">Plans</router-link>
     </nav>
 
     <div class="avatar">

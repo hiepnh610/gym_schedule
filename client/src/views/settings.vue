@@ -6,7 +6,11 @@
       </div>
 
       <div class="col-12 col-md-9">
-        <router-view></router-view>
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <router-view></router-view>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -23,17 +27,6 @@ import sidebar from '@/components/settings/sidebar.vue'
   }
   })
 export default class Settings extends Vue {
-  private created () {
-    const $this: any = this
-    const isAuthenticated: boolean = $this.$session.exists()
-    const routePath: string = this.$route.path
-
-    if (isAuthenticated) {
-      if (routePath === '/settings' || routePath === '/settings/') {
-        this.$router.push('/settings/profile')
-      }
-    }
-  }
 }
 </script>
 

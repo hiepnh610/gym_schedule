@@ -49,6 +49,8 @@
     }
 
     .dates {
+      background: $lighter-gray-color;
+
       .week-row,
       .day-cell {
         border-color: $border-color !important;

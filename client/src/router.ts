@@ -24,6 +24,7 @@ export default new Router({
     {
       path: '/profile/:user',
       name: 'Profile',
+      redirect: { name: 'TimelineProfile' },
       component: () => import('./views/profile.vue'),
       children: [
         {
@@ -81,6 +82,7 @@ export default new Router({
     {
       path: '/calendar',
       name: 'Calendar',
+      redirect: { name: 'AllCalendar' },
       component: () => import('./views/calendar.vue'),
       children: [
         {
@@ -101,6 +103,7 @@ export default new Router({
     {
       name: 'settings',
       path: '/settings',
+      redirect: { name: 'SettingProfile' },
       component: () => import('./views/settings.vue'),
       children: [
         {

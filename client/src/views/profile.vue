@@ -107,16 +107,6 @@ export default class Profile extends Vue {
   @Watch('$route', { immediate: true, deep: true })
   private urlChanged () {
     this.getUserProfile()
-
-    const originUrl: string = `${window.location.origin}/profile/${this.$route.params.user}`
-    const currentUrl: string = window.location.href
-    const originUrlWithSlash: string = `${originUrl}/`
-
-    if (originUrl === currentUrl || originUrlWithSlash === currentUrl) {
-      const newPath: string = `${this.$route.path}/timeline`
-
-      router.push(newPath)
-    }
   }
 }
 </script>

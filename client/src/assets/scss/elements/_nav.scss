@@ -16,6 +16,8 @@
 .red-color {
   .nav {
     .nav-link {
+      &.router-link-exact-active,
+      &.router-link-active,
       &.active,
       &:hover {
         color: $first-primary-color;
