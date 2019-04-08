@@ -136,7 +136,7 @@ const router = new Router({
     },
 
     {
-      path: '/email/confirm_verification',
+      path: '/email/confirm-verification/:token',
       name: 'ConfirmVerification',
       meta: { requiresAuth: true },
       component: () => import('./views/confirmVerification.vue')

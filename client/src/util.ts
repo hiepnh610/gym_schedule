@@ -38,6 +38,10 @@ export interface ActivityType {
   updatedAt: string
 }
 
+export interface ParamEmailVerification {
+  token: string
+}
+
 export function setLoading (self: any, state: boolean): any {
   setTimeout((): any => {
     self.isLoading = state

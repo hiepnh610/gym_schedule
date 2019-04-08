@@ -1,13 +1,41 @@
 <template>
-  <h1>Confirm Verification</h1>
+  <div class="container">
+    <h1 class="text-center">{{ message }}</h1>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
+import axios from 'axios'
+
+import config from '@/config'
+import { Response, ParamEmailVerification } from '@/util'
 
 @Component({})
 export default class ConfirmVerification extends Vue {
+  private errContent: string = ''
+  private message: string = ''
+
+  private created () {
+    const token: string = this.$route.params.token
+    const params: ParamEmailVerification = {
+      token: token
+    }
+
+    axios
+      .put(config.api.email, params)
+      .then(function (response: Response) {
+        this.message = response.data.message
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errContent = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      }.bind(this))
+  }
 }
 </script>
 

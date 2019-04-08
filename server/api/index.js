@@ -12,6 +12,7 @@ const uploadImage = require('./upload');
 const exercise    = require('./exercise');
 const activities  = require('./activities');
 const likeActivity = require('./like');
+const verifyEmail  = require('./email');
 const verifyToken  = require('../auth/verifyToken');
 
 // Login
@@ -123,5 +124,10 @@ router
     .route('/comment/:comment_id')
     .put(verifyToken, comment.updateComment)
     .delete(verifyToken, comment.deleteComment);
+
+// Verify Email
+router
+    .route('/email-verification')
+    .put(verifyEmail);
 
 module.exports = router;

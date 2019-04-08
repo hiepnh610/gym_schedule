@@ -81,14 +81,16 @@ const saveUser = (res, user) => {
         if (err) return res.status(400).json({ message: 'Error happened.' });
 
         const token = signToken(user._id, user.username);
+        const tokenForVerify = signToken(user._id);
+
         const resData = {
             email: user.email,
-            name: user.full_name,
+            full_name: user.full_name,
             token: token,
             username: user.username
         }
 
-        email.verifyEmail(user.email, user.full_name, token);
+        email.sendVerifyEmail(user.email, user.full_name, tokenForVerify);
 
         return res.status(201).json(resData);
     });

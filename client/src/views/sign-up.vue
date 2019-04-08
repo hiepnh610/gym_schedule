@@ -103,13 +103,14 @@ export default class SignUp extends Vue {
       axios
         .post(config.api.signUp, params)
         .then(function (response: Response) {
-          router.push('news-feed')
-
           this.$session.start()
           this.$session.set('token', response.data.token)
 
           this.setUser(response.data)
           this.setToken(response.data.token)
+          this.disabledBtn = true
+
+          router.push('news-feed')
         }.bind(this))
         .catch(function (error: Response) {
           this.disabledBtn = false

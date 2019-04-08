@@ -88,12 +88,17 @@ export default class Login extends Vue {
           this.$session.start()
           this.$session.set('token', response.data.token)
 
+          if (response.data.avatar) { this.setAvatar(response.data.avatar.location) }
+
           this.setUser(response.data)
           this.setToken(response.data.token)
           this.disabledBtn = false
 
-          router.push('news-feed')
-          if (response.data.avatar) { this.setAvatar(response.data.avatar.location) }
+          if (this.$route.params && this.$route.params.nextUrl) {
+            router.push(this.$route.params.nextUrl)
+          } else {
+            router.push('news-feed')
+          }
         }.bind(this))
         .catch(function (error: Response) {
           this.disabledBtn = false

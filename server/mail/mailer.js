@@ -18,6 +18,7 @@ oauth2Client.setCredentials({
 });
 
 const absoluteEmailPath = path.join(__dirname, 'templates', 'verifyEmail');
+const absoluteVerifiedEmailPath = path.join(__dirname, 'templates', 'verifiedEmail');
 
 const VerifyEmailTemplate = new EmailTemplate();
 
@@ -32,11 +33,11 @@ const smtpTransport = nodemailer.createTransport({
     }
 });
 
-const sendMail = (mail, content) => {
+const sendTemplateMail = (mail, subject, content) => {
     const mailOptions = {
         from: mailServer,
         to: mail,
-        subject: 'Please verify your email address.',
+        subject: subject,
         generateTextFromHTML: true,
         html: content
     };
@@ -45,10 +46,11 @@ const sendMail = (mail, content) => {
         error ? console.log(error) : console.log(response);
         smtpTransport.close();
     });
-}
+};
 
-const verifyEmail = (mail, name, token) => {
-    const link = `${homePage}/email/confirm_verification/${token}`;
+const sendVerifyEmail = (mail, name, token) => {
+    const link = `${homePage}/email/confirm-verification/${token}`;
+    const subject = '[GymSchedule] Please verify your email address.';
 
     VerifyEmailTemplate
     .render(absoluteEmailPath, {
@@ -58,11 +60,30 @@ const verifyEmail = (mail, name, token) => {
         name: name
     })
     .then((result) => {
-        sendMail(mail, result);
+        sendTemplateMail(mail, subject, result);
     })
     .catch((err) => {
         console.log('err', err);
     });
-}
+};
 
-module.exports = { verifyEmail };
+const sendEmailAfterVerified = (mail, name) => {
+    const subject = '[GymSchedule] Thanks for verifying your email address.';
+
+    VerifyEmailTemplate
+    .render(absoluteVerifiedEmailPath, {
+        homePage: homePage,
+        name: name
+    })
+    .then((result) => {
+        sendTemplateMail(mail, subject, result);
+    })
+    .catch((err) => {
+        console.log('err', err);
+    });
+};
+
+module.exports = {
+    sendVerifyEmail,
+    sendEmailAfterVerified
+};

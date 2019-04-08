@@ -3,6 +3,7 @@ interface ApiTypes {
   activityDetail: string
   avatar: string
   comment: string
+  email: string
   exercise: string
   likeActivity: string
   listExercise: string
@@ -24,6 +25,7 @@ const api: ApiTypes = {
   activityDetail: '/api/activity_detail',
   avatar: '/api/avatar/',
   comment: '/api/comment/',
+  email: '/api/email-verification',
   exercise: '/api/exercise/',
   likeActivity: '/api/like/',
   listExercise: '/api/list_exercise',
