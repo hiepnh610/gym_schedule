@@ -51,6 +51,7 @@ import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 
+import router from '@/router'
 import config from '@/config'
 import { Response, setLoading } from '@/util'
 
@@ -102,7 +103,7 @@ export default class SignUp extends Vue {
       axios
         .post(config.api.signUp, params)
         .then(function (response: Response) {
-          window.location.href = location.origin + '/news-feed'
+          router.push('news-feed')
 
           this.$session.start()
           this.$session.set('token', response.data.token)

@@ -90,10 +90,10 @@ export default class Navigation extends Vue {
   private logout () {
     const $this: any = this
 
-    $this.$session.destroy()
-    router.push('/')
-    $this.setAvatar('')
     this.setToken('')
+    $this.$session.destroy()
+    $this.setAvatar('')
+    router.push('/')
   }
 }
 </script>

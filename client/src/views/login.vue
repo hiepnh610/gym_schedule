@@ -85,13 +85,14 @@ export default class Login extends Vue {
       axios
         .post(config.api.login, params)
         .then(function (response: Response) {
-          router.push('news-feed')
-
           this.$session.start()
           this.$session.set('token', response.data.token)
 
           this.setUser(response.data)
           this.setToken(response.data.token)
+          this.disabledBtn = false
+
+          router.push('news-feed')
           if (response.data.avatar) { this.setAvatar(response.data.avatar.location) }
         }.bind(this))
         .catch(function (error: Response) {

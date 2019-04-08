@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
 
 import Login from './views/login.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -25,6 +26,7 @@ export default new Router({
       path: '/profile/:user',
       name: 'Profile',
       redirect: { name: 'TimelineProfile' },
+      meta: { requiresAuth: true },
       component: () => import('./views/profile.vue'),
       children: [
         {
@@ -56,12 +58,14 @@ export default new Router({
     {
       path: '/news-feed',
       name: 'NewsFeed',
+      meta: { requiresAuth: true },
       component: () => import('./views/news-feed.vue')
     },
 
     {
       path: '/plans',
       name: 'Plans',
+      meta: { requiresAuth: true },
       component: () => import('./views/plans.vue')
     },
 
@@ -69,6 +73,7 @@ export default new Router({
       path: '/workouts/:id',
       name: 'Workouts',
       props: true,
+      meta: { requiresAuth: true },
       component: () => import('./views/workouts.vue')
     },
 
@@ -76,6 +81,7 @@ export default new Router({
       path: '/exercises/:id',
       name: 'Exercises',
       props: true,
+      meta: { requiresAuth: true },
       component: () => import('./views/exercises.vue')
     },
 
@@ -83,6 +89,7 @@ export default new Router({
       path: '/calendar',
       name: 'Calendar',
       redirect: { name: 'AllCalendar' },
+      meta: { requiresAuth: true },
       component: () => import('./views/calendar.vue'),
       children: [
         {
@@ -101,9 +108,10 @@ export default new Router({
     },
 
     {
-      name: 'Settings',
       path: '/settings',
+      name: 'Settings',
       redirect: { name: 'SettingProfile' },
+      meta: { requiresAuth: true },
       component: () => import('./views/settings.vue'),
       children: [
         {
@@ -123,18 +131,49 @@ export default new Router({
     {
       path: '/messages',
       name: 'Messages',
+      meta: { requiresAuth: true },
       component: () => import('./views/messages.vue')
     },
 
     {
       path: '/email/confirm_verification',
       name: 'ConfirmVerification',
+      meta: { requiresAuth: true },
       component: () => import('./views/confirmVerification.vue')
     },
 
     {
       path: '*',
+      meta: { notFound: true },
       component: () => import('./views/not-found.vue')
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const session: any = localStorage.getItem('vue-session-key')
+  const sessionParse: any = JSON.parse(session)
+  const state: any = store.state
+  const token: string = state.auth.token
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (sessionParse.token || token) {
+      next()
+    } else {
+      next({
+        name: 'Login',
+        params: { nextUrl: to.fullPath }
+      })
+    }
+  } else if (to.matched.some((record) => record.meta.notFound)) {
+    next()
+  } else {
+    if (sessionParse.token || token) {
+      next({ name: 'NewsFeed' })
+    } else {
+      next()
+    }
+  }
+})
+
+export default router
