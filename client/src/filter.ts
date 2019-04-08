@@ -28,5 +28,14 @@ Vue.filter('date_with_comma', (val: any) => {
 Vue.filter('time_ago', (val: any) => {
   if (!val) { val = new Date() }
 
-  return moment(val).fromNow()
+  const currentDate = moment.now()
+  const dateStart = moment(val)
+
+  const result = moment(currentDate).diff(dateStart, 'days')
+
+  if (result < 7) {
+    return moment(val).fromNow()
+  } else {
+    return moment(currentDate).diff(dateStart, 'weeks') + 'w'
+  }
 })
