@@ -23,7 +23,7 @@ const verifyEmail = (req, res) => {
                 if (err) return res.status(400).send(err);
 
                 if (user.verified) {
-                    res.status(200).json({ message: 'Your email already verified.' });
+                    res.status(301).json({ message: 'Your email already verified.' });
                 } else {
                     user.set({
                         verified: true
