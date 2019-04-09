@@ -42,6 +42,16 @@ export interface ParamEmailVerification {
   token: string
 }
 
+export interface ParamForgotPassword {
+  email: string
+}
+
+export interface ParamResetPassword {
+  confirmPassword: string
+  password: string
+  token: string
+}
+
 export function setLoading (self: any, state: boolean): any {
   setTimeout((): any => {
     self.isLoading = state

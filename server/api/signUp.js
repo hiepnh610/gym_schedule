@@ -80,8 +80,13 @@ const saveUser = (res, user) => {
     user.save((err, user) => {
         if (err) return res.status(400).json({ message: 'Error happened.' });
 
-        const token = signToken(user._id, user.username);
-        const tokenForVerify = signToken(user._id);
+        const token = signToken({
+            id: user._id,
+            username: user.username
+        });
+        const tokenForVerify = signToken({
+            id: user._id
+        });
 
         const resData = {
             email: user.email,

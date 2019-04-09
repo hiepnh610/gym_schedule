@@ -2,7 +2,7 @@ const Like = require('../model/like');
 
 const likeActivity = (req, res) => {
     like = new Like({
-        created_by: req.user._id,
+        created_by: req.user.id,
         object_id: req.body.object_id,
         object_type: req.body.object_type
     });
@@ -25,10 +25,10 @@ const unlikeActivity = (req, res) => {
 };
 
 const checkLikeInActivity = (req, res) => {
-    if (req.user._id && req.body.object_id) {
+    if (req.user.id && req.body.object_id) {
         const query = {
             'object_id': req.body.object_id,
-            'created_by': req.user._id
+            'created_by': req.user.id
         };
 
         Like.findOne(query, (err, like) => {

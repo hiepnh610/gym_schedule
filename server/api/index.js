@@ -82,6 +82,16 @@ router
     .route('/modify_password/:user_id')
     .put(verifyToken, user.modifyPassword);
 
+// Send mail forgot password
+router
+    .route('/forgot-password')
+    .post(user.forgotPassword);
+
+// Reset Password
+router
+    .route('/reset-password')
+    .put(user.resetPassword);
+
 // Upload
 router
     .route('/upload')

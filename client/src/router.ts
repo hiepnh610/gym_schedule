@@ -143,6 +143,18 @@ const router = new Router({
     },
 
     {
+      path: '/email/reset-password/:token',
+      name: 'ResetPassword',
+      component: () => import('./components/password/resetPassword.vue')
+    },
+
+    {
+      path: '/forgot-password',
+      name: 'ForgotPassword',
+      component: () => import('./components/password/forgotPassword.vue')
+    },
+
+    {
       path: '*',
       meta: { notFound: true },
       component: () => import('./views/not-found.vue')

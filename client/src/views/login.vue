@@ -6,12 +6,20 @@
           <div class="col-12 col-md-10 col-lg-6">
             <div class="animated fadeInUp">
               <form @submit.prevent="login">
+                <div class="form-group" v-if="messageResetPassword">
+                  <p class="text-white">{{ messageResetPassword }}</p>
+                </div>
+
                 <div class="form-group input-group-lg">
                   <input type="text" class="form-control" name="username" placeholder="Username" v-model="username" />
                 </div>
 
                 <div class="form-group input-group-lg">
                   <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" />
+                </div>
+
+                <div class="form-group">
+                  <router-link :to="{ name: 'ForgotPassword' }" class="text-white">Forgot password?</router-link>
                 </div>
 
                 <p v-show="message" class="text-white mt-2">{{ message }}</p>
@@ -34,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
@@ -72,6 +80,7 @@ export default class Login extends Vue {
   private message: string = ''
   private password: string = ''
   private isLoading: boolean = true
+  private messageResetPassword: string = ''
 
   private login () {
     if (this.username && this.password) {
@@ -114,6 +123,11 @@ export default class Login extends Vue {
 
   private mounted () {
     setLoading(this, false)
+  }
+
+  @Watch('$route', { immediate: true, deep: true })
+  private urlChanged (val: any) {
+    this.messageResetPassword = val.params.message
   }
 }
 </script>

@@ -103,7 +103,7 @@ const profileActivities = async (req, res) => {
 
                 if (likeActivity.length) {
                     for (like of likeActivity) {
-                        if ((like.object_id).toString() === (item._id).toString() && like.created_by === req.user._id) {
+                        if ((like.object_id).toString() === (item._id).toString() && like.created_by === req.user.id) {
                             newData.like = { status: true }
                         }
 
@@ -140,7 +140,7 @@ const profileActivities = async (req, res) => {
 
                             if (likeComment.length) {
                                 for (like of likeComment) {
-                                    if ((like.object_id).toString() === (comment._id).toString() && like.created_by === req.user._id) {
+                                    if ((like.object_id).toString() === (comment._id).toString() && like.created_by === req.user.id) {
                                         commentData.like = { status: true }
                                     }
 

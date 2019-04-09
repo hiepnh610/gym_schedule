@@ -26,7 +26,10 @@ const login = (req, res) => {
             const response = {
                 email: user.email,
                 full_name: user.full_name,
-                token: signToken(user._id, user.username),
+                token: signToken({
+                    id: user._id,
+                    username: user.username
+                }),
                 username: user.username
             }
 

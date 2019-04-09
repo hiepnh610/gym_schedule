@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY;
 
 const User = require('../model/user');
-const email = require('../mail/mailer');
+const mailer = require('../mail/mailer');
 
 let user = {};
 
@@ -17,7 +17,7 @@ const verifyEmail = (req, res) => {
         });
 
         if (decoded) {
-            const query = decoded._id;
+            const query = decoded.id;
 
             User.findById(query, (err, user) => {
                 if (err) return res.status(400).send(err);
@@ -32,7 +32,7 @@ const verifyEmail = (req, res) => {
                     user.save((err, user) => {
                         if (err) return res.status(400).send(err);
 
-                        email.sendEmailAfterVerified(user.email, user.full_name);
+                        mailer.sendEmailAfterVerified(user.email, user.full_name);
 
                         res.status(200).json({ message: 'Thanks for verifying your email address.' });
                     });

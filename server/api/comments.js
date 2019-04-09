@@ -11,12 +11,12 @@ const getUserInfo = (userId) => {
 
 const createComment = async (req, res) => {
     if (req.body.activityId && req.body.body) {
-        const userInfo = await (getUserInfo(req.user._id));
+        const userInfo = await (getUserInfo(req.user.id));
 
         comment = new Comment({
             activity_id: req.body.activityId,
             body: req.body.body,
-            created_by: req.user._id
+            created_by: req.user.id
         });
 
         comment.save((err, comment) => {

@@ -19,6 +19,8 @@ oauth2Client.setCredentials({
 
 const absoluteEmailPath = path.join(__dirname, 'templates', 'verifyEmail');
 const absoluteVerifiedEmailPath = path.join(__dirname, 'templates', 'verifiedEmail');
+const absoluteForgotPasswordPath = path.join(__dirname, 'templates', 'forgotPassword');
+const absoluteResetPasswordSuccessPath = path.join(__dirname, 'templates', 'resetPasswordSuccess');
 
 const VerifyEmailTemplate = new EmailTemplate();
 
@@ -83,7 +85,42 @@ const sendEmailAfterVerified = (mail, name) => {
     });
 };
 
+const sendMailForgotPassword = (mail, token) => {
+    const link = `${homePage}/email/reset-password/${token}`;
+    const subject = '[GymSchedule] Please reset your password.';
+
+    VerifyEmailTemplate
+    .render(absoluteForgotPasswordPath, {
+        homePage: homePage,
+        link: link
+    })
+    .then((result) => {
+        sendTemplateMail(mail, subject, result);
+    })
+    .catch((err) => {
+        console.log('err', err);
+    });
+};
+
+const sendMailResetPasswordSuccess = (mail, name) => {
+    const subject = '[GymSchedule] Your password was reset.';
+
+    VerifyEmailTemplate
+    .render(absoluteResetPasswordSuccessPath, {
+        homePage: homePage,
+        name: name
+    })
+    .then((result) => {
+        sendTemplateMail(mail, subject, result);
+    })
+    .catch((err) => {
+        console.log('err', err);
+    });
+};
+
 module.exports = {
     sendVerifyEmail,
-    sendEmailAfterVerified
+    sendEmailAfterVerified,
+    sendMailForgotPassword,
+    sendMailResetPasswordSuccess
 };
