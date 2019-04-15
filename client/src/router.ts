@@ -180,7 +180,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some((record) => record.meta.notFound)) {
     next()
   } else {
-    if (sessionParse.token || token) {
+    if ((sessionParse && sessionParse.token) || token) {
       next({ name: 'NewsFeed' })
     } else {
       next()
