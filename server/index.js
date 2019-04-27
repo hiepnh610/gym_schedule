@@ -1,4 +1,3 @@
-const fs          = require("fs");
 const express     = require('express');
 const cors        = require('cors');
 const app         = express();
@@ -7,6 +6,7 @@ const mongoose    = require('mongoose');
 const morgan      = require('morgan');
 const path        = require('path');
 const serveStatic = require('serve-static');
+const compression = require('compression');
 
 const config = require('./config');
 const router = require('./api');
@@ -21,6 +21,7 @@ mongoose.connect(config.mongoUri, {
     useNewUrlParser: true
 });
 
+app.use(compression());
 app.use(cors());
 app.use(morgan('dev'));
 
