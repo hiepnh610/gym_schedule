@@ -5,6 +5,7 @@ const bodyParser  = require('body-parser');
 const mongoose    = require('mongoose');
 const morgan      = require('morgan');
 const path        = require('path');
+const history     = require('connect-history-api-fallback');
 const serveStatic = require('serve-static');
 const compression = require('compression');
 
@@ -22,6 +23,7 @@ mongoose.connect(config.mongoUri, {
 });
 
 app.use(compression());
+app.use(history());
 app.use(cors());
 app.use(morgan('dev'));
 
