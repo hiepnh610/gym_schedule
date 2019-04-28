@@ -51,7 +51,7 @@ const sendTemplateMail = (mail, subject, content) => {
 };
 
 const sendVerifyEmail = (mail, name, token) => {
-    const link = `${homePage}email/confirm-verification/${token}`;
+    const link = `${homePage}/email/confirm-verification/${token}`;
     const subject = '[GymSchedule] Please verify your email address.';
 
     VerifyEmailTemplate
@@ -86,7 +86,7 @@ const sendEmailAfterVerified = (mail, name) => {
 };
 
 const sendMailForgotPassword = (mail, token) => {
-    const link = `${homePage}email/reset-password/${token}`;
+    const link = `${homePage}/email/reset-password/${token}`;
     const subject = '[GymSchedule] Please reset your password.';
 
     VerifyEmailTemplate
