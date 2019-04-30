@@ -18,7 +18,6 @@ const listPlans = (req, res) => {
 
 const getPlan = (req, res) => {
     if (req.user) {
-        console.log(req.user);
         const query = { 'created_by': req.user.id };
 
         Plan.find(query)
