@@ -136,14 +136,14 @@ const router = new Router({
     },
 
     {
-      path: '/email/confirm-verification/:token',
+      path: '/confirm-verification/:token',
       name: 'ConfirmVerification',
       meta: { requiresAuth: true },
       component: () => import('./views/confirmVerification.vue')
     },
 
     {
-      path: '/email/reset-password/:token',
+      path: '/reset-password/:token',
       name: 'ResetPassword',
       component: () => import('./components/password/resetPassword.vue')
     },
