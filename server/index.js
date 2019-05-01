@@ -23,7 +23,10 @@ mongoose.connect(config.mongoUri, {
 });
 
 app.use(compression());
-app.use(history({ disableDotRule: true }));
+app.use(history({
+    disableDotRule: true,
+    htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
+}));
 app.use(cors());
 app.use(morgan('dev'));
 
