@@ -23,7 +23,7 @@ mongoose.connect(config.mongoUri, {
 });
 
 app.use(compression());
-app.use(history());
+app.use(history({ verbose: true }));
 app.use(cors());
 app.use(morgan('dev'));
 
@@ -32,7 +32,6 @@ app.use(bodyParser.json());
 
 app.use('/api', router);
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(serveStatic(clientFolder));
 
 app.listen(config.PORT, () => {
