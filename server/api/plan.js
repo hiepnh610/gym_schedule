@@ -4,7 +4,7 @@ let plan = {};
 
 const listPlans = (req, res) => {
     if (req.user) {
-        const query = { '_id': req.user.id };
+        const query = { 'created_by': req.user.id };
 
         Plan.find(query)
         .populate('_id')
