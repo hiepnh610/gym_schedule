@@ -185,8 +185,7 @@ router.beforeEach((to, from, next) => {
           next({ name: 'NewsFeed' })
         }
       } else {
-        console.log('object');
-        if (to.path !== '/verify' && to.name !== 'ConfirmVerification' && to.name !== 'ForgotPassword') {
+        if (to.path !== '/verify' && to.name !== 'ConfirmVerification') {
           next({ name: 'VerifyRequire' })
         } else {
           next()
