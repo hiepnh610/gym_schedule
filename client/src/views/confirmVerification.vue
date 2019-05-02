@@ -26,6 +26,7 @@ export default class ConfirmVerification extends Vue {
       .put(config.api.email, params)
       .then(function (response: Response) {
         this.message = response.data.message
+        this.$session.set('verified', true)
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response) {

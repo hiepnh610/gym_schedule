@@ -92,7 +92,8 @@ const saveUser = (res, user) => {
             email: user.email,
             full_name: user.full_name,
             token: token,
-            username: user.username
+            username: user.username,
+            verified: user.verified
         }
 
         email.sendVerifyEmail(user.email, user.full_name, tokenForVerify);

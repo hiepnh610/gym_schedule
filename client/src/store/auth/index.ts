@@ -6,7 +6,8 @@ import { AuthState } from './types'
 import { RootState } from '@/types'
 
 export const state: AuthState = {
-  token: ''
+  token: '',
+  verified: false
 }
 
 const namespaced: boolean = true

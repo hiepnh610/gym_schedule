@@ -13,6 +13,7 @@ const exercise    = require('./exercise');
 const activities  = require('./activities');
 const likeActivity = require('./like');
 const verifyEmail  = require('./email');
+const resendMail   = require('./resendMail');
 const verifyToken  = require('../auth/verifyToken');
 
 // Login
@@ -139,5 +140,10 @@ router
 router
     .route('/email-verification')
     .put(verifyEmail);
+
+// Resend Verification Mail
+router
+    .route('/resend-verification-mail')
+    .post(resendMail.resendVerificationMail);
 
 module.exports = router;

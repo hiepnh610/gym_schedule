@@ -19,7 +19,7 @@ const router = new Router({
     {
       path: '/sign-up',
       name: 'SignUp',
-      component: () => import('./views/sign-up.vue')
+      component: () => import('./views/signUp.vue')
     },
 
     {
@@ -136,14 +136,14 @@ const router = new Router({
     },
 
     {
-      path: '/confirm-verification/:token',
+      path: '/email/confirm-verification/:token',
       name: 'ConfirmVerification',
       meta: { requiresAuth: true },
       component: () => import('./views/confirmVerification.vue')
     },
 
     {
-      path: '/reset-password/:token',
+      path: '/email/reset-password/:token',
       name: 'ResetPassword',
       component: () => import('./components/password/resetPassword.vue')
     },
@@ -155,9 +155,16 @@ const router = new Router({
     },
 
     {
+      path: '/verify',
+      name: 'VerifyRequire',
+      meta: { requiresAuth: true },
+      component: () => import('./views/verifyRequire.vue')
+    },
+
+    {
       path: '*',
       meta: { notFound: true },
-      component: () => import('./views/not-found.vue')
+      component: () => import('./views/notFound.vue')
     }
   ]
 })
@@ -167,10 +174,24 @@ router.beforeEach((to, from, next) => {
   const sessionParse: any = JSON.parse(session)
   const state: any = store.state
   const token: string = state.auth.token
+  const verified: boolean = state.auth.verified
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (sessionParse.token || token) {
-      next()
+    if ((sessionParse && sessionParse.token) || token) {
+      if (sessionParse.verified || verified) {
+        if (to.path !== '/verify') {
+          next()
+        } else {
+          next({ name: 'NewsFeed' })
+        }
+      } else {
+        console.log('object');
+        if (to.path !== '/verify' && to.name !== 'ConfirmVerification' && to.name !== 'ForgotPassword') {
+          next({ name: 'VerifyRequire' })
+        } else {
+          next()
+        }
+      }
     } else {
       next({
         name: 'Login',

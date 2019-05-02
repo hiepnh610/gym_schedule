@@ -14,7 +14,8 @@ import {
   faHeart as fasHeart,
   faUserPlus,
   faImage,
-  faEllipsisH
+  faEllipsisH,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -38,7 +39,8 @@ const fas = {
   fasHeart,
   faUserPlus,
   faImage,
-  faEllipsisH
+  faEllipsisH,
+  faCheckCircle
 }
 
 const far = {

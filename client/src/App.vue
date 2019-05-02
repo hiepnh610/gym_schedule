@@ -38,6 +38,7 @@ export default class App extends Vue {
   @Getter('user', { namespace: namespaceUser }) private user: any
 
   @Action('setToken', { namespace: namespaceAuth }) private setToken: any
+  @Action('setVerified', { namespace: namespaceAuth }) private setVerified: any
 
   private created () {
     const $this: any = this
@@ -77,6 +78,7 @@ export default class App extends Vue {
   private setAuthenticate (): void {
     const $this: any = this
     this.setToken($this.$session.get('token'))
+    this.setVerified($this.$session.get('verified'))
   }
 
   private getInfoUser (): void {

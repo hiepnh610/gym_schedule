@@ -8,7 +8,7 @@ const login = (req, res) => {
     if (!req.body.username) {
         return res.status(400).json({ message: 'The username field cannot be blank.' })
     } else if (!req.body.password) {
-        return res.status(400).json({ message: 'Email or password cannot be blank.' });
+        return res.status(400).json({ message: 'The password cannot be blank.' });
     } else {
         const query = { 'username': req.body.username };
 
@@ -30,7 +30,8 @@ const login = (req, res) => {
                     id: user._id,
                     username: user.username
                 }),
-                username: user.username
+                username: user.username,
+                verified: user.verified
             }
 
             if (user.dob ) {

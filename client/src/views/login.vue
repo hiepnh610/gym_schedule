@@ -12,10 +12,14 @@
 
                 <div class="form-group input-group-lg">
                   <input type="text" class="form-control" name="username" placeholder="Username" v-model="username" />
+
+                  <p class="text-white mt-2" v-if="userNameMessage">{{ userNameMessage }}</p>
                 </div>
 
                 <div class="form-group input-group-lg">
                   <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" />
+
+                  <p class="text-white mt-2" v-if="passwordMessage">{{ passwordMessage }}</p>
                 </div>
 
                 <div class="form-group">
@@ -74,6 +78,7 @@ export default class Login extends Vue {
   @Action('setAvatar', { namespace: namespaceAvatar }) private setAvatar: any
 
   @Action('setToken', { namespace: namespaceAuth }) private setToken: any
+  @Action('setVerified', { namespace: namespaceAuth }) private setVerified: any
 
   private disabledBtn: boolean = false
   private username: string = ''
@@ -81,9 +86,30 @@ export default class Login extends Vue {
   private password: string = ''
   private isLoading: boolean = true
   private messageResetPassword: string = ''
+  private userNameMessage: string = ''
+  private passwordMessage: string = ''
 
   private login () {
-    if (this.username && this.password) {
+    this.userNameMessage = ''
+    this.passwordMessage = ''
+
+    if (!this.username) {
+      this.userNameMessage = 'The username field cannot be blank.'
+
+      return
+    } else if (this.username.length < 8) {
+      this.userNameMessage = 'The username field must be at least 8 characters.'
+
+      return
+    } else if (!this.password) {
+      this.passwordMessage = 'The password cannot be blank.'
+
+      return
+    } else if (this.password.length < 8) {
+      this.passwordMessage = 'The password field must be at least 8 characters.'
+
+      return
+    } else {
       const params: ParamsLogin = {
         username: this.username,
         password: this.password
@@ -96,11 +122,13 @@ export default class Login extends Vue {
         .then(function (response: Response) {
           this.$session.start()
           this.$session.set('token', response.data.token)
+          this.$session.set('verified', response.data.verified)
 
           if (response.data.avatar) { this.setAvatar(response.data.avatar.location) }
 
           this.setUser(response.data)
           this.setToken(response.data.token)
+          this.setVerified(response.data.verified)
           this.disabledBtn = false
 
           if (this.$route.params && this.$route.params.nextUrl) {

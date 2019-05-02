@@ -24,34 +24,35 @@ const getInfo = (req, res) => {
                     _id: userInfo[0]._id,
                     email: userInfo[0].email,
                     full_name: userInfo[0].full_name,
-                    username: userInfo[0].username
+                    username: userInfo[0].username,
+                    verified: userInfo[0].verified
                 };
 
-                if (userInfo[0].dob ) {
+                if (userInfo[0].dob) {
                     newUserInfo.dob = userInfo[0].dob
                 }
 
-                if (userInfo[0].gender ) {
+                if (userInfo[0].gender) {
                     newUserInfo.gender = userInfo[0].gender
                 }
 
-                if (userInfo[0].height ) {
+                if (userInfo[0].height) {
                     newUserInfo.height = userInfo[0].height
                 }
 
-                if (userInfo[0].weight ) {
+                if (userInfo[0].weight) {
                     newUserInfo.weight = userInfo[0].weight
                 }
 
-                if (userInfo[0].avatar ) {
+                if (userInfo[0].avatar) {
                     newUserInfo.avatar = userInfo[0].avatar
                 }
 
-                if (userInfo[0].bio ) {
+                if (userInfo[0].bio) {
                     newUserInfo.bio = userInfo[0].bio
                 }
 
-                if (userInfo[0].address ) {
+                if (userInfo[0].address) {
                     newUserInfo.address = userInfo[0].address
                 }
 

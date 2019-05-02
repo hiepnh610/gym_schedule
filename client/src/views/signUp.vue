@@ -8,22 +8,32 @@
               <form @submit.prevent="signUp">
                 <div class="form-group input-group-lg">
                   <input type="text" class="form-control" name="email" placeholder="Email" v-model="email" />
+
+                  <p class="text-white mt-2" v-if="emailMessage">{{ emailMessage }}</p>
                 </div>
 
                 <div class="form-group input-group-lg">
                   <input type="text" class="form-control" name="username" placeholder="Username" v-model="userName" />
+
+                  <p class="text-white mt-2" v-if="userNameMessage">{{ userNameMessage }}</p>
                 </div>
 
                 <div class="form-group input-group-lg">
                   <input type="text" class="form-control" placeholder="Full Name" v-model="fullName" />
+
+                  <p class="text-white mt-2" v-if="fullNameMessage">{{ fullNameMessage }}</p>
                 </div>
 
                 <div class="form-group input-group-lg">
                   <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" />
+
+                  <p class="text-white mt-2" v-if="passwordMessage">{{ passwordMessage }}</p>
                 </div>
 
                 <div class="form-group input-group-lg">
                   <input type="password" class="form-control" name="re-password" placeholder="Confirm Password" v-model="confirmPassword" />
+
+                  <p class="text-white mt-2" v-if="confirmPasswordMessage">{{ confirmPasswordMessage }}</p>
                 </div>
 
                 <p v-show="message" class="text-white mt-2">{{ message }}</p>
@@ -78,6 +88,7 @@ export default class SignUp extends Vue {
   @Action('setUser', { namespace: namespaceUser }) private setUser: any
 
   @Action('setToken', { namespace: namespaceAuth }) private setToken: any
+  @Action('setVerified', { namespace: namespaceAuth }) private setVerified: any
 
   private disabledBtn: boolean = false
   private email: string = ''
@@ -87,9 +98,47 @@ export default class SignUp extends Vue {
   private password: string = ''
   private confirmPassword: string = ''
   private isLoading: boolean = true
+  private emailMessage: string = ''
+  private userNameMessage: string = ''
+  private fullNameMessage: string = ''
+  private passwordMessage: string = ''
+  private confirmPasswordMessage: string = ''
 
   private signUp () {
-    if (this.email && this.fullName && this.password) {
+    this.emailMessage = ''
+    this.userNameMessage = ''
+    this.passwordMessage = ''
+    this.confirmPasswordMessage = ''
+
+    if (!this.email) {
+      this.emailMessage = 'The email field cannot be blank.'
+
+      return
+    } else if (!this.userName) {
+      this.userNameMessage = 'The username field cannot be blank.'
+
+      return
+    } else if (this.userName.length < 8) {
+      this.userNameMessage = 'The username field must be at least 8 characters.'
+
+      return
+    } else if (!this.password) {
+      this.passwordMessage = 'The password cannot be blank.'
+
+      return
+    } else if (this.password.length < 8) {
+      this.passwordMessage = 'The password field must be at least 8 characters.'
+
+      return
+    } else if (!this.confirmPassword) {
+      this.confirmPasswordMessage = 'The password cannot be blank.'
+
+      return
+    } else if (this.confirmPassword.length < 8) {
+      this.confirmPasswordMessage = 'The password field must be at least 8 characters.'
+
+      return
+    } else if (this.email && this.fullName && this.password) {
       const params: ParamsSignUp = {
         email: this.email,
         full_name: this.fullName,
@@ -105,9 +154,11 @@ export default class SignUp extends Vue {
         .then(function (response: Response) {
           this.$session.start()
           this.$session.set('token', response.data.token)
+          this.$session.set('verified', response.data.verified)
 
           this.setUser(response.data)
           this.setToken(response.data.token)
+          this.setVerified(response.data.verified)
           this.disabledBtn = true
 
           router.push('news-feed')

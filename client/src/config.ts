@@ -15,6 +15,7 @@ interface ApiTypes {
   plans: string
   profile: string
   profileActivities: string
+  resendVerificationMail: string
   resetPassword: string
   signUp: string
   upload: string
@@ -39,6 +40,7 @@ const api: ApiTypes = {
   plans: '/api/plans/',
   profile: '/api/profile/',
   profileActivities: '/api/profile_activities/',
+  resendVerificationMail: '/api/resend-verification-mail',
   resetPassword: '/api/reset-password',
   signUp: '/api/sign_up',
   upload: '/api/upload',
