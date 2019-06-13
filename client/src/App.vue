@@ -89,7 +89,7 @@ export default class App extends Vue {
       .then((response: Response): void => {
         this.setUser(response.data)
 
-        if (response.data.avatar) { $this.setAvatar(response.data.avatar.location) }
+        if (response.data.avatar) { $this.setAvatar(response.data.avatar) }
       })
       .catch((error: Response): void => {
         if (error.response && error.response.data && error.response.data.message) {

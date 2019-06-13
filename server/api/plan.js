@@ -48,7 +48,7 @@ const createPlan = (req, res) => {
     });
 
     plan.save((err, plan) => {
-        if(err) return res.status(400).send(err);
+        if (err) return res.status(400).send(err);
 
         res.status(201).json(plan);
     });

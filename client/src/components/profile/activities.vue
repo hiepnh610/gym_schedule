@@ -6,7 +6,9 @@
       <div class="activity-body" v-for="(activity, key) in activities" :key="key">
         <header class="p-2">
           <div class="avatar d-inline-block mr-2 align-top">
-            <img :src="avatarOfThread" alt="" v-if="avatarOfThread" />
+            <img :src="avatar" alt="" v-if="isOwner" />
+
+            <img :src="avatarOfThread" alt="" v-else-if="avatarOfThread && !isOwner" />
 
             <img src="@/assets/images/avatar-default.png" alt="" v-else />
           </div>
@@ -91,6 +93,7 @@ interface Exercise {
 }
 
 const namespaceActivities: string = 'activities'
+const namespaceAvatar: string = 'avatar'
 
 @Component({
   components: {
@@ -106,6 +109,8 @@ export default class ProfileActivities extends Vue {
   @Action('setListActivities', { namespace: namespaceActivities }) private setListActivities: any
   @Action('setDeleteActivity', { namespace: namespaceActivities }) private setDeleteActivity: any
   @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
+
+  @Getter('avatar', { namespace: namespaceAvatar }) private avatar: any
 
   private getUserActivities (): void {
     const usernameFromUrl: string = this.$route.params.user

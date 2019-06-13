@@ -151,15 +151,15 @@ export default class ProfileHeader extends Vue {
 
     const formData: any = new FormData()
 
-    formData.append('avatar', this.avatarValue)
-    formData.append('userId', this.user._id)
+    formData.append('image', this.avatarValue)
+    formData.append('type', 'profile')
 
     this.updateAvatarIsLoading = true
 
     axios
       .post(config.api.upload, formData, configHeader)
       .then(function (response: Response) {
-        this.setAvatar(response.data.avatar.location)
+        this.setAvatar(response.data.avatar)
         this.setShowModalBackdrop(false)
 
         this.updateAvatarIsLoading = false

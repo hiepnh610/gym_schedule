@@ -4,7 +4,7 @@ const Schema   = mongoose.Schema;
 
 const UserSchema = new Schema({
     avatar: {
-        type: Object
+        type: String
     },
     dob: {
         type: Date

@@ -1,65 +1,84 @@
-const aws      = require('aws-sdk');
-const multer   = require('multer');
+const aws = require('aws-sdk');
+const multer = require('multer');
 const multerS3 = require('multer-s3');
-const path     = require('path');
+const path = require('path');
 
 const User = require('../model/user');
+const Images = require('../model/images');
 
 const s3 = new aws.S3({
-    apiVersion: '2006-03-01'
+  apiVersion: '2006-03-01'
 });
 
 const bucket = 'gymschedule';
 
 const multerS3Config = multerS3({
-    s3: s3,
-    bucket: bucket,
-    metadata: (req, file, cb) => {
-        cb(null, { fieldName: file.fieldname });
-    },
-    key: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-    }
+  s3: s3,
+  bucket: bucket,
+  metadata: (req, file, cb) => {
+    cb(null, { fieldName: file.fieldname });
+  },
+  key: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
 });
 
 const imageFilter = (req, file, next) => {
-    if(!file) next();
+  if (!file) next();
 
-    const image = file.mimetype.startsWith('image/');
+  const image = file.mimetype.startsWith('image/');
 
-    if(image) {
-        next(null, true);
-    } else {
-        return next(new Error('Only image files are allowed!'), false);
-    }
+  if (image) {
+    next(null, true);
+  } else {
+    return next(new Error('Only image files are allowed!'), false);
+  }
 };
 
 const upload = multer({
-    storage: multerS3Config,
+  storage: multerS3Config,
 
-    fileFilter: imageFilter
-}).single('avatar');
+  fileFilter: imageFilter
+}).single('image');
 
 const uploadImage = (req, res) => {
-    upload(req, res, (error) => {
-        if (error) return res.status(400).send(error);
+  upload(req, res, (error) => {
+    if (error) return res.status(400).send(error);
 
-        const query = req.user.id;
+    const query = req.user.id;
 
-        User.findById(query, (err, user) => {
-            if(err) return res.status(400).send(err);
+    let image = new Images({
+      created_by: query,
+      url: req.file.location
+    });
 
-            user.set({
-                avatar: req.file
-            });
+    if (req.body.type) { image.type = req.body.type }
 
-            user.save((err, user) => {
-                if(err) return res.status(400).send(err);
+    if (req.body.exercise_id) { image.exercise_id = req.body.exercise_id }
 
-                res.status(201).send(user);
-            });
-        });
-    })
+    image.save((err, image) => {
+      if (err) return res.status(400).send(err);
+
+      console.log(image);
+
+      saveImageToUser(query, image.url);
+      res.status(201).json({ 'avatar': image.url });
+    });
+  });
+};
+
+const saveImageToUser = (userId, imageUrl) => {
+  User.findById(userId, (err, user) => {
+    if (err) return res.status(400).send(err);
+
+    user.set({
+      avatar: imageUrl
+    });
+
+    user.save((err) => {
+      if (err) return res.status(400).send(err);
+    });
+  });
 };
 
 module.exports = uploadImage;
