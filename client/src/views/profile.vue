@@ -69,6 +69,7 @@ export default class Profile extends Vue {
   private fullName: string = ''
   private avatarOfThread: string = ''
   private message: string = ''
+  private userName: string = ''
 
   private getUserProfile (): void {
     const params: TypeParams = {
@@ -97,7 +98,9 @@ export default class Profile extends Vue {
 
   @Watch('$route', { immediate: true, deep: true })
   private urlChanged () {
-    this.getUserProfile()
+    if (this.userName !== this.$route.params.user) {
+      this.getUserProfile()
+    }
   }
 
   @Watch('user', { immediate: true, deep: true })
@@ -110,6 +113,8 @@ export default class Profile extends Vue {
     } else {
       this.isOwner = false
     }
+
+    this.userName = val.username
   }
 }
 </script>

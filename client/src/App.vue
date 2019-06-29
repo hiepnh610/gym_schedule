@@ -87,7 +87,7 @@ export default class App extends Vue {
     axios
       .get(config.api.user)
       .then((response: Response): void => {
-        if (response.data) this.setUser(response.data)
+        if (response.data) { this.setUser(response.data) }
 
         if (response.data.avatar) { this.setAvatar(response.data.avatar) }
       })
