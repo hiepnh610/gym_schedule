@@ -1,5 +1,4 @@
 export interface UserState {
-  _id: string
   address?: string
   bio?: string
   dob?: Date

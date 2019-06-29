@@ -71,17 +71,8 @@ export default class Profile extends Vue {
   private message: string = ''
 
   private getUserProfile (): void {
-    const usernameFromUrl: string = this.$route.params.user
-    const usernameFromLocal: string = this.user.username
-
-    if (usernameFromLocal === usernameFromUrl) {
-      this.isOwner = true
-    } else {
-      this.isOwner = false
-    }
-
     const params: TypeParams = {
-      username: usernameFromUrl
+      username: this.$route.params.user
     }
 
     axios
@@ -107,6 +98,18 @@ export default class Profile extends Vue {
   @Watch('$route', { immediate: true, deep: true })
   private urlChanged () {
     this.getUserProfile()
+  }
+
+  @Watch('user', { immediate: true, deep: true })
+  private getUserData (val: any) {
+    const usernameFromUrl: string = this.$route.params.user
+    const usernameFromLocal: string = val.username
+
+    if (usernameFromLocal === usernameFromUrl) {
+      this.isOwner = true
+    } else {
+      this.isOwner = false
+    }
   }
 }
 </script>

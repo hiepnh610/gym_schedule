@@ -59,8 +59,6 @@ const uploadImage = (req, res) => {
     image.save((err, image) => {
       if (err) return res.status(400).send(err);
 
-      console.log(image);
-
       saveImageToUser(query, image.url);
       res.status(201).json({ 'avatar': image.url });
     });

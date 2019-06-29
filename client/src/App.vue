@@ -40,6 +40,8 @@ export default class App extends Vue {
   @Action('setToken', { namespace: namespaceAuth }) private setToken: any
   @Action('setVerified', { namespace: namespaceAuth }) private setVerified: any
 
+  private errContent: string = ''
+
   private created () {
     const $this: any = this
 
@@ -82,20 +84,18 @@ export default class App extends Vue {
   }
 
   private getInfoUser (): void {
-    const $this: any = this
-
     axios
       .get(config.api.user)
       .then((response: Response): void => {
-        this.setUser(response.data)
+        if (response.data) this.setUser(response.data)
 
-        if (response.data.avatar) { $this.setAvatar(response.data.avatar) }
+        if (response.data.avatar) { this.setAvatar(response.data.avatar) }
       })
       .catch((error: Response): void => {
         if (error.response && error.response.data && error.response.data.message) {
-          $this.errContent = error.response.data.message
+          this.errContent = error.response.data.message
         } else {
-          $this.errContent = 'Error happened.'
+          this.errContent = 'Error happened.'
         }
       })
   }
