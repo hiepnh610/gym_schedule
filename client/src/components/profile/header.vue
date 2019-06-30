@@ -34,9 +34,9 @@
 
     <div class="avatar">
       <div class="avatar-container">
-        <img :src="avatar" alt="" v-if="avatar && isOwner" />
+        <img :src="avatar" alt="" v-if="avatar && isOwner" @click="openLightBox" />
 
-        <img :src="userProfile.avatar" alt="" v-else-if="userProfile && userProfile.avatar && !isOwner" />
+        <img :src="userProfile.avatar" alt="" v-else-if="userProfile && userProfile.avatar && !isOwner" @click="openLightBox" />
 
         <img src="@/assets/images/avatar-default.png" alt="" v-else />
 
@@ -47,6 +47,8 @@
         </label>
       </div>
     </div>
+
+    <LightBox :images="listLightBoxImages" :showLightBox="false" ref="lightbox"></LightBox>
 
     <div class="modal fade" v-show="showAvatarModal" :class="{ 'show animated bounceIn': showAvatarModal }" :style="{ display: 'block' }">
       <div class="modal-dialog">
@@ -74,6 +76,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
+import LightBox from 'vue-image-lightbox'
 
 import config from '@/config'
 import { Response } from '@/util'
@@ -86,13 +89,27 @@ interface TypeUser {
   'full_name'?: string
 }
 
+interface TypeImage {
+  url?: string
+}
+
+interface TypeLightBoxImage {
+  src?: string
+  thumb?: string
+}
+
+interface TypeParams {
+  username: string
+}
+
 const namespaceAvatar: string = 'avatar'
 const namespaceUser: string = 'user'
 const namespaceModal: string = 'modal'
 
 @Component({
   components: {
-  FontAwesomeIcon
+  FontAwesomeIcon,
+  LightBox
   }
   })
 export default class ProfileHeader extends Vue {
@@ -111,6 +128,8 @@ export default class ProfileHeader extends Vue {
   private errorAvatar: string = ''
   private showAvatarModal: boolean = false
   private updateAvatarIsLoading: boolean = false
+  private listLightBoxImages: TypeLightBoxImage[] = []
+  private message: string = ''
 
   private selectImage (e: any) {
     const $this: any = this
@@ -178,6 +197,35 @@ export default class ProfileHeader extends Vue {
         this.setShowModalBackdrop(false)
         this.$toasted.error('Error happened!!!')
       }.bind(this))
+  }
+
+  private openLightBox (): void {
+    const lightBox: any = this.$refs.lightbox
+    const params: TypeParams = {
+      username: this.$route.params.user
+    }
+
+    axios
+      .get(config.api.profileImages, { params })
+      .then(function (response: Response) {
+        if (response.data) {
+          this.listLightBoxImages = response.data.map((item: TypeImage) => {
+            return {
+              src: item.url,
+              thumb: item.url
+            }
+          })
+        }
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+      }.bind(this))
+
+    lightBox.showImage(0)
   }
 }
 </script>

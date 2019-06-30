@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="comment-box p-2 d-none align-items-start" :class="{ 'd-flex': (isOpenCommentBox || activity.comments.length) && !editComment }">
-      <div class="avatar mr-2">
+      <div class="small-avatar mr-2">
         <img :src="avatar" alt="" v-if="avatar" />
 
         <img src="@/assets/images/avatar-default.png" alt="" v-else />

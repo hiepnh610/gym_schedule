@@ -1,16 +1,17 @@
 const express = require('express');
 const router  = express.Router();
 
-const plan        = require('./plan');
-const user        = require('./user');
-const profile     = require('./profile');
-const login       = require('./login');
-const signUp      = require('./signUp');
-const workout     = require('./workout');
-const comment     = require('./comments');
-const uploadImage = require('./upload');
-const exercise    = require('./exercise');
-const activities  = require('./activities');
+const plan         = require('./plan');
+const user         = require('./user');
+const profile      = require('./profile');
+const login        = require('./login');
+const images       = require('./images');
+const signUp       = require('./signUp');
+const workout      = require('./workout');
+const comment      = require('./comments');
+const uploadImage  = require('./upload');
+const exercise     = require('./exercise');
+const activities   = require('./activities');
 const likeActivity = require('./like');
 const verifyEmail  = require('./email');
 const resendMail   = require('./resendMail');
@@ -145,5 +146,14 @@ router
 router
     .route('/resend-verification-mail')
     .post(resendMail.resendVerificationMail);
+
+// Images
+router
+    .route('/images')
+    .get(verifyToken, images.getAllImages);
+
+router
+    .route('/profile-images')
+    .get(verifyToken, images.getProfileImages);
 
 module.exports = router;

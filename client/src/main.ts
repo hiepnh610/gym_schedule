@@ -4,6 +4,7 @@ import moment from 'moment'
 import Toasted from 'vue-toasted'
 import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
+import VueLazyload from 'vue-lazyload'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 
 import App from './App.vue'
@@ -20,6 +21,7 @@ import '@/filter'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'animate.css/animate.min.css'
+import 'vue-image-lightbox/dist/vue-image-lightbox.min.css'
 
 import './assets/scss/style.scss'
 
@@ -41,6 +43,7 @@ Vue.use(VueAxios, axios)
 Vue.use(VueSession, { persist: true })
 Vue.use(Toasted, fontawesomeOptions)
 Vue.use(VueTextareaAutosize)
+Vue.use(VueLazyload)
 
 Vue.prototype.moment = moment
 

@@ -45,7 +45,7 @@ const uploadImage = (req, res) => {
   upload(req, res, (error) => {
     if (error) return res.status(400).send(error);
 
-    const query = req.user.id;
+    const query = req.user.username;
 
     let image = new Images({
       created_by: query,
@@ -60,22 +60,20 @@ const uploadImage = (req, res) => {
       if (err) return res.status(400).send(err);
 
       saveImageToUser(query, image.url);
-      res.status(201).json({ 'avatar': image.url });
+
+      return res.status(201).json({ 'avatar': image.url });
     });
   });
 };
 
-const saveImageToUser = (userId, imageUrl) => {
-  User.findById(userId, (err, user) => {
-    if (err) return res.status(400).send(err);
-
+const saveImageToUser = (username, imageUrl) => {
+  User
+  .findOne({ username: username }, (err, user) => {
     user.set({
       avatar: imageUrl
     });
 
-    user.save((err) => {
-      if (err) return res.status(400).send(err);
-    });
+    user.save();
   });
 };
 

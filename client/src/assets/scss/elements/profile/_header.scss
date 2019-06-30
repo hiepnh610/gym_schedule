@@ -3,21 +3,13 @@
   position: relative;
 
   .avatar {
-    background-color: $white-color;
-    border: 1px solid $profile-border-color;
     bottom: $size-base;
     left: $size-base;
     max-width: 170px;
     min-height: 170px;
     min-width: 170px;
-    padding: $profile-padding / 4;
     position: absolute;
     @include border-radius($border-radius-size);
-
-    .avatar-container {
-      overflow: hidden;
-      position: relative;
-    }
 
     &:hover {
       label {

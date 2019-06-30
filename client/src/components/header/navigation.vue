@@ -35,7 +35,7 @@
             <font-awesome-icon icon="calendar-alt" class="text-white mr-4" />
           </router-link>
 
-          <div class="avatar mr-2 d-flex align-items-start">
+          <div class="small-avatar mr-2 d-flex align-items-start">
             <img :src="avatar" alt="" v-if="avatar" />
 
             <font-awesome-icon icon="user" v-else />

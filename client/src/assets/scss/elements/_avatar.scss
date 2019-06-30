@@ -1,0 +1,11 @@
+.avatar {
+  background-color: $white-color;
+  border: 1px solid $profile-border-color;
+  padding: $profile-padding / 4;
+  @include border-radius($border-radius-size);
+
+  .avatar-container {
+    overflow: hidden;
+    position: relative;
+  }
+}

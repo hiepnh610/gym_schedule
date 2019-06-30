@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-items-start w-100">
-    <div class="avatar mr-2">
+    <div class="small-avatar mr-2">
       <img :src="comment.avatar" alt="" v-if="comment.avatar" />
 
       <img src="@/assets/images/avatar-default.png" alt="" v-else />

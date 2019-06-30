@@ -6,6 +6,7 @@ interface ApiTypes {
   email: string
   exercise: string
   forgotPassword: string
+  images: string
   likeActivity: string
   listExercise: string
   listPlans: string
@@ -15,6 +16,7 @@ interface ApiTypes {
   plans: string
   profile: string
   profileActivities: string
+  profileImages: string
   resendVerificationMail: string
   resetPassword: string
   signUp: string
@@ -31,6 +33,7 @@ const api: ApiTypes = {
   email: '/api/email-verification',
   exercise: '/api/exercise/',
   forgotPassword: '/api/forgot-password',
+  images: '/api/images',
   likeActivity: '/api/like/',
   listExercise: '/api/list_exercise',
   listPlans: '/api/list_plans',
@@ -40,6 +43,7 @@ const api: ApiTypes = {
   plans: '/api/plans/',
   profile: '/api/profile/',
   profileActivities: '/api/profile_activities/',
+  profileImages: '/api/profile-images',
   resendVerificationMail: '/api/resend-verification-mail',
   resetPassword: '/api/reset-password',
   signUp: '/api/sign_up',
