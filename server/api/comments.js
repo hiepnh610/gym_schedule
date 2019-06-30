@@ -23,11 +23,16 @@ const createComment = async (req, res) => {
             if (err) return res.status(400).send(err);
 
             const resData = {
+                _id: comment._id,
                 activity_id: comment.activity_id,
                 body: comment.body,
                 full_name: userInfo.full_name,
                 updatedAt: comment.updatedAt,
-                username: userInfo.username
+                username: userInfo.username,
+                like: {
+                    quantity: 0,
+                    status: false
+                }
             }
 
             if (userInfo.avatar && userInfo.avatar.location) {
