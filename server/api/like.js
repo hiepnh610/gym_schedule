@@ -15,7 +15,10 @@ const likeActivity = (req, res) => {
 };
 
 const unlikeActivity = (req, res) => {
-    const query = { 'object_id': req.body.object_id };
+    const query = {
+        'created_by': req.user.id,
+        'object_id': req.body.object_id
+    };
 
     Like.deleteOne(query, (err) => {
         if(err) return res.status(400).send(err);

@@ -86,8 +86,6 @@ const profileActivities = async (req, res) => {
         const groupDate = _.groupBy(activities, dateFormat);
 
         let sortDataByDate = {};
-        let userLikedActivity = [];
-        let userLikedComment = [];
 
         const sortData = Object.keys(groupDate)
         .sort((a, b) => moment(b, 'YYYY-MM-DD').toDate() - moment(a, 'YYYY-MM-DD').toDate());
@@ -106,6 +104,8 @@ const profileActivities = async (req, res) => {
                 newData.comments = [];
 
                 if (likeActivity.length) {
+                    let userLikedActivity = [];
+
                     for (like of likeActivity) {
                         if ((like.object_id).toString() === (item._id).toString() && like.created_by === req.user.id) {
                             newData.like = { status: true }
@@ -126,7 +126,10 @@ const profileActivities = async (req, res) => {
                             commentData._id = comment._id;
                             commentData.body = comment.body;
                             commentData.edited = comment.edited ? comment.edited : false;
-                            commentData.like = { status: false };
+                            commentData.like = {
+                                quantity: 0,
+                                status: false
+                            };
 
                             if (userInfo.length) {
                                 for (user of userInfo) {
@@ -143,6 +146,8 @@ const profileActivities = async (req, res) => {
                             }
 
                             if (likeComment.length) {
+                                let userLikedComment = [];
+
                                 for (like of likeComment) {
                                     if ((like.object_id).toString() === (comment._id).toString() && like.created_by === req.user.id) {
                                         commentData.like = { status: true }

@@ -106,6 +106,7 @@ export const mutations: MutationTree<ActivityState> = {
           if (activity.comments) {
             for (const comment of activity.comments) {
               if (comment._id === id) {
+                comment.like.quantity = comment.like.quantity + 1
                 comment.like.status = true
               }
             }
@@ -122,6 +123,9 @@ export const mutations: MutationTree<ActivityState> = {
           if (activity.comments) {
             for (const comment of activity.comments) {
               if (comment._id === id) {
+                if (comment.like.quantity && comment.like.quantity > 0) {
+                  comment.like.quantity = comment.like.quantity - 1
+                }
                 comment.like.status = false
               }
             }
