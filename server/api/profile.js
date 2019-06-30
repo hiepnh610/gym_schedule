@@ -36,6 +36,10 @@ const getInfo = (req, res) => {
                     newUser.address = user.address
                 }
 
+                if (user.avatar) {
+                    newUser.avatar = user.avatar
+                }
+
                 res.status(200).json(newUser);
             } else {
                 res.status(400).json({ message: 'No user found.' });
