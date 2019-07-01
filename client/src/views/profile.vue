@@ -98,7 +98,10 @@ export default class Profile extends Vue {
 
   @Watch('$route', { immediate: true, deep: true })
   private urlChanged () {
-    if (this.userName !== this.$route.params.user) {
+    const $this: any = this
+    const username: string = $this.$session.get('token')
+
+    if (username !== this.$route.params.user) {
       this.getUserProfile()
     }
   }
