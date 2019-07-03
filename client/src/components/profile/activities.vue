@@ -6,7 +6,7 @@
       <div class="activity-body" v-for="(activity, key) in activities" :key="key">
         <header class="p-2">
           <div class="small-avatar d-inline-block mr-2 align-top">
-            <img :src="avatar" alt="" v-if="isOwner" />
+            <img :src="avatar" alt="" v-if="avatar && isOwner" />
 
             <img :src="avatarOfThread" alt="" v-else-if="avatarOfThread && !isOwner" />
 

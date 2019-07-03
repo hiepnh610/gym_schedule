@@ -81,7 +81,7 @@ export default class Profile extends Vue {
       .then(function (response: Response) {
         this.userProfile = response.data
         this.fullName = response.data.full_name
-        this.avatarOfThread = response.data.avatar
+        this.avatarOfThread = response.data.avatar ? response.data.avatar : ''
 
         setLoading(this, false)
       }.bind(this))
