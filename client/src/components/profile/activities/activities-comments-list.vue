@@ -1,5 +1,5 @@
 <template>
-  <div class="comments-list" v-if="activity.comments.length">
+  <div class="comments-list" v-if="activity.comments">
     <a href="#" class="view-more-comment text-primary smaller px-2 pt-2" v-if="!showAllCommentStatus && activity.comments.length > 2" @click.prevent="showAllComment">View {{ activity.comments.length - 2 }} more comments</a>
 
     <div class="comment d-none align-items-start p-2" v-for="(comment, key) in activity.comments" :key="key" :class="{ 'd-flex': key > (activity.comments.length - 3) || showAllCommentStatus }">

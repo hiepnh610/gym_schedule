@@ -45,7 +45,7 @@
             <small class="text-muted" v-if="activity.exercises && weightTotal(activity.exercises) > 0">Weight: {{ weightTotal(activity.exercises) }} kg</small>
           </p>
 
-          <p class="mb-0" v-if="activity.like.quantity">
+          <p class="mb-0" v-if="activity.like && activity.like.quantity">
             <small class="text-muted smallest" v-if="activity.like.quantity > 1">
               <font-awesome-icon :icon="['far', 'heart']" class="mr-1" />
 

@@ -17,7 +17,7 @@
     </div>
 
     <div class="comments">
-      <hr class="m-0" v-if="activity.comments.length || isOpenCommentBox" />
+      <hr class="m-0" v-if="activity.comments || isOpenCommentBox" />
 
       <ActivitiesCommentsList :activity="activity" :isOwner="isOwner" />
 

@@ -49,6 +49,12 @@ const UserSchema = new Schema({
     verified: {
         type: Boolean,
         required: true
+    },
+    follower: {
+        type: Array
+    },
+    following: {
+        type: Array
     }
 }, { timestamps: { createdAt: 'created_at' }});
 

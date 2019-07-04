@@ -41,7 +41,7 @@ const createPlan = (req, res) => {
     if (!req.body.frequency) return res.status(400).json({ 'message': 'The frequency cannot be blank.' });
 
     plan = new Plan({
-        created_by: req.body.created_by,
+        created_by: req.user.id,
         frequency: req.body.frequency,
         name: req.body.name,
         type: req.body.type,
