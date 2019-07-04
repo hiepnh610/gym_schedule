@@ -5,6 +5,7 @@ interface ApiTypes {
   comment: string
   email: string
   exercise: string
+  follow: string
   forgotPassword: string
   images: string
   likeActivity: string
@@ -32,6 +33,7 @@ const api: ApiTypes = {
   comment: '/api/comment/',
   email: '/api/email-verification',
   exercise: '/api/exercise/',
+  follow: '/api/follow/',
   forgotPassword: '/api/forgot-password',
   images: '/api/images',
   likeActivity: '/api/like/',

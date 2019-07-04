@@ -7,6 +7,7 @@ const profile      = require('./profile');
 const login        = require('./login');
 const images       = require('./images');
 const signUp       = require('./signUp');
+const follow       = require('./follow');
 const workout      = require('./workout');
 const comment      = require('./comments');
 const uploadImage  = require('./upload');
@@ -155,5 +156,10 @@ router
 router
     .route('/profile-images')
     .get(verifyToken, images.getProfileImages);
+
+// Follow
+router
+    .route('/follow/:username')
+    .put(verifyToken, follow.followUser);
 
 module.exports = router;

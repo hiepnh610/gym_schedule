@@ -11,15 +11,22 @@
     <h2 class="profile-full-name">{{ userProfile.full_name }}</h2>
 
     <div class="btn-group" v-if="!isOwner">
-      <div class="btn btn-sm btn-light mr-2">
+      <a href="#" class="btn btn-sm btn-light mr-2" @click.prevent="follow" v-if="!following">
         <font-awesome-icon icon="user-plus" class="mr-1" />
-        Follow
-      </div>
 
-      <div class="btn btn-sm btn-light mr-2">
+        Follow
+      </a>
+
+      <a href="#" class="btn btn-sm btn-light mr-2" @click.prevent="unFollow" v-else>
+        <font-awesome-icon icon="check" class="mr-1" />
+
+        Following
+      </a>
+
+      <a href="#" class="btn btn-sm btn-light mr-2">
         <font-awesome-icon icon="comments" class="mr-1" />
         Messages
-      </div>
+      </a>
     </div>
 
     <nav class="nav">
@@ -130,6 +137,7 @@ export default class ProfileHeader extends Vue {
   private updateAvatarIsLoading: boolean = false
   private listLightBoxImages: TypeLightBoxImage[] = []
   private message: string = ''
+  private following: boolean = false
 
   private selectImage (e: any) {
     const $this: any = this
@@ -226,6 +234,27 @@ export default class ProfileHeader extends Vue {
       }.bind(this))
 
     lightBox.showImage(0)
+  }
+
+  private follow (): void {
+    const username: string = this.$route.params.user
+
+    axios
+      .put(config.api.follow + username, {})
+      .then(function (response: Response) {
+        this.following = true
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      }.bind(this))
+  }
+
+  private unFollow (): void {
+    this.following = false
   }
 }
 </script>
