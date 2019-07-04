@@ -256,6 +256,14 @@ export default class ProfileHeader extends Vue {
   private unFollow (): void {
     this.following = false
   }
+
+  private created () {
+    for (const user of this.user.following) {
+      if (user === this.$route.params.user) {
+        this.following = true
+      }
+    }
+  }
 }
 </script>
 

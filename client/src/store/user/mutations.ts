@@ -7,6 +7,7 @@ export const mutations: MutationTree<UserState> = {
     state.bio = data.bio
     state.dob = data.dob
     state.email = data.email
+    state.following = data.following
     state.full_name = data.full_name
     state.gender = data.gender
     state.height = data.height

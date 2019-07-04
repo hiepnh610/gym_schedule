@@ -8,4 +8,5 @@ export interface UserState {
   height?: number
   username: string
   weight?: number
+  following?: string[]
 }
