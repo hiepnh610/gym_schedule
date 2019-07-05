@@ -162,4 +162,8 @@ router
     .route('/follow/:username')
     .put(verifyToken, follow.followUser);
 
+router
+    .route('/un-follow/:username')
+    .put(verifyToken, follow.unFollowUser);
+
 module.exports = router;

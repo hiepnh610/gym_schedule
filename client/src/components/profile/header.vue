@@ -254,7 +254,20 @@ export default class ProfileHeader extends Vue {
   }
 
   private unFollow (): void {
-    this.following = false
+    const username: string = this.$route.params.user
+
+    axios
+      .put(config.api.unFollow + username, {})
+      .then(function (response: Response) {
+        this.following = false
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      }.bind(this))
   }
 
   private created () {

@@ -21,6 +21,7 @@ interface ApiTypes {
   resendVerificationMail: string
   resetPassword: string
   signUp: string
+  unFollow: string
   upload: string
   user: string
   workout: string
@@ -49,6 +50,7 @@ const api: ApiTypes = {
   resendVerificationMail: '/api/resend-verification-mail',
   resetPassword: '/api/reset-password',
   signUp: '/api/sign_up',
+  unFollow: '/api/un-follow/',
   upload: '/api/upload',
   user: '/api/user/',
   workout: '/api/workout/'
