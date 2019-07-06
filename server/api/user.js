@@ -25,7 +25,7 @@ const getInfo = (req, res) => {
                     full_name: userInfo[0].full_name,
                     username: userInfo[0].username,
                     verified: userInfo[0].verified,
-                    following: userInfo[0].following
+                    following: userInfo[0].following ? userInfo[0].following : []
                 };
 
                 if (userInfo[0].dob) {
