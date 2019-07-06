@@ -196,14 +196,15 @@ export default class ProfileHeader extends Vue {
       }.bind(this))
       .catch(function (error: Response) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.message = 'Error happened.'
+          this.$toasted.error(error.response.data.message)
+        } else {
+          this.$toasted.error('Error happened!!!')
         }
 
         this.updateAvatarIsLoading = false
         this.showAvatarModal = false
 
         this.setShowModalBackdrop(false)
-        this.$toasted.error('Error happened!!!')
       }.bind(this))
   }
 

@@ -96,13 +96,20 @@ export default class Profile extends Vue {
       }.bind(this))
   }
 
+  private created (): void {
+    this.getUserProfile()
+  }
+
   @Watch('$route', { immediate: true, deep: true })
   private urlChanged () {
     const $this: any = this
-    const username: string = $this.$session.get('token')
+    const username: string = $this.$session.get('username')
 
     if (username !== this.$route.params.user) {
+      this.isOwner = false
       this.getUserProfile()
+    } else {
+      this.isOwner = true
     }
   }
 

@@ -56,25 +56,36 @@ const uploadImage = (req, res) => {
 
     if (req.body.exercise_id) { image.exercise_id = req.body.exercise_id }
 
-    image.save((err, image) => {
+    image.save(async (err, image) => {
       if (err) return res.status(400).send(err);
 
-      saveImageToUser(query, image.url);
+      const response = await saveImageToUser(query, image.url);
 
-      return res.status(201).json({ 'avatar': image.url });
+      if (response.error) {
+        return res.status(400).json({ 'message': response.error });
+      } else {
+        return res.status(201).json({ 'avatar': image.url });
+      }
     });
   });
 };
 
-const saveImageToUser = (username, imageUrl) => {
-  User
-  .findOne({ username: username }, (err, user) => {
+const saveImageToUser = async (username, imageUrl) => {
+  try {
+    const user = await User.findOne({ username: username });
+
+    if (!user) return { error: 'No user found.' };
+
     user.set({
       avatar: imageUrl
     });
 
-    user.save();
-  });
+    return user.save();
+  }
+  catch (e) {
+    return { error: e };
+  }
+
 };
 
 module.exports = uploadImage;
