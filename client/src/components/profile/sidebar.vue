@@ -26,10 +26,10 @@
           <small>{{ userProfile.dob | date_with_slash }}</small>
         </li>
 
-        <li>
+        <li v-if="userProfile.follower.users.total">
           <font-awesome-icon icon="rss" class="mr-2 small text-muted fa-fw" />
 
-          <small>Followed by <span class="text-primary">5,000 people</span></small>
+          <small>Followed by <span class="text-primary">{{ userProfile.follower.users.total }} people</span></small>
         </li>
       </ul>
     </div>

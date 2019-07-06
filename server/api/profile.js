@@ -40,6 +40,20 @@ const getInfo = (req, res) => {
                     newUser.avatar = user.avatar
                 }
 
+                if (user.following) {
+                    newUser.following = {
+                        users: user.following ? user.following : [],
+                        total: user.following ? user.following.length : 0
+                    }
+                }
+
+                if (user.follower) {
+                    newUser.follower = {
+                        users: user.follower ? user.follower : [],
+                        total: user.follower ? user.follower.length : 0
+                    }
+                }
+
                 res.status(200).json(newUser);
             } else {
                 res.status(400).json({ message: 'No user found.' });

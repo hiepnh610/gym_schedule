@@ -10,7 +10,9 @@ const followUser = (req, res) => {
             { $addToSet: { following: userFollowing } },
             { upsert: true },
             (err, user) => {
-                if (err) return res.status(400).send({ message: 'Error happened.' });
+                if (err) return res.status(400).send(err);
+
+                if (!user) return res.status(400).json({ 'message': 'No user found.' });
 
                 res.status(200).json({ 'message': 'Followed.' });
             });
@@ -26,6 +28,8 @@ const unFollowUser = (req, res) => {
 
         User.findOne(query, (err, user) => {
             if (err) return res.status(400).json(err);
+
+            if (!user) return res.status(400).json({ 'message': 'No user found.' });
 
             if (user.following) {
                 for (const u of user.following) {
@@ -45,15 +49,7 @@ const unFollowUser = (req, res) => {
     }
 };
 
-const getListFollowing = (req, res) => {
-};
-
-const getListFollower = (req, res) => {
-};
-
 module.exports = {
     followUser,
-    unFollowUser,
-    getListFollowing,
-    getListFollower
+    unFollowUser
 };
