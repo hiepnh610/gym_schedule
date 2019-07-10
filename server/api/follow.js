@@ -39,7 +39,6 @@ const saveFollowerToUser = async (username, follower) => {
 
         return user;
     } catch (e) {
-        console.log(e);
         return { error: e };
     }
 };
@@ -47,28 +46,41 @@ const saveFollowerToUser = async (username, follower) => {
 const unFollowUser = (req, res) => {
     if (req.params.username) {
         const query = { _id: req.user.id };
-        const param = req.params.username;
+        const username = req.params.username;
 
-        User.findOne(query, (err, user) => {
-            if (err) return res.status(400).json(err);
+        User.update(
+            query,
+            { $pull: { following: username } },
+            {},
+            async (e, user) => {
+                if (e) return res.status(400).json(e);
 
-            if (!user) return res.status(400).json({ 'message': 'No user found.' });
+                if (!user) return res.status(400).json({ 'message': 'No user found.' });
 
-            if (user.following) {
-                for (const u of user.following) {
-                    if (param === u) {
-                        const indexOfUser = user.following.indexOf(u);
-                        user.following.splice(indexOfUser)
+                const response = await removeFollowerInUser(username, req.user.username);
 
-                        user.save(err => {
-                            if (err) return res.status(400).json(err);
-
-                            res.status(200).json({ 'message': 'UnFollow.' });
-                        });
-                    }
+                if (response.error) {
+                    return res.status(400).json({ 'message': response.error });
+                } else {
+                    return res.status(200).json({ 'message': 'UnFollow.' });
                 }
-            }
-        });
+            });
+    }
+};
+
+const removeFollowerInUser = async (username, follower) => {
+    try {
+        const query = { username: username };
+        const user = await User.update(
+            query,
+            { $pull: { follower: follower } },
+            {});
+
+        if (!user) return { error: 'No user found.' };
+
+        return user;
+    } catch (e) {
+        return { error: e };
     }
 };
 
