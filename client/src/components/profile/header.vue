@@ -37,6 +37,8 @@
       <router-link :to="{ name: 'CalendarProfile' }" class="nav-link">Calendar</router-link>
 
       <router-link :to="{ name: 'PlansProfile' }" class="nav-link">Plans</router-link>
+
+      <router-link :to="{ name: 'Following' }" class="nav-link" v-if="isOwner">Following</router-link>
     </nav>
 
     <div class="avatar">

@@ -52,4 +52,32 @@
       }
     }
   }
+
+  &-small-size {
+    .card {
+      padding-left: $size-base * 6;
+      min-height: $card-image-small-size;
+
+      .image {
+        max-width: $card-image-small-size;
+        min-height: $card-image-small-size;
+      }
+    }
+  }
+}
+
+.red-color {
+  .list-cards-horizontal {
+    .card {
+      .card-title {
+        a {
+          color: $navy-blue-color;
+
+          &:hover {
+            color: $first-primary-color;
+          }
+        }
+      }
+    }
+  }
 }

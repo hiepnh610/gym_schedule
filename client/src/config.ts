@@ -10,6 +10,7 @@ interface ApiTypes {
   images: string
   likeActivity: string
   listExercise: string
+  listFollower: string
   listPlans: string
   listWorkout: string
   login: string
@@ -39,6 +40,7 @@ const api: ApiTypes = {
   images: '/api/images',
   likeActivity: '/api/like/',
   listExercise: '/api/list_exercise',
+  listFollower: '/api/list-follower',
   listPlans: '/api/list_plans',
   listWorkout: '/api/list_workout',
   login: '/api/login',

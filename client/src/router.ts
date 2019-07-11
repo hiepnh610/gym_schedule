@@ -51,6 +51,12 @@ const router = new Router({
           path: 'plans',
           name: 'PlansProfile',
           component: () => import('./components/profile/plans.vue')
+        },
+
+        {
+          path: 'following',
+          name: 'Following',
+          component: () => import('./components/profile/following.vue')
         }
       ]
     },

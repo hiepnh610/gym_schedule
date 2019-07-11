@@ -19,3 +19,26 @@
     @include translate(0, 50%);
   }
 }
+
+.red-color {
+  .badge-primary {
+    background: $first-primary-color;
+    border: 1px solid $first-primary-color;
+
+    &:hover {
+      background: $white-color;
+      color: $first-primary-color;
+    }
+  }
+
+  .badge-outline {
+    background: $white-color;
+    border: 1px solid $first-primary-color;
+    color: $first-primary-color;
+
+    &:hover {
+      background: $first-primary-color;
+      color: $white-color;
+    }
+  }
+}
