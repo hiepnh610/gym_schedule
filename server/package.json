@@ -16,7 +16,7 @@
     "express": "^4.16.4",
     "googleapis": "^39.2.0",
     "jsonwebtoken": "^8.4.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "mkdirp": "^0.5.1",
     "moment": "^2.23.0",
     "mongoose": "^5.4.2",
