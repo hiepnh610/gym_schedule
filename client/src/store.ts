@@ -11,6 +11,7 @@ import { avatar } from './store/avatar/index'
 import { calendar } from './store/calendar/index'
 import { activities } from './store/activities/index'
 import { auth } from './store/auth/index'
+import { userFollowing } from './store/following/index'
 
 Vue.use(Vuex)
 
@@ -28,7 +29,8 @@ const store: StoreOptions<RootState> = {
     avatar,
     calendar,
     activities,
-    auth
+    auth,
+    userFollowing
   },
 
   strict: process.env.NODE_ENV !== 'production'
