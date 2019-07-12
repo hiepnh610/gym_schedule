@@ -38,7 +38,10 @@
 
       <router-link :to="{ name: 'PlansProfile' }" class="nav-link">Plans</router-link>
 
-      <router-link :to="{ name: 'Following' }" class="nav-link" v-if="isOwner">Following</router-link>
+      <router-link :to="{ name: 'Following' }" class="nav-link" v-if="isOwner">
+        Following
+        <small v-if="userProfile && userProfile.following && userProfile.following.total > 0">({{ userProfile.following.total }})</small>
+      </router-link>
     </nav>
 
     <div class="avatar">

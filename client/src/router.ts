@@ -56,6 +56,7 @@ const router = new Router({
         {
           path: 'following',
           name: 'Following',
+          meta: { isOwner: true },
           component: () => import('./components/profile/following.vue')
         }
       ]
@@ -210,6 +211,19 @@ router.beforeEach((to, from, next) => {
       next({ name: 'NewsFeed' })
     } else {
       next()
+    }
+  }
+
+  if (to.matched.some((record) => record.meta.isOwner)) {
+    if (sessionParse.username === to.params.user) {
+      next()
+    } else {
+      next({
+        name: 'TimelineProfile',
+        params: {
+          user: to.params.user
+        }
+      })
     }
   }
 })
