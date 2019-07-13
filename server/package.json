@@ -12,9 +12,9 @@
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
-    "email-templates": "^5.0.4",
+    "email-templates": "^6.0.0",
     "express": "^4.16.4",
-    "googleapis": "^39.2.0",
+    "googleapis": "^41.0.0",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.13",
     "mkdirp": "^0.5.1",
@@ -29,10 +29,10 @@
     "path": "^0.12.7",
     "pug": "^2.0.3",
     "serve-static": "^1.13.2",
-    "validator": "^10.10.0"
+    "validator": "^11.1.0"
   },
   "engines": {
-    "node": "10.15.2",
-    "npm": "6.4.1"
+    "node": "10.16.0",
+    "npm": "6.9.0"
   }
 }
