@@ -173,7 +173,3 @@ export default class ProfileActivities extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "@/assets/scss/elements/profile/_activities.scss";
-</style>

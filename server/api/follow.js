@@ -102,7 +102,7 @@ const getInfoFollower = async (req, res) => {
     const listUsername = await getUsername(id);
 
     if (listUsername.error) {
-        return res.status(400).json({ 'message': response.error });
+        return res.status(400).json({ 'message': listUsername.error });
     } else {
         User.find({
             username: { $in: listUsername.following }
