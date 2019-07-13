@@ -20,6 +20,16 @@
 
                     <small class="text-muted smallest">{{ activity.created_at | revert_date_with_time }}</small>
                   </p>
+
+                  <div class="dropdown float-right" v-if="isOwner === activity.created_by">
+                    <div class="dropdown-toggle" ref="dropdown-toggle">
+                      <font-awesome-icon icon="caret-down" />
+                    </div>
+
+                    <div class="dropdown-menu">
+                      <a href="#" class="dropdown-item" @click.prevent="removeActivity(activity['_id'])">Remove</a>
+                    </div>
+                  </div>
                 </header>
 
                 <hr class="m-0" />
@@ -54,7 +64,7 @@
 
                 <hr class="m-0" />
 
-                <ActivitiesFooter :isOwner="isOwner" :activity="activity" />
+                <ActivitiesFooter :isOwner="isOwner === activity.created_by" :activity="activity" />
               </div>
             </div>
           </div>
@@ -102,7 +112,7 @@ export default class NewsFeed extends Vue {
   @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
 
   private message: string = ''
-  private isOwner: boolean = false
+  private isOwner: string = ''
 
   private created (): void {
     axios
@@ -137,16 +147,28 @@ export default class NewsFeed extends Vue {
     return total
   }
 
+  private removeActivity (id: string) {
+    axios
+      .delete(config.api.activities + id)
+      .then(function () {
+        this.setDeleteActivity(id)
+
+        this.$toasted.success('Delete Successfully!!!')
+      }.bind(this))
+      .catch(function (error: Response) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+
+        this.$toasted.error('Error happened!!!')
+      }.bind(this))
+  }
+
   @Watch('user', { immediate: true, deep: true })
   private getUserData (val: any) {
-    const usernameFromUrl: string = this.$route.params.user
-    const usernameFromLocal: string = val.username
-
-    if (usernameFromLocal === usernameFromUrl) {
-      this.isOwner = true
-    } else {
-      this.isOwner = false
-    }
+    this.isOwner = val.username
   }
 }
 </script>
