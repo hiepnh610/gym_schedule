@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import router from '@/router'
@@ -40,7 +40,7 @@ export default class App extends Vue {
   @Action('setToken', { namespace: namespaceAuth }) private setToken: any
   @Action('setVerified', { namespace: namespaceAuth }) private setVerified: any
 
-  private errContent: string = ''
+  private message: string = ''
 
   private created () {
     const $this: any = this
@@ -93,9 +93,9 @@ export default class App extends Vue {
       })
       .catch((error: Response): void => {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errContent = error.response.data.message
+          this.message = error.response.data.message
         } else {
-          this.errContent = 'Error happened.'
+          this.message = 'Error happened.'
         }
       })
   }

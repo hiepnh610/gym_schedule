@@ -38,8 +38,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 interface TypeUser {
   address?: string
@@ -49,11 +47,7 @@ interface TypeUser {
   'full_name'?: string
 }
 
-@Component({
-  components: {
-  FontAwesomeIcon
-  }
-  })
+@Component
 export default class ProfileSidebar extends Vue {
   @Prop() private userProfile!: TypeUser
 }

@@ -23,9 +23,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Vue } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import config from '@/config'
@@ -43,7 +42,6 @@ const namespaceUser: string = 'user'
   components: {
   planCreate,
   listPlans,
-  FontAwesomeIcon,
   Loading
   }
   })

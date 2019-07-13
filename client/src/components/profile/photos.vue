@@ -12,7 +12,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import config from '@/config'
@@ -26,7 +25,7 @@ interface TypeParams {
   username: string
 }
 
-@Component({})
+@Component
 export default class ProfilePhotos extends Vue {
   private message: string = ''
   private listImages: TypeImage[] = []

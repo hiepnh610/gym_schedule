@@ -63,9 +63,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Vue } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
 
 import router from '@/router'
 
@@ -73,11 +72,7 @@ const namespaceAvatar: string = 'avatar'
 const namespaceUser: string = 'user'
 const namespaceAuth: string = 'auth'
 
-@Component({
-  components: {
-  FontAwesomeIcon
-  }
-  })
+@Component
 export default class Navigation extends Vue {
   @Getter('token', { namespace: namespaceAuth }) private token: any
   @Action('setToken', { namespace: namespaceAuth }) private setToken: any

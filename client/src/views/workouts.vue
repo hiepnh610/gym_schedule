@@ -24,8 +24,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import config from '@/config'
@@ -42,7 +41,6 @@ const namespaceWorkouts: string = 'workouts'
   components: {
   workoutCreate,
   listWorkouts,
-  FontAwesomeIcon,
   Loading
   }
   })

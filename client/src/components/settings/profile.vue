@@ -82,9 +82,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Vue } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 import Datepicker from 'vuejs-datepicker'
 import moment from 'moment'
 import axios from 'axios'
@@ -96,7 +95,6 @@ const namespaceUser: string = 'user'
 
 @Component({
   components: {
-  FontAwesomeIcon,
   Datepicker
   }
   })

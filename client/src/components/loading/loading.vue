@@ -5,14 +5,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Vue } from 'vue-property-decorator'
 
-@Component({
-  components: {
-  FontAwesomeIcon
-  }
-  })
+@Component
 export default class Loading extends Vue {
 }
 </script>

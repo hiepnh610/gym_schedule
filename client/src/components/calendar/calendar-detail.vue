@@ -42,8 +42,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Action, Getter } from 'vuex-class'
 import moment from 'moment'
 
 import axios from 'axios'
@@ -59,11 +58,7 @@ interface DateParam {
   date: string
 }
 
-@Component({
-  components: {
-  FontAwesomeIcon
-  }
-  })
+@Component
 export default class CalendarDetail extends Vue {
   @Prop() private date!: string
 

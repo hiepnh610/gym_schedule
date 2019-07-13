@@ -66,9 +66,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Vue } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import config from '@/config'
@@ -85,11 +84,7 @@ interface ParamsPlanCreate {
   type: string
 }
 
-@Component({
-  components: {
-  FontAwesomeIcon
-  }
-  })
+@Component
 export default class PlanCreate extends Vue {
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
   @Action('setShowCreateModal', { namespace: namespaceModal }) private setShowCreateModal: any

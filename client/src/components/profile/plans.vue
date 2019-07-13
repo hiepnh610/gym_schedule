@@ -3,10 +3,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue } from 'vue-property-decorator'
 
-@Component({})
+@Component
 export default class ProfilePlans extends Vue {
 }
 </script>

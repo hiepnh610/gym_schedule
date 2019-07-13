@@ -67,8 +67,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
 import config from '@/config'
@@ -83,11 +82,7 @@ interface Params {
 const namespaceModal: string = 'modal'
 const namespacePlan: string = 'plans'
 
-@Component({
-  components: {
-  FontAwesomeIcon
-  }
-  })
+@Component
 export default class PlanUpdate extends Vue {
   @Prop() private dataPlanOrigin!: any
 

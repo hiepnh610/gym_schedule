@@ -84,9 +84,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
 import axios from 'axios'
 import LightBox from 'vue-image-lightbox'
 
@@ -120,7 +119,6 @@ const namespaceModal: string = 'modal'
 
 @Component({
   components: {
-  FontAwesomeIcon,
   LightBox
   }
   })

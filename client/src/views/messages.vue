@@ -21,8 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Messages extends Vue {}

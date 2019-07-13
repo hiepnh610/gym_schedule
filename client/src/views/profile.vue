@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 import axios from 'axios'
 
 import router from '@/router'

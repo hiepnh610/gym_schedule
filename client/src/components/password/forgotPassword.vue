@@ -37,15 +37,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
 
 import router from '@/router'
 import config from '@/config'
 import { Response, ParamForgotPassword } from '@/util'
 
-@Component({})
+@Component
 export default class ResetPassword extends Vue {
   private email: string = ''
   private resetSuccess: boolean = false

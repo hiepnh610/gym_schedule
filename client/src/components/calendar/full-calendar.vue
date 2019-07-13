@@ -5,9 +5,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 import FullCalendar from 'vue-fullcalendar'
 import moment from 'moment'
 
@@ -26,7 +25,6 @@ const namespaceCalendar: string = 'calendar'
 
 @Component({
   components: {
-  FontAwesomeIcon,
   Loading,
   FullCalendar
   }
