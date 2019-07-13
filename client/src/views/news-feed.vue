@@ -75,6 +75,7 @@ import { Response } from '@/util'
 import ActivitiesFooter from '@/components/profile/activities/activities-footer.vue'
 
 const namespaceUser: string = 'user'
+const namespaceActivities: string = 'activities'
 
 interface SetType {
   reps?: number
@@ -97,8 +98,10 @@ interface Exercise {
 export default class NewsFeed extends Vue {
   @Getter('user', { namespace: namespaceUser }) private user: any
 
+  @Action('setListActivities', { namespace: namespaceActivities }) private setListActivities: any
+  @Getter('listActivities', { namespace: namespaceActivities }) private listActivities: any
+
   private message: string = ''
-  private listActivities = []
   private isOwner: boolean = false
 
   private created (): void {
@@ -106,7 +109,7 @@ export default class NewsFeed extends Vue {
       .get(config.api.newsFeed)
       .then(function (response: Response) {
         if (response.data) {
-          this.listActivities = response.data
+          this.setListActivities(response.data)
         }
       }.bind(this))
       .catch(function (error: Response) {
