@@ -128,7 +128,13 @@ const newsFeed = async (req, res) => {
     } else if (getUserInfoOfComment.error) {
         return res.status(400).json({ 'message': getUserInfoOfComment.error });
     } else {
-        const concatActivities = _.concat(myActivities, followingActivities);
+        // Merge myActivities array into followingActivities array and sort by desc date
+        const concatActivities = _.concat(myActivities, followingActivities).sort((a, b) => {
+            const dateA = new Date(a.created_at);
+            const dateB = new Date(b.created_at);
+
+            return dateB - dateA;
+        });
 
         const dateFormat = item => moment(item.created_at).format('YYYY-MM-DD');
         const groupDate = _.groupBy(concatActivities, dateFormat);
