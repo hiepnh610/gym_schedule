@@ -1,10 +1,22 @@
+const webpack = require('webpack');
+const BrotliPlugin = require('brotli-webpack-plugin');
+
 module.exports = {
   configureWebpack: {
+    plugins: [
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new BrotliPlugin({
+        asset: '[path].br[query]',
+        test: /\.(js|css|html|svg)$/,
+        threshold: 10240,
+        minRatio: 0.7
+      })
+    ],
     resolve: {
       alias: {
         '@': __dirname + '/src'
       }
-    },
+    }
   },
   css: {
     sourceMap: true,
