@@ -57,6 +57,7 @@ const getActivitiesByDate = (req, res) => {
     const endDate = moment(dateSelected).endOf('day');
 
     const query = {
+        'created_by': req.user.username,
         'created_at': {
             $gt: startDate,
             $lt: endDate
