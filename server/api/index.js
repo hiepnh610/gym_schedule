@@ -79,7 +79,7 @@ router
     .get(verifyToken, user.getInfo);
 
 router
-    .route('/user/:user_id')
+    .route('/user')
     .put(verifyToken, user.updateInfo);
 
 router

@@ -8,13 +8,13 @@
       <div class="form-group input-group-lg">
         <label for="profile-email">Email</label>
 
-        <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="user.email" />
+        <input id="profile-email" type="text" class="form-control" disabled="disabled" v-model="userInfo.email" />
       </div>
 
       <div class="form-group input-group-lg">
         <label for="profile-name">Full Name</label>
 
-        <input id="profile-name" type="text" class="form-control" v-model="user.full_name" />
+        <input id="profile-name" type="text" class="form-control" v-model="userInfo.full_name" />
       </div>
 
       <div class="form-group input-group-lg">
@@ -23,7 +23,7 @@
         <div class="form-group-has-icon">
           <font-awesome-icon icon="calendar-alt" />
 
-          <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="user.dob"></datepicker>
+          <datepicker id="profile-birthday" input-class="form-control" :format="customFormatter" v-model="userInfo.dob"></datepicker>
         </div>
       </div>
 
@@ -33,7 +33,7 @@
         <div class="form-group-has-icon">
           <font-awesome-icon icon="caret-down" />
 
-          <select id="profile-gender" class="form-control px-4" v-model="user.gender">
+          <select id="profile-gender" class="form-control px-4" v-model="userInfo.gender">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
@@ -43,19 +43,19 @@
       <div class="form-group input-group-lg">
         <label for="profile-height">Height(cm)</label>
 
-        <input id="profile-height" type="text" class="form-control" v-model.number="user.height" />
+        <input id="profile-height" type="text" class="form-control" v-model.number="userInfo.height" />
       </div>
 
       <div class="form-group input-group-lg">
         <label for="profile-weight">Weight(kg)</label>
 
-        <input id="profile-weight" type="text" class="form-control" v-model.number="user.weight" />
+        <input id="profile-weight" type="text" class="form-control" v-model.number="userInfo.weight" />
       </div>
 
       <div class="form-group input-group-lg">
         <label for="profile-address">Address</label>
 
-        <input id="profile-address" type="text" class="form-control" v-model.number="user.address" />
+        <input id="profile-address" type="text" class="form-control" v-model.number="userInfo.address" />
       </div>
 
       <div class="form-group input-group-lg">
@@ -66,11 +66,11 @@
           class="form-control"
           :min-height="100"
           :max-height="300"
-          v-model="user.bio" />
+          v-model="userInfo.bio" />
       </div>
 
       <div class="form-group">
-        <button class="btn btn-md btn-primary" @click.prevent="userUpdate(user._id)">
+        <button class="btn btn-md btn-primary" @click.prevent="userUpdate(userInfo._id)">
           Update profile
           <font-awesome-icon icon="spinner" spin v-if="updateInfoIsLoading" />
         </button>
@@ -82,14 +82,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class'
 import Datepicker from 'vuejs-datepicker'
 import moment from 'moment'
 import axios from 'axios'
+import cloneDeep from 'lodash/cloneDeep'
 
 import config from '@/config'
 import { Response } from '@/util'
+
+interface TypeUserInfo {
+  address: string
+  dob: string
+  email: string
+  full_name: string
+  gender: string
+  height?: number
+  weight?: number
+}
 
 const namespaceUser: string = 'user'
 
@@ -103,19 +114,26 @@ export default class Profile extends Vue {
 
   private message: string = ''
   private updateInfoIsLoading: boolean = false
+  private userInfo: TypeUserInfo = {
+    address: '',
+    dob: '',
+    email: '',
+    full_name: '',
+    gender: ''
+  }
 
-  private userUpdate (id: string) {
-    const formatTimeToUTC = moment.utc(this.user.dob).format()
-    const params = this.user
+  private userUpdate () {
+    const formatTimeToUTC = moment.utc(this.userInfo.dob).format()
+    const params = this.userInfo
 
-    if (this.user.dob) {
+    if (this.userInfo.dob) {
       params.dob = formatTimeToUTC
     }
 
     this.updateInfoIsLoading = true
 
     axios
-      .put(config.api.user + id, params)
+      .put(config.api.user, params)
       .then(function () {
         this.updateInfoIsLoading = false
         this.$toasted.success('Update Successfully!!!')
@@ -132,6 +150,11 @@ export default class Profile extends Vue {
 
   private customFormatter (date: string) {
     return moment(date).format('DD/MM/YYYY')
+  }
+
+  @Watch('user', { immediate: true, deep: true })
+  private getUserInfo (val: any) {
+    this.userInfo = cloneDeep(val)
   }
 }
 </script>

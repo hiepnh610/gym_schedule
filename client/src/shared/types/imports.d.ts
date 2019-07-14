@@ -1,6 +1,7 @@
 declare module "vue-session";
 declare module "vue-toasted";
 declare module "vuejs-datepicker";
+declare module "lodash/cloneDeep";
 declare module "vue-fullcalendar";
 declare module "vue-click-outside";
 declare module "vue-image-lightbox";

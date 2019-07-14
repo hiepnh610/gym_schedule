@@ -1,9 +1,11 @@
 const webpack = require('webpack');
 const BrotliPlugin = require('brotli-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   configureWebpack: {
     plugins: [
+      // new BundleAnalyzerPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new BrotliPlugin({
         asset: '[path].br[query]',
