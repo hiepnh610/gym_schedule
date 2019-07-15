@@ -1,4 +1,5 @@
 const Plan = require('../model/plan');
+const escapeHtml = require('escape-html');
 
 let plan = {};
 
@@ -42,9 +43,9 @@ const createPlan = (req, res) => {
 
     plan = new Plan({
         created_by: req.user.id,
-        frequency: req.body.frequency,
-        name: req.body.name,
-        type: req.body.type,
+        frequency: escapeHtml(req.body.frequency),
+        name: escapeHtml(req.body.name),
+        type: escapeHtml(req.body.type),
     });
 
     plan.save((err, plan) => {
@@ -67,9 +68,9 @@ const updatePlan = (req, res) => {
         if(err) return res.status(400).send(err);
 
         plan.set({
-            frequency: req.body.frequency,
-            name: req.body.name,
-            type: req.body.type
+            frequency: escapeHtml(req.body.frequency),
+            name: escapeHtml(req.body.name),
+            type: escapeHtml(req.body.type)
         });
 
         plan.save((err, plan) => {

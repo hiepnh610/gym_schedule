@@ -1,5 +1,6 @@
 const Workout = require('../model/workout');
 const Exercise = require('../model/exercise');
+const escapeHtml = require('escape-html');
 
 let workout = {};
 
@@ -23,8 +24,8 @@ const createWorkout = (req, res) => {
     if (!req.body.week_day) return res.status(400).json({ 'message': 'The workout day cannot be blank.' });
 
     workout = new Workout({
-        name: req.body.name,
-        week_day: req.body.week_day,
+        name: escapeHtml(req.body.name),
+        week_day: escapeHtml(req.body.week_day),
         plan_id: req.body.plan_id
     });
 
@@ -46,8 +47,8 @@ const updateWorkout = (req, res) => {
         if(err) return res.status(400).send(err);
 
         workoutDay.set({
-            name: req.body.name,
-            week_day: req.body.week_day,
+            name: escapeHtml(req.body.name),
+            week_day: escapeHtml(req.body.week_day),
         });
 
         workoutDay.save((err, workout) => {

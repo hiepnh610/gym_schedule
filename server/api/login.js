@@ -1,5 +1,3 @@
-const validator = require('validator');
-
 const User = require('../model/user');
 
 const signToken = require('../auth/signToken');

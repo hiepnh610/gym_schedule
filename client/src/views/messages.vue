@@ -1,9 +1,15 @@
 <template>
-  <div>
+  <div id="message">
     <div class="container">
-      <ul>
-        <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, eligendi?</li>
-      </ul>
+      <div class="row">
+        <div class="col-12 col-lg-9">
+          <div class="bg-white p-2">
+            <ul class="list-unstyled mb-0">
+              <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, eligendi?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="fixed-bottom">
@@ -26,3 +32,8 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component
 export default class Messages extends Vue {}
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/pages/_message.scss";
+</style>
+
