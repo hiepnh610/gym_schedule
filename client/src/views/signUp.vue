@@ -62,7 +62,7 @@ import axios from 'axios'
 
 import router from '@/router'
 import config from '@/config'
-import { Response, setLoading } from '@/util'
+import { Response, setLoading, validateEmail } from '@/util'
 
 import Loading from '@/components/loading/loading.vue'
 
@@ -112,66 +112,82 @@ export default class SignUp extends Vue {
       this.emailMessage = 'The email field cannot be blank.'
 
       return
-    } else if (!this.userName) {
+    }
+
+    if (!validateEmail(this.email)) {
+      this.emailMessage = 'This field must be a valid email address.'
+    }
+
+    if (!this.userName) {
       this.userNameMessage = 'The username field cannot be blank.'
 
       return
-    } else if (this.userName.length < 8) {
+    }
+
+    if (this.userName.length < 8) {
       this.userNameMessage = 'The username field must be at least 8 characters.'
 
       return
-    } else if (!this.password) {
+    }
+
+    if (!this.password) {
       this.passwordMessage = 'The password cannot be blank.'
 
       return
-    } else if (this.password.length < 8) {
+    }
+
+    if (this.password.length < 8) {
       this.passwordMessage = 'The password field must be at least 8 characters.'
 
       return
-    } else if (!this.confirmPassword) {
+    }
+
+    if (!this.confirmPassword) {
       this.confirmPasswordMessage = 'The password cannot be blank.'
 
       return
-    } else if (this.confirmPassword.length < 8) {
+    }
+
+    if (this.confirmPassword.length < 8) {
       this.confirmPasswordMessage = 'The password field must be at least 8 characters.'
 
       return
-    } else if (this.email && this.fullName && this.password) {
-      const params: ParamsSignUp = {
-        email: this.email,
-        full_name: this.fullName,
-        password: this.password,
-        confirm_password: this.confirmPassword,
-        username: this.userName
-      }
-
-      this.disabledBtn = true
-
-      axios
-        .post(config.api.signUp, params)
-        .then(function (response: Response) {
-          this.$session.start()
-          this.$session.set('token', response.data.token)
-          this.$session.set('verified', response.data.verified)
-          this.$session.set('username', response.data.username)
-
-          this.setUser(response.data)
-          this.setToken(response.data.token)
-          this.setVerified(response.data.verified)
-          this.disabledBtn = true
-
-          router.push('news-feed')
-        }.bind(this))
-        .catch(function (error: Response) {
-          this.disabledBtn = false
-
-          if (error.response && error.response.data && error.response.data.message) {
-            this.message = error.response.data.message
-          } else {
-            this.message = 'Error happened.'
-          }
-        }.bind(this))
     }
+
+    const params: ParamsSignUp = {
+      email: this.email,
+      full_name: this.fullName,
+      password: this.password,
+      confirm_password: this.confirmPassword,
+      username: this.userName
+    }
+
+    this.disabledBtn = true
+
+    axios
+      .post(config.api.signUp, params)
+      .then(function (response: Response) {
+        this.$session.start()
+        this.$session.set('token', response.data.token)
+        this.$session.set('verified', response.data.verified)
+        this.$session.set('username', response.data.username)
+
+        this.setUser(response.data)
+        this.setToken(response.data.token)
+        this.setVerified(response.data.verified)
+        this.disabledBtn = true
+
+        router.push('news-feed')
+      }.bind(this))
+      .catch(function (error: Response) {
+        this.disabledBtn = false
+
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.message = 'Error happened.'
+        }
+      }.bind(this))
   }
 
   private mounted () {
