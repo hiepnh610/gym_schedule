@@ -14,6 +14,7 @@ interface ApiTypes {
   listPlans: string
   listWorkout: string
   login: string
+  message: string
   modifyPassword: string
   newsFeed: string
   plans: string
@@ -45,6 +46,7 @@ const api: ApiTypes = {
   listPlans: '/api/list_plans',
   listWorkout: '/api/list_workout',
   login: '/api/login',
+  message: '/api/message',
   modifyPassword: '/api/modify_password/',
   newsFeed: '/api/news-feed/',
   plans: '/api/plans/',

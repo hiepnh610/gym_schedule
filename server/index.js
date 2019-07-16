@@ -8,6 +8,8 @@ const path        = require('path');
 const history     = require('connect-history-api-fallback');
 const serveStatic = require('serve-static');
 const compression = require('compression');
+const http        = require('http').Server(app);
+const io          = require('socket.io')(http);
 
 const config = require('./config');
 const router = require('./api');
@@ -37,6 +39,10 @@ app.use('/api', router);
 
 app.use(serveStatic(clientFolder));
 
-app.listen(config.PORT, () => {
+io.on('connection', (socket) => {
+    console.log('a user is connected');
+});
+
+http.listen(config.PORT, () => {
     console.log(`This app listen on port ${config.PORT}`);
 });

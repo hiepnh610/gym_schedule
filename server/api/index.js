@@ -10,6 +10,7 @@ const signUp       = require('./signUp');
 const follow       = require('./follow');
 const workout      = require('./workout');
 const comment      = require('./comments');
+const message      = require('./message');
 const newsFeed     = require('./news-feed');
 const uploadImage  = require('./upload');
 const exercise     = require('./exercise');
@@ -175,5 +176,11 @@ router
 router
     .route('/news-feed')
     .get(verifyToken, newsFeed.newsFeed);
+
+// Message
+router
+    .route('/message')
+    .get(verifyToken, message.getAllMessage)
+    .post(verifyToken, message.addMessage);
 
 module.exports = router;
