@@ -9,6 +9,10 @@ const MessageSchema = new Schema({
     message: {
         type: String,
         required: true
+    },
+    channel_id: {
+        type: String,
+        required: true
     }
 }, { timestamps: { createdAt: 'created_at' } });
 

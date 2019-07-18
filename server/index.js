@@ -40,7 +40,9 @@ app.use('/api', router);
 app.use(serveStatic(clientFolder));
 
 io.on('connection', (socket) => {
-    console.log('a user is connected');
+    socket.on('SEND_MESSAGE', (data) => {
+        io.emit('MESSAGE', data);
+    });
 });
 
 http.listen(config.PORT, () => {

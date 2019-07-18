@@ -23,6 +23,7 @@ interface ApiTypes {
   profileImages: string
   resendVerificationMail: string
   resetPassword: string
+  room: string
   signUp: string
   unFollow: string
   upload: string
@@ -55,6 +56,7 @@ const api: ApiTypes = {
   profileImages: '/api/profile-images',
   resendVerificationMail: '/api/resend-verification-mail',
   resetPassword: '/api/reset-password',
+  room: '/api/room/',
   signUp: '/api/sign_up',
   unFollow: '/api/un-follow/',
   upload: '/api/upload',

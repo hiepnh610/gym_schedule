@@ -23,7 +23,7 @@
         Following
       </a>
 
-      <a href="#" class="btn btn-sm btn-light mr-2">
+      <a href="#" class="btn btn-sm btn-light mr-2" @click.prevent="sendMessage">
         <font-awesome-icon icon="comments" class="mr-1" />
         Messages
       </a>
@@ -280,6 +280,22 @@ export default class ProfileHeader extends Vue {
         this.following = true
       }
     }
+  }
+
+  private sendMessage (): void {
+    const query: string = this.$route.params.user
+
+    axios
+      .post(config.api.room, { username: [query] })
+      .then((response: Response) => {
+      })
+      .catch((error: Response) => {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      })
   }
 }
 </script>

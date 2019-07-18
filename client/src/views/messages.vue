@@ -1,25 +1,21 @@
 <template>
   <div id="message">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-lg-9">
-          <div class="bg-white p-2">
-            <ul class="list-unstyled mb-0">
-              <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, eligendi?</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="row">
+      <div class="col-12 col-lg-3"></div>
 
-    <div class="fixed-bottom">
-      <div class="container">
+      <div class="col-12 col-lg-9">
+        <div class="bg-white p-2 mb-3">
+          <ul class="list-unstyled mb-0">
+            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, eligendi?</li>
+          </ul>
+        </div>
+
         <div class="form-group">
           <textarea class="form-control"></textarea>
         </div>
 
         <div class="form-group">
-          <button class="btn btn-sm btn-primary m-0">Send</button>
+          <button class="btn btn-sm btn-primary m-0" @click.prevent="addMessage">Send</button>
         </div>
       </div>
     </div>
@@ -35,18 +31,17 @@ import router from '@/router'
 import config from '@/config'
 import { Response } from '@/util'
 
-const socket = io.connect('http://localhost:3000/')
-
 @Component
 export default class Messages extends Vue {
   private message: string = ''
+  private socket: any = io.connect('http://localhost:3000/')
 
   private created (): void {
     // this.getAllMessage()
 
-    socket.on('connect', () => {
-      console.log(socket.id)
-    })
+    this.socket.on('MESSAGE', (data: any) => {
+      console.log(data)
+    });
   }
 
   // private getAllMessage (): void {
@@ -63,7 +58,12 @@ export default class Messages extends Vue {
   //     })
   // }
 
-  // private addMessage (): void {}
+  private addMessage (): void {
+    this.socket.emit('SEND_MESSAGE', {
+        user: 'John Doe',
+        message: 'All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.'
+    })
+  }
 }
 </script>
 

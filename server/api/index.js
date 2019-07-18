@@ -3,6 +3,7 @@ const router  = express.Router();
 
 const plan         = require('./plan');
 const user         = require('./user');
+const room         = require('./room');
 const profile      = require('./profile');
 const login        = require('./login');
 const images       = require('./images');
@@ -182,5 +183,10 @@ router
     .route('/message')
     .get(verifyToken, message.getAllMessage)
     .post(verifyToken, message.addMessage);
+
+// Room
+router
+    .route('/room')
+    .post(verifyToken, room.init);
 
 module.exports = router;
