@@ -60,7 +60,7 @@ export default class App extends Vue {
     axios.interceptors.response.use((response) => {
       return response
     }, (error) => {
-      if (error.response.status === 401) {
+      if (error.response.status === 401 || error.response.status === 403) {
         $this.$session.destroy()
         router.push('/')
         $this.setAvatar('')
