@@ -23,7 +23,7 @@
         Following
       </a>
 
-      <a href="#" class="btn btn-sm btn-light mr-2" @click.prevent="sendMessage">
+      <a href="#" class="btn btn-sm btn-light mr-2" @click.prevent="createChatRoom">
         <font-awesome-icon icon="comments" class="mr-1" />
         Messages
       </a>
@@ -90,6 +90,7 @@ import axios from 'axios'
 import LightBox from 'vue-image-lightbox'
 
 import config from '@/config'
+import router from '@/router'
 import { Response } from '@/util'
 
 interface TypeUser {
@@ -142,7 +143,7 @@ export default class ProfileHeader extends Vue {
   private message: string = ''
   private following: boolean = false
 
-  private selectImage (e: any) {
+  private selectImage (e: any): void {
     const $this: any = this
 
     this.avatarValue = e.target.files[0]
@@ -169,12 +170,12 @@ export default class ProfileHeader extends Vue {
     this.showAvatarModal = true
   }
 
-  private closeModal () {
+  private closeModal (): void {
     this.setShowModalBackdrop(false)
     this.showAvatarModal = false
   }
 
-  private uploadAvatar () {
+  private uploadAvatar (): void {
     const configHeader = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
@@ -274,7 +275,7 @@ export default class ProfileHeader extends Vue {
       }.bind(this))
   }
 
-  private created () {
+  private created (): void {
     for (const user of this.user.following) {
       if (user === this.$route.params.user) {
         this.following = true
@@ -282,12 +283,13 @@ export default class ProfileHeader extends Vue {
     }
   }
 
-  private sendMessage (): void {
+  private createChatRoom (): void {
     const query: string = this.$route.params.user
 
     axios
       .post(config.api.room, { username: [query] })
       .then((response: Response) => {
+        router.push(`/messages/${query}`)
       })
       .catch((error: Response) => {
         if (error.response && error.response.data && error.response.data.message) {

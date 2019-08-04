@@ -1,5 +1,15 @@
 const Room = require('../model/room');
 
+const getAllRoom = (req, res) => {
+    const username = req.user.username;
+
+    Room.find({ users: { $all: [username] } }, (err, rooms) => {
+        if (err) res.status(400).send(err);
+
+        res.status(200).json(rooms);
+    });
+};
+
 const checkRoomIsExist = (users) => {
     if (users) {
         try {
@@ -12,11 +22,12 @@ const checkRoomIsExist = (users) => {
     }
 };
 
-const createNewRoom = users => {
+const createNewRoomWhenNotExist = users => {
     if (users) {
         try {
             let room = new Room({
-                users: users
+                users: users,
+                hide: false
             });
 
             return room.save();
@@ -28,14 +39,13 @@ const createNewRoom = users => {
     }
 };
 
-const init = async (req, res) => {
+const createNewRoom = async (req, res) => {
     if (req.body.username) {
-        const myUserName =  req.user.username;
-        const targetUsername = req.body.username;
+        const myUserName    = [req.user.username];
+        const otherUsername = req.body.username;
+        const listUsername  = myUserName.concat(otherUsername);
 
-        targetUsername.push(myUserName);
-
-        const rooms = await checkRoomIsExist(targetUsername);
+        const rooms = await checkRoomIsExist(listUsername);
 
         if (rooms.error) {
             return res.status(400).json({ 'message': rooms.error });
@@ -44,9 +54,13 @@ const init = async (req, res) => {
         if (rooms.length) {
             res.status(200).json(rooms);
         } else {
-            const newRoom = await createNewRoom(targetUsername);
+            const newRoom = await createNewRoomWhenNotExist(listUsername);
 
-            res.status(201).json(newRoom);
+            if (newRoom.error) {
+                return res.status(400).json({ 'message': newRoom.error });
+            } else {
+                res.status(201).json(newRoom);
+            }
         }
     } else {
         return res.status(400).json({ 'message': 'The username field is empty.' });
@@ -54,5 +68,6 @@ const init = async (req, res) => {
 };
 
 module.exports = {
-    init
+    createNewRoom,
+    getAllRoom
 };
