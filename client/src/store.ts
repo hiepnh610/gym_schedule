@@ -10,6 +10,7 @@ import { exercises } from './store/exercises/index'
 import { avatar } from './store/avatar/index'
 import { calendar } from './store/calendar/index'
 import { activities } from './store/activities/index'
+import { room } from './store/room/index'
 import { auth } from './store/auth/index'
 import { userFollowing } from './store/following/index'
 
@@ -30,7 +31,8 @@ const store: StoreOptions<RootState> = {
     calendar,
     activities,
     auth,
-    userFollowing
+    userFollowing,
+    room
   },
 
   strict: process.env.NODE_ENV !== 'production'

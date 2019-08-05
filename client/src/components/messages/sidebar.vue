@@ -25,12 +25,7 @@ export default class MessagesSidebar extends Vue {
 
   private created (): void {
     // this.getAllRooms()
-
-    this.socket.on('MESSAGE', (data: any) => {
-      console.log(data)
-    });
-
-    console.log(this.$route.params.username);
+    // console.log(this.$route.params.username);
   }
 
   // private getAllRooms (): void {

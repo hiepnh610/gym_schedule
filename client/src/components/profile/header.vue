@@ -117,6 +117,7 @@ interface TypeParams {
 const namespaceAvatar: string = 'avatar'
 const namespaceUser: string = 'user'
 const namespaceModal: string = 'modal'
+const namespaceRoom: string = 'room'
 
 @Component({
   components: {
@@ -133,6 +134,8 @@ export default class ProfileHeader extends Vue {
   @Getter('user', { namespace: namespaceUser }) private user: any
 
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
+
+  @Action('setRoomId', { namespace: namespaceRoom }) private setRoomId: any
 
   private avatarPathFake: string = ''
   private avatarValue: any = null
@@ -289,7 +292,10 @@ export default class ProfileHeader extends Vue {
     axios
       .post(config.api.room, { username: [query] })
       .then((response: Response) => {
+        const roomId: string = response.data[0]._id
+
         router.push(`/messages/${query}`)
+        this.setRoomId(roomId)
       })
       .catch((error: Response) => {
         if (error.response && error.response.data && error.response.data.message) {

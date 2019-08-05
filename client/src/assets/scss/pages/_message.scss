@@ -1,3 +1,31 @@
 #message {
   padding-top: 100px;
+
+  & /deep/ .list-messages {
+    ul {
+      overflow: hidden;
+
+      li {
+        background: $message;
+        clear: both;
+        float: left;
+        margin: 1px 0;
+        padding: 2px 12px 3px;
+        @include border-radius($border-radius-messages-size);
+
+        &.owner {
+          float: right;
+        }
+      }
+    }
+  }
+}
+
+.red-color {
+  #message {
+    & /deep/ ul li.owner {
+      background: $first-primary-color;
+      color: $white-color;
+    }
+  }
 }

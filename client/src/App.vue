@@ -64,7 +64,7 @@ export default class App extends Vue {
         $this.$session.destroy()
         router.push('/')
         $this.setAvatar('')
-        this.setToken('');
+        this.setToken('')
       }
 
       return Promise.reject(error)
