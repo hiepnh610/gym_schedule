@@ -1,3 +1,8 @@
+const express = require('express');
+const app     = express();
+const http    = require('http').Server(app);
+const io      = require('socket.io')(http);
+
 const Message = require('../model/message');
 
 const getAllMessage = (req, res) => {
@@ -34,6 +39,8 @@ const addMessage = (req, res) => {
 
     message.save((err, message) => {
         if (err) return res.status(400).send(err);
+
+        io.sockets.in(room_id).emit('message', message);
 
         res.status(201).json(message);
     });

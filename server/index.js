@@ -40,8 +40,12 @@ app.use('/api', router);
 app.use(serveStatic(clientFolder));
 
 io.on('connection', (socket) => {
-    socket.on('SEND_MESSAGE', (data) => {
-        io.emit('MESSAGE', data);
+    socket.on('subscribe', room => {
+        socket.join(room);
+    });
+
+    socket.on('send', data => {
+        io.sockets.in(data.room).emit('message', data);
     });
 });
 

@@ -52,7 +52,7 @@ const createNewRoom = async (req, res) => {
         }
 
         if (rooms.length) {
-            res.status(200).json(rooms);
+            res.status(200).json(rooms[0]);
         } else {
             const newRoom = await createNewRoomWhenNotExist(listUsername);
 

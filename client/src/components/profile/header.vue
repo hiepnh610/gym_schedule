@@ -292,7 +292,7 @@ export default class ProfileHeader extends Vue {
     axios
       .post(config.api.room, { username: [query] })
       .then((response: Response) => {
-        const roomId: string = response.data[0]._id
+        const roomId: string = response.data._id
 
         router.push(`/messages/${query}`)
         this.setRoomId(roomId)

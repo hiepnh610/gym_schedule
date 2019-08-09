@@ -57,7 +57,7 @@ export default class MessagesContent extends Vue {
       .then((response: Response) => {
         const data = response.data
 
-        this.socket.emit('SEND_MESSAGE', data)
+        this.socket.emit('send', { room: this.roomId, message: data })
       })
       .catch((error: Response) => {
         if (error.response && error.response.data && error.response.data.message) {
@@ -88,8 +88,10 @@ export default class MessagesContent extends Vue {
   private created (): void {
     this.getAllMessages()
 
-    this.socket.on('MESSAGE', (data: any) => {
-      this.listMessages.push(data)
+    this.socket.emit('subscribe', this.roomId)
+
+    this.socket.on('message', (data: any) => {
+      this.listMessages.push(data.message)
     })
   }
 }
