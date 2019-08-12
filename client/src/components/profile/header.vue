@@ -23,10 +23,10 @@
         Following
       </a>
 
-      <a href="#" class="btn btn-sm btn-light mr-2" @click.prevent="createChatRoom">
+      <router-link :to="username" class="btn btn-sm btn-light mr-2">
         <font-awesome-icon icon="comments" class="mr-1" />
         Messages
-      </a>
+      </router-link>
     </div>
 
     <nav class="nav">
@@ -117,7 +117,6 @@ interface TypeParams {
 const namespaceAvatar: string = 'avatar'
 const namespaceUser: string = 'user'
 const namespaceModal: string = 'modal'
-const namespaceRoom: string = 'room'
 
 @Component({
   components: {
@@ -135,8 +134,6 @@ export default class ProfileHeader extends Vue {
 
   @Action('setShowModalBackdrop', { namespace: namespaceModal }) private setShowModalBackdrop: any
 
-  @Action('setRoomId', { namespace: namespaceRoom }) private setRoomId: any
-
   private avatarPathFake: string = ''
   private avatarValue: any = null
   private errorAvatar: string = ''
@@ -145,6 +142,7 @@ export default class ProfileHeader extends Vue {
   private listLightBoxImages: TypeLightBoxImage[] = []
   private message: string = ''
   private following: boolean = false
+  private username: string = ''
 
   private selectImage (e: any): void {
     const $this: any = this
@@ -279,31 +277,13 @@ export default class ProfileHeader extends Vue {
   }
 
   private created (): void {
+    this.username = `/messages/${this.$route.params.user}`
+
     for (const user of this.user.following) {
       if (user === this.$route.params.user) {
         this.following = true
       }
     }
-  }
-
-  private createChatRoom (): void {
-    const query: string = this.$route.params.user
-
-    axios
-      .post(config.api.room, { username: [query] })
-      .then((response: Response) => {
-        const roomId: string = response.data._id
-
-        router.push(`/messages/${query}`)
-        this.setRoomId(roomId)
-      })
-      .catch((error: Response) => {
-        if (error.response && error.response.data && error.response.data.message) {
-          this.message = error.response.data.message
-        } else {
-          this.$toasted.error('Error happened!!!')
-        }
-      })
   }
 }
 </script>

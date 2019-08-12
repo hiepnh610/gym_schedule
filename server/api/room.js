@@ -1,6 +1,7 @@
 const Room = require('../model/room');
+const User = require('../model/user');
 
-const getAllRoom = (req, res) => {
+const getSpecificRoom = (req, res) => {
     const username = req.user.username;
 
     Room.find({ users: { $all: [username] } }, (err, rooms) => {
@@ -67,7 +68,54 @@ const createNewRoom = async (req, res) => {
     }
 };
 
+const getAllRoom = async (req, res) => {
+    const myUserName = req.user.username;
+
+    Room.find({ users: { $all: [myUserName] } }, async (err, rooms) => {
+        if (err) return res.status(400).send(err);
+
+        listUsername = [];
+
+        rooms.forEach(item => {
+            item.users.forEach(user => {
+                if (user !== myUserName) {
+                    listUsername.push(user);
+                }
+            });
+        });
+
+        const listUserData = await getAvatar(listUsername);
+
+        if (listUserData.error) {
+            return res.status(400).json({ 'message': rooms.error });
+        }
+
+        const roomsList = listUserData.map(user => {
+            return {
+                avatar: user.avatar ? user.avatar : '',
+                full_name: user.full_name,
+                username: user.username
+            };
+        });
+
+        res.status(200).json(roomsList);
+    });
+};
+
+const getAvatar = (username) => {
+    if (!username) {
+        return { error: 'The username field is empty.' };
+    }
+
+    try {
+        return User.find({ username: { $in: username } });
+    } catch (e) {
+        return { error: e };
+    }
+};
+
 module.exports = {
     createNewRoom,
+    getSpecificRoom,
     getAllRoom
 };

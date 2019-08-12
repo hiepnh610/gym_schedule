@@ -187,7 +187,11 @@ router
 // Room
 router
     .route('/room')
-    .get(verifyToken, room.getAllRoom)
+    .get(verifyToken, room.getSpecificRoom)
     .post(verifyToken, room.createNewRoom);
+
+router
+    .route('/room/all')
+    .get(verifyToken, room.getAllRoom)
 
 module.exports = router;

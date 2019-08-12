@@ -19,6 +19,35 @@
       }
     }
   }
+
+  & /deep/ .message-sidebar {
+    ul {
+      margin: 0;
+
+      li {
+        cursor: pointer;
+        overflow: hidden;
+        padding: $room-item-padding;
+        @include border-radius($border-radius-size);
+
+        &.selected {
+          background: $room-selected-color;
+        }
+
+        + li {
+          margin-top: $size-base;
+        }
+
+        img {
+          border: 1px solid $profile-border-color;
+          float: left;
+          margin-right: $size-base;
+          max-width: $room-avatar-size;
+          @include border-radius($border-radius-size);
+        }
+      }
+    }
+  }
 }
 
 .red-color {

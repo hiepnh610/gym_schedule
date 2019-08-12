@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import io from 'socket.io-client'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import axios from 'axios'
 
@@ -37,6 +37,7 @@ interface MessageType {
 
 @Component
 export default class MessagesContent extends Vue {
+  @Action('setRoomId', { namespace: namespaceRoom }) private setRoomId: any
   @Getter('roomId', { namespace: namespaceRoom }) private roomId: any
 
   @Getter('user', { namespace: namespaceUser }) private user: any
@@ -57,6 +58,7 @@ export default class MessagesContent extends Vue {
       .then((response: Response) => {
         const data = response.data
 
+        this.contentMessage = ''
         this.socket.emit('send', { room: this.roomId, message: data })
       })
       .catch((error: Response) => {
@@ -68,8 +70,8 @@ export default class MessagesContent extends Vue {
       })
   }
 
-  private getAllMessages (): void {
-    const params = { room_id: this.roomId }
+  private getMessages (roomId: string): void {
+    const params = { room_id: roomId }
 
     axios
       .get(config.api.message, { params })
@@ -85,14 +87,39 @@ export default class MessagesContent extends Vue {
       })
   }
 
-  private created (): void {
-    this.getAllMessages()
+  private getChatRoom (): void {
+    const query: string = this.$route.params.username
 
-    this.socket.emit('subscribe', this.roomId)
+    axios
+      .post(config.api.room, { username: [query] })
+      .then((response: Response) => {
+        const roomId: string = response.data._id
+
+        this.setRoomId(roomId)
+      })
+      .catch((error: Response) => {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.message = error.response.data.message
+        } else {
+          this.$toasted.error('Error happened!!!')
+        }
+      })
+  }
+
+  private created (): void {
+    this.getChatRoom()
 
     this.socket.on('message', (data: any) => {
       this.listMessages.push(data.message)
     })
+  }
+
+  @Watch('roomId', { immediate: true, deep: true })
+  private getRoomId (val: any, oldVal: any) {
+    if (val) {
+      this.getMessages(val)
+      this.socket.emit('subscribe', this.roomId)
+    }
   }
 }
 </script>
