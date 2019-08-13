@@ -1,17 +1,13 @@
 <template>
-  <div class="col-12 col-lg-9" v-if="messagesList && messagesList.length">
-    <div class="bg-white p-2 mb-3 list-messages">
+  <div class="col-12 col-lg-9">
+    <div class="bg-white p-3 mb-3 list-messages">
       <ul class="list-unstyled mb-0">
         <li v-for="(message, index) in messagesList" :key="index" :class="{ owner: user.username === message.created_by }">{{ message.message }}</li>
       </ul>
     </div>
 
-    <div class="form-group">
-      <textarea class="form-control" v-model="contentMessage"></textarea>
-    </div>
-
-    <div class="form-group">
-      <button class="btn btn-sm btn-primary m-0" @click.prevent="addMessage">Send</button>
+    <div class="form-group mb-0">
+      <textarea class="form-control" v-model="contentMessage" @keydown.enter.exact.prevent @keyup.enter.exact="addMessage"></textarea>
     </div>
   </div>
 </template>

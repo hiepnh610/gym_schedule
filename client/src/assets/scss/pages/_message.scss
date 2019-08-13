@@ -1,7 +1,12 @@
 #message {
-  padding-top: 100px;
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 70px;
 
   & /deep/ .list-messages {
+    height: calc(100vh - 160px);
+    overflow-x: scroll;
+
     ul {
       overflow: hidden;
 
