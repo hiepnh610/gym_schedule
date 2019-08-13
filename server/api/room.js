@@ -1,6 +1,18 @@
 const Room = require('../model/room');
 const User = require('../model/user');
 
+const checkUsername = (username) => {
+    if (!username) {
+        return { error: 'The username field is empty.' };
+    }
+
+    try {
+        return User.find({ username: username });
+    } catch (e) {
+        return { error: e };
+    }
+};
+
 const getSpecificRoom = (req, res) => {
     const username = req.user.username;
 
@@ -47,9 +59,18 @@ const createNewRoom = async (req, res) => {
         const listUsername  = myUserName.concat(otherUsername);
 
         const rooms = await checkRoomIsExist(listUsername);
+        const hasUsername = await checkUsername(otherUsername);
 
         if (rooms.error) {
             return res.status(400).json({ 'message': rooms.error });
+        }
+
+        if (hasUsername.error) {
+            return res.status(400).json({ 'message': rooms.error });
+        }
+
+        if (!hasUsername.length) {
+            return res.status(400).json({ 'message': 'No user found.' });
         }
 
         if (rooms.length) {
@@ -74,35 +95,48 @@ const getAllRoom = async (req, res) => {
     Room.find({ users: { $all: [myUserName] } }, async (err, rooms) => {
         if (err) return res.status(400).send(err);
 
-        listUsername = [];
+        let listUsername = [];
+        let newRooms = rooms.map(room => {
+            let data = {
+                _id: room._id
+            };
 
-        rooms.forEach(item => {
-            item.users.forEach(user => {
+            room.users.forEach(user => {
                 if (user !== myUserName) {
                     listUsername.push(user);
+                    data.username = user;
                 }
             });
+
+            return data;
         });
 
-        const listUserData = await getAvatar(listUsername);
+        const listUserData = await getUserInfo(listUsername);
 
         if (listUserData.error) {
             return res.status(400).json({ 'message': rooms.error });
         }
 
-        const roomsList = listUserData.map(user => {
-            return {
-                avatar: user.avatar ? user.avatar : '',
-                full_name: user.full_name,
-                username: user.username
-            };
+        let newListRoom = [];
+
+        newRooms.forEach(room => {
+            listUserData.forEach(user => {
+                if (user.username === room.username) {
+                    newListRoom.push({
+                        _id: room._id,
+                        avatar: user.avatar ? user.avatar : '',
+                        full_name: user.full_name,
+                        username: user.username
+                    });
+                }
+            });
         });
 
-        res.status(200).json(roomsList);
+        res.status(200).json(newListRoom);
     });
 };
 
-const getAvatar = (username) => {
+const getUserInfo = (username) => {
     if (!username) {
         return { error: 'The username field is empty.' };
     }

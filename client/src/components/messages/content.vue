@@ -1,8 +1,8 @@
 <template>
-  <div class="col-12 col-lg-9">
+  <div class="col-12 col-lg-9" v-if="messagesList && messagesList.length">
     <div class="bg-white p-2 mb-3 list-messages">
       <ul class="list-unstyled mb-0">
-        <li v-for="(message, index) in listMessages" :key="index" :class="{ owner: user.username === message.created_by }">{{ message.message }}</li>
+        <li v-for="(message, index) in messagesList" :key="index" :class="{ owner: user.username === message.created_by }">{{ message.message }}</li>
       </ul>
     </div>
 
@@ -25,15 +25,11 @@ import axios from 'axios'
 import config from '@/config'
 import { Response } from '@/util'
 
+import router from '@/router'
+
 const namespaceRoom: string = 'room'
 const namespaceUser: string = 'user'
-
-interface MessageType {
-  'created_at'?: string
-  'created_by'?: string
-  'room_id'?: string
-  message?: string
-}
+const namespaceStoreMessage: string = 'storeMessage'
 
 @Component
 export default class MessagesContent extends Vue {
@@ -42,10 +38,13 @@ export default class MessagesContent extends Vue {
 
   @Getter('user', { namespace: namespaceUser }) private user: any
 
+  @Action('setMessagesList', { namespace: namespaceStoreMessage }) private setMessagesList: any
+  @Action('setToAddMessage', { namespace: namespaceStoreMessage }) private setToAddMessage: any
+  @Getter('messagesList', { namespace: namespaceStoreMessage }) private messagesList: any
+
   private socket: any = io.connect('http://localhost:3000/')
   private message: string = ''
   private contentMessage: string = ''
-  private listMessages: MessageType[] = []
 
   private addMessage (): void {
     const params = {
@@ -76,7 +75,7 @@ export default class MessagesContent extends Vue {
     axios
       .get(config.api.message, { params })
       .then((response: Response) => {
-        this.listMessages = response.data
+        this.setMessagesList(response.data)
       })
       .catch((error: Response) => {
         if (error.response && error.response.data && error.response.data.message) {
@@ -103,6 +102,8 @@ export default class MessagesContent extends Vue {
         } else {
           this.$toasted.error('Error happened!!!')
         }
+
+        router.push('/messages/list')
       })
   }
 
@@ -110,7 +111,7 @@ export default class MessagesContent extends Vue {
     this.getChatRoom()
 
     this.socket.on('message', (data: any) => {
-      this.listMessages.push(data.message)
+      this.setToAddMessage(data.message)
     })
   }
 
