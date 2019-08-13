@@ -36,8 +36,8 @@ const createExercise = (req, res) => {
     if (!req.body.image) return res.status(400).json({ 'message': 'The exercise image cannot be blank.' });
 
     exercise = new Exercise({
-        image: req.body.image,
-        name: req.body.name,
+        image: escapeHtml(req.body.image),
+        name: escapeHtml(req.body.name),
         workout_id: req.body.workout_id
     });
 

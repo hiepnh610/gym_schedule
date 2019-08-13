@@ -23,10 +23,10 @@
         Following
       </a>
 
-      <a href="#" class="btn btn-sm btn-light mr-2">
+      <router-link :to="username" class="btn btn-sm btn-light mr-2">
         <font-awesome-icon icon="comments" class="mr-1" />
         Messages
-      </a>
+      </router-link>
     </div>
 
     <nav class="nav">
@@ -90,6 +90,7 @@ import axios from 'axios'
 import LightBox from 'vue-image-lightbox'
 
 import config from '@/config'
+import router from '@/router'
 import { Response } from '@/util'
 
 interface TypeUser {
@@ -141,8 +142,9 @@ export default class ProfileHeader extends Vue {
   private listLightBoxImages: TypeLightBoxImage[] = []
   private message: string = ''
   private following: boolean = false
+  private username: string = ''
 
-  private selectImage (e: any) {
+  private selectImage (e: any): void {
     const $this: any = this
 
     this.avatarValue = e.target.files[0]
@@ -169,12 +171,12 @@ export default class ProfileHeader extends Vue {
     this.showAvatarModal = true
   }
 
-  private closeModal () {
+  private closeModal (): void {
     this.setShowModalBackdrop(false)
     this.showAvatarModal = false
   }
 
-  private uploadAvatar () {
+  private uploadAvatar (): void {
     const configHeader = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
@@ -274,7 +276,9 @@ export default class ProfileHeader extends Vue {
       }.bind(this))
   }
 
-  private created () {
+  private created (): void {
+    this.username = `/messages/${this.$route.params.user}`
+
     for (const user of this.user.following) {
       if (user === this.$route.params.user) {
         this.following = true

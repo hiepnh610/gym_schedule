@@ -57,3 +57,9 @@ export function setLoading (self: any, state: boolean): any {
     self.isLoading = state
   }, 500)
 }
+
+export function validateEmail (email: string): boolean {
+  const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+
+  return re.test(String(email).toLowerCase())
+}

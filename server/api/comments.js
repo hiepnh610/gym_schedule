@@ -15,7 +15,7 @@ const createComment = async (req, res) => {
 
         comment = new Comment({
             activity_id: req.body.activityId,
-            body: req.body.body,
+            body: escapeHtml(req.body.body),
             created_by: req.user.id
         });
 
@@ -67,7 +67,7 @@ const updateComment = (req, res) => {
                 if(!comment) return res.status(400).send({ message: 'Comment not found.' });
 
                 comment.set({
-                    body: req.body.body,
+                    body: escapeHtml(req.body.body),
                     edited: true
                 });
 

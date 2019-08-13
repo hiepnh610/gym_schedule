@@ -4,7 +4,7 @@
       <font-awesome-icon :icon="['fas', 'heart']" class="text-muted" />
     </div>
 
-    <div class="profile-like d-inline-block py-2 px-3 border-right" v-else-if="!isOwner && !activity.like.status" @click.prevent="likeActivity(activity._id)">
+    <div class="profile-like d-inline-block py-2 px-3 border-right" v-else-if="!isOwner && activity.like && !activity.like.status" @click.prevent="likeActivity(activity._id)">
       <font-awesome-icon :icon="['far', 'heart']" class="text-muted" />
     </div>
 

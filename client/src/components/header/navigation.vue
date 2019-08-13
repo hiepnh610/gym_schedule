@@ -23,7 +23,7 @@
         </div>
 
         <div class="d-flex align-items-center" v-else>
-          <router-link :to="{ name: 'Messages' }" class="text-capitalize text-white mr-2 d-flex">
+          <router-link :to="{ path: '/messages/list' }" class="text-capitalize text-white mr-2 d-flex">
             <font-awesome-icon icon="comments" class="text-white mr-3" />
           </router-link>
 

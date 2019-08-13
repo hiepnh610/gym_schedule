@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const escapeHtml = require('escape-html');
 
 const User = require('../model/user');
 
@@ -36,8 +36,8 @@ const signUp = (req, res) => {
             return res.status(400).json({ message: message });
         } else {
             const user = new User({
-                email: req.body.email,
-                full_name: req.body.full_name,
+                email: escapeHtml(req.body.email),
+                full_name: escapeHtml(req.body.full_name),
                 password: req.body.password,
                 username: req.body.username,
                 verified: false

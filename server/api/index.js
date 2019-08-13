@@ -3,6 +3,7 @@ const router  = express.Router();
 
 const plan         = require('./plan');
 const user         = require('./user');
+const room         = require('./room');
 const profile      = require('./profile');
 const login        = require('./login');
 const images       = require('./images');
@@ -10,6 +11,7 @@ const signUp       = require('./signUp');
 const follow       = require('./follow');
 const workout      = require('./workout');
 const comment      = require('./comments');
+const message      = require('./message');
 const newsFeed     = require('./news-feed');
 const uploadImage  = require('./upload');
 const exercise     = require('./exercise');
@@ -175,5 +177,21 @@ router
 router
     .route('/news-feed')
     .get(verifyToken, newsFeed.newsFeed);
+
+// Message
+router
+    .route('/message')
+    .get(verifyToken, message.getAllMessage)
+    .post(verifyToken, message.addMessage);
+
+// Room
+router
+    .route('/room')
+    .get(verifyToken, room.getSpecificRoom)
+    .post(verifyToken, room.createNewRoom);
+
+router
+    .route('/room/all')
+    .get(verifyToken, room.getAllRoom)
 
 module.exports = router;

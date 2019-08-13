@@ -136,7 +136,7 @@ const router = new Router({
     },
 
     {
-      path: '/messages',
+      path: '/messages/:username',
       name: 'Messages',
       meta: { requiresAuth: true },
       component: () => import('./views/messages.vue')

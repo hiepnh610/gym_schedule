@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY;
+const escapeHtml = require('escape-html');
 
 const User = require('../model/user');
 
@@ -79,11 +80,11 @@ const updateInfo = (req, res) => {
         if (err) return res.status(400).send(err);
 
         user.set({
-            address: req.body.address,
-            bio: req.body.bio,
+            address: escapeHtml(req.body.address),
+            bio: escapeHtml(req.body.bio),
             dob: req.body.dob,
-            full_name: req.body.full_name,
-            gender: req.body.gender,
+            full_name: escapeHtml(req.body.full_name),
+            gender: escapeHtml(req.body.gender),
             height: req.body.height,
             weight: req.body.weight
         });

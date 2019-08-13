@@ -22,6 +22,8 @@ $bg-modal:                  #f5f6f7 !default;
 
 $comment-bg:                #f2f3f5 !default;
 
+$message:                   #f1f0f0 !default;
+
 $large-size-base:            1.125rem;
 $size-base:                  1rem;
 $small-size-base:            0.875rem;
@@ -36,6 +38,7 @@ $size-h6:                    $size-base;
 
 $body-bg-color:              $lighter-gray-color !default;
 $border-radius-size:         $size-base / 8;
+$border-radius-messages-size: $size-base;
 
 $modal-header-bg:            $bg-modal;
 $modal-footer-bg:            $bg-modal;
@@ -70,3 +73,7 @@ $card-image-size:            $size-base * 7;
 $card-image-small-size:      $size-base * 5;
 
 $profile-icon-hover-color:   $border-color;
+
+$room-avatar-size:           $size-base * 3;
+$room-selected-color:        $lighter-gray-color;
+$room-item-padding:          $size-base / 2;
