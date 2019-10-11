@@ -1,3 +1,4 @@
+const escapeHtml = require('escape-html');
 const Exercise = require('../model/exercise');
 
 let exercise = {};

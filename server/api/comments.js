@@ -1,3 +1,4 @@
+const escapeHtml = require('escape-html');
 const Comment = require('../model/comment');
 const User = require('../model/user');
 
