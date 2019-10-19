@@ -4,8 +4,8 @@ const EmailTemplate = require('email-templates');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 
-const mailServer = 'gym.schedule.app@gmail.com';
-const homePage = 'https://gym-schedule.herokuapp.com';
+const mailServer = process.env.MAIL_SERVER;
+const homePage = process.env.HOME_PAGE;
 
 const oauth2Client = new OAuth2(
     process.env.OAUTH_CLIENT_ID,
