@@ -21,7 +21,8 @@ mongoose.connect(config.mongoUri, {
     reconnectTries: 30,
     socketTimeoutMS: 0,
     useCreateIndex: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
 app.use(compression());
