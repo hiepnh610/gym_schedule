@@ -18,7 +18,6 @@ const clientFolder = path.join(__dirname, '../client/dist');
 
 mongoose.connect(config.mongoUri, {
     keepAlive: true,
-    reconnectTries: 30,
     socketTimeoutMS: 0,
     useCreateIndex: true,
     useNewUrlParser: true,
